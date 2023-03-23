@@ -1,4 +1,8 @@
 package com.example.beerservice.sources.base
 
-class RetrofitConfig {
+import retrofit2.Retrofit
+
+class RetrofitConfig(
+    val retrofit :Retrofit
+) {
 }
