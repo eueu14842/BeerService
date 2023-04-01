@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/home"
+    app:startDestination="@id/homeFragment">
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="com.example.beerservice.app.screens.main.tabs.home.HomeFragment"
+        android:label="HomeFragment" >
+        <action
+            android:id="@+id/action_homeFragment_to_beersListFragment"
+            app:destination="@id/beersListFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_breweryListFragment"
+            app:destination="@id/breweryListFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_placeFragment"
+            app:destination="@id/placeFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/breweryDetailsFragment"
+        android:name="com.example.beerservice.app.screens.main.tabs.home.brewery.BreweryDetailsFragment"
+        android:label="BreweryFragment" />
+    <fragment
+        android:id="@+id/beerDetailsFragment"
+        android:name="com.example.beerservice.app.screens.main.tabs.home.beers.BeerDetailsFragment"
+        android:label="BeerFragment" />
+    <fragment
+        android:id="@+id/placeFragment"
+        android:name="com.example.beerservice.app.screens.main.tabs.home.places.PlaceFragment"
+        android:label="PlaceFragment" >
+        <action
+            android:id="@+id/action_placeFragment_to_placeMapFragment"
+            app:destination="@id/placeMapFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/beersListFragment"
+        android:name="com.example.beerservice.app.screens.main.tabs.home.beers.BeersListFragment"
+        android:label="BeersListFragment" >
+        <action
+            android:id="@+id/action_beersListFragment_to_beerFragment"
+            app:destination="@id/beerDetailsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/breweryListFragment"
+        android:name="com.example.beerservice.app.screens.main.tabs.home.brewery.BreweryListFragment"
+        android:label="BreweryListFragment" >
+        <action
+            android:id="@+id/action_breweryListFragment_to_breweryFragment"
+            app:destination="@id/breweryDetailsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/placeMapFragment"
+        android:name="com.example.beerservice.app.screens.main.tabs.home.places.PlaceMapFragment"
+        android:label="PlaceMapFragment" />
+</navigation>

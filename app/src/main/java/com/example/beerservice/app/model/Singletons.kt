@@ -1,7 +1,7 @@
 package com.example.beerservice.app.model
 
 import android.content.Context
-import com.example.beerservice.app.SourcesProvider
+import androidx.core.content.contentValuesOf
 import com.example.beerservice.app.model.accounts.AccountsSource
 import com.example.beerservice.app.model.beers.BeersSource
 import com.example.beerservice.app.model.brewery.BrewerySource
@@ -13,11 +13,13 @@ import com.example.beerservice.sources.SourceProviderHolder
 
 object Singletons {
 
-private lateinit var appContext: Context
+
+    private lateinit var appContext: Context
 
     private val sourcesProvider: SourcesProvider by lazy {
         SourceProviderHolder.sourcesProvider
     }
+
 
     val appSettings: AppSettings by lazy {
         SharedPrefAppSettings(appContext)
@@ -28,20 +30,22 @@ private lateinit var appContext: Context
     private val accountsSource: AccountsSource by lazy {
         sourcesProvider.getAccountsSource()
     }
-    private val beersSource: BeersSource by lazy{
+    private val beersSource: BeersSource by lazy {
         sourcesProvider.getBeersSource()
     }
-    private val brewerySource: BrewerySource by lazy{
+    private val brewerySource: BrewerySource by lazy {
         sourcesProvider.getBrewerySource()
     }
-    private val feedbackSource: FeedbackSource by lazy{
+    private val feedbackSource: FeedbackSource by lazy {
         sourcesProvider.getFeedbackSource()
     }
     private val placeSource: PlaceSource by lazy {
         sourcesProvider.getPacesSource()
     }
 
-
+    fun init(appContext: Context) {
+        Singletons.appContext = appContext
+    }
 
 
 }

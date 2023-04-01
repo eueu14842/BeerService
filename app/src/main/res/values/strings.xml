@@ -1,3 +1,13 @@
 <resources>
     <string name="app_name">BeerService</string>
+    <string name="field_login">Логин</string>
+    <string name="field_email">Email</string>
+    <string name="field_password">Пароль</string>
+    <string name="action_sign_in">Войти</string>
+    <string name="action_create_account">Зарегистрироваться</string>
+    <string name="main">Главная</string>
+    <string name="basket">Покупки</string>
+    <string name="favorites">Избранное</string>
+    <string name="search">Поиск</string>
+    <string name="profile">Профиль</string>
 </resources>

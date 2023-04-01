@@ -1,7 +1,7 @@
 package com.example.beerservice.sources
 
 import com.example.beerservice.app.Const.BASE_URL
-import com.example.beerservice.app.SourcesProvider
+import com.example.beerservice.app.model.SourcesProvider
 import com.example.beerservice.app.model.Singletons
 import com.example.beerservice.app.model.settings.AppSettings
 import com.example.beerservice.sources.base.RetrofitConfig

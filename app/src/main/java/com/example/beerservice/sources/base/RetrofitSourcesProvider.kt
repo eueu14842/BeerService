@@ -1,6 +1,6 @@
 package com.example.beerservice.sources.base
 
-import com.example.beerservice.app.SourcesProvider
+import com.example.beerservice.app.model.SourcesProvider
 import com.example.beerservice.app.model.accounts.AccountsSource
 import com.example.beerservice.app.model.beers.BeersSource
 import com.example.beerservice.app.model.brewery.BrewerySource
