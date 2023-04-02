@@ -1,4 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/search" />
+    android:id="@+id/search"
+    app:startDestination="@id/placeFragment2">
+    <fragment
+        android:id="@+id/placeFragment2"
+        android:name="com.example.beerservice.app.screens.main.tabs.home.places.PlaceFragment"
+        android:label="PlaceFragment" />
+    <fragment
+        android:id="@+id/placeMapFragment2"
+        android:name="com.example.beerservice.app.screens.main.tabs.home.places.PlaceMapFragment"
+        android:label="PlaceMapFragment" />
+</navigation>
