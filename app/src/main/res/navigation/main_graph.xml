@@ -9,7 +9,7 @@
         android:id="@+id/signInFragment"
         android:name="com.example.beerservice.app.screens.main.auth.SignInFragment"
         android:label="fragment_sign_in"
-        tools:layout="@layout/fragment_sign_in" >
+        tools:layout="@layout/fragment_sign_in">
         <action
             android:id="@+id/action_signInFragment_to_signUpFragment"
             app:destination="@id/signUpFragment" />
@@ -22,7 +22,8 @@
     <fragment
         android:id="@+id/signUpFragment"
         android:name="com.example.beerservice.app.screens.main.auth.SignUpFragment"
-        android:label="SignUpFragment" />
+        android:label="SignUpFragment"
+        tools:layout="@layout/fragment_sign_up"/>
     <fragment
         android:id="@+id/tabsFragment"
         android:name="com.example.beerservice.app.screens.main.tabs.TabsFragment"

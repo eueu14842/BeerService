@@ -10,8 +10,11 @@ import com.example.beerservice.app.screens.base.BaseFragment
 import com.example.beerservice.app.screens.base.BaseViewModel
 import com.example.beerservice.databinding.FragmentSignUpBinding
 
-class SignUpFragment(override val viewModel: BaseViewModel) : BaseFragment(R.layout.fragment_sign_up) {
+class SignUpFragment() : BaseFragment(R.layout.fragment_sign_up) {
     lateinit var binding: FragmentSignUpBinding
+    override val viewModel: BaseViewModel
+        get() = TODO("Not yet implemented")
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,

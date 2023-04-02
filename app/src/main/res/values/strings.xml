@@ -2,6 +2,8 @@
     <string name="app_name">BeerService</string>
     <string name="field_login">Логин</string>
     <string name="field_email">Email</string>
+    <string name="field_username">Имя</string>
+    <string name="field_tel">Телефон</string>
     <string name="field_password">Пароль</string>
     <string name="action_sign_in">Войти</string>
     <string name="action_create_account">Зарегистрироваться</string>
