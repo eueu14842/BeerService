@@ -298,13 +298,13 @@
             <LayoutPositions>
               <option name="myPositions">
                 <map>
-                  <entry key="home_graph">
+                  <entry key="home">
                     <value>
                       <LayoutPositions>
                         <option name="myPosition">
                           <Point>
-                            <option name="x" value="-103" />
-                            <option name="y" value="-46" />
+                            <option name="x" value="-105" />
+                            <option name="y" value="-63" />
                           </Point>
                         </option>
                       </LayoutPositions>
