@@ -16,7 +16,7 @@
             android:id="@+id/loginTextInput"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:hint="@string/field_email"
+            android:hint="@string/field_login"
             app:layout_constraintBottom_toTopOf="@id/passwordTextInput"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -29,7 +29,8 @@
                 android:layout_height="wrap_content"
                 android:imeOptions="actionNext"
                 android:inputType="textEmailAddress"
-                android:lines="1" />
+                android:lines="1"
+                android:text="madbad_o" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -49,7 +50,8 @@
                 android:layout_height="wrap_content"
                 android:imeOptions="actionDone"
                 android:inputType="textPassword"
-                android:lines="1" />
+                android:lines="1"
+                android:text="8dC96IOm" />
 
         </com.google.android.material.textfield.TextInputLayout>
 

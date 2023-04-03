@@ -1,5 +1,7 @@
 package com.example.beerservice.app.model
 
+import com.squareup.moshi.JsonDataException
+
 
 open class AppException : RuntimeException {
     constructor() : super()
@@ -21,5 +23,8 @@ class InvalidCredentialsException(cause: Exception) : AppException(cause = cause
 class AccountAlreadyExistsException(
     cause: Throwable
 ) : AppException(cause = cause)
+
+class ParseBackendResponseException(cause: Throwable) : AppException(cause)
+class ConnectionException(cause: Throwable) : AppException(cause)
 
 // TODO: wrapBackendExceptions?, PasswordMismatchException?

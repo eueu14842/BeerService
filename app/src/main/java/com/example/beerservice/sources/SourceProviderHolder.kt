@@ -6,23 +6,29 @@ import com.example.beerservice.app.model.Singletons
 import com.example.beerservice.app.model.settings.AppSettings
 import com.example.beerservice.sources.base.RetrofitConfig
 import com.example.beerservice.sources.base.RetrofitSourcesProvider
+import com.squareup.moshi.Moshi
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import retrofit2.converter.moshi.MoshiConverterFactory
 
 object SourceProviderHolder {
     val sourcesProvider: SourcesProvider by lazy {
-        val config = RetrofitConfig(createRetrofit())
+        val moshi = Moshi.Builder().build()
+        val config = RetrofitConfig(
+            createRetrofit(moshi),
+            moshi
+        )
         RetrofitSourcesProvider(config)
     }
 
-    private fun createRetrofit(): Retrofit {
+    private fun createRetrofit(moshi: Moshi): Retrofit {
         return Retrofit.Builder()
             .baseUrl(BASE_URL)
             .client(createOkHttpClient())
-            .addConverterFactory(GsonConverterFactory.create())
+            .addConverterFactory(MoshiConverterFactory.create(moshi))
             .build()
     }
 
