@@ -31,6 +31,8 @@ class SplashFragment : Fragment() {
 
     private fun launchMainScreen() {
         val intent = Intent(requireContext(), MainActivity::class.java)
+        //флаги для финиша splashActivity
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
         startActivity(intent)
     }
 }

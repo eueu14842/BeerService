@@ -27,7 +27,7 @@ class SignInFragment : Fragment() {
         binding.signInButton.setOnClickListener { onSignInButtonPressed() }
 
         binding.signUpButton.setOnClickListener { onSignUpButtonPressed() }
-
+        observeNavigateToTabsEvent()
         return binding.root
     }
 
@@ -37,6 +37,10 @@ class SignInFragment : Fragment() {
             login = binding.loginEditText.text.toString(),
             password = binding.passwordEditText.text.toString()
         )
+    }
+
+    private fun observeNavigateToTabsEvent() = viewModel.navigateToTabsEvent.observe(viewLifecycleOwner){
+        findNavController().navigate(R.id.action_signInFragment_to_tabsFragment)
     }
 
     private fun navigateToTabs() {

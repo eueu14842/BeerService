@@ -13,3 +13,8 @@ class Event<T>(
 
 
 fun <T> MutableLiveData<T>.share(): LiveData<T> = this
+
+
+fun <T> MutableLiveData<Event<T>>.publishEvent(value: T) {
+    this.value = Event(value)
+}

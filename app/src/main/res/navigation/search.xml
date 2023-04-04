@@ -2,11 +2,12 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/search"
+    android:label="Поиск-список"
     app:startDestination="@id/placeFragment2">
     <fragment
         android:id="@+id/placeFragment2"
         android:name="com.example.beerservice.app.screens.main.tabs.home.places.PlaceFragment"
-        android:label="PlaceFragment" />
+        android:label="Поиск" />
     <fragment
         android:id="@+id/placeMapFragment2"
         android:name="com.example.beerservice.app.screens.main.tabs.home.places.PlaceMapFragment"

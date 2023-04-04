@@ -6,7 +6,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
+import androidx.navigation.ui.NavigationUI.setupActionBarWithNavController
+import androidx.navigation.ui.NavigationUI.setupWithNavController
 import com.example.beerservice.R
 import com.example.beerservice.databinding.FragmentTabsBinding
 
@@ -21,15 +24,8 @@ class TabsFragment : Fragment(R.layout.fragment_tabs) {
         val navController = navHost.navController
         NavigationUI.setupWithNavController(binding.bottomNavigationView, navController)
 
+
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
-    ): View? {
-        binding = FragmentTabsBinding.inflate(layoutInflater, container, false)
-
-
-        return binding.root
-    }
 
 }

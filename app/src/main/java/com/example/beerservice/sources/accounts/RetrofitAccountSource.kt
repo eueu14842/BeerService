@@ -19,13 +19,13 @@ class RetrofitAccountSource(
         login: String,
         password: String
     ): String = wrapRetrofitExceptions {
-        delay(1000)
+        delay(500)
         val signInRequestEntity = SignInRequestEntity(login, password)
         accountApi.signIn(signInRequestEntity).token
     }
 
     override suspend fun signUp(signUpData: SignUpData) = wrapRetrofitExceptions {
-        delay(1000)
+        delay(500)
         val signUpRequestEntity = SignUpRequestEntity(
             signUpData.tel,
             signUpData.mail,
@@ -38,7 +38,7 @@ class RetrofitAccountSource(
 
 
     override suspend fun getUser(): User = wrapRetrofitExceptions {
-        delay(1000)
+        delay(500)
         accountApi.getProfile().toUser()
     }
 

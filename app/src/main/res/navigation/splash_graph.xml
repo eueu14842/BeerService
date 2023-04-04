@@ -9,7 +9,7 @@
         android:id="@+id/splashFragment"
         android:name="com.example.beerservice.app.screens.splash.SplashFragment"
         android:label="SplashFragment"
-        tools:layout="@layout/activity_splash"/>
+        tools:layout="@layout/fragment_splash"/>
     <activity
         android:id="@+id/mainActivity"
         android:name="com.example.beerservice.app.screens.main.MainActivity"
