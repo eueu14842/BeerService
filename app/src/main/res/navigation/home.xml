@@ -38,7 +38,7 @@
     <fragment
         android:id="@+id/beersListFragment"
         android:name="com.example.beerservice.app.screens.main.tabs.home.beers.BeersListFragment"
-        android:label="BeersListFragment" >
+        android:label="Пиво">
         <action
             android:id="@+id/action_beersListFragment_to_beerFragment"
             app:destination="@id/beerDetailsFragment" />
@@ -46,7 +46,7 @@
     <fragment
         android:id="@+id/breweryListFragment"
         android:name="com.example.beerservice.app.screens.main.tabs.home.brewery.BreweryListFragment"
-        android:label="BreweryListFragment" >
+        android:label="Пивоварни">
         <action
             android:id="@+id/action_breweryListFragment_to_breweryFragment"
             app:destination="@id/breweryDetailsFragment" />

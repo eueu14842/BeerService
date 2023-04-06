@@ -4,7 +4,11 @@ import com.example.beerservice.app.model.ResultNet
 import com.example.beerservice.app.model.brewery.entities.Brewery
 import kotlinx.coroutines.flow.Flow
 
-interface BrewerySource {
-    suspend fun getBreweryList():  List<Brewery>
+class BreweryRepository(
+    val brewerySource: BrewerySource
+) {
 
+   suspend fun getBreweryList(): List<Brewery>{
+        return brewerySource.getBreweryList()
+    }
 }

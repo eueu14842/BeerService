@@ -5,6 +5,7 @@ import androidx.core.content.contentValuesOf
 import com.example.beerservice.app.model.accounts.AccountsRepository
 import com.example.beerservice.app.model.accounts.AccountsSource
 import com.example.beerservice.app.model.beers.BeersSource
+import com.example.beerservice.app.model.brewery.BreweryRepository
 import com.example.beerservice.app.model.brewery.BrewerySource
 import com.example.beerservice.app.model.feedback.FeedbackSource
 import com.example.beerservice.app.model.place.PlaceSource
@@ -46,6 +47,12 @@ object Singletons {
         AccountsRepository(
             accountsSource = accountsSource,
             appSettings = appSettings
+        )
+    }
+
+    val breweryRepository: BreweryRepository by lazy {
+        BreweryRepository(
+            brewerySource = brewerySource
         )
     }
 

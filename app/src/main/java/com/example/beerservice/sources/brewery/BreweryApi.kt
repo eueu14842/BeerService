@@ -14,6 +14,6 @@ interface BreweryApi {
     @GET("brewery/brewery")
     fun getBrewery(): GetBreweryResponseEntity
 
-    @GET("brewery/breweryList")
-    fun getBreweryList(): List<GetBreweryResponseEntity>
+    @GET("brewery/list")
+    suspend fun getBreweryList(): List<GetBreweryResponseEntity>
 }

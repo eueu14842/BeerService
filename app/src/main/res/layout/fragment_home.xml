@@ -36,6 +36,7 @@
         <TextView
             android:id="@+id/show_all_brewery_textView"
             android:layout_width="wrap_content"
+            style="@style/LinkTextView"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="end"
@@ -43,6 +44,7 @@
     </LinearLayout>
 
     <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler_brewery"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="1"
@@ -67,6 +69,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            style="@style/LinkTextView"
             android:gravity="end"
             android:text="@string/slider_show_all" />
     </LinearLayout>
@@ -74,7 +77,8 @@
     <androidx.recyclerview.widget.RecyclerView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="1" />
+        android:layout_weight="1"
+        android:id="@+id/recycler_beer"/>
 
 
     <LinearLayout
@@ -96,6 +100,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            style="@style/LinkTextView"
             android:gravity="end"
             android:text="@string/slider_show_all" />
     </LinearLayout>
@@ -103,6 +108,7 @@
     <androidx.recyclerview.widget.RecyclerView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="1" />
+        android:layout_weight="1"
+        android:id="@+id/recycler_places"/>
 
 </LinearLayout>

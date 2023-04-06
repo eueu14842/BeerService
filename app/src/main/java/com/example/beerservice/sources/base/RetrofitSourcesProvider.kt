@@ -7,6 +7,7 @@ import com.example.beerservice.app.model.brewery.BrewerySource
 import com.example.beerservice.app.model.feedback.FeedbackSource
 import com.example.beerservice.app.model.place.PlaceSource
 import com.example.beerservice.sources.accounts.RetrofitAccountSource
+import com.example.beerservice.sources.brewery.RetrofitBrewerySource
 
 class RetrofitSourcesProvider(
     val retrofitConfig: RetrofitConfig
@@ -20,7 +21,7 @@ class RetrofitSourcesProvider(
     }
 
     override fun getBrewerySource(): BrewerySource {
-        TODO("Not yet implemented")
+      return RetrofitBrewerySource(retrofitConfig)
     }
 
     override fun getFeedbackSource(): FeedbackSource {

@@ -5,8 +5,8 @@ data class Brewery(
     val name: String,
     val city: String,
     val description: String,
-    val type: String,
-    val averageRating: Int,
+    val type: String ,
+    val averageRating: Float,
     val image: String,
 ) {
 }

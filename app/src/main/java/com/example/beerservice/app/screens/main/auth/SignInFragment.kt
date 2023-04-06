@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.example.beerservice.R
+import com.example.beerservice.app.model.Singletons
 import com.example.beerservice.app.model.accounts.AccountsRepository
 import com.example.beerservice.app.utils.ViewModelFactory
 import com.example.beerservice.databinding.FragmentSignInBinding
