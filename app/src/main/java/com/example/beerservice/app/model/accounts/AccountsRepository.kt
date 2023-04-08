@@ -9,6 +9,13 @@ class AccountsRepository(
     val appSettings: AppSettings
 ) {
 
+    /**
+     * @throws EmptyFieldException
+     * @throws InvalidCredentialsException
+     * @throws ConnectionException
+     * @throws BackendException
+     * @throws ParseBackendResponseException
+     */
     suspend fun signIn(login: String, password: String) {
         if (login.isBlank()) throw EmptyFieldException(Field.Login)
         if (password.isBlank()) throw EmptyFieldException(Field.Login)
@@ -22,7 +29,7 @@ class AccountsRepository(
                 throw e
         }
         appSettings.setCurrentToken(token)
-        // TODO:  Далее реализовать загрузку данных
+        // TODO:  Далее реализовать загрузку данных профиля
     }
 
     suspend fun signUp(signupData: SignUpData) {

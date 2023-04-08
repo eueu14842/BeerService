@@ -17,6 +17,7 @@ class ViewModelFactory(
         return when (modelClass) {
             BreweryListViewModel::class.java ->  BreweryListViewModel() as T
             SignInViewModel::class.java ->  SignInViewModel() as T
+            HomeViewModel::class.java ->  HomeViewModel() as T
             else -> {
                 throw  IllegalStateException("")
             }

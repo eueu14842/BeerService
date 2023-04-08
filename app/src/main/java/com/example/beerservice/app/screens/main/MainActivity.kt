@@ -90,9 +90,13 @@ class MainActivity : AppCompatActivity() {
         return startDestinations.contains(destination.id)
     }
 
-
+    //todo: отработать backstack
     override fun onBackPressed() {
-        navController?.popBackStack()
+        if (isStartDestination(navController?.currentDestination)) {
+            super.onBackPressed()
+        } else {
+            navController?.popBackStack()
+        }
     }
 
 

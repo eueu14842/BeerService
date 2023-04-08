@@ -7,4 +7,5 @@ interface BeersSource {
     suspend fun getBeerList(): List<Beer>
     suspend fun createBeer(beer: Beer)
     suspend fun getBeerListByBreweryId(breweryId: Int)
+    suspend fun getBeerAdblockList(): List<Beer>
 }

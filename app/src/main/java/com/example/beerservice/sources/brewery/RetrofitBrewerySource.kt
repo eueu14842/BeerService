@@ -13,8 +13,11 @@ class RetrofitBrewerySource(config: RetrofitConfig) : BaseRetrofitSource(config)
     private val breweryApi = config.retrofit.create(BreweryApi::class.java)
 
     override suspend fun getBreweryList(): List<Brewery> = wrapRetrofitExceptions {
-        delay(1000)
         breweryApi.getBreweryList().map { it.toBrewery() }
+    }
+
+    override suspend fun getBreweryAdblockList(): List<Brewery> = wrapRetrofitExceptions {
+        breweryApi.getBreweryAdblockList().map { it.toBrewery() }
     }
 }
 

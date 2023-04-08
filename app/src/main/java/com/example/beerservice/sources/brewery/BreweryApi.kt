@@ -16,4 +16,7 @@ interface BreweryApi {
 
     @GET("brewery/list")
     suspend fun getBreweryList(): List<GetBreweryResponseEntity>
+
+    @GET("brewery/adblock")
+    suspend fun getBreweryAdblockList(): List<GetBreweryResponseEntity>
 }

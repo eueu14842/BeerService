@@ -1,18 +1,25 @@
 package com.example.beerservice.sources.beers
 
+import com.example.beerservice.app.model.beers.entities.Beer
+import com.example.beerservice.sources.beers.entities.GetBeerResponseEntity
+import com.example.beerservice.sources.brewery.entities.GetBreweryResponseEntity
 import retrofit2.http.GET
 import retrofit2.http.POST
 
 interface BeerApi {
     @POST("beer/createBeer")
-    fun createBeer()
+    suspend fun createBeer()
 
     @GET("beer/beer")
-    fun getBeer()
+    suspend fun getBeer(): GetBeerResponseEntity
 
     @GET("beer/beerList")
-    fun getBeerList()
+    suspend fun getBeerList(): List<GetBeerResponseEntity>
 
     @GET("beer/beerListByBreweryId")
-    fun getBeerListByBreweryId()
+    suspend fun getBeerListByBreweryId()
+
+    @GET("beer/adblock")
+    suspend fun getBeerAdblockList(): List<GetBeerResponseEntity>
+
 }

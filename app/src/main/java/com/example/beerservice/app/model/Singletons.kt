@@ -1,14 +1,15 @@
 package com.example.beerservice.app.model
 
 import android.content.Context
-import androidx.core.content.contentValuesOf
 import com.example.beerservice.app.model.accounts.AccountsRepository
 import com.example.beerservice.app.model.accounts.AccountsSource
+import com.example.beerservice.app.model.beers.BeersRepository
 import com.example.beerservice.app.model.beers.BeersSource
 import com.example.beerservice.app.model.brewery.BreweryRepository
 import com.example.beerservice.app.model.brewery.BrewerySource
 import com.example.beerservice.app.model.feedback.FeedbackSource
 import com.example.beerservice.app.model.place.PlaceSource
+import com.example.beerservice.app.model.place.PlacesRepository
 import com.example.beerservice.app.model.settings.AppSettings
 import com.example.beerservice.app.model.settings.SharedPrefAppSettings
 import com.example.beerservice.sources.SourceProviderHolder
@@ -39,7 +40,7 @@ object Singletons {
         sourcesProvider.getFeedbackSource()
     }
     private val placeSource: PlaceSource by lazy {
-        sourcesProvider.getPacesSource()
+        sourcesProvider.getPlacesSource()
     }
 
     //repositories
@@ -53,6 +54,18 @@ object Singletons {
     val breweryRepository: BreweryRepository by lazy {
         BreweryRepository(
             brewerySource = brewerySource
+        )
+    }
+
+    val beerRepository: BeersRepository by lazy {
+        BeersRepository(
+            beersSource = beersSource
+        )
+    }
+
+    val placesRepository: PlacesRepository by lazy {
+        PlacesRepository(
+            placeSource = placeSource
         )
     }
 

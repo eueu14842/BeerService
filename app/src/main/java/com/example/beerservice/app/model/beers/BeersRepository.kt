@@ -14,4 +14,7 @@ class BeersRepository(
     suspend fun getBeerList(): List<Beer> {
         return beersSource.getBeerList()
     }
+    suspend fun getBeerAdblockList(): List<Beer> {
+        return beersSource.getBeerAdblockList()
+    }
 }

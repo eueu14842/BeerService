@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">BeerService</string>
     <string name="field_login">Логин</string>
+    <string name="field_is_empty">Заполните поле</string>
     <string name="field_email">Email</string>
     <string name="field_username">Имя</string>
     <string name="field_tel">Телефон</string>
@@ -17,4 +18,5 @@
     <string name="title_slider_brewery">Пивоварни</string>
     <string name="title_slider_store">Продается</string>
     <string name="slider_show_all">Показать все</string>
+    <string name="invalid_login_or_password">Неверный логин или пароль</string>
 </resources>

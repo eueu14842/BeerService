@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -26,9 +27,11 @@ class SignInFragment : Fragment() {
         binding = FragmentSignInBinding.inflate(inflater, container, false)
 
         binding.signInButton.setOnClickListener { onSignInButtonPressed() }
-
         binding.signUpButton.setOnClickListener { onSignUpButtonPressed() }
+
+        observeState()
         observeNavigateToTabsEvent()
+        observeShowAuthErrorMessageEvent()
         return binding.root
     }
 
@@ -40,13 +43,21 @@ class SignInFragment : Fragment() {
         )
     }
 
-    private fun observeNavigateToTabsEvent() = viewModel.navigateToTabsEvent.observe(viewLifecycleOwner){
-        findNavController().navigate(R.id.action_signInFragment_to_tabsFragment)
+    private fun observeState() = viewModel.state.observe(viewLifecycleOwner) {
+        binding.loginTextInput.error = if (it.emptyLoginError) getString(R.string.field_is_empty) else null
+        binding.passwordTextInput.error = if(it.emptyPasswordError) getString(R.string.field_is_empty)else null
     }
 
-    private fun navigateToTabs() {
-        findNavController().navigate(R.id.action_signInFragment_to_tabsFragment)
-    }
+    private fun observeShowAuthErrorMessageEvent() =
+        viewModel.showAuthToastEvent.observe(viewLifecycleOwner) {
+            Toast.makeText(requireContext(), it, Toast.LENGTH_SHORT).show()
+        }
+
+    private fun observeNavigateToTabsEvent() =
+        viewModel.navigateToTabsEvent.observe(viewLifecycleOwner) {
+            findNavController().navigate(R.id.action_signInFragment_to_tabsFragment)
+        }
+
 
     private fun onSignUpButtonPressed() {
         findNavController().navigate(R.id.action_signInFragment_to_signUpFragment)

@@ -15,5 +15,5 @@ interface SourcesProvider {
 
     fun getFeedbackSource(): FeedbackSource
 
-    fun getPacesSource():PlaceSource
+    fun getPlacesSource():PlaceSource
 }

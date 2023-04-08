@@ -11,4 +11,9 @@ class BreweryRepository(
    suspend fun getBreweryList(): List<Brewery>{
         return brewerySource.getBreweryList()
     }
+
+
+    suspend fun getBreweryAdblockList(): List<Brewery>{
+        return brewerySource.getBreweryAdblockList()
+    }
 }

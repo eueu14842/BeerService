@@ -1,16 +1,16 @@
-package com.example.beerservice.app.screens.main.tabs.home
+package com.example.beerservice.app.screens.main.tabs.home.adapters
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
-import com.example.beerservice.R
+import com.bumptech.glide.Glide
 import com.example.beerservice.app.model.brewery.entities.Brewery
 import com.example.beerservice.databinding.ItemBreweryBinding
 
-class HomeAdapter(
+class AdblockBreweryAdapter(
     val breweryList: List<Brewery>
-) : RecyclerView.Adapter<HomeAdapter.HomeViewHolder>() {
+) : RecyclerView.Adapter<AdblockBreweryAdapter.HomeViewHolder>() {
     class HomeViewHolder(val binding: ItemBreweryBinding) : ViewHolder(binding.root)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HomeViewHolder {
@@ -22,6 +22,11 @@ class HomeAdapter(
     override fun onBindViewHolder(holder: HomeViewHolder, position: Int) {
         val brewery = breweryList[position]
         with(holder.binding) {
+            Glide.with(holder.itemView)
+                .load(brewery.image)
+                .into(ivBreweryImage)
+            tvBreweryName.text = brewery.name
+            tvBreweryDescription.text = brewery.description
 
         }
     }
