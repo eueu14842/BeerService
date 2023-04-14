@@ -19,40 +19,62 @@
             android:id="@+id/action_homeFragment_to_placeFragment"
             app:destination="@id/placeFragment" />
     </fragment>
-    <fragment
-        android:id="@+id/breweryDetailsFragment"
-        android:name="com.example.beerservice.app.screens.main.tabs.home.brewery.BreweryDetailsFragment"
-        android:label="BreweryFragment" />
-    <fragment
-        android:id="@+id/beerDetailsFragment"
-        android:name="com.example.beerservice.app.screens.main.tabs.home.beers.BeerDetailsFragment"
-        android:label="BeerFragment" />
+
     <fragment
         android:id="@+id/placeFragment"
         android:name="com.example.beerservice.app.screens.main.tabs.home.places.PlaceFragment"
-        android:label="PlaceFragment" >
+        android:label="PlaceFragment">
         <action
             android:id="@+id/action_placeFragment_to_placeMapFragment"
             app:destination="@id/placeMapFragment" />
     </fragment>
+
+    <fragment
+        android:id="@+id/placeMapFragment"
+        android:name="com.example.beerservice.app.screens.main.tabs.home.places.PlaceMapFragment"
+        android:label="PlaceMapFragment"
+        tools:layout="@layout/fragment_places">
+        <argument
+            android:name="myArgs"
+            android:defaultValue="1"
+            app:argType="integer" />
+    </fragment>
+
+
     <fragment
         android:id="@+id/beersListFragment"
         android:name="com.example.beerservice.app.screens.main.tabs.home.beers.BeersListFragment"
-        android:label="Пиво">
+        android:label="Пиво"
+        tools:layout="@layout/fragment_beers_list">
         <action
             android:id="@+id/action_beersListFragment_to_beerFragment"
             app:destination="@id/beerDetailsFragment" />
     </fragment>
+
+    <fragment
+        android:id="@+id/beerDetailsFragment"
+        android:name="com.example.beerservice.app.screens.main.tabs.home.beers.BeerDetailsFragment"
+        android:label="BeerFragment"
+        tools:layout="@layout/fragment_beer"/>
+
     <fragment
         android:id="@+id/breweryListFragment"
         android:name="com.example.beerservice.app.screens.main.tabs.home.brewery.BreweryListFragment"
-        android:label="Пивоварни">
+        android:label="Пивоварни"
+        tools:layout="@layout/fragment_brewery_list">
         <action
             android:id="@+id/action_breweryListFragment_to_breweryFragment"
             app:destination="@id/breweryDetailsFragment" />
     </fragment>
+
     <fragment
-        android:id="@+id/placeMapFragment"
-        android:name="com.example.beerservice.app.screens.main.tabs.home.places.PlaceMapFragment"
-        android:label="PlaceMapFragment" />
+        android:id="@+id/breweryDetailsFragment"
+        android:name="com.example.beerservice.app.screens.main.tabs.home.brewery.BreweryDetailsFragment"
+        android:label="BreweryFragment"
+        tools:layout="@layout/fragment_brewery">
+        <argument android:name="breweryId"
+            app:argType="integer" />
+    </fragment>
+
+
 </navigation>

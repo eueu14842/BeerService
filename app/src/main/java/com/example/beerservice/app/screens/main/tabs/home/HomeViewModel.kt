@@ -42,6 +42,5 @@ class HomeViewModel(
             _place.value = Success(placeRepository.getPlacesAdblockList())
         }
 
-
     }
 }

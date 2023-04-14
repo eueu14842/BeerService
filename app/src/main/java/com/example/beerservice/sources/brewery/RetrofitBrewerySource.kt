@@ -1,12 +1,9 @@
 package com.example.beerservice.sources.brewery
 
-import com.example.beerservice.app.model.ResultNet
 import com.example.beerservice.app.model.brewery.BrewerySource
 import com.example.beerservice.app.model.brewery.entities.Brewery
 import com.example.beerservice.sources.base.BaseRetrofitSource
 import com.example.beerservice.sources.base.RetrofitConfig
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.flow.Flow
 
 class RetrofitBrewerySource(config: RetrofitConfig) : BaseRetrofitSource(config), BrewerySource {
 
@@ -18,6 +15,10 @@ class RetrofitBrewerySource(config: RetrofitConfig) : BaseRetrofitSource(config)
 
     override suspend fun getBreweryAdblockList(): List<Brewery> = wrapRetrofitExceptions {
         breweryApi.getBreweryAdblockList().map { it.toBrewery() }
+    }
+
+    override suspend fun getBreweryProfileById(id: Int): Brewery = wrapRetrofitExceptions {
+        breweryApi.getBreweryById(id).toBrewery()
     }
 }
 

@@ -8,12 +8,15 @@ class BreweryRepository(
     val brewerySource: BrewerySource
 ) {
 
-   suspend fun getBreweryList(): List<Brewery>{
+    suspend fun getBreweryList(): List<Brewery> {
         return brewerySource.getBreweryList()
     }
 
-
-    suspend fun getBreweryAdblockList(): List<Brewery>{
+    suspend fun getBreweryAdblockList(): List<Brewery> {
         return brewerySource.getBreweryAdblockList()
+    }
+
+    suspend fun getBreweryById(id: Int): Brewery {
+        return brewerySource.getBreweryProfileById(id)
     }
 }

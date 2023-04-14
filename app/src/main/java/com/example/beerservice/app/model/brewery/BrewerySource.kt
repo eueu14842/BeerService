@@ -7,5 +7,6 @@ import kotlinx.coroutines.flow.Flow
 interface BrewerySource {
     suspend fun getBreweryList():  List<Brewery>
     suspend fun getBreweryAdblockList():  List<Brewery>
+    suspend fun getBreweryProfileById(id:Int):Brewery
 
 }

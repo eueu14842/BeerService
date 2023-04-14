@@ -9,24 +9,22 @@ import com.example.beerservice.app.screens.base.BaseViewModel
 import com.example.beerservice.app.utils.share
 import kotlinx.coroutines.launch
 
-class BreweryListViewModel(
-    breweryRepository: BreweryRepository = Singletons.breweryRepository
+class BreweryDetailsViewModel(
+    val breweryRepository: BreweryRepository = Singletons.breweryRepository
 ) : BaseViewModel() {
 
-    private val _brewery = MutableLiveData<ResultNet<List<Brewery>>>()
+    private val _brewery = MutableLiveData<ResultNet<Brewery>>()
     val brewery = _brewery.share()
 
-    init {
+    fun getBrewery(id: Int) {
         viewModelScope.launch {
-            val breweries: List<Brewery> = breweryRepository.getBreweryList()
-            if (breweries.isEmpty()) {
-                _brewery.value =
-                    ErrorResult(java.lang.IllegalStateException("Opps"))
-            }
+            val result = breweryRepository.getBreweryById(id)
+            if (result == null) _brewery.value = ErrorResult(IllegalStateException("Opps"))
             _brewery.value = Pending()
-            _brewery.value = Success(breweries)
-
+            _brewery.value = Success(result)
         }
+
+
     }
 
 }

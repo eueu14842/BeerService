@@ -1,19 +1,19 @@
-package com.example.beerservice.app.screens.main.tabs.home.beers
+package com.example.beerservice.app.screens.main.tabs.home.beers.adapters
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.beerservice.app.model.beers.entities.Beer
-import com.example.beerservice.databinding.ItemBreweryBinding
+import com.example.beerservice.databinding.ItemBeerBinding
 
-class BeerAdapter(val beerList: List<Beer>) :
-    RecyclerView.Adapter<BeerAdapter.BeerViewHolder>() {
-    class BeerViewHolder(val binding: ItemBreweryBinding) : RecyclerView.ViewHolder(binding.root)
+class BeersAdapter(val beerList: List<Beer>) :
+    RecyclerView.Adapter<BeersAdapter.BeerViewHolder>() {
+    class BeerViewHolder(val binding: ItemBeerBinding) : RecyclerView.ViewHolder(binding.root)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BeerViewHolder {
         val inflater = LayoutInflater.from(parent.context)
-        val binding = ItemBreweryBinding.inflate(inflater)
+        val binding = ItemBeerBinding.inflate(inflater)
         return BeerViewHolder(binding)
     }
 
@@ -22,12 +22,11 @@ class BeerAdapter(val beerList: List<Beer>) :
         with(holder.binding) {
             Glide.with(holder.itemView)
                 .load(beer.image)
-                .into(ivBreweryImage)
-            tvBreweryName.text = beer.name
-            tvBreweryDescription.text = beer.description
+                .into(imageViewBeer)
+            textViewBeerTitle.text = beer.name
+            textViewBeerDesc.text = beer.description
 
         }
     }
-
     override fun getItemCount() = beerList.size
 }

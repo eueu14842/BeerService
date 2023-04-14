@@ -9,7 +9,7 @@ sealed class ResultNet<T> {
             } else {
                 Success(mapper(this.value))
             }
-            is Error -> Error(this.error)
+            is ErrorResult -> ErrorResult(this.error)
             is Pending -> Pending()
 
         }
@@ -21,7 +21,7 @@ class Success<T>(
     val value: T
 ) : ResultNet<T>()
 
-class Error<T>(
+class ErrorResult<T>(
     val error: Throwable
 ) : ResultNet<T>()
 
