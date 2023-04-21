@@ -24,8 +24,7 @@ class BreweryListViewModel(
 
     val breweryFlow: Flow<PagingData<Brewery>>
     private var searchBy = MutableLiveData("")
-
-
+    //test
     init {
         breweryFlow = searchBy.asFlow()
             .debounce(400)
