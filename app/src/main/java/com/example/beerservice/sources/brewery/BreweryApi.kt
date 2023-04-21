@@ -21,4 +21,11 @@ interface BreweryApi {
 
     @GET("brewery/adblock")
     suspend fun getBreweryAdblockList(): List<GetBreweryResponseEntity>
+
+    @GET("brewery/list")
+    suspend fun getPagedBrewery(
+        @Query("limit") limit: Int,
+        @Query("offset") offset: Int,
+        searchBy: String
+    ): List<GetBreweryResponseEntity>
 }
