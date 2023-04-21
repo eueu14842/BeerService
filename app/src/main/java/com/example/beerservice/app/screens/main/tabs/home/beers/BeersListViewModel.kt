@@ -14,7 +14,7 @@ class BeersListViewModel(
     private val beersRepository: BeersRepository = Singletons.beerRepository
 ) : BaseViewModel() {
 
-    private val _beers = MutableLiveData<ResultNet<List<Beer>>>()
+    private val _beers = MutableLiveData<ResultState<List<Beer>>>()
     val beers = _beers.share()
 
     init {

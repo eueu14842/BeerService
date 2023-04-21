@@ -2,7 +2,7 @@ package com.example.beerservice.app.screens.main.tabs.home
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
-import com.example.beerservice.app.model.ResultNet
+import com.example.beerservice.app.model.ResultState
 import com.example.beerservice.app.model.Singletons
 import com.example.beerservice.app.model.Success
 import com.example.beerservice.app.model.beers.BeersRepository
@@ -21,13 +21,13 @@ class HomeViewModel(
     placeRepository: PlacesRepository = Singletons.placesRepository
 ) : BaseViewModel() {
 
-    private val _brewery = MutableLiveData<ResultNet<List<Brewery>>>()
+    private val _brewery = MutableLiveData<ResultState<List<Brewery>>>()
     val brewery = _brewery.share()
 
-    private val _beer = MutableLiveData<ResultNet<List<Beer>>>()
+    private val _beer = MutableLiveData<ResultState<List<Beer>>>()
     val beer = _beer.share()
 
-    private val _place = MutableLiveData<ResultNet<List<Place>>>()
+    private val _place = MutableLiveData<ResultState<List<Place>>>()
     val place = _place.share()
 
     init {
@@ -41,6 +41,5 @@ class HomeViewModel(
         viewModelScope.launch {
             _place.value = Success(placeRepository.getPlacesAdblockList())
         }
-
     }
 }

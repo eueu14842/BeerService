@@ -9,6 +9,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.beerservice.R
+import com.example.beerservice.app.model.Empty
 import com.example.beerservice.app.model.ErrorResult
 import com.example.beerservice.app.model.Pending
 import com.example.beerservice.app.model.Success
@@ -42,6 +43,7 @@ class BreweryListFragment : BaseFragment(R.layout.fragment_brewery_list) {
                     )
                     recycler.adapter = adapter
                 }
+                is Empty -> TODO()
             }
         }
 

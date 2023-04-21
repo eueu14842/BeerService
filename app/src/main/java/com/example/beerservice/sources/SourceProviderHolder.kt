@@ -11,7 +11,6 @@ import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.converter.moshi.MoshiConverterFactory
 
 object SourceProviderHolder {
@@ -48,7 +47,7 @@ object SourceProviderHolder {
             val newBuilder = chain.request().newBuilder()
             val token = settings.getCurrentToken()
             if (token != null) {
-                newBuilder.addHeader("Authorization", token)
+                newBuilder.addHeader("Authorization", "Bearer $token")
             }
             return@Interceptor chain.proceed(newBuilder.build())
         }

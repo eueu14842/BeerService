@@ -19,4 +19,5 @@
     <string name="title_slider_store">Продается</string>
     <string name="slider_show_all">Показать все</string>
     <string name="invalid_login_or_password">Неверный логин или пароль</string>
+    <string name="profile_user_location">Location</string>
 </resources>

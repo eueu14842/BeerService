@@ -8,6 +8,7 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.NavArgs
 import androidx.navigation.fragment.navArgs
 import com.example.beerservice.R
+import com.example.beerservice.app.model.Empty
 import com.example.beerservice.app.model.ErrorResult
 import com.example.beerservice.app.model.Pending
 import com.example.beerservice.app.model.Success
@@ -39,6 +40,7 @@ class BreweryDetailsFragment() : BaseFragment(R.layout.fragment_brewery) {
                 is Success -> {
                     binding.textView4.text = it.value.description
                 }
+                is Empty -> TODO()
             }
         }
 

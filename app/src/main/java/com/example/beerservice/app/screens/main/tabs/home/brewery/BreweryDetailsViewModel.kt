@@ -13,7 +13,7 @@ class BreweryDetailsViewModel(
     val breweryRepository: BreweryRepository = Singletons.breweryRepository
 ) : BaseViewModel() {
 
-    private val _brewery = MutableLiveData<ResultNet<Brewery>>()
+    private val _brewery = MutableLiveData<ResultState<Brewery>>()
     val brewery = _brewery.share()
 
     fun getBrewery(id: Int) {

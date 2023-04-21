@@ -89,7 +89,7 @@ class HomeFragment : BaseFragment(R.layout.fragment_home) {
     }
 
 
-    val onBreweryClickListener = object : OnBreweryClickListener {
+    private val onBreweryClickListener = object : OnBreweryClickListener {
         override fun onBreweryClick(brewery: Brewery, position: Int) {
             Toast.makeText(
                 requireContext(), "${brewery.name} and ${brewery.description}", Toast.LENGTH_SHORT

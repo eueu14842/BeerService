@@ -1,17 +1,19 @@
 package com.example.beerservice.app.model
 
-sealed class ResultNet<T> {
+import java.lang.IllegalStateException
 
-    fun <R> map(mapper: ((T) -> R)? = null): ResultNet<R> {
+sealed class ResultState<T> {
+
+    fun <R> map(mapper: ((T) -> R)? = null): ResultState<R> {
         return when (this) {
             is Success -> if (mapper == null) {
-                throw java.lang.IllegalStateException("cant map")
+                throw IllegalStateException("cant map")
             } else {
                 Success(mapper(this.value))
             }
             is ErrorResult -> ErrorResult(this.error)
             is Pending -> Pending()
-
+            is Empty -> Empty()
         }
     }
 
@@ -19,10 +21,11 @@ sealed class ResultNet<T> {
 
 class Success<T>(
     val value: T
-) : ResultNet<T>()
+) : ResultState<T>()
 
 class ErrorResult<T>(
     val error: Throwable
-) : ResultNet<T>()
+) : ResultState<T>()
 
-class Pending<T> : ResultNet<T>()
+class Pending<T> : ResultState<T>()
+class Empty<T>:ResultState<T>()
