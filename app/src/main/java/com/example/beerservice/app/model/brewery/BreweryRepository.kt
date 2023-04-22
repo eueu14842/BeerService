@@ -38,11 +38,10 @@ class BreweryRepository(
             ),
             pagingSourceFactory = { BreweryPagingSource(loader, PAGE_SIZE) }
         ).flow
-    }
 
+    }
     private suspend fun getBreweries(pageIndex: Int, pageSize: Int, searchBy: String): List<Brewery> =
         withContext(Dispatchers.IO) {
-            delay(1000)
             val offset = pageIndex * pageSize
             val list: List<Brewery> = brewerySource.getPagedBrewery(pageSize, offset, searchBy)
             return@withContext list

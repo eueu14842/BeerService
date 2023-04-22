@@ -5,14 +5,15 @@ import com.example.beerservice.app.model.brewery.BrewerySource
 import com.example.beerservice.app.model.brewery.entities.Brewery
 import com.example.beerservice.sources.base.BaseRetrofitSource
 import com.example.beerservice.sources.base.RetrofitConfig
+import com.example.beerservice.sources.brewery.entities.GetBreweryResponseEntity
 import kotlinx.coroutines.flow.Flow
 
 class RetrofitBrewerySource(config: RetrofitConfig) : BaseRetrofitSource(config), BrewerySource {
 
-    private val breweryApi = config.retrofit.create(BreweryApi::class.java)
+     val breweryApi = config.retrofit.create(BreweryApi::class.java)
 
     override suspend fun getBreweryList(): List<Brewery> = wrapRetrofitExceptions {
-        breweryApi.getBreweryList().map { it.toBrewery() }
+        breweryApi.getBreweryList(5,0).map { it.toBrewery() }
     }
 
     override suspend fun getBreweryAdblockList(): List<Brewery> = wrapRetrofitExceptions {
@@ -28,7 +29,7 @@ class RetrofitBrewerySource(config: RetrofitConfig) : BaseRetrofitSource(config)
         offset: Int,
         searchBy: String
     ): List<Brewery> = wrapRetrofitExceptions {
-        breweryApi.getPagedBrewery(pageSize, offset, searchBy).map { it.toBrewery() }
+        breweryApi.getPagedBrewery(pageSize, offset).map { it.toBrewery() }
     }
 
 

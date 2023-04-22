@@ -90,7 +90,6 @@ class MainActivity : AppCompatActivity() {
         return startDestinations.contains(destination.id)
     }
 
-    //todo: отработать backstack
     override fun onBackPressed() {
         if (isStartDestination(navController?.currentDestination)) {
             super.onBackPressed()
@@ -126,7 +125,6 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun isSignedIn(): Boolean = false
-
 
     private fun getMainNavigationGraphId(): Int = R.navigation.main_graph
 

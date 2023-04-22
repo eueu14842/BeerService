@@ -13,7 +13,6 @@ import com.example.beerservice.app.utils.share
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.debounce
 import kotlinx.coroutines.flow.flatMapLatest
-import kotlinx.coroutines.launch
 
 class BreweryListViewModel(
     breweryRepository: BreweryRepository = Singletons.breweryRepository
@@ -22,23 +21,26 @@ class BreweryListViewModel(
     private val _brewery = MutableLiveData<ResultState<List<Brewery>>>()
     val brewery = _brewery.share()
 
-    val breweryFlow: Flow<PagingData<Brewery>>
+    val breweriesFlow: Flow<PagingData<Brewery>>
     private var searchBy = MutableLiveData("")
-    //test
+
+
     init {
-        breweryFlow = searchBy.asFlow()
+        breweriesFlow = searchBy.asFlow()
             .debounce(400)
             .flatMapLatest {
                 breweryRepository.getPagedBrewery(it)
             }
             .cachedIn(viewModelScope)
-
     }
 
+    //не обрабатываю
     fun setSearchBy(value: String) {
         if (this.searchBy.value == value) return
         this.searchBy.value = value
     }
+
+
     /*  init {
           viewModelScope.launch {
               val breweries: List<Brewery> = breweryRepository.getBreweryList()

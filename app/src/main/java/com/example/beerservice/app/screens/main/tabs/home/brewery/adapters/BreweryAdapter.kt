@@ -27,7 +27,6 @@ class BreweryAdapter(
         return BreweryViewHolder(binding)
     }
 
-
     override fun onBindViewHolder(holder: BreweryViewHolder, position: Int) {
         val brewery = breweryList[position]
         with(holder.binding) {
