@@ -3,7 +3,6 @@ package com.example.beerservice.app.model.beers
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
-import com.example.beerservice.app.Const
 import com.example.beerservice.app.Const.PAGE_SIZE
 import com.example.beerservice.app.model.beers.entities.Beer
 import kotlinx.coroutines.Dispatchers
@@ -26,7 +25,7 @@ class BeersRepository(
         return beersSource.getBeerAdblockList()
     }
 
-    suspend fun getPagedBeer(): Flow<PagingData<Beer>> {
+    suspend fun getPagedBeer(s: String): Flow<PagingData<Beer>> {
         val loader: BeerPageLoader = { pageIndex, pageSize ->
             getBeers(pageIndex, pageSize)
         }

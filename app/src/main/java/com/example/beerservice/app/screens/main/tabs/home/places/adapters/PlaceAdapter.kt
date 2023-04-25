@@ -1,10 +1,9 @@
-package com.example.beerservice.app.screens.main.tabs.home.places
+package com.example.beerservice.app.screens.main.tabs.home.places.adapters
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.example.beerservice.app.model.brewery.entities.Brewery
 import com.example.beerservice.app.model.place.entities.Place
 import com.example.beerservice.databinding.ItemBreweryBinding
 

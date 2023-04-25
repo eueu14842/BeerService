@@ -14,7 +14,6 @@ class RetrofitBeerSource(config: RetrofitConfig) : BaseRetrofitSource(config), B
         beerApi.getBeer().toBeer()
     }
 
-
     override suspend fun getBeerList(): List<Beer> = wrapRetrofitExceptions {
         beerApi.getBeerList().map { it.toBeer() }
     }
@@ -31,7 +30,7 @@ class RetrofitBeerSource(config: RetrofitConfig) : BaseRetrofitSource(config), B
         beerApi.getBeerAdblockList().map { it.toBeer() }
     }
 
-    override suspend fun getPagedBeer(pageSize: Int, offset: Int): List<Beer> {
-        TODO("Not yet implemented")
+    override suspend fun getPagedBeer(pageSize: Int, offset: Int) = wrapRetrofitExceptions {
+        beerApi.getPagedBeers(pageSize, offset).map { it.toBeer() }
     }
 }

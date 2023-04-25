@@ -13,7 +13,7 @@ import com.example.beerservice.app.screens.base.BaseFragment
 import com.example.beerservice.app.screens.main.tabs.home.beers.adapters.BeerAdblockAdapter
 import com.example.beerservice.app.screens.main.tabs.home.brewery.BreweryAdapter
 import com.example.beerservice.app.screens.main.tabs.home.brewery.OnBreweryClickListener
-import com.example.beerservice.app.screens.main.tabs.home.places.PlaceAdapter
+import com.example.beerservice.app.screens.main.tabs.home.places.adapters.PlaceAdapter
 import com.example.beerservice.app.utils.ViewModelFactory
 import com.example.beerservice.databinding.FragmentHomeBinding
 

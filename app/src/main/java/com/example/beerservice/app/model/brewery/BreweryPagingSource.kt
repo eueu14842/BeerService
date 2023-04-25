@@ -5,7 +5,7 @@ import androidx.paging.PagingState
 import com.example.beerservice.app.model.accounts.entities.User
 import com.example.beerservice.app.model.brewery.entities.Brewery
 
-typealias BreweryPageLoader = suspend (pageIndex: Int, pageSize: Int) -> List<Brewery>
+typealias BreweryPageLoader = suspend (pageIndex: Int,pageSize: Int) -> List<Brewery>
 
 class BreweryPagingSource(
     private val loader: BreweryPageLoader,

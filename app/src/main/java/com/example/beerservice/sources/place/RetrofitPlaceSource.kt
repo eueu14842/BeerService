@@ -1,6 +1,7 @@
 package com.example.beerservice.sources.place
 
 import com.example.beerservice.app.model.place.PlaceSource
+import com.example.beerservice.app.model.place.entities.Place
 import com.example.beerservice.sources.base.BaseRetrofitSource
 import com.example.beerservice.sources.base.RetrofitConfig
 
@@ -16,5 +17,9 @@ class RetrofitPlaceSource(
 
     override suspend fun getPlacesAdblockList() = wrapRetrofitExceptions {
         placeApi.getPlaceAdblockList().map { it.toPlace() }
+    }
+
+    override suspend fun getPagedPlaces(limit:Int,offset: Int): List<Place> = wrapRetrofitExceptions {
+        placeApi.getPagedPlaces(limit,offset).map { it.toPlace() }
     }
 }

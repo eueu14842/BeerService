@@ -29,6 +29,7 @@ class DefaultLoadStateAdapter(private val tryAgainAction: TryAgainAction) :
         private val swipeRefreshLayout: SwipeRefreshLayout?,
         private val tryAgainAction: TryAgainAction
     ) : RecyclerView.ViewHolder(binding.root) {
+
         init {
             binding.tryAgainButton.setOnClickListener { tryAgainAction() }
         }

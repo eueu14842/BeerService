@@ -4,6 +4,7 @@ import com.example.beerservice.sources.place.entities.PlaceRequestEntity
 import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.POST
+import retrofit2.http.Query
 
 interface PlaceApi {
     @POST("place/createPlaceToBuy")
@@ -15,6 +16,14 @@ interface PlaceApi {
     @GET("/place/list")
     suspend fun getPlaceList(): List<PlaceRequestEntity>
 
+    @GET("/place/list")
+    suspend fun getPagedPlaces(
+        @Query("limit") limit: Int,
+        @Query("offset ") offset: Int
+    ): List<PlaceRequestEntity>
+
     @GET("place/adblock")
     suspend fun getPlaceAdblockList(): List<PlaceRequestEntity>
+
+
 }

@@ -21,9 +21,7 @@ class MainActivity : AppCompatActivity() {
 
     private var navController: NavController? = null
 
-
     private val topLevelDestinations = setOf(getTabsDestination(), getSignInDestination())
-
 
     private val fragmentListener = object : FragmentManager.FragmentLifecycleCallbacks() {
         override fun onFragmentViewCreated(

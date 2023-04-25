@@ -10,12 +10,11 @@ import com.example.beerservice.app.model.brewery.entities.Brewery
 import com.example.beerservice.app.screens.main.tabs.home.brewery.OnBreweryClickListener
 import com.example.beerservice.databinding.ItemBreweryBinding
 
-
-interface OnBreweryClickListener {
-    fun onBreweryClick(brewery: Brewery, position: Int)
+interface OnBreweryPagedClickListener {
+    fun onBreweryPagedClick(brewery: Brewery, position: Int)
 }
 class BreweryPagingAdapter (
-    private val onBreweryClickListener: OnBreweryClickListener
+    private val onBreweryClickListener: OnBreweryPagedClickListener
         ):
     PagingDataAdapter<Brewery, BreweryPagingAdapter.Holder>(BreweryDiffCallback()) {
 
@@ -29,7 +28,7 @@ class BreweryPagingAdapter (
             tvBreweryDescription.text = brewery.description
         }
         holder.itemView.setOnClickListener {
-            onBreweryClickListener.onBreweryClick(brewery, position)
+            onBreweryClickListener.onBreweryPagedClick(brewery, position)
         }
     }
 
@@ -38,7 +37,6 @@ class BreweryPagingAdapter (
         val binding = ItemBreweryBinding.inflate(inflater)
         return Holder(binding)
     }
-
 
     class Holder(val binding: ItemBreweryBinding) : RecyclerView.ViewHolder(binding.root)
 }

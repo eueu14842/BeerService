@@ -1,4 +1,4 @@
-package com.example.beerservice.app.screens.main.tabs.home.beers.adapters
+package com.example.beerservice.app.screens.main.tabs.home.places.adapters
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -7,28 +7,28 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.beerservice.app.model.beers.entities.Beer
+import com.example.beerservice.app.model.place.entities.Place
 import com.example.beerservice.databinding.ItemBeerBinding
-import com.example.beerservice.databinding.ItemBreweryBinding
 
-interface OnBeerClickListener {
-    fun onBeerClick(beer: Beer, position: Int)
+interface OnPlaceClickListener {
+    fun onPlaceClick(beer: Place, position: Int)
 }
-class BeerPagingAdapter (
-    private val onBeerClickListener: OnBeerClickListener
+class PlacePagingAdapter (
+    private val onPlaceClickListener: OnPlaceClickListener
 ):
-    PagingDataAdapter<Beer, BeerPagingAdapter.Holder>(BeerDiffCallback()) {
+    PagingDataAdapter<Place, PlacePagingAdapter.Holder>(PlaceDiffCallback()) {
 
     override fun onBindViewHolder(holder: Holder, position: Int) {
-        val beer: Beer = getItem(position) ?: return
+        val place: Place = getItem(position) ?: return
         with(holder.binding) {
             Glide.with(holder.itemView)
-                .load(beer.image)
+                .load(place.image)
                 .into(imageViewBeer)
-            textViewBeerTitle.text = beer.name
-            textViewBeerDesc.text = beer.description
+            textViewBeerTitle.text = place.name
+            textViewBeerDesc.text = place.description
         }
         holder.itemView.setOnClickListener {
-            onBeerClickListener.onBeerClick(beer, position)
+            onPlaceClickListener.onPlaceClick(place, position)
         }
     }
 
@@ -42,12 +42,12 @@ class BeerPagingAdapter (
     class Holder(val binding: ItemBeerBinding) : RecyclerView.ViewHolder(binding.root)
 }
 
-class BeerDiffCallback : DiffUtil.ItemCallback<Beer>() {
-    override fun areItemsTheSame(oldItem: Beer, newItem: Beer): Boolean {
-        return oldItem.id == newItem.id
+class PlaceDiffCallback : DiffUtil.ItemCallback<Place>() {
+    override fun areItemsTheSame(oldItem: Place, newItem: Place): Boolean {
+        return oldItem.placeId == newItem.placeId
     }
 
-    override fun areContentsTheSame(oldItem: Beer, newItem: Beer): Boolean {
+    override fun areContentsTheSame(oldItem: Place, newItem: Place): Boolean {
         return oldItem == newItem
     }
 

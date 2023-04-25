@@ -18,6 +18,7 @@ import com.example.beerservice.app.screens.base.BaseFragment
 import com.example.beerservice.app.screens.base.DefaultLoadStateAdapter
 import com.example.beerservice.app.screens.base.TryAgainAction
 import com.example.beerservice.app.screens.main.tabs.home.brewery.adapters.BreweryPagingAdapter
+import com.example.beerservice.app.screens.main.tabs.home.brewery.adapters.OnBreweryPagedClickListener
 import com.example.beerservice.app.utils.ViewModelFactory
 import com.example.beerservice.databinding.FragmentBreweryListBinding
 import kotlinx.coroutines.flow.collectLatest
@@ -83,34 +84,9 @@ class BreweryListFragment : BaseFragment(R.layout.fragment_brewery_list) {
         }
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        binding = FragmentBreweryListBinding.bind(view)
 
-        recycler = binding.recyclerBrewery.apply {
-            layoutManager = LinearLayoutManager(requireContext())
-        }
-
-
-/*        viewModel.brewery.observe(viewLifecycleOwner) {
-            when (it) {
-                is ErrorResult -> TODO()
-                is Pending -> ""
-                is Success -> {
-                    val adapter = BreweryAdapter(
-                        it.value, onBreweryListener
-                    )
-                    recycler.adapter = adapter
-                }
-                is Empty -> TODO()
-            }
-        }*/
-
-    }
-
-
-    private val onBreweryListener = object : OnBreweryClickListener {
-        override fun onBreweryClick(brewery: Brewery, position: Int) {
+    private val onBreweryListener = object : OnBreweryPagedClickListener {
+        override fun onBreweryPagedClick(brewery: Brewery, position: Int) {
             val direction =
                 BreweryListFragmentDirections.actionBreweryListFragmentToBreweryFragment(brewery.id)
             findNavController().navigate(direction)
