@@ -2,6 +2,7 @@ package com.example.beerservice.app
 
 import android.app.Activity
 import android.os.Bundle
+import android.widget.Toolbar
 import androidx.appcompat.app.AppCompatActivity
 import com.example.beerservice.R
 import com.example.beerservice.app.model.Singletons
