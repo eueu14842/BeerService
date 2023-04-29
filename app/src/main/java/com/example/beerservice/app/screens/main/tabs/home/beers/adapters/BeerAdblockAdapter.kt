@@ -5,9 +5,17 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.beerservice.app.model.beers.entities.Beer
+import com.example.beerservice.app.model.brewery.entities.Brewery
 import com.example.beerservice.databinding.ItemBreweryBinding
 
-class BeerAdblockAdapter(val beerList: List<Beer>) :
+interface OnBeerAdblockClickListener {
+    fun onBeerClick(beer: Beer, position: Int)
+}
+
+class BeerAdblockAdapter(
+    val beerList: List<Beer>,
+    val onBeerAdblockClickListener: OnBeerAdblockClickListener
+) :
     RecyclerView.Adapter<BeerAdblockAdapter.BeerViewHolder>() {
     class BeerViewHolder(val binding: ItemBreweryBinding) : RecyclerView.ViewHolder(binding.root)
 
@@ -25,7 +33,9 @@ class BeerAdblockAdapter(val beerList: List<Beer>) :
                 .into(ivBreweryImage)
             tvBreweryName.text = beer.name
             tvBreweryDescription.text = beer.description
-
+        }
+        holder.itemView.setOnClickListener {
+            onBeerAdblockClickListener.onBeerClick(beer,position)
         }
     }
 

@@ -29,7 +29,7 @@ class BeersListViewModel(
         beersFlow = searchBy.asFlow()
             .debounce(400)
             .flatMapLatest {
-                beersRepository.getPagedBeer(it)
+                beersRepository.getPagedBeer()
             }
             .cachedIn(viewModelScope)
     }

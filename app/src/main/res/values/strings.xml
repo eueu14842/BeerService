@@ -22,4 +22,6 @@
     <string name="profile_user_location">Location</string>
     <string name="load_error">Ошибка загрузки</string>
     <string name="try_again">Попытаться снова</string>
+    <string name="place_list">Список</string>
+    <string name="place_map">Карта</string>
 </resources>

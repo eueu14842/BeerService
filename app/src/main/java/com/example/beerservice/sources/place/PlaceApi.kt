@@ -14,13 +14,18 @@ interface PlaceApi {
     suspend fun buyBeerFromPlace(@Body body: Body)
 
     @GET("/place/list")
-    suspend fun getPlaceList(): List<PlaceRequestEntity>
+    suspend fun getPlaceList(
+        @Query("geoLat") geoLat: Double,
+        @Query("geoLon") geoLon: Double,
+        @Query("visibleRegion") visibleRegion: Double
+    ): List<PlaceRequestEntity>
 
     @GET("/place/list")
     suspend fun getPagedPlaces(
         @Query("limit") limit: Int,
-        @Query("offset ") offset: Int
+        @Query("offset") offset: Int
     ): List<PlaceRequestEntity>
+
 
     @GET("place/adblock")
     suspend fun getPlaceAdblockList(): List<PlaceRequestEntity>

@@ -76,7 +76,7 @@ class BeersListFragment : BaseFragment(R.layout.fragment_beers_list) {
     private val onBeerClickListener = object : OnBeerClickListener {
         override fun onBeerClick(beer: Beer, position: Int) {
             val direction =
-                BeersListFragmentDirections.actionBeersListFragmentToBeerFragment()
+                BeersListFragmentDirections.actionBeersListFragmentToBeerFragment(beer.id)
             findNavController().navigate(direction)
         }
     }

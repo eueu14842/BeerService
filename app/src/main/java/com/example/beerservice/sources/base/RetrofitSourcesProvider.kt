@@ -9,6 +9,7 @@ import com.example.beerservice.app.model.place.PlaceSource
 import com.example.beerservice.sources.accounts.RetrofitAccountSource
 import com.example.beerservice.sources.beers.RetrofitBeerSource
 import com.example.beerservice.sources.brewery.RetrofitBrewerySource
+import com.example.beerservice.sources.feedback.RetrofitFeedbackSource
 import com.example.beerservice.sources.place.RetrofitPlaceSource
 
 class RetrofitSourcesProvider(
@@ -27,7 +28,7 @@ class RetrofitSourcesProvider(
     }
 
     override fun getFeedbackSource(): FeedbackSource {
-        TODO("Not yet implemented")
+       return RetrofitFeedbackSource(retrofitConfig)
     }
 
     override fun getPlacesSource(): PlaceSource {

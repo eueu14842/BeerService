@@ -8,12 +8,15 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.beerservice.R
+import com.example.beerservice.app.model.beers.entities.Beer
 import com.example.beerservice.app.model.brewery.entities.Brewery
 import com.example.beerservice.app.screens.base.BaseFragment
 import com.example.beerservice.app.screens.main.tabs.home.beers.adapters.BeerAdblockAdapter
+import com.example.beerservice.app.screens.main.tabs.home.beers.adapters.OnBeerAdblockClickListener
 import com.example.beerservice.app.screens.main.tabs.home.brewery.BreweryAdapter
+import com.example.beerservice.app.screens.main.tabs.home.brewery.BreweryDetailsFragmentDirections
 import com.example.beerservice.app.screens.main.tabs.home.brewery.OnBreweryClickListener
-import com.example.beerservice.app.screens.main.tabs.home.places.adapters.PlaceAdapter
+import com.example.beerservice.app.screens.main.tabs.home.places.adapters.PlaceAdblockAdapter
 import com.example.beerservice.app.utils.ViewModelFactory
 import com.example.beerservice.databinding.FragmentHomeBinding
 
@@ -37,6 +40,8 @@ class HomeFragment : BaseFragment(R.layout.fragment_home) {
 
         binding.showAllBreweryTextView.setOnClickListener { navigateToBreweryListEvent() }
         binding.showAllBeerTextView.setOnClickListener { navigateToBeerListEvent() }
+        binding.showAllStoresTextView.setOnClickListener { navigateToPlaceListEvent() }
+
 
     }
 
@@ -73,7 +78,7 @@ class HomeFragment : BaseFragment(R.layout.fragment_home) {
     private fun observeBeerAdblock() {
         viewModel.beer.observe(viewLifecycleOwner) {
             it.map { beers ->
-                val adapter = BeerAdblockAdapter(beers)
+                val adapter = BeerAdblockAdapter(beers, onBeerAdblockClickListener)
                 beerRecycler.adapter = adapter
             }
         }
@@ -82,7 +87,7 @@ class HomeFragment : BaseFragment(R.layout.fragment_home) {
     private fun observePlaceAdblock() {
         viewModel.place.observe(viewLifecycleOwner) {
             it.map { stores ->
-                val adapter = PlaceAdapter(stores)
+                val adapter = PlaceAdblockAdapter(stores)
                 placeRecycler.adapter = adapter
             }
         }
@@ -91,16 +96,30 @@ class HomeFragment : BaseFragment(R.layout.fragment_home) {
 
     private val onBreweryClickListener = object : OnBreweryClickListener {
         override fun onBreweryClick(brewery: Brewery, position: Int) {
-            Toast.makeText(
-                requireContext(), "${brewery.name} and ${brewery.description}", Toast.LENGTH_SHORT
-            ).show()
+            val direction =
+                HomeFragmentDirections.actionHomeFragmentToBreweryDetailsFragment(brewery.id)
+            findNavController().navigate(direction)
         }
     }
+
+
+    private val onBeerAdblockClickListener = object : OnBeerAdblockClickListener {
+        override fun onBeerClick(beer: Beer, position: Int) {
+            val direction = HomeFragmentDirections.actionHomeFragmentToBeerDetailsFragment(beer.id)
+            findNavController().navigate(direction)
+        }
+    }
+
 
     private fun navigateToBreweryListEvent() {
         findNavController().navigate(R.id.action_homeFragment_to_breweryListFragment)
     }
+
     private fun navigateToBeerListEvent() {
         findNavController().navigate(R.id.action_homeFragment_to_beersListFragment)
+    }
+
+    private fun navigateToPlaceListEvent() {
+        findNavController().navigate(R.id.action_homeFragment_to_placeFragment)
     }
 }

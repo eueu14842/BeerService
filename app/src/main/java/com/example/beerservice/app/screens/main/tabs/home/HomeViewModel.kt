@@ -30,6 +30,7 @@ class HomeViewModel(
     private val _place = MutableLiveData<ResultState<List<Place>>>()
     val place = _place.share()
 
+
     init {
         viewModelScope.launch {
             _brewery.value = Success(breweryRepository.getBreweryAdblockList())

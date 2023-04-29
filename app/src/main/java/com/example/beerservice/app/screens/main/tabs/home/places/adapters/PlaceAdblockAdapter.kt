@@ -7,8 +7,8 @@ import com.bumptech.glide.Glide
 import com.example.beerservice.app.model.place.entities.Place
 import com.example.beerservice.databinding.ItemBreweryBinding
 
-class PlaceAdapter(val breweryList: List<Place>) :
-    RecyclerView.Adapter<PlaceAdapter.BreweryViewHolder>() {
+class PlaceAdblockAdapter(val breweryList: List<Place>) :
+    RecyclerView.Adapter<PlaceAdblockAdapter.BreweryViewHolder>() {
     class BreweryViewHolder(val binding: ItemBreweryBinding) : RecyclerView.ViewHolder(binding.root)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BreweryViewHolder {

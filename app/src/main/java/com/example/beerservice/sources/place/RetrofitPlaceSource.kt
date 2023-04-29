@@ -11,15 +11,20 @@ class RetrofitPlaceSource(
 
     private val placeApi = retrofit.create(PlaceApi::class.java)
 
-    override suspend fun getPlaceList() = wrapRetrofitExceptions {
-        placeApi.getPlaceList().map { it.toPlace() }
+    override suspend fun getPlaceList(
+        geoLat: Double,
+        geoLon: Double,
+        visibleRegion: Double
+    ): List<Place> = wrapRetrofitExceptions {
+        placeApi.getPlaceList(geoLat, geoLon, visibleRegion).map { it.toPlace() }
     }
 
     override suspend fun getPlacesAdblockList() = wrapRetrofitExceptions {
         placeApi.getPlaceAdblockList().map { it.toPlace() }
     }
 
-    override suspend fun getPagedPlaces(limit:Int,offset: Int): List<Place> = wrapRetrofitExceptions {
-        placeApi.getPagedPlaces(limit,offset).map { it.toPlace() }
+    override suspend fun getPagedPlaces(limit: Int, offset: Int) = wrapRetrofitExceptions {
+        placeApi.getPagedPlaces(limit, offset).map { it.toPlace() }
     }
+
 }
