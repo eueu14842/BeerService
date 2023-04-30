@@ -18,6 +18,7 @@ import com.example.beerservice.app.screens.main.tabs.home.brewery.BreweryDetails
 import com.example.beerservice.app.screens.main.tabs.home.brewery.OnBreweryClickListener
 import com.example.beerservice.app.screens.main.tabs.home.places.adapters.PlaceAdblockAdapter
 import com.example.beerservice.app.utils.ViewModelFactory
+import com.example.beerservice.app.utils.observeResult
 import com.example.beerservice.databinding.FragmentHomeBinding
 
 class HomeFragment : BaseFragment(R.layout.fragment_home) {
@@ -28,6 +29,7 @@ class HomeFragment : BaseFragment(R.layout.fragment_home) {
     lateinit var breweryRecycler: RecyclerView
     lateinit var beerRecycler: RecyclerView
     lateinit var placeRecycler: RecyclerView
+
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -67,29 +69,25 @@ class HomeFragment : BaseFragment(R.layout.fragment_home) {
 
 
     private fun observeBreweryAdblock() {
-        viewModel.brewery.observe(viewLifecycleOwner) {
-            it.map { breweries ->
-                val adapter = BreweryAdapter(breweries, onBreweryClickListener)
-                breweryRecycler.adapter = adapter
-            }
+        binding.resultViewState.setTryAgainAction { println("try again") }
+        viewModel.brewery.observeResult(this, binding.root, binding.resultViewState) { breweries ->
+            val adapter = BreweryAdapter(breweries, onBreweryClickListener)
+            breweryRecycler.adapter = adapter
         }
     }
 
     private fun observeBeerAdblock() {
-        viewModel.beer.observe(viewLifecycleOwner) {
-            it.map { beers ->
-                val adapter = BeerAdblockAdapter(beers, onBeerAdblockClickListener)
-                beerRecycler.adapter = adapter
-            }
+        binding.resultViewState.setTryAgainAction { println("try again") }
+        viewModel.beer.observeResult(this, binding.root, binding.resultViewState) { beers ->
+            val adapter = BeerAdblockAdapter(beers, onBeerAdblockClickListener)
+            beerRecycler.adapter = adapter
         }
     }
 
     private fun observePlaceAdblock() {
-        viewModel.place.observe(viewLifecycleOwner) {
-            it.map { stores ->
-                val adapter = PlaceAdblockAdapter(stores)
-                placeRecycler.adapter = adapter
-            }
+        viewModel.place.observeResult(this, binding.root, binding.resultViewState) { stores ->
+            val adapter = PlaceAdblockAdapter(stores)
+            placeRecycler.adapter = adapter
         }
     }
 

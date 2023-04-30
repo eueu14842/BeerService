@@ -24,4 +24,9 @@
     <string name="try_again">Попытаться снова</string>
     <string name="place_list">Список</string>
     <string name="place_map">Карта</string>
+    <string name="connection_error">Невозможно подключиться к серверу</string>
+    <string name="auth_error">Сессия пользователя завершена</string>
+    <string name="internal_error">Внутення ошибка. Попробуйте снова!</string>
+    <string name="action_logout">Выход</string>
+    <string name="action_try_again">Попробуйте снова</string>
 </resources>

@@ -1,32 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/textView"
-        style="@style/GlobalTextInputStyle.Big"
+    <SearchView
+        android:id="@+id/searchView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="0"
-        android:gravity="center"
-        android:text="@string/home_page" />
-    <SearchView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-    </SearchView>
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <LinearLayout
+        android:id="@+id/breweryLinear"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/searchView">
 
         <TextView
-            android:id="@+id/textView2"
+            android:id="@+id/tv_breweries"
             style="@style/GlobalTextInputStyle.Big"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -35,12 +33,13 @@
 
         <TextView
             android:id="@+id/show_all_brewery_textView"
-            android:layout_width="wrap_content"
             style="@style/LinkTextView"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="end"
-            android:text="@string/slider_show_all" />
+            android:text="@string/slider_show_all"
+            android:textColor="#2E7D32" />
     </LinearLayout>
 
     <androidx.recyclerview.widget.RecyclerView
@@ -48,16 +47,21 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        tools:listitem="@layout/item_brewery"/>
+        app:layout_constraintTop_toBottomOf="@+id/breweryLinear"
+        tools:listitem="@layout/item_brewery" />
 
     <LinearLayout
+        android:id="@+id/beerLinear"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="0"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/recycler_brewery">
 
         <TextView
-            android:id="@+id/textView5"
+            android:id="@+id/tv_beers"
             style="@style/GlobalTextInputStyle.Big"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -66,49 +70,70 @@
 
         <TextView
             android:id="@+id/show_all_beer_textView"
+            style="@style/LinkTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            style="@style/LinkTextView"
             android:gravity="end"
             android:text="@string/slider_show_all" />
     </LinearLayout>
 
     <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler_beer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:id="@+id/recycler_beer"/>
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/beerLinear" />
 
 
     <LinearLayout
+        android:id="@+id/placesLinear"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="0"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/recycler_beer">
 
         <TextView
-            android:id="@+id/textView7"
+            android:id="@+id/tv_places"
+            style="@style/GlobalTextInputStyle.Big"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="@string/title_slider_store"
-            style="@style/GlobalTextInputStyle.Big"/>
+            android:text="@string/title_slider_store" />
 
         <TextView
             android:id="@+id/show_all_stores_textView"
+            style="@style/LinkTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            style="@style/LinkTextView"
             android:gravity="end"
             android:text="@string/slider_show_all" />
     </LinearLayout>
 
     <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler_places"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:id="@+id/recycler_places"/>
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/placesLinear" />
 
-</LinearLayout>
+    <com.example.beerservice.app.views.ResultStateView
+        android:id="@+id/resultViewState"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="276dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
