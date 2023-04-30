@@ -8,7 +8,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.beerservice.app.model.beers.entities.Beer
 import com.example.beerservice.databinding.ItemBeerBinding
-import com.example.beerservice.databinding.ItemBreweryBinding
 
 interface OnBeerClickListener {
     fun onBeerClick(beer: Beer, position: Int)

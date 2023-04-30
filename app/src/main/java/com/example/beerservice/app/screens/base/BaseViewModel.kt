@@ -19,4 +19,5 @@ open class BaseViewModel(
     private val _showAuthErrorAndRestartEvent = MutableLiveData<Event<Unit>>()
     val showAuthErrorAndRestartEvent = _showAuthErrorAndRestartEvent.share()
 
+
 }

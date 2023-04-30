@@ -2,6 +2,7 @@ package com.example.beerservice.app.screens.main.tabs.home
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
+import com.example.beerservice.app.model.Pending
 import com.example.beerservice.app.model.ResultState
 import com.example.beerservice.app.model.Singletons
 import com.example.beerservice.app.model.Success
@@ -30,15 +31,19 @@ class HomeViewModel(
     private val _place = MutableLiveData<ResultState<List<Place>>>()
     val place = _place.share()
 
+
     init {
         viewModelScope.launch {
+            _brewery.value = Pending()
             _brewery.value = Success(breweryRepository.getBreweryAdblockList())
         }
         viewModelScope.launch {
+            _beer.value = Pending()
             _beer.value = Success(beerRepository.getBeerAdblockList())
         }
 
         viewModelScope.launch {
+            _place.value = Pending()
             _place.value = Success(placeRepository.getPlacesAdblockList())
         }
     }

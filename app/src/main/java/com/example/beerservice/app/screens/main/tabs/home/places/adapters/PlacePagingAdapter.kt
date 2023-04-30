@@ -9,13 +9,15 @@ import com.bumptech.glide.Glide
 import com.example.beerservice.app.model.beers.entities.Beer
 import com.example.beerservice.app.model.place.entities.Place
 import com.example.beerservice.databinding.ItemBeerBinding
+import com.example.beerservice.databinding.ItemPlaceBinding
 
 interface OnPlaceClickListener {
-    fun onPlaceClick(beer: Place, position: Int)
+    fun onPlaceClick(place: Place, position: Int)
 }
-class PlacePagingAdapter (
+
+class PlacePagingAdapter(
     private val onPlaceClickListener: OnPlaceClickListener
-):
+) :
     PagingDataAdapter<Place, PlacePagingAdapter.Holder>(PlaceDiffCallback()) {
 
     override fun onBindViewHolder(holder: Holder, position: Int) {
@@ -23,9 +25,11 @@ class PlacePagingAdapter (
         with(holder.binding) {
             Glide.with(holder.itemView)
                 .load(place.image)
-                .into(imageViewBeer)
-            textViewBeerTitle.text = place.name
-            textViewBeerDesc.text = place.description
+                .into(imageViewPlace)
+            textViewPlaceTitle.text = place.name
+            textViewPlaceDesc.text = place.description
+            textViewPlaceAddress.text = place.address
+            textViewPlaceCity.text = place.city
         }
         holder.itemView.setOnClickListener {
             onPlaceClickListener.onPlaceClick(place, position)
@@ -34,12 +38,12 @@ class PlacePagingAdapter (
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Holder {
         val inflater = LayoutInflater.from(parent.context)
-        val binding = ItemBeerBinding.inflate(inflater)
+        val binding = ItemPlaceBinding.inflate(inflater)
         return Holder(binding)
     }
 
 
-    class Holder(val binding: ItemBeerBinding) : RecyclerView.ViewHolder(binding.root)
+    class Holder(val binding: ItemPlaceBinding) : RecyclerView.ViewHolder(binding.root)
 }
 
 class PlaceDiffCallback : DiffUtil.ItemCallback<Place>() {

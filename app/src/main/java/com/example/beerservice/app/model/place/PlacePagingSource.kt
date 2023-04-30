@@ -6,7 +6,7 @@ import com.example.beerservice.app.model.place.entities.Place
 
 typealias PlacePageLoader = suspend (pageIndex: Int, pageSize: Int) -> List<Place>
 
-class BeerPagingSource(
+class PlacePagingSource(
     private val loader: PlacePageLoader,
     private val pageSize: Int
 ) : PagingSource<Int, Place>() {

@@ -7,6 +7,7 @@ import com.example.beerservice.app.model.beers.BeersRepository
 import com.example.beerservice.app.model.beers.BeersSource
 import com.example.beerservice.app.model.brewery.BreweryRepository
 import com.example.beerservice.app.model.brewery.BrewerySource
+import com.example.beerservice.app.model.feedback.FeedbackRepository
 import com.example.beerservice.app.model.feedback.FeedbackSource
 import com.example.beerservice.app.model.place.PlaceSource
 import com.example.beerservice.app.model.place.PlacesRepository
@@ -66,6 +67,11 @@ object Singletons {
     val placesRepository: PlacesRepository by lazy {
         PlacesRepository(
             placeSource = placeSource
+        )
+    }
+    val feedbackRepository: FeedbackRepository by lazy {
+        FeedbackRepository(
+            feedbackSource = feedbackSource
         )
     }
 

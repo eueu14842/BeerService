@@ -30,7 +30,7 @@ class BreweryListFragment : BaseFragment(R.layout.fragment_brewery_list) {
     lateinit var binding: FragmentBreweryListBinding
     lateinit var recycler: RecyclerView
     override val viewModel: BreweryListViewModel by viewModels { ViewModelFactory() }
-//    private lateinit var mainLoadStateHolder: DefaultLoadStateAdapter.Holder
+    private lateinit var mainLoadStateHolder: DefaultLoadStateAdapter.Holder
 
 
     override fun onCreateView(
@@ -57,11 +57,11 @@ class BreweryListFragment : BaseFragment(R.layout.fragment_brewery_list) {
         }
         recycler.adapter = adapterWithLoadState
 
-        /*     mainLoadStateHolder = DefaultLoadStateAdapter.Holder(
+             mainLoadStateHolder = DefaultLoadStateAdapter.Holder(
                  binding.loadStateView,
-                 binding.swipeRefreshLayout,
+                 null,
                  tryAgainAction
-             )*/
+             )
         observeBreweries(adapter)
         observeLoadState(adapter)
 
