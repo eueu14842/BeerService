@@ -13,8 +13,11 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import com.example.beerservice.R
+import com.example.beerservice.app.Const.MAPKIT_API_KEY
+import com.example.beerservice.app.model.Singletons
 import com.example.beerservice.app.screens.main.auth.SignInFragment
 import com.example.beerservice.app.screens.main.tabs.TabsFragment
+import com.yandex.mapkit.MapKitFactory
 import java.util.regex.Pattern
 
 class MainActivity : AppCompatActivity() {
@@ -40,10 +43,10 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        setupMapKit()
         val navController = getRootNavController()
         prepareRootNavController(isSignedIn(), navController)
         onNavControllerActivated(navController)
-
         supportFragmentManager.registerFragmentLifecycleCallbacks(fragmentListener, true)
     }
 
@@ -129,6 +132,10 @@ class MainActivity : AppCompatActivity() {
     private fun getTabsDestination(): Int = R.id.tabsFragment
 
     private fun getSignInDestination(): Int = R.id.signInFragment
+
+    private fun setupMapKit() {
+        MapKitFactory.setApiKey(MAPKIT_API_KEY)
+    }
 
 
 }

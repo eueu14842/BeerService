@@ -15,6 +15,7 @@ import com.example.beerservice.app.screens.main.tabs.home.brewery.BreweryDetails
 import com.example.beerservice.app.screens.main.tabs.home.brewery.BreweryDetailsViewModel
 import com.example.beerservice.app.screens.main.tabs.home.brewery.BreweryListViewModel
 import com.example.beerservice.app.screens.main.tabs.home.places.PlaceListViewModel
+import com.example.beerservice.app.screens.main.tabs.home.places.PlaceMapViewModel
 import com.example.beerservice.app.screens.main.tabs.profile.ProfileViewModel
 
 @Suppress("UNCHECKED_CAST")
@@ -30,6 +31,7 @@ class ViewModelFactory(
             BeersListViewModel::class.java -> BeersListViewModel() as T
             ProfileViewModel::class.java -> ProfileViewModel() as T
             PlaceListViewModel::class.java -> PlaceListViewModel() as T
+            PlaceMapViewModel::class.java -> PlaceMapViewModel() as T
             BeerViewModel::class.java -> BeerViewModel() as T
             else -> {
                 throw  IllegalStateException("")
