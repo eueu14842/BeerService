@@ -44,7 +44,6 @@ class BreweryDetailsFragment() : BaseFragment(R.layout.fragment_brewery) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentBreweryBinding.bind(view)
 
-
         setupBeersList()
         setupBreweryDetailsBlock()
 
@@ -52,7 +51,7 @@ class BreweryDetailsFragment() : BaseFragment(R.layout.fragment_brewery) {
     }
 
 
-    fun setupBeersList() {
+    private fun setupBeersList() {
         val adapter = BeerPagingAdapter(onBeerClickListener)
         val tryAgainAction: TryAgainAction = { adapter.retry() }
         val footerAdapter = DefaultLoadStateAdapter(tryAgainAction)
@@ -84,7 +83,7 @@ class BreweryDetailsFragment() : BaseFragment(R.layout.fragment_brewery) {
                         textViewBreweryTitle.text = it.value.name
                         textViewBreweryAddress.text = it.value.city
                         textViewBreweryCity.text = it.value.city
-                        setupBreweryId(it.value.id)
+                        setupBreweryId(it.value.id!!)
                     }
 
                 }
@@ -118,7 +117,7 @@ class BreweryDetailsFragment() : BaseFragment(R.layout.fragment_brewery) {
     private val onBeerClickListener = object : OnBeerClickListener {
         override fun onBeerClick(beer: Beer, position: Int) {
             val direction =
-                BreweryDetailsFragmentDirections.actionBreweryDetailsFragmentToBeerDetailsFragment(beer.id)
+                BreweryDetailsFragmentDirections.actionBreweryDetailsFragmentToBeerDetailsFragment(beer.id!!)
             findNavController().navigate(direction)
         }
     }

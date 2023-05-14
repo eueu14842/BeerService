@@ -6,10 +6,10 @@
     app:startDestination="@id/placeFragment2">
     <fragment
         android:id="@+id/placeFragment2"
-        android:name="com.example.beerservice.app.screens.main.tabs.home.places.PlaceContainerFragment"
+        android:name="com.example.beerservice.app.screens.main.tabs.home.places.tabs.PlaceContainerFragment"
         android:label="Поиск" />
     <fragment
         android:id="@+id/placeMapFragment2"
-        android:name="com.example.beerservice.app.screens.main.tabs.home.places.PlaceMapFragment"
+        android:name="com.example.beerservice.app.screens.main.tabs.home.places.tabs.PlaceMapFragment"
         android:label="PlaceMapFragment" />
 </navigation>

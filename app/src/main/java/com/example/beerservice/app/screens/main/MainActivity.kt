@@ -1,21 +1,17 @@
 package com.example.beerservice.app.screens.main
 
-import androidx.appcompat.app.AppCompatActivity
+import android.location.LocationManager
 import android.os.Bundle
 import android.view.View
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.navigation.NavController
 import androidx.navigation.NavDestination
-import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
-import androidx.navigation.ui.AppBarConfiguration
-import androidx.navigation.ui.setupActionBarWithNavController
 import com.example.beerservice.R
 import com.example.beerservice.app.Const.MAPKIT_API_KEY
-import com.example.beerservice.app.model.Singletons
-import com.example.beerservice.app.screens.main.auth.SignInFragment
 import com.example.beerservice.app.screens.main.tabs.TabsFragment
 import com.yandex.mapkit.MapKitFactory
 import java.util.regex.Pattern

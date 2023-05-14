@@ -2,8 +2,8 @@ package com.example.beerservice.app.screens.main.tabs.home.places.adapters
 
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.adapter.FragmentStateAdapter
-import com.example.beerservice.app.screens.main.tabs.home.places.PlaceListFragment
-import com.example.beerservice.app.screens.main.tabs.home.places.PlaceMapFragment
+import com.example.beerservice.app.screens.main.tabs.home.places.tabs.PlaceListFragment
+import com.example.beerservice.app.screens.main.tabs.home.places.tabs.PlaceMapFragment
 
 class PlaceCollectionAdapter(fragment: Fragment) : FragmentStateAdapter(fragment) {
     override fun getItemCount(): Int = 2

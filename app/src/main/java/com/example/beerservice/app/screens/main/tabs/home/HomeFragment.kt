@@ -2,7 +2,6 @@ package com.example.beerservice.app.screens.main.tabs.home
 
 import android.os.Bundle
 import android.view.View
-import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -10,12 +9,13 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.beerservice.R
 import com.example.beerservice.app.model.beers.entities.Beer
 import com.example.beerservice.app.model.brewery.entities.Brewery
+import com.example.beerservice.app.model.place.entities.Place
 import com.example.beerservice.app.screens.base.BaseFragment
 import com.example.beerservice.app.screens.main.tabs.home.beers.adapters.BeerAdblockAdapter
 import com.example.beerservice.app.screens.main.tabs.home.beers.adapters.OnBeerAdblockClickListener
 import com.example.beerservice.app.screens.main.tabs.home.brewery.BreweryAdapter
-import com.example.beerservice.app.screens.main.tabs.home.brewery.BreweryDetailsFragmentDirections
 import com.example.beerservice.app.screens.main.tabs.home.brewery.OnBreweryClickListener
+import com.example.beerservice.app.screens.main.tabs.home.places.adapters.OnPlaceClickListener
 import com.example.beerservice.app.screens.main.tabs.home.places.adapters.PlaceAdblockAdapter
 import com.example.beerservice.app.utils.ViewModelFactory
 import com.example.beerservice.app.utils.observeResult
@@ -86,7 +86,7 @@ class HomeFragment : BaseFragment(R.layout.fragment_home) {
 
     private fun observePlaceAdblock() {
         viewModel.place.observeResult(this, binding.root, binding.resultViewState) { stores ->
-            val adapter = PlaceAdblockAdapter(stores)
+            val adapter = PlaceAdblockAdapter(stores, onPlaceClickListener)
             placeRecycler.adapter = adapter
         }
     }
@@ -95,7 +95,7 @@ class HomeFragment : BaseFragment(R.layout.fragment_home) {
     private val onBreweryClickListener = object : OnBreweryClickListener {
         override fun onBreweryClick(brewery: Brewery, position: Int) {
             val direction =
-                HomeFragmentDirections.actionHomeFragmentToBreweryDetailsFragment(brewery.id)
+                HomeFragmentDirections.actionHomeFragmentToBreweryDetailsFragment(brewery.id!!)
             findNavController().navigate(direction)
         }
     }
@@ -103,7 +103,17 @@ class HomeFragment : BaseFragment(R.layout.fragment_home) {
 
     private val onBeerAdblockClickListener = object : OnBeerAdblockClickListener {
         override fun onBeerClick(beer: Beer, position: Int) {
-            val direction = HomeFragmentDirections.actionHomeFragmentToBeerDetailsFragment(beer.id)
+            val direction =
+                HomeFragmentDirections.actionHomeFragmentToBeerDetailsFragment(beer.id!!)
+            findNavController().navigate(direction)
+        }
+    }
+
+
+    private val onPlaceClickListener = object : OnPlaceClickListener {
+        override fun onPlaceClick(place: Place, position: Int) {
+            val direction =
+                HomeFragmentDirections.actionHomeFragmentToPlaceDetailsFragment(place.placeId!!)
             findNavController().navigate(direction)
         }
     }

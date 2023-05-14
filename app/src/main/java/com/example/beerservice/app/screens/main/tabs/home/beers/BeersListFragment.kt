@@ -28,7 +28,7 @@ class BeersListFragment : BaseFragment(R.layout.fragment_beers_list) {
     lateinit var binding: FragmentBeersListBinding
     lateinit var recycler: RecyclerView
     override val viewModel: BeersListViewModel by viewModels { ViewModelFactory() }
-
+    private lateinit var mainLoadStateHolder: DefaultLoadStateAdapter.Holder
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -40,7 +40,7 @@ class BeersListFragment : BaseFragment(R.layout.fragment_beers_list) {
         return binding.root
     }
 
-    fun setupBeersList() {
+    private fun setupBeersList() {
         val adapter = BeerPagingAdapter(onBeerClickListener)
         val tryAgainAction: TryAgainAction = { adapter.retry() }
         val footerAdapter = DefaultLoadStateAdapter(tryAgainAction)
@@ -76,7 +76,7 @@ class BeersListFragment : BaseFragment(R.layout.fragment_beers_list) {
     private val onBeerClickListener = object : OnBeerClickListener {
         override fun onBeerClick(beer: Beer, position: Int) {
             val direction =
-                BeersListFragmentDirections.actionBeersListFragmentToBeerFragment(beer.id)
+                BeersListFragmentDirections.actionBeersListFragmentToBeerFragment(beer.id!!)
             findNavController().navigate(direction)
         }
     }
