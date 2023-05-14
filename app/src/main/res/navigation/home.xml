@@ -18,7 +18,7 @@
             app:destination="@id/breweryListFragment" />
         <action
             android:id="@+id/action_homeFragment_to_placeFragment"
-            app:destination="@id/placeFragment" />
+            app:destination="@id/placeContainerFragment" />
         <action
             android:id="@+id/action_homeFragment_to_beerDetailsFragment"
             app:destination="@id/beerDetailsFragment" />
@@ -31,10 +31,10 @@
     </fragment>
 
     <fragment
-        android:id="@+id/placeFragment"
+        android:id="@+id/placeContainerFragment"
         android:name="com.example.beerservice.app.screens.main.tabs.home.places.tabs.PlaceContainerFragment"
         android:label="Точки продаж"
-        tools:layout="@layout/fragment_places">
+        tools:layout="@layout/fragment_place_container">
         <action
             android:id="@+id/action_placeFragment_to_placeMapFragment"
             app:destination="@id/placeMapFragment" />
@@ -50,7 +50,7 @@
         android:id="@+id/placeMapFragment"
         android:name="com.example.beerservice.app.screens.main.tabs.home.places.tabs.PlaceMapFragment"
         android:label="Карта"
-        tools:layout="@layout/fragment_places">
+        tools:layout="@layout/fragment_places_map">
         <argument
             android:name="myArgs"
             android:defaultValue="1"
