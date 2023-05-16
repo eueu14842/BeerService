@@ -15,6 +15,7 @@ import com.example.beerservice.app.screens.main.tabs.TabsFragment
 import com.yandex.mapkit.MapKitFactory
 import java.util.regex.Pattern
 
+// TODO: com1 
 class MainActivity : AppCompatActivity() {
 
     private var navController: NavController? = null
