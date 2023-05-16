@@ -1,4 +1,4 @@
-package com.example.beerservice.app.screens.main.tabs.home.places
+package com.example.beerservice.app.screens.main.tabs.home.places.tabs
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.ConcatAdapter
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -27,7 +28,8 @@ import kotlinx.coroutines.launch
 class PlaceListFragment : BaseFragment(R.layout.fragment_place_list) {
     lateinit var binding: FragmentPlaceListBinding
     lateinit var recycler: RecyclerView
-    override val viewModel: PlaceListViewModel by viewModels { ViewModelFactory() }
+    override val viewModel: PlaceViewModel by viewModels { ViewModelFactory() }
+//    private val navArgs by navArgs<PlaceListFragmentArgs>()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -36,11 +38,38 @@ class PlaceListFragment : BaseFragment(R.layout.fragment_place_list) {
     ): View? {
         binding = FragmentPlaceListBinding.inflate(layoutInflater)
 
-
+        setupViews()
         observePlaces()
         return binding.root
     }
 
+    //    43.592918, 39.728160
+    private fun observePlaces() {
+        lifecycleScope.launch {
+            viewModel.getPlaces(43.592918, 39.728160, 5.0)
+            viewModel.place.observe(viewLifecycleOwner) {
+                it.map { places ->
+                    val adapter = PlaceListAdapter(places, onPlaceClickListener)
+                    recycler.adapter = adapter
+                }
+            }
+        }
+    }
+
+
+    private val onPlaceClickListener = object : OnPlaceClickListener {
+        override fun onPlaceClick(place: Place, position: Int) {
+            val direction =
+                PlaceContainerFragmentDirections.actionPlaceFragmentToPlaceDetailsFragment(place.placeId!!)
+            findNavController().navigate(direction)
+        }
+    }
+
+    private fun setupViews() {
+        recycler = binding.recyclerPlaceList.apply {
+            layoutManager = LinearLayoutManager(requireContext())
+        }
+    }
 
     fun setupPagedPlaceList() {
         val adapter = PlacePagingAdapter(onPlaceClickListener)
@@ -57,22 +86,7 @@ class PlaceListFragment : BaseFragment(R.layout.fragment_place_list) {
         observeLoadState(adapter)
     }
 
-    fun observePlaces() {
-        recycler = binding.recyclerPlaceList.apply {
-            layoutManager = LinearLayoutManager(requireContext())
-        }
-        lifecycleScope.launch {
-            viewModel.getPlaces(56.363618, 41.311222, 1.0)
-            viewModel.place.observe(viewLifecycleOwner) {
-                it.map { places ->
-                    val adapter = PlaceListAdapter(places)
-                    recycler.adapter = adapter
-                }
-            }
-        }
-    }
-
-    fun observePagedPlaces(adapter: PlacePagingAdapter) {
+    private fun observePagedPlaces(adapter: PlacePagingAdapter) {
         lifecycleScope.launch {
             viewModel.placesFlow.collectLatest { pagingData ->
                 adapter.submitData(pagingData)
@@ -88,13 +102,7 @@ class PlaceListFragment : BaseFragment(R.layout.fragment_place_list) {
         }
     }
 
-    private val onPlaceClickListener = object : OnPlaceClickListener {
-        override fun onPlaceClick(place: Place, position: Int) {
-            val direction =
-                PlaceListFragmentDirections.actionPlaceListFragmentToPlaceMapFragment()
-            findNavController().navigate(direction)
-        }
-    }
+
 }
 
 

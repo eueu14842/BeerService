@@ -2,16 +2,16 @@ package com.example.beerservice.sources.place.entities
 
 import com.example.beerservice.app.model.place.entities.Place
 
-class PlaceRequestEntity(
-    val placeId: Int,
-    val name: String,
-    val address: String,
-    val description: String,
-    val type: String,
-    val image: String,
-    val city: String,
-    val geoLat: String,
-    val geoLon: String,
+class GetPlaceResponseEntity(
+    val placeId: Int? = null,
+    val name: String? = null,
+    val address: String? = null,
+    val description: String? = null,
+    val type: String? = null,
+    val image: String? = null,
+    val city: String? = null,
+    val geoLat: Double? = null,
+    val geoLon: Double? = null,
 ) {
     fun toPlace() = Place(
         placeId = placeId,

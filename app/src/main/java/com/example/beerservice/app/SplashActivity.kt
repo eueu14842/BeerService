@@ -1,6 +1,5 @@
 package com.example.beerservice.app
 
-import android.app.Activity
 import android.os.Bundle
 import android.widget.Toolbar
 import androidx.appcompat.app.AppCompatActivity

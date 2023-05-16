@@ -1,27 +1,26 @@
 package com.example.beerservice.app.screens.main
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.navigation.NavController
 import androidx.navigation.NavDestination
-import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
-import androidx.navigation.ui.AppBarConfiguration
-import androidx.navigation.ui.setupActionBarWithNavController
 import com.example.beerservice.R
-import com.example.beerservice.app.screens.main.auth.SignInFragment
+import com.example.beerservice.app.Const.MAPKIT_API_KEY
 import com.example.beerservice.app.screens.main.tabs.TabsFragment
+import com.yandex.mapkit.MapKitFactory
 import java.util.regex.Pattern
+
 
 class MainActivity : AppCompatActivity() {
 
     private var navController: NavController? = null
 
-    private val topLevelDestinations = setOf(getTabsDestination(), getSignInDestination())
+    private val topLevelDestinations = setOf(getTabsDestination(), getSignInDestination(),getSearchDestination())
 
     private val fragmentListener = object : FragmentManager.FragmentLifecycleCallbacks() {
         override fun onFragmentViewCreated(
@@ -40,10 +39,10 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        setupMapKit()
         val navController = getRootNavController()
         prepareRootNavController(isSignedIn(), navController)
         onNavControllerActivated(navController)
-
         supportFragmentManager.registerFragmentLifecycleCallbacks(fragmentListener, true)
     }
 
@@ -129,6 +128,12 @@ class MainActivity : AppCompatActivity() {
     private fun getTabsDestination(): Int = R.id.tabsFragment
 
     private fun getSignInDestination(): Int = R.id.signInFragment
+
+    private fun getSearchDestination(): Int = R.id.placeContainerFragment
+
+    private fun setupMapKit() {
+        MapKitFactory.setApiKey(MAPKIT_API_KEY)
+    }
 
 
 }

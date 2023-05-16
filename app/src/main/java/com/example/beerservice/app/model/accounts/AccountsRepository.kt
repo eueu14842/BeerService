@@ -59,6 +59,7 @@ class AccountsRepository(
         }
     }
 
+
     suspend fun doGetProfile(): User = wrapBackendExceptions {
         try {
             accountsSource.getUser()

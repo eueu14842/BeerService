@@ -13,7 +13,7 @@ import com.example.beerservice.sources.feedback.RetrofitFeedbackSource
 import com.example.beerservice.sources.place.RetrofitPlaceSource
 
 class RetrofitSourcesProvider(
-    val retrofitConfig: RetrofitConfig
+    private val retrofitConfig: RetrofitConfig
 ): SourcesProvider {
     override fun getAccountsSource(): AccountsSource {
         return RetrofitAccountSource(retrofitConfig)

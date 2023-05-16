@@ -23,13 +23,15 @@ class RetrofitBeerSource(config: RetrofitConfig) : BaseRetrofitSource(config), B
     }
 
 
-    override suspend fun getBeersListByBreweryId(breweryId: Int,limit:Int,offest: Int) = wrapRetrofitExceptions {
-        beerApi.getBeerListByBreweryId(breweryId,limit,offest).map { it.toBeer() }
-    }
+    override suspend fun getBeersListByBreweryId(breweryId: Int, limit: Int, offest: Int) =
+        wrapRetrofitExceptions {
+            beerApi.getBeerListByBreweryId(breweryId, limit, offest).map { it.toBeer() }
+        }
 
-    override suspend fun getBeerListByPlaceId(placeId: Int): List<Beer> =  wrapRetrofitExceptions  {
-       beerApi.getBeersByPlaceId(placeId).map { it.toBeer() }
-    }
+    override suspend fun getBeersListByPlaceId(placeId: Int, limit: Int, offest: Int): List<Beer> =
+        wrapRetrofitExceptions {
+            beerApi.getBeersByPlaceId(placeId, limit, offest).map { it.toBeer() }
+        }
 
     override suspend fun getBeerAdblockList(): List<Beer> = wrapRetrofitExceptions {
         beerApi.getBeerAdblockList().map { it.toBeer() }

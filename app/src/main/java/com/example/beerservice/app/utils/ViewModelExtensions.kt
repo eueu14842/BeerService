@@ -22,6 +22,7 @@ fun <T> LiveData<ResultState<T>>.observeResult(
 ) {
     observe(fragment.viewLifecycleOwner) { result ->
         resultStateView.setResult(fragment, result)
+
         val rootView: View = if (root is ScrollView)
             root.getChildAt(0)
         else

@@ -3,16 +3,16 @@ package com.example.beerservice.sources.accounts.entites
 import com.example.beerservice.app.model.accounts.entities.User
 
 data class GetUserResponseEntity(
-    val userId: Int,
-    val userName: String,
-    val login: String,
-    val mail: String,
-    val telephoneNumber: String,
-    val birthday: String,
-    val country: String,
-    val image: String,
-    val dateReg: String,
-    val totalFeedback: Int
+    val userId: Int? = null,
+    val userName: String? = null,
+    val login: String? = null,
+    val mail: String? = null,
+    val telephoneNumber: String? = null,
+    val birthday: String? = null,
+    val country: String? = null,
+    val image: String? = null,
+    val dateReg: String? = null,
+    val totalFeedback: Int? = null
 
 ) {
     fun toUser(): User = User(

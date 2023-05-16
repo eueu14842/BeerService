@@ -1,9 +1,9 @@
 package com.example.beerservice.sources.accounts.entites
 
 data class SignUpRequestEntity(
-    val tel: String,
-    val mail: String,
-    val userName: String,
-    val login: String,
-    val password: String
+    val tel: String? = null,
+    val mail: String? = null,
+    val userName: String? = null,
+    val login: String? = null,
+    val password: String? = null
 )

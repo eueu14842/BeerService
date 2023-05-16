@@ -27,8 +27,12 @@ interface BeerApi {
     @GET("beer/adblock")
     suspend fun getBeerAdblockList(): List<GetBeerResponseEntity>
 
-    @GET("/beer/place")
-    suspend fun getBeersByPlaceId(@Query("id") placeId: Int): List<GetBeerResponseEntity>
+    @GET("beer/place")
+    suspend fun getBeersByPlaceId(
+        @Query("id") placeId: Int,
+        @Query("limit") limit: Int,
+        @Query("offset") offset: Int
+    ): List<GetBeerResponseEntity>
 
     @GET("beer/list")
     suspend fun getPagedBeers(

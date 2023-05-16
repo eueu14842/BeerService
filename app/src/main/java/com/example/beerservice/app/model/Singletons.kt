@@ -14,6 +14,8 @@ import com.example.beerservice.app.model.place.PlacesRepository
 import com.example.beerservice.app.model.settings.AppSettings
 import com.example.beerservice.app.model.settings.SharedPrefAppSettings
 import com.example.beerservice.sources.SourceProviderHolder
+import com.yandex.mapkit.MapKit
+import com.yandex.mapkit.MapKitFactory
 
 object Singletons {
 
@@ -74,6 +76,7 @@ object Singletons {
             feedbackSource = feedbackSource
         )
     }
+
 
     fun init(appContext: Context) {
         Singletons.appContext = appContext

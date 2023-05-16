@@ -2,20 +2,22 @@ package com.example.beerservice.app.screens.main.tabs.home
 
 import android.os.Bundle
 import android.view.View
-import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.ui.NavigationUI
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.beerservice.R
 import com.example.beerservice.app.model.beers.entities.Beer
 import com.example.beerservice.app.model.brewery.entities.Brewery
+import com.example.beerservice.app.model.place.entities.Place
 import com.example.beerservice.app.screens.base.BaseFragment
 import com.example.beerservice.app.screens.main.tabs.home.beers.adapters.BeerAdblockAdapter
 import com.example.beerservice.app.screens.main.tabs.home.beers.adapters.OnBeerAdblockClickListener
 import com.example.beerservice.app.screens.main.tabs.home.brewery.BreweryAdapter
-import com.example.beerservice.app.screens.main.tabs.home.brewery.BreweryDetailsFragmentDirections
 import com.example.beerservice.app.screens.main.tabs.home.brewery.OnBreweryClickListener
+import com.example.beerservice.app.screens.main.tabs.home.places.adapters.OnPlaceClickListener
 import com.example.beerservice.app.screens.main.tabs.home.places.adapters.PlaceAdblockAdapter
 import com.example.beerservice.app.utils.ViewModelFactory
 import com.example.beerservice.app.utils.observeResult
@@ -45,7 +47,9 @@ class HomeFragment : BaseFragment(R.layout.fragment_home) {
         binding.showAllStoresTextView.setOnClickListener { navigateToPlaceListEvent() }
 
 
+
     }
+
 
     private fun initViews() {
         with(binding) {
@@ -66,8 +70,6 @@ class HomeFragment : BaseFragment(R.layout.fragment_home) {
         beerRecycler = binding.recyclerBeer
         placeRecycler = binding.recyclerPlaces
     }
-
-
     private fun observeBreweryAdblock() {
         binding.resultViewState.setTryAgainAction { println("try again") }
         viewModel.brewery.observeResult(this, binding.root, binding.resultViewState) { breweries ->
@@ -86,7 +88,7 @@ class HomeFragment : BaseFragment(R.layout.fragment_home) {
 
     private fun observePlaceAdblock() {
         viewModel.place.observeResult(this, binding.root, binding.resultViewState) { stores ->
-            val adapter = PlaceAdblockAdapter(stores)
+            val adapter = PlaceAdblockAdapter(stores, onPlaceClickListener)
             placeRecycler.adapter = adapter
         }
     }
@@ -95,7 +97,7 @@ class HomeFragment : BaseFragment(R.layout.fragment_home) {
     private val onBreweryClickListener = object : OnBreweryClickListener {
         override fun onBreweryClick(brewery: Brewery, position: Int) {
             val direction =
-                HomeFragmentDirections.actionHomeFragmentToBreweryDetailsFragment(brewery.id)
+                HomeFragmentDirections.actionHomeFragmentToBreweryDetailsFragment(brewery.id!!)
             findNavController().navigate(direction)
         }
     }
@@ -103,7 +105,17 @@ class HomeFragment : BaseFragment(R.layout.fragment_home) {
 
     private val onBeerAdblockClickListener = object : OnBeerAdblockClickListener {
         override fun onBeerClick(beer: Beer, position: Int) {
-            val direction = HomeFragmentDirections.actionHomeFragmentToBeerDetailsFragment(beer.id)
+            val direction =
+                HomeFragmentDirections.actionHomeFragmentToBeerDetailsFragment(beer.id!!)
+            findNavController().navigate(direction)
+        }
+    }
+
+
+    private val onPlaceClickListener = object : OnPlaceClickListener {
+        override fun onPlaceClick(place: Place, position: Int) {
+            val direction =
+                HomeFragmentDirections.actionHomeFragmentToPlaceDetailsFragment(place.placeId!!)
             findNavController().navigate(direction)
         }
     }
@@ -118,6 +130,6 @@ class HomeFragment : BaseFragment(R.layout.fragment_home) {
     }
 
     private fun navigateToPlaceListEvent() {
-        findNavController().navigate(R.id.action_homeFragment_to_placeFragment)
+        findNavController().navigate(R.id.action_homeFragment_to_search)
     }
 }

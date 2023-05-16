@@ -7,7 +7,10 @@ import com.bumptech.glide.Glide
 import com.example.beerservice.app.model.place.entities.Place
 import com.example.beerservice.databinding.ItemBreweryBinding
 
-class PlaceAdblockAdapter(val breweryList: List<Place>) :
+class PlaceAdblockAdapter(
+    private val breweryList: List<Place>,
+    val onPlaceAdblockClickListener: OnPlaceClickListener
+) :
     RecyclerView.Adapter<PlaceAdblockAdapter.BreweryViewHolder>() {
     class BreweryViewHolder(val binding: ItemBreweryBinding) : RecyclerView.ViewHolder(binding.root)
 
@@ -25,7 +28,9 @@ class PlaceAdblockAdapter(val breweryList: List<Place>) :
                 .into(ivBreweryImage)
             tvBreweryName.text = place.name
             tvBreweryDescription.text = place.description
-
+        }
+        holder.itemView.setOnClickListener {
+            onPlaceAdblockClickListener.onPlaceClick(place, position)
         }
     }
 

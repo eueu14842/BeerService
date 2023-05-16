@@ -43,7 +43,7 @@ class BeerDetailsFragment : BaseFragment(R.layout.fragment_beer_details) {
     }
 
 
-    fun setupFeedbackList() {
+    private fun setupFeedbackList() {
         val adapter = FeedbackForBeerPagingAdapter(onFeedbackClickListener)
         val tryAgainAction: TryAgainAction = { adapter.retry() }
         val footerAdapter = DefaultLoadStateAdapter(tryAgainAction)
@@ -60,7 +60,7 @@ class BeerDetailsFragment : BaseFragment(R.layout.fragment_beer_details) {
 
     }
 
-    fun setupBeerDetailsBlock() {
+    private fun setupBeerDetailsBlock() {
         viewModel.getBeerById(navArgs.beerId)
         viewModel.beer.observe(viewLifecycleOwner) {
             when (it) {
@@ -74,7 +74,7 @@ class BeerDetailsFragment : BaseFragment(R.layout.fragment_beer_details) {
                         textViewBeerDescription.text = it.value.description
                         textViewBeerTitle.text = it.value.name
 
-                        setBeerId(it.value.id)
+                        setBeerId(it.value.id!!)
                     }
 
                 }

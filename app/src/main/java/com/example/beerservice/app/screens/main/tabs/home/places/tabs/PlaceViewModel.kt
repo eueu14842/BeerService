@@ -1,4 +1,4 @@
-package com.example.beerservice.app.screens.main.tabs.home.places
+package com.example.beerservice.app.screens.main.tabs.home.places.tabs
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.asFlow
@@ -11,20 +11,19 @@ import com.example.beerservice.app.model.place.PlacesRepository
 import com.example.beerservice.app.model.place.entities.Place
 import com.example.beerservice.app.screens.base.BaseViewModel
 import com.example.beerservice.app.utils.share
+import com.yandex.mapkit.geometry.Point
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.debounce
 import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.launch
 
-class PlaceListViewModel(
+class PlaceViewModel(
     private val placeRepository: PlacesRepository = Singletons.placesRepository,
 ) : BaseViewModel() {
 
     var placesFlow: Flow<PagingData<Place>>
     private var searchBy = MutableLiveData("")
 
-    private var _beers = MutableLiveData<ResultState<Beer>>()
-    val beers = _beers.share()
 
     private var _place = MutableLiveData<ResultState<List<Place>>>()
     val place = _place.share()
@@ -37,15 +36,15 @@ class PlaceListViewModel(
             }.cachedIn(viewModelScope)
     }
 
-    fun getPlaces(lat: Double, lon: Double, rad: Double) {
-        viewModelScope.launch {
-            val places = placeRepository.getPlacesList(lat, lon, rad)
-            if (places.isNullOrEmpty()) _place.value =
-                ErrorResult(java.lang.IllegalStateException(""))
-            else _place.value = Pending()
-            _place.value = Success(places)
+     fun getPlaces(lat: Double, lon: Double, rad: Double) {
+         viewModelScope.launch {
+             val places = placeRepository.getPlacesList(lat, lon, rad)
+             if (places.isEmpty()) _place.value =
+                 ErrorResult(java.lang.IllegalStateException(""))
+             else _place.value = Pending()
+             _place.value = Success(places)
+         }
 
-        }
 
     }
 
