@@ -47,7 +47,6 @@ class HomeFragment : BaseFragment(R.layout.fragment_home) {
         binding.showAllStoresTextView.setOnClickListener { navigateToPlaceListEvent() }
 
 
-
     }
 
 
