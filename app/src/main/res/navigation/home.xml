@@ -30,7 +30,9 @@
             app:destination="@id/placeListFragment" />
         <action
             android:id="@+id/action_homeFragment_to_search"
-            app:destination="@id/search" />
+            app:destination="@id/search"
+            app:popUpTo="@id/homeFragment"
+            app:popUpToInclusive="true" />
     </fragment>
 
 

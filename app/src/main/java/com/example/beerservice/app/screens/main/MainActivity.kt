@@ -15,7 +15,7 @@ import com.example.beerservice.app.screens.main.tabs.TabsFragment
 import com.yandex.mapkit.MapKitFactory
 import java.util.regex.Pattern
 
-// TODO: com1 
+
 class MainActivity : AppCompatActivity() {
 
     private var navController: NavController? = null
@@ -129,7 +129,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun getSignInDestination(): Int = R.id.signInFragment
 
-    private fun getSearchDestination(): Int = R.navigation.search
+    private fun getSearchDestination(): Int = R.id.placeContainerFragment
 
     private fun setupMapKit() {
         MapKitFactory.setApiKey(MAPKIT_API_KEY)
