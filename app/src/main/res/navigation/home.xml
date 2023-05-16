@@ -28,6 +28,9 @@
         <action
             android:id="@+id/action_homeFragment_to_placeDetailsFragment"
             app:destination="@id/placeDetailsFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_search"
+            app:destination="@id/search" />
     </fragment>
 
     <fragment
@@ -138,6 +141,7 @@
             android:id="@+id/action_placeDetailsFragment_to_beerDetailsFragment"
             app:destination="@id/beerDetailsFragment" />
     </fragment>
+    <include app:graph="@navigation/search" />
 
 
 </navigation>
