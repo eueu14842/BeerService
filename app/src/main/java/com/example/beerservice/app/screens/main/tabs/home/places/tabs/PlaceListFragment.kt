@@ -29,7 +29,7 @@ class PlaceListFragment : BaseFragment(R.layout.fragment_place_list) {
     lateinit var binding: FragmentPlaceListBinding
     lateinit var recycler: RecyclerView
     override val viewModel: PlaceViewModel by viewModels { ViewModelFactory() }
-    private val navArgs by navArgs<PlaceListFragmentArgs>()
+//    private val navArgs by navArgs<PlaceListFragmentArgs>()
 
     override fun onCreateView(
         inflater: LayoutInflater,

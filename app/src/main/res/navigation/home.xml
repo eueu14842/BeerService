@@ -17,9 +17,6 @@
             android:id="@+id/action_homeFragment_to_breweryListFragment"
             app:destination="@id/breweryListFragment" />
         <action
-            android:id="@+id/action_homeFragment_to_placeFragment"
-            app:destination="@id/placeContainerFragment" />
-        <action
             android:id="@+id/action_homeFragment_to_beerDetailsFragment"
             app:destination="@id/beerDetailsFragment" />
         <action
@@ -31,39 +28,6 @@
         <action
             android:id="@+id/action_homeFragment_to_search"
             app:destination="@id/search" />
-    </fragment>
-
-    <fragment
-        android:id="@+id/placeContainerFragment"
-        android:name="com.example.beerservice.app.screens.main.tabs.home.places.tabs.PlaceContainerFragment"
-        android:label="Точки продаж"
-        tools:layout="@layout/fragment_place_container">
-        <action
-            android:id="@+id/action_placeFragment_to_placeMapFragment"
-            app:destination="@id/placeMapFragment" />
-        <action
-            android:id="@+id/action_placeFragment_to_placeListFragment"
-            app:destination="@id/placeListFragment" />
-        <action
-            android:id="@+id/action_placeFragment_to_placeDetailsFragment"
-            app:destination="@id/placeDetailsFragment" />
-    </fragment>
-
-    <fragment
-        android:id="@+id/placeMapFragment"
-        android:name="com.example.beerservice.app.screens.main.tabs.home.places.tabs.PlaceMapFragment"
-        android:label="Карта"
-        tools:layout="@layout/fragment_places_map">
-        <argument
-            android:name="myArgs"
-            android:defaultValue="1"
-            app:argType="integer" />
-        <action
-            android:id="@+id/action_placeMapFragment_to_placeListFragment"
-            app:destination="@id/placeListFragment" />
-        <action
-            android:id="@+id/action_placeMapFragment_to_placeDetailsFragment"
-            app:destination="@id/placeDetailsFragment" />
     </fragment>
 
 
@@ -111,24 +75,6 @@
     </fragment>
 
 
-    <fragment
-        android:id="@+id/placeListFragment"
-        android:name="com.example.beerservice.app.screens.main.tabs.home.places.tabs.PlaceListFragment"
-        android:label="Список"
-        tools:layout="@layout/fragment_place_list">
-        <action
-            android:id="@+id/action_placeListFragment_to_placeMapFragment"
-            app:destination="@id/placeMapFragment" />
-        <argument
-            android:name="geoLat"
-            app:argType="float" />
-        <argument
-            android:name="geoLon"
-            app:argType="float" />
-        <action
-            android:id="@+id/action_placeListFragment_to_placeDetailsFragment"
-            app:destination="@id/placeDetailsFragment" />
-    </fragment>
     <fragment
         android:id="@+id/placeDetailsFragment"
         android:name="com.example.beerservice.app.screens.main.tabs.home.places.PlaceDetailsFragment"

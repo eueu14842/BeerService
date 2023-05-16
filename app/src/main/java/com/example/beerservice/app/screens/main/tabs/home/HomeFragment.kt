@@ -42,7 +42,7 @@ class HomeFragment : BaseFragment(R.layout.fragment_home) {
 
         binding.showAllBreweryTextView.setOnClickListener { navigateToBreweryListEvent() }
         binding.showAllBeerTextView.setOnClickListener { navigateToBeerListEvent() }
-        binding.showAllStoresTextView.setOnClickListener { navigateToPlaceListEvent() }
+//        binding.showAllStoresTextView.setOnClickListener { navigateToPlaceListEvent() }
 
 
     }
@@ -127,7 +127,7 @@ class HomeFragment : BaseFragment(R.layout.fragment_home) {
         findNavController().navigate(R.id.action_homeFragment_to_beersListFragment)
     }
 
-    private fun navigateToPlaceListEvent() {
+   /* private fun navigateToPlaceListEvent() {
         findNavController().navigate(R.id.action_homeFragment_to_placeFragment)
-    }
+    }*/
 }
