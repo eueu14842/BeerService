@@ -46,13 +46,13 @@ class PlaceListFragment : BaseFragment(R.layout.fragment_place_list) {
     //    43.592918, 39.728160
     private fun observePlaces() {
         lifecycleScope.launch {
-                viewModel.getPlaces(43.592918, 39.728160, 5.0)
-                viewModel.place.observe(viewLifecycleOwner) {
-                    it.map { places ->
-                        val adapter = PlaceListAdapter(places,onPlaceClickListener)
-                        recycler.adapter = adapter
-                    }
+            viewModel.getPlaces(43.592918, 39.728160, 5.0)
+            viewModel.place.observe(viewLifecycleOwner) {
+                it.map { places ->
+                    val adapter = PlaceListAdapter(places, onPlaceClickListener)
+                    recycler.adapter = adapter
                 }
+            }
         }
     }
 
@@ -101,10 +101,6 @@ class PlaceListFragment : BaseFragment(R.layout.fragment_place_list) {
             }
         }
     }
-
-
-
-
 
 
 }

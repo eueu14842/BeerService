@@ -46,20 +46,16 @@ class PlaceMapFragment : BaseFragment(R.layout.fragment_places_map), CameraListe
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View? {
-
         binding = FragmentPlacesMapBinding.inflate(inflater, container, false)
-        mapview = binding.mapview
 
+        mapview = binding.mapview
         map = mapview.map
         mapObjects = map.mapObjects.addCollection()
 
         map.addCameraListener(this)
-
         setupLocationManager()
-
         point = getCurrentPosition(getProvider())
         onNavigateToCurrentPosition(point)
-
         observePlaces(point.latitude, point.longitude)
 
         return binding.root
@@ -146,9 +142,6 @@ class PlaceMapFragment : BaseFragment(R.layout.fragment_places_map), CameraListe
         }
     }
 
-    class MapObjectPlaceData(
-        val id: Int?, val description: String?, val geoLat: Double?, val geoLon: Double?
-    )
 
     override fun onStop() {
         mapview.onStop()
@@ -181,6 +174,7 @@ class PlaceMapFragment : BaseFragment(R.layout.fragment_places_map), CameraListe
         }
     }
 
+
     /**
      * Рассчитываем радиус в километрах при текущем zoom level
      * @param zoom текущий масштаб карты (zoom level)
@@ -198,9 +192,11 @@ class PlaceMapFragment : BaseFragment(R.layout.fragment_places_map), CameraListe
         // Радиус в километрах с учетом широты
         val radius =
             earthRadiusInKilometers * cos(latitude * degreesToRadiansFactor) * angularResolution / 2.0
-
         return radius
     }
 
+    class MapObjectPlaceData(
+        val id: Int?, val description: String?, val geoLat: Double?, val geoLon: Double?
+    )
 
 }
