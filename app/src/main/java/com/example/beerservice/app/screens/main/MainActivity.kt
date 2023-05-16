@@ -1,6 +1,5 @@
 package com.example.beerservice.app.screens.main
 
-import android.location.LocationManager
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
