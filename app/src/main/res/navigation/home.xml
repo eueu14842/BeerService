@@ -26,6 +26,9 @@
             android:id="@+id/action_homeFragment_to_placeDetailsFragment"
             app:destination="@id/placeDetailsFragment" />
         <action
+            android:id="@+id/action_homeFragment_to_placeListFragment"
+            app:destination="@id/placeListFragment" />
+        <action
             android:id="@+id/action_homeFragment_to_search"
             app:destination="@id/search" />
     </fragment>
@@ -86,6 +89,16 @@
         <action
             android:id="@+id/action_placeDetailsFragment_to_beerDetailsFragment"
             app:destination="@id/beerDetailsFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@id/placeListFragment"
+        android:name="com.example.beerservice.app.screens.main.tabs.home.places.tabs.PlaceListFragment"
+        android:label="PlaceListFragment"
+        tools:layout="@layout/fragment_place_list">
+        <action
+            android:id="@+id/action_placeListFragment_to_placeDetailsFragment"
+            app:destination="@id/placeDetailsFragment" />
     </fragment>
     <include app:graph="@navigation/search" />
 

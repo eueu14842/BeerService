@@ -26,30 +26,30 @@
     <fragment
         android:id="@id/placeListFragment"
         android:name="com.example.beerservice.app.screens.main.tabs.home.places.tabs.PlaceListFragment"
-        android:label="PlaceListFragment"
+        android:label="Список "
         tools:layout="@layout/fragment_place_list" />
     <fragment
         android:id="@id/placeMapFragment"
         android:name="com.example.beerservice.app.screens.main.tabs.home.places.tabs.PlaceMapFragment"
-        android:label="PlaceMapFragment"
+        android:label="Карта"
         tools:layout="@layout/fragment_places_map" />
 
     <fragment
         android:id="@id/placeDetailsFragment"
         android:name="com.example.beerservice.app.screens.main.tabs.home.places.PlaceDetailsFragment"
-        android:label="PlaceDetailsFragment"
+        android:label="Точка продаж"
         tools:layout="@layout/fragment_place_details">
         <argument
             android:name="placeId"
             app:argType="integer" />
         <action
-            android:id="@+id/action_placeDetailsFragment_to_beerDetailsFragment2"
+            android:id="@+id/action_placeDetailsFragment_to_beerDetailsFragment"
             app:destination="@id/beerDetailsFragment" />
     </fragment>
     <fragment
         android:id="@id/beerDetailsFragment"
         android:name="com.example.beerservice.app.screens.main.tabs.home.beers.BeerDetailsFragment"
-        android:label="BeerDetailsFragment"
+        android:label="Пиво"
         tools:layout="@layout/fragment_beer_details">
         <argument
             android:name="beerId"

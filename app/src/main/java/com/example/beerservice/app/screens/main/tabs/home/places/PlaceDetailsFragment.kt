@@ -105,7 +105,7 @@ class PlaceDetailsFragment : BaseFragment(R.layout.fragment_place_details) {
     private val onBeerClickListener = object : OnBeerClickListener {
         override fun onBeerClick(beer: Beer, position: Int) {
             val direction =
-                PlaceDetailsFragmentDirections.actionPlaceDetailsFragmentToBeerDetailsFragment2(beer.id!!)
+                PlaceDetailsFragmentDirections.actionPlaceDetailsFragmentToBeerDetailsFragment(beer.id!!)
             findNavController().navigate(direction)
         }
     }

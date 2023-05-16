@@ -43,7 +43,7 @@ class BeerDetailsFragment : BaseFragment(R.layout.fragment_beer_details) {
     }
 
 
-    fun setupFeedbackList() {
+    private fun setupFeedbackList() {
         val adapter = FeedbackForBeerPagingAdapter(onFeedbackClickListener)
         val tryAgainAction: TryAgainAction = { adapter.retry() }
         val footerAdapter = DefaultLoadStateAdapter(tryAgainAction)

@@ -2,8 +2,10 @@ package com.example.beerservice.app.screens.main.tabs.home
 
 import android.os.Bundle
 import android.view.View
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.ui.NavigationUI
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.beerservice.R
@@ -42,10 +44,12 @@ class HomeFragment : BaseFragment(R.layout.fragment_home) {
 
         binding.showAllBreweryTextView.setOnClickListener { navigateToBreweryListEvent() }
         binding.showAllBeerTextView.setOnClickListener { navigateToBeerListEvent() }
-//        binding.showAllStoresTextView.setOnClickListener { navigateToPlaceListEvent() }
+        binding.showAllStoresTextView.setOnClickListener { navigateToPlaceListEvent() }
+
 
 
     }
+
 
     private fun initViews() {
         with(binding) {
@@ -66,8 +70,6 @@ class HomeFragment : BaseFragment(R.layout.fragment_home) {
         beerRecycler = binding.recyclerBeer
         placeRecycler = binding.recyclerPlaces
     }
-
-
     private fun observeBreweryAdblock() {
         binding.resultViewState.setTryAgainAction { println("try again") }
         viewModel.brewery.observeResult(this, binding.root, binding.resultViewState) { breweries ->
@@ -127,7 +129,7 @@ class HomeFragment : BaseFragment(R.layout.fragment_home) {
         findNavController().navigate(R.id.action_homeFragment_to_beersListFragment)
     }
 
-   /* private fun navigateToPlaceListEvent() {
-        findNavController().navigate(R.id.action_homeFragment_to_placeFragment)
-    }*/
+    private fun navigateToPlaceListEvent() {
+        findNavController().navigate(R.id.action_homeFragment_to_search)
+    }
 }
