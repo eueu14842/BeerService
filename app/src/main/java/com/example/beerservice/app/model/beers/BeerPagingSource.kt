@@ -3,7 +3,6 @@ package com.example.beerservice.app.model.beers
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
 import com.example.beerservice.app.model.beers.entities.Beer
-import com.example.beerservice.app.model.brewery.entities.Brewery
 
 typealias BeerPageLoader = suspend (pageIndex: Int, pageSize: Int) -> List<Beer>
 

@@ -11,8 +11,4 @@ import com.example.beerservice.app.utils.ViewModelFactory
 abstract class BaseFragment(@LayoutRes layoutId: Int) : Fragment(layoutId) {
     abstract val viewModel: BaseViewModel
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-
-
-    }
 }

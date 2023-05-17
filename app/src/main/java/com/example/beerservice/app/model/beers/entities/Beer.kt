@@ -1,7 +1,5 @@
 package com.example.beerservice.app.model.beers.entities
 
-import com.example.beerservice.app.model.feedback.entities.FeedbackBeer
-
 data class Beer(
     val id: Int? = null,
     val name: String? = null,
@@ -9,8 +7,8 @@ data class Beer(
     val averageRating: Float? = null,
     val style: String? = null,
     val image: String? = null,
-    val abv: Float? =null,
+    val abv: Float? = null,
     val ibu: Float? = null,
     val breweryId: Int? = null,
     val totalReviews: Int? = null,
-    )
+)
