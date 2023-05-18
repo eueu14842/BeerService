@@ -4,6 +4,7 @@ package com.example.beerservice.app.screens.main.tabs.home.places.tabs
 import android.Manifest
 import android.content.Context
 import android.content.pm.PackageManager
+import android.location.Criteria
 import android.location.Location
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -13,6 +14,7 @@ import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import com.example.beerservice.R
 import com.example.beerservice.app.screens.base.BaseFragment
 import com.example.beerservice.app.utils.ViewModelFactory
@@ -33,11 +35,12 @@ class PlaceMapFragment : BaseFragment(R.layout.fragment_places_map), CameraListe
     lateinit var binding: FragmentPlacesMapBinding
     override val viewModel: PlaceViewModel by viewModels { ViewModelFactory() }
 
-    var locationManager: android.location.LocationManager? = null
+    private var locationManager: android.location.LocationManager? = null
 
     lateinit var map: Map
     lateinit var mapObjects: MapObjectCollection
     lateinit var point: Point
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         MapKitFactory.initialize(requireActivity())
@@ -52,11 +55,13 @@ class PlaceMapFragment : BaseFragment(R.layout.fragment_places_map), CameraListe
         map = mapview.map
         mapObjects = map.mapObjects.addCollection()
 
-        map.addCameraListener(this)
+
         setupLocationManager()
-        point = getCurrentPosition(getProvider())
-        onNavigateToCurrentPosition(point)
+
+        point = getCurrentPosition(getAvailableProvider())
         observePlaces(point.latitude, point.longitude)
+        onNavigateToCurrentPosition(point)
+        map.addCameraListener(this)
 
         return binding.root
 
@@ -79,6 +84,7 @@ class PlaceMapFragment : BaseFragment(R.layout.fragment_places_map), CameraListe
                             )
                         )
                     }
+                    setLocation(lat, lon)
                 }
             }
         }
@@ -108,11 +114,25 @@ class PlaceMapFragment : BaseFragment(R.layout.fragment_places_map), CameraListe
     }
 
 
-    private fun getProvider() = android.location.LocationManager.GPS_PROVIDER
+    private fun setLocation(lat: Double, lon: Double) {
+        viewModel.setPlacesLocation(lat, lon)
+    }
+
+
+    private fun getAvailableProvider(): String {
+        val providers = locationManager!!.getProviders(true)
+        for (provider in providers) {
+            if (locationManager!!.isProviderEnabled(provider)) {
+                return provider
+            }
+        }
+        return android.location.LocationManager.NETWORK_PROVIDER
+    }
 
     private fun setupLocationManager() {
         locationManager =
             context?.getSystemService(Context.LOCATION_SERVICE) as? android.location.LocationManager
+
     }
 
     private fun createTappableMark(placeMark: MapObjectPlaceData) {
@@ -136,7 +156,9 @@ class PlaceMapFragment : BaseFragment(R.layout.fragment_places_map), CameraListe
         override fun onMapObjectTap(mapObject: MapObject, point: Point): Boolean {
             if (mapObject is PlacemarkMapObject) {
                 val data = mapObject.userData as MapObjectPlaceData
-                Toast.makeText(requireContext(), "${data.description}", Toast.LENGTH_SHORT).show()
+                val direction =
+                    PlaceContainerFragmentDirections.actionPlaceFragmentToPlaceDetailsFragment(data.id!!)
+                findNavController().navigate(direction)
             }
             return true
         }

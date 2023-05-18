@@ -7,7 +7,6 @@ import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
-import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.ConcatAdapter
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -46,6 +45,9 @@ class PlaceListFragment : BaseFragment(R.layout.fragment_place_list) {
     //    43.592918, 39.728160
     private fun observePlaces() {
         lifecycleScope.launch {
+            viewModel.location.observe(viewLifecycleOwner) {
+
+            }
             viewModel.getPlaces(43.592918, 39.728160, 5.0)
             viewModel.place.observe(viewLifecycleOwner) {
                 it.map { places ->
@@ -56,6 +58,9 @@ class PlaceListFragment : BaseFragment(R.layout.fragment_place_list) {
         }
     }
 
+    private fun setLocation(lat: Double, lon: Double) {
+        viewModel.setPlacesLocation(lat, lon)
+    }
 
     private val onPlaceClickListener = object : OnPlaceClickListener {
         override fun onPlaceClick(place: Place, position: Int) {

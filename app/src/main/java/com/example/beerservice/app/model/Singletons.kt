@@ -14,8 +14,7 @@ import com.example.beerservice.app.model.place.PlacesRepository
 import com.example.beerservice.app.model.settings.AppSettings
 import com.example.beerservice.app.model.settings.SharedPrefAppSettings
 import com.example.beerservice.sources.SourceProviderHolder
-import com.yandex.mapkit.MapKit
-import com.yandex.mapkit.MapKitFactory
+
 
 object Singletons {
 
@@ -53,19 +52,16 @@ object Singletons {
             appSettings = appSettings
         )
     }
-
     val breweryRepository: BreweryRepository by lazy {
         BreweryRepository(
             brewerySource = brewerySource
         )
     }
-
     val beerRepository: BeersRepository by lazy {
         BeersRepository(
             beersSource = beersSource
         )
     }
-
     val placesRepository: PlacesRepository by lazy {
         PlacesRepository(
             placeSource = placeSource
