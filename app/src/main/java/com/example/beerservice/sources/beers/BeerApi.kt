@@ -1,8 +1,6 @@
 package com.example.beerservice.sources.beers
 
-import com.example.beerservice.app.model.beers.entities.Beer
 import com.example.beerservice.sources.beers.entities.GetBeerResponseEntity
-import com.example.beerservice.sources.brewery.entities.GetBreweryResponseEntity
 import retrofit2.http.GET
 import retrofit2.http.POST
 import retrofit2.http.Query

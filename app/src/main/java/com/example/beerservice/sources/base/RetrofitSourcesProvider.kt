@@ -14,21 +14,22 @@ import com.example.beerservice.sources.place.RetrofitPlaceSource
 
 class RetrofitSourcesProvider(
     private val retrofitConfig: RetrofitConfig
-): SourcesProvider {
+) : SourcesProvider {
+
     override fun getAccountsSource(): AccountsSource {
         return RetrofitAccountSource(retrofitConfig)
     }
 
     override fun getBeersSource(): BeersSource {
-    return RetrofitBeerSource(retrofitConfig)
+        return RetrofitBeerSource(retrofitConfig)
     }
 
     override fun getBrewerySource(): BrewerySource {
-      return RetrofitBrewerySource(retrofitConfig)
+        return RetrofitBrewerySource(retrofitConfig)
     }
 
     override fun getFeedbackSource(): FeedbackSource {
-       return RetrofitFeedbackSource(retrofitConfig)
+        return RetrofitFeedbackSource(retrofitConfig)
     }
 
     override fun getPlacesSource(): PlaceSource {

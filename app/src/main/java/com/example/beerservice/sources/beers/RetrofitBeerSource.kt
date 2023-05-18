@@ -4,9 +4,9 @@ import com.example.beerservice.app.model.beers.BeersSource
 import com.example.beerservice.app.model.beers.entities.Beer
 import com.example.beerservice.sources.base.BaseRetrofitSource
 import com.example.beerservice.sources.base.RetrofitConfig
-import kotlinx.coroutines.delay
 
-class RetrofitBeerSource(config: RetrofitConfig) : BaseRetrofitSource(config), BeersSource {
+class RetrofitBeerSource(config: RetrofitConfig)
+    : BaseRetrofitSource(config), BeersSource {
 
     private val beerApi = config.retrofit.create(BeerApi::class.java)
 

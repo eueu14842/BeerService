@@ -13,8 +13,8 @@ class BeersRepository(
     val beersSource: BeersSource,
 ) {
 
-    suspend fun getBeerById(id: Int) : Beer{
-       return beersSource.getBeerById(id)
+    suspend fun getBeerById(id: Int): Beer {
+        return beersSource.getBeerById(id)
     }
 
     suspend fun getBeerList(): List<Beer> {
@@ -38,7 +38,6 @@ class BeersRepository(
         ).flow
     }
 
-
     private suspend fun getBeersByPlaceId(
         placeId: Int,
         pageIndex: Int,
@@ -48,7 +47,6 @@ class BeersRepository(
             val offset = pageIndex * pageSize
             return@withContext beersSource.getBeersListByPlaceId(placeId, pageSize, offset)
         }
-
 
     suspend fun getPagedBeerByBreweryId(breweryId: Int): Flow<PagingData<Beer>> {
         val loader: BeerPageLoader = { pageIndex, pageSize ->
