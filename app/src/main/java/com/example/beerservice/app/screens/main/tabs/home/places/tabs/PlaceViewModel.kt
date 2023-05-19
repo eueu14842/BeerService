@@ -26,7 +26,7 @@ class PlaceViewModel(
     private var _place = MutableLiveData<ResultState<List<Place>>>()
     val place = _place.share()
 
-    private var _location = MutableLiveData(Location())
+    private var _location = MutableLiveData(SharedLocation())
     var location = _location.share()
 
     init {
@@ -42,16 +42,16 @@ class PlaceViewModel(
             else _place.value = Pending()
             _place.value = Success(places)
         }
-
     }
 
-    fun setPlacesLocation(lat: Double, lon: Double) {
-        this._location.value = Location()
+    fun setPlacesLocation(lat: Double, lon: Double,rad:Double) {
+        this._location.value = SharedLocation()
     }
 
-    data class Location(
+    data class SharedLocation(
         val lat: Double = 43.592918,
-        val lon: Double = 39.728160
+        val lon: Double = 39.728160,
+        val rad: Double = 1.5
     )
 }
 

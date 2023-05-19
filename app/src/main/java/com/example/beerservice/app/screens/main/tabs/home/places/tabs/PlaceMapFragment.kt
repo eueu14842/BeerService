@@ -4,9 +4,9 @@ package com.example.beerservice.app.screens.main.tabs.home.places.tabs
 import android.Manifest
 import android.content.Context
 import android.content.pm.PackageManager
-import android.location.Criteria
 import android.location.Location
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -39,7 +39,8 @@ class PlaceMapFragment : BaseFragment(R.layout.fragment_places_map), CameraListe
 
     lateinit var map: Map
     lateinit var mapObjects: MapObjectCollection
-    lateinit var point: Point
+    private var point: Point = Point(55.764094, 37.617617)
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -55,10 +56,9 @@ class PlaceMapFragment : BaseFragment(R.layout.fragment_places_map), CameraListe
         map = mapview.map
         mapObjects = map.mapObjects.addCollection()
 
-
         setupLocationManager()
 
-        point = getCurrentPosition(getAvailableProvider())
+        getCurrentPosition(getAvailableProvider())
         observePlaces(point.latitude, point.longitude)
         onNavigateToCurrentPosition(point)
         map.addCameraListener(this)
@@ -66,8 +66,6 @@ class PlaceMapFragment : BaseFragment(R.layout.fragment_places_map), CameraListe
         return binding.root
 
     }
-
-    // 43.592918, 39.728160
 
     private fun observePlaces(lat: Double, lon: Double) {
         lifecycleScope.launch {
@@ -84,38 +82,42 @@ class PlaceMapFragment : BaseFragment(R.layout.fragment_places_map), CameraListe
                             )
                         )
                     }
-                    setLocation(lat, lon)
                 }
             }
         }
     }
 
-
     private fun onNavigateToCurrentPosition(point: Point) {
         mapview.map.move(CameraPosition(point, 14F, 0F, 0F))
     }
 
-    private fun getCurrentPosition(provider: String): Point {
-        return if (ActivityCompat.checkSelfPermission(
-                requireContext(), Manifest.permission.ACCESS_FINE_LOCATION
-            ) == PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(
-                requireContext(), Manifest.permission.ACCESS_COARSE_LOCATION
-            ) == PackageManager.PERMISSION_GRANTED
-        ) {
-            val location: Location =
-                locationManager?.getLastKnownLocation(provider) ?: return Point(
-                    55.755841, 37.617563
-                )
-            Point(
-                location.latitude, location.longitude
-            )
-        } else Point(55.755841, 37.617563)
+    private fun checkLocationPermission(): Boolean {
+        return ActivityCompat.checkSelfPermission(
+            requireContext(),
+            Manifest.permission.ACCESS_FINE_LOCATION
+        ) == PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(
+            requireContext(),
+            Manifest.permission.ACCESS_COARSE_LOCATION
+        ) == PackageManager.PERMISSION_GRANTED
+    }
 
+    private fun getCurrentPosition(provider: String) {
+        if (checkLocationPermission()) {
+            val location: Location? =
+                locationManager?.getLastKnownLocation(provider)
+            if (location != null) {
+                point = Point(location.latitude, location.longitude)
+                return
+            }
+            locationManager?.requestLocationUpdates(
+                provider, 0, 0f
+            ) { loc -> point = Point(loc.latitude, loc.longitude) }
+        } else return
     }
 
 
-    private fun setLocation(lat: Double, lon: Double) {
-        viewModel.setPlacesLocation(lat, lon)
+    private fun setLocation(lat: Double, lon: Double, rad: Double) {
+        viewModel.setPlacesLocation(lat, lon, rad)
     }
 
 
@@ -136,8 +138,9 @@ class PlaceMapFragment : BaseFragment(R.layout.fragment_places_map), CameraListe
     }
 
     private fun createTappableMark(placeMark: MapObjectPlaceData) {
-        val placeObject = placeMark.geoLat?.let { placeMark.geoLon?.let { it1 -> Point(it, it1) } }
-            ?.let { mapObjects.addPlacemark(it) }
+        val placeObject =
+            placeMark.geoLat?.let { placeMark.geoLon?.let { it1 -> Point(it, it1) } }
+                ?.let { mapObjects.addPlacemark(it) }
         placeObject?.userData = placeMark
         setPlaceMarkIcon(placeObject)
         placeObject?.addTapListener(mapPlaceTapListener)
@@ -152,16 +155,16 @@ class PlaceMapFragment : BaseFragment(R.layout.fragment_places_map), CameraListe
         )
     }
 
-    private val mapPlaceTapListener = object : MapObjectTapListener {
-        override fun onMapObjectTap(mapObject: MapObject, point: Point): Boolean {
-            if (mapObject is PlacemarkMapObject) {
-                val data = mapObject.userData as MapObjectPlaceData
-                val direction =
-                    PlaceContainerFragmentDirections.actionPlaceFragmentToPlaceDetailsFragment(data.id!!)
-                findNavController().navigate(direction)
-            }
-            return true
+    private val mapPlaceTapListener = MapObjectTapListener { mapObject, point ->
+        if (mapObject is PlacemarkMapObject) {
+            val data = mapObject.userData as MapObjectPlaceData
+            val direction =
+                PlaceContainerFragmentDirections.actionPlaceFragmentToPlaceDetailsFragment(
+                    data.id!!
+                )
+            findNavController().navigate(direction)
         }
+        true
     }
 
 
@@ -188,6 +191,11 @@ class PlaceMapFragment : BaseFragment(R.layout.fragment_places_map), CameraListe
             val currentZoom = position.zoom
             val radius: Double = calculateRadiusInKilometers(currentZoom, point.latitude)
             viewModel.getPlaces(
+                point.latitude,
+                point.longitude,
+                radius * 10
+            )
+            setLocation(
                 point.latitude,
                 point.longitude,
                 radius * 10
@@ -220,5 +228,4 @@ class PlaceMapFragment : BaseFragment(R.layout.fragment_places_map), CameraListe
     class MapObjectPlaceData(
         val id: Int?, val description: String?, val geoLat: Double?, val geoLon: Double?
     )
-
 }
