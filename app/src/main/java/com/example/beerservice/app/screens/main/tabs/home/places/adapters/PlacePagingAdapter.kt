@@ -6,9 +6,7 @@ import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.example.beerservice.app.model.beers.entities.Beer
 import com.example.beerservice.app.model.place.entities.Place
-import com.example.beerservice.databinding.ItemBeerBinding
 import com.example.beerservice.databinding.ItemPlaceBinding
 
 interface OnPlaceClickListener {

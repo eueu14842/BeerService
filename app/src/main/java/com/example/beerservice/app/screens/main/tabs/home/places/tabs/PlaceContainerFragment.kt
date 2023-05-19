@@ -12,12 +12,19 @@ import com.example.beerservice.app.screens.main.tabs.home.places.adapters.PlaceC
 import com.example.beerservice.databinding.FragmentPlaceContainerBinding
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
+import com.yandex.mapkit.geometry.Point
 
 class PlaceContainerFragment : Fragment(R.layout.fragment_place_container) {
     lateinit var binding: FragmentPlaceContainerBinding
     private lateinit var placesCollectionAdapter: PlaceCollectionAdapter
     private lateinit var viewPager: ViewPager2
     private lateinit var tabLayout: TabLayout
+
+
+    interface PointListener {
+        fun getPoint(point: Point)
+    }
+    lateinit var pointListener : PointListener
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -27,6 +34,12 @@ class PlaceContainerFragment : Fragment(R.layout.fragment_place_container) {
         viewPager.adapter = placesCollectionAdapter
         prepareMediator()
         onRequestLocationPermissions()
+
+        pointListener = object : PointListener{
+            override fun getPoint(point: Point) {
+                TODO("Not yet implemented")
+            }
+        }
 
     }
 
@@ -60,4 +73,5 @@ class PlaceContainerFragment : Fragment(R.layout.fragment_place_container) {
             ActivityCompat.requestPermissions(requireActivity(), permissions, 0)
         }
     }
+
 }
