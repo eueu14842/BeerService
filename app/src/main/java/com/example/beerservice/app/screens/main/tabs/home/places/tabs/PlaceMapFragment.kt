@@ -4,13 +4,14 @@ package com.example.beerservice.app.screens.main.tabs.home.places.tabs
 import android.Manifest
 import android.content.Context
 import android.content.pm.PackageManager
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import android.location.Location
 import android.os.Bundle
-import android.util.Log
+import android.util.Base64
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
@@ -25,8 +26,12 @@ import com.yandex.mapkit.map.*
 import com.yandex.mapkit.map.Map
 import com.yandex.mapkit.mapview.MapView
 import com.yandex.runtime.image.ImageProvider
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import java.lang.Math.cos
+import java.net.URL
+import kotlin.concurrent.thread
 import kotlin.math.pow
 
 
@@ -71,19 +76,27 @@ class PlaceMapFragment : BaseFragment(R.layout.fragment_places_map), CameraListe
         lifecycleScope.launch {
             viewModel.getPlaces(lat, lon, 1.5)
             viewModel.place.observe(viewLifecycleOwner) { result ->
-                result.map { place ->
-                    place.forEach {
+                result.map { places ->
+                    places.forEach {
                         createTappableMark(
                             MapObjectPlaceData(
                                 id = it.placeId,
                                 description = it.description,
                                 geoLat = it.geoLat,
                                 geoLon = it.geoLon
-                            )
+                            ),
+                            // TODO:  
                         )
                     }
                 }
             }
+
+        }
+    }
+
+    suspend fun getBitmap(string: String?, block: (String?) -> Bitmap): Bitmap {
+        return withContext(Dispatchers.IO) {
+            // TODO:  
         }
     }
 
@@ -137,22 +150,17 @@ class PlaceMapFragment : BaseFragment(R.layout.fragment_places_map), CameraListe
 
     }
 
-    private fun createTappableMark(placeMark: MapObjectPlaceData) {
+    private fun createTappableMark(placeMark: MapObjectPlaceData, bitmap: Bitmap) {
         val placeObject =
             placeMark.geoLat?.let { placeMark.geoLon?.let { it1 -> Point(it, it1) } }
                 ?.let { mapObjects.addPlacemark(it) }
         placeObject?.userData = placeMark
-        setPlaceMarkIcon(placeObject)
+        setPlaceMarkIcon(placeObject, bitmap)
         placeObject?.addTapListener(mapPlaceTapListener)
     }
 
-    private fun setPlaceMarkIcon(placeMark: PlacemarkMapObject?) {
-        placeMark?.setIcon(
-            ImageProvider.fromResource(
-                requireContext(),
-                R.drawable.beer_icon_small
-            )
-        )
+    private fun setPlaceMarkIcon(placeMark: PlacemarkMapObject?, bitmap: Bitmap) {
+        placeMark?.setIcon(ImageProvider.fromBitmap(bitmap))
     }
 
     private val mapPlaceTapListener = MapObjectTapListener { mapObject, point ->
@@ -200,7 +208,6 @@ class PlaceMapFragment : BaseFragment(R.layout.fragment_places_map), CameraListe
                 point.longitude,
                 radius * 10
             )
-            println(radius)
         }
     }
 
