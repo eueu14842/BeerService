@@ -54,7 +54,6 @@ class PlaceListFragment : BaseFragment(R.layout.fragment_place_list) {
                     }
                 }
             }
-
         }
     }
 

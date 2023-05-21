@@ -22,7 +22,6 @@ class RetrofitBeerSource(config: RetrofitConfig)
         beerApi.createBeer()
     }
 
-
     override suspend fun getBeersListByBreweryId(breweryId: Int, limit: Int, offest: Int) =
         wrapRetrofitExceptions {
             beerApi.getBeerListByBreweryId(breweryId, limit, offest).map { it.toBeer() }

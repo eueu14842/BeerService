@@ -44,7 +44,7 @@ class BreweryListFragment : BaseFragment(R.layout.fragment_brewery_list) {
     }
 
 
-     fun setupBreweriesList() {
+     private fun setupBreweriesList() {
         val adapter = BreweryPagingAdapter(onBreweryListener)
         val tryAgainAction: TryAgainAction = { adapter.retry() }
         val footerAdapter = DefaultLoadStateAdapter(tryAgainAction)

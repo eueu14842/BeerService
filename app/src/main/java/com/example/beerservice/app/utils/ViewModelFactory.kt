@@ -28,7 +28,7 @@ class ViewModelFactory(
             BeerViewModel::class.java -> BeerViewModel() as T
             PlaceDetailsViewModel::class.java -> PlaceDetailsViewModel() as T
             else -> {
-                throw  IllegalStateException("")
+                throw IllegalArgumentException("Unknown ViewModel class: ${modelClass.name}")
             }
         }
     }
