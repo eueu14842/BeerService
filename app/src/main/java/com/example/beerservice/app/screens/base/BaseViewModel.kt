@@ -2,7 +2,6 @@ package com.example.beerservice.app.screens.base
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.beerservice.app.model.accounts.AccountsRepository
 import com.example.beerservice.app.utils.Event
 import com.example.beerservice.app.utils.share
 

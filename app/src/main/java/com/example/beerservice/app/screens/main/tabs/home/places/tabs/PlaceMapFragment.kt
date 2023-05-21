@@ -1,14 +1,12 @@
 package com.example.beerservice.app.screens.main.tabs.home.places.tabs
 
-
 import android.Manifest
 import android.content.Context
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
-import android.graphics.BitmapFactory
+import android.graphics.drawable.Drawable
 import android.location.Location
 import android.os.Bundle
-import android.util.Base64
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -16,6 +14,8 @@ import androidx.core.app.ActivityCompat
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import com.bumptech.glide.Glide
+import com.bumptech.glide.request.target.CustomTarget
 import com.example.beerservice.R
 import com.example.beerservice.app.screens.base.BaseFragment
 import com.example.beerservice.app.utils.ViewModelFactory
@@ -26,26 +26,23 @@ import com.yandex.mapkit.map.*
 import com.yandex.mapkit.map.Map
 import com.yandex.mapkit.mapview.MapView
 import com.yandex.runtime.image.ImageProvider
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 import java.lang.Math.cos
-import java.net.URL
-import kotlin.concurrent.thread
 import kotlin.math.pow
 
-
 class PlaceMapFragment : BaseFragment(R.layout.fragment_places_map), CameraListener {
-    lateinit var mapview: MapView
-    lateinit var binding: FragmentPlacesMapBinding
+
     override val viewModel: PlaceViewModel by viewModels { ViewModelFactory() }
 
     private var locationManager: android.location.LocationManager? = null
-
-    lateinit var map: Map
-    lateinit var mapObjects: MapObjectCollection
     private var point: Point = Point(55.764094, 37.617617)
 
+    lateinit var binding: FragmentPlacesMapBinding
+
+    lateinit var mapview: MapView
+    lateinit var map: Map
+    lateinit var mapObjects: MapObjectCollection
+    lateinit var bitmap: Bitmap
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -83,20 +80,13 @@ class PlaceMapFragment : BaseFragment(R.layout.fragment_places_map), CameraListe
                                 id = it.placeId,
                                 description = it.description,
                                 geoLat = it.geoLat,
-                                geoLon = it.geoLon
+                                geoLon = it.geoLon,
                             ),
-                            // TODO:  
+                            it.image
                         )
                     }
                 }
             }
-
-        }
-    }
-
-    suspend fun getBitmap(string: String?, block: (String?) -> Bitmap): Bitmap {
-        return withContext(Dispatchers.IO) {
-            // TODO:  
         }
     }
 
@@ -147,23 +137,40 @@ class PlaceMapFragment : BaseFragment(R.layout.fragment_places_map), CameraListe
     private fun setupLocationManager() {
         locationManager =
             context?.getSystemService(Context.LOCATION_SERVICE) as? android.location.LocationManager
-
     }
 
-    private fun createTappableMark(placeMark: MapObjectPlaceData, bitmap: Bitmap) {
+    private fun createTappableMark(placeMark: MapObjectPlaceData, imageUrl: String?) {
         val placeObject =
             placeMark.geoLat?.let { placeMark.geoLon?.let { it1 -> Point(it, it1) } }
                 ?.let { mapObjects.addPlacemark(it) }
         placeObject?.userData = placeMark
-        setPlaceMarkIcon(placeObject, bitmap)
+        setPlaceMarkIcon(placeObject, imageUrl)
         placeObject?.addTapListener(mapPlaceTapListener)
     }
 
-    private fun setPlaceMarkIcon(placeMark: PlacemarkMapObject?, bitmap: Bitmap) {
-        placeMark?.setIcon(ImageProvider.fromBitmap(bitmap))
+    private fun setPlaceMarkIcon(placeMark: PlacemarkMapObject?, imageUrl: String?) {
+        Glide.with(requireContext())
+            .asBitmap()
+            .load(imageUrl)
+            .into(object : CustomTarget<Bitmap>() {
+                override fun onResourceReady(
+                    resource: Bitmap,
+                    transition: com.bumptech.glide.request.transition.Transition<in Bitmap>?
+                ) {
+                    bitmap = resource
+                    val iconSize = resources.getDimensionPixelSize(R.dimen.marker_icon_size)
+                    val scaledBitmap = Bitmap.createScaledBitmap(bitmap, iconSize, iconSize, false)
+                    placeMark?.setIcon(ImageProvider.fromBitmap(scaledBitmap))
+                }
+
+                override fun onLoadCleared(placeholder: Drawable?) {
+                    bitmap.recycle()
+                }
+
+            })
     }
 
-    private val mapPlaceTapListener = MapObjectTapListener { mapObject, point ->
+    private val mapPlaceTapListener = MapObjectTapListener { mapObject, _ ->
         if (mapObject is PlacemarkMapObject) {
             val data = mapObject.userData as MapObjectPlaceData
             val direction =
@@ -211,7 +218,6 @@ class PlaceMapFragment : BaseFragment(R.layout.fragment_places_map), CameraListe
         }
     }
 
-
     /**
      * Рассчитываем радиус в километрах при текущем zoom level
      * @param zoom текущий масштаб карты (zoom level)
@@ -233,6 +239,9 @@ class PlaceMapFragment : BaseFragment(R.layout.fragment_places_map), CameraListe
     }
 
     class MapObjectPlaceData(
-        val id: Int?, val description: String?, val geoLat: Double?, val geoLon: Double?
+        val id: Int?,
+        val description: String?,
+        val geoLat: Double?,
+        val geoLon: Double?
     )
 }

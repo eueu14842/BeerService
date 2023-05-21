@@ -33,7 +33,7 @@ class ProfileFragment : BaseFragment(R.layout.fragment_profile) {
         }
     }
 
-    fun observeProfileTest() {
+    private fun observeProfileTest() {
         val user = viewModel.accountsRepository.getAccount()
         with(binding) {
             user.map {
