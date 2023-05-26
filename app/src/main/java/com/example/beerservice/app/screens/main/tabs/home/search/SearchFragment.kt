@@ -20,8 +20,6 @@ class SearchFragment : BaseFragment(R.layout.fragment_search) {
         binding = FragmentSearchBinding.bind(view)
         getSearchData()
 
-        val tabLayout = binding.tabLayout
-        val viewPager2 = binding.viewPager
 
         binding.tabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
 
