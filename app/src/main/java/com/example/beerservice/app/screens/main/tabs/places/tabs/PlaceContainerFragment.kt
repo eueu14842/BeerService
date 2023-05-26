@@ -1,4 +1,4 @@
-package com.example.beerservice.app.screens.main.tabs.home.places.tabs
+package com.example.beerservice.app.screens.main.tabs.places.tabs
 
 import android.Manifest
 import android.content.pm.PackageManager
@@ -8,7 +8,7 @@ import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.widget.ViewPager2
 import com.example.beerservice.R
-import com.example.beerservice.app.screens.main.tabs.home.places.adapters.PlaceCollectionAdapter
+import com.example.beerservice.app.screens.main.tabs.places.adapters.PlaceCollectionAdapter
 import com.example.beerservice.databinding.FragmentPlaceContainerBinding
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
@@ -35,7 +35,7 @@ class PlaceContainerFragment : Fragment(R.layout.fragment_place_container) {
         prepareMediator()
         onRequestLocationPermissions()
 
-        pointListener = object : PointListener{
+        pointListener = object : PointListener {
             override fun getPoint(point: Point) {
                 TODO("Not yet implemented")
             }

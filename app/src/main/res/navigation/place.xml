@@ -7,7 +7,7 @@
     app:startDestination="@+id/placeContainerFragment">
     <fragment
         android:id="@id/placeContainerFragment"
-        android:name="com.example.beerservice.app.screens.main.tabs.home.places.tabs.PlaceContainerFragment"
+        android:name="com.example.beerservice.app.screens.main.tabs.places.tabs.PlaceContainerFragment"
         android:label="Поиск"
         tools:layout="@layout/fragment_place_container">
 
@@ -25,16 +25,16 @@
 
     <fragment
         android:id="@id/placeListFragment"
-        android:name="com.example.beerservice.app.screens.main.tabs.home.places.tabs.PlaceListFragment"
+        android:name="com.example.beerservice.app.screens.main.tabs.places.tabs.PlaceListFragment"
         android:label="Список "
         tools:layout="@layout/fragment_place_list" >
         <action
-            android:id="@+id/action_placeListFragment_to_placeDetailsFragment2"
+            android:id="@id/action_placeListFragment_to_placeDetailsFragment"
             app:destination="@id/placeDetailsFragment" />
     </fragment>
     <fragment
         android:id="@id/placeMapFragment"
-        android:name="com.example.beerservice.app.screens.main.tabs.home.places.tabs.PlaceMapFragment"
+        android:name="com.example.beerservice.app.screens.main.tabs.places.tabs.PlaceMapFragment"
         android:label="Карта"
         tools:layout="@layout/fragment_places_map" >
         <action
@@ -44,7 +44,7 @@
 
     <fragment
         android:id="@id/placeDetailsFragment"
-        android:name="com.example.beerservice.app.screens.main.tabs.home.places.PlaceDetailsFragment"
+        android:name="com.example.beerservice.app.screens.main.tabs.places.PlaceDetailsFragment"
         android:label="Точка продаж"
         tools:layout="@layout/fragment_place_details">
         <argument

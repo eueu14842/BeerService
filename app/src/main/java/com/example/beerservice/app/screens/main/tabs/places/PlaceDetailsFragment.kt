@@ -1,4 +1,4 @@
-package com.example.beerservice.app.screens.main.tabs.home.places
+package com.example.beerservice.app.screens.main.tabs.places
 
 import android.os.Bundle
 import android.view.View

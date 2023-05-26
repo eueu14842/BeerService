@@ -9,8 +9,8 @@ import com.example.beerservice.app.screens.main.tabs.home.beers.BeerViewModel
 import com.example.beerservice.app.screens.main.tabs.home.beers.BeersListViewModel
 import com.example.beerservice.app.screens.main.tabs.home.brewery.BreweryDetailsViewModel
 import com.example.beerservice.app.screens.main.tabs.home.brewery.BreweryListViewModel
-import com.example.beerservice.app.screens.main.tabs.home.places.PlaceDetailsViewModel
-import com.example.beerservice.app.screens.main.tabs.home.places.tabs.PlaceViewModel
+import com.example.beerservice.app.screens.main.tabs.places.PlaceDetailsViewModel
+import com.example.beerservice.app.screens.main.tabs.places.tabs.PlaceViewModel
 import com.example.beerservice.app.screens.main.tabs.profile.ProfileViewModel
 
 @Suppress("UNCHECKED_CAST")

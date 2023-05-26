@@ -21,8 +21,8 @@ import com.example.beerservice.app.screens.main.tabs.home.beers.adapters.BeerAdb
 import com.example.beerservice.app.screens.main.tabs.home.beers.adapters.OnBeerAdblockClickListener
 import com.example.beerservice.app.screens.main.tabs.home.brewery.BreweryAdapter
 import com.example.beerservice.app.screens.main.tabs.home.brewery.OnBreweryClickListener
-import com.example.beerservice.app.screens.main.tabs.home.places.adapters.OnPlaceClickListener
-import com.example.beerservice.app.screens.main.tabs.home.places.adapters.PlaceAdblockAdapter
+import com.example.beerservice.app.screens.main.tabs.places.adapters.OnPlaceClickListener
+import com.example.beerservice.app.screens.main.tabs.places.adapters.PlaceAdblockAdapter
 import com.example.beerservice.app.utils.ViewModelFactory
 import com.example.beerservice.app.utils.observeResult
 import com.example.beerservice.databinding.FragmentHomeBinding
