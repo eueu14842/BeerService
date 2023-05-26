@@ -46,7 +46,6 @@ class PlaceListFragment : BaseFragment(R.layout.fragment_place_list) {
         lifecycleScope.launch {
             viewModel.location.observe(viewLifecycleOwner) { location ->
                 viewModel.getPlaces(location.lat, location.lon, location.rad)
-                println("rad ${location.lat}")
                 viewModel.place.observe(viewLifecycleOwner) { result ->
                     result.map { places ->
                         val adapter = PlaceListAdapter(places, onPlaceClickListener)
@@ -65,11 +64,45 @@ class PlaceListFragment : BaseFragment(R.layout.fragment_place_list) {
         }
     }
 
+
+
     private fun setupViews() {
         recycler = binding.recyclerPlaceList.apply {
             layoutManager = LinearLayoutManager(requireContext())
         }
     }
+
+
+    fun setupPagedPlaceList() {
+        val adapter = PlacePagingAdapter(onPlaceClickListener)
+        val tryAgainAction: TryAgainAction = { adapter.retry() }
+        val footerAdapter = DefaultLoadStateAdapter(tryAgainAction)
+        val adapterWithLoadState: ConcatAdapter = adapter.withLoadStateFooter(footerAdapter)
+
+        recycler = binding.recyclerPlaceList.apply {
+            layoutManager = LinearLayoutManager(requireContext())
+        }
+        recycler.adapter = adapterWithLoadState
+
+        observePagedPlaces(adapter)
+        observeLoadState(adapter)
+    }
+    fun observePagedPlaces(adapter: PlacePagingAdapter) {
+        lifecycleScope.launch {
+            viewModel.placesFlow.collectLatest { pagingData ->
+                adapter.submitData(pagingData)
+            }
+        }
+    }
+
+    private fun observeLoadState(adapter: PlacePagingAdapter) {
+        lifecycleScope.launch {
+            adapter.loadStateFlow.debounce(200).collectLatest { state ->
+//                mainLoadStateHolder.bind(state.refresh)
+            }
+        }
+    }
+
 
 }
 

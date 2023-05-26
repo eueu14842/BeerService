@@ -13,7 +13,7 @@ interface PlaceApi {
     @POST("place/buyThisBeerFromUs")
     suspend fun buyBeerFromPlace(@Body body: Body)
 
-    @GET("/place/list")
+    @GET("place/list/map")
     suspend fun getPlaceList(
         @Query("geoLat") geoLat: Double,
         @Query("geoLon") geoLon: Double,

@@ -6,11 +6,13 @@ import com.example.beerservice.app.model.beers.BeersSource
 import com.example.beerservice.app.model.brewery.BrewerySource
 import com.example.beerservice.app.model.feedback.FeedbackSource
 import com.example.beerservice.app.model.place.PlaceSource
+import com.example.beerservice.app.model.search.SearchSource
 import com.example.beerservice.sources.accounts.RetrofitAccountSource
 import com.example.beerservice.sources.beers.RetrofitBeerSource
 import com.example.beerservice.sources.brewery.RetrofitBrewerySource
 import com.example.beerservice.sources.feedback.RetrofitFeedbackSource
 import com.example.beerservice.sources.place.RetrofitPlaceSource
+import com.example.beerservice.sources.search.RetrofitSearchSource
 
 class RetrofitSourcesProvider(
     private val retrofitConfig: RetrofitConfig
@@ -35,6 +37,10 @@ class RetrofitSourcesProvider(
     override fun getPlacesSource(): PlaceSource {
         return RetrofitPlaceSource(retrofitConfig)
 
+    }
+
+    override fun getSearchSource(): SearchSource {
+        return RetrofitSearchSource(retrofitConfig)
     }
 
 }
