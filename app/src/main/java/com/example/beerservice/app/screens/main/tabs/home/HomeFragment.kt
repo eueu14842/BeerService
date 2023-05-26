@@ -161,6 +161,6 @@ class HomeFragment : BaseFragment(R.layout.fragment_home) {
     }
 
     private fun navigateToSearchEvent() {
-        findNavController().navigate(R.id.action_homeFragment_to_search)
+        findNavController().navigate(R.id.action_homeFragment_to_searchFragment)
     }
 }

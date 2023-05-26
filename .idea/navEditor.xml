@@ -177,7 +177,7 @@
                                 <LayoutPositions />
                               </value>
                             </entry>
-                            <entry key="action_homeFragment_to_search">
+                            <entry key="action_homeFragment_to_searchFragment">
                               <value>
                                 <LayoutPositions />
                               </value>
@@ -229,13 +229,13 @@
                       </LayoutPositions>
                     </value>
                   </entry>
-                  <entry key="search">
+                  <entry key="searchFragment">
                     <value>
                       <LayoutPositions>
                         <option name="myPosition">
                           <Point>
-                            <option name="x" value="-870" />
-                            <option name="y" value="1312" />
+                            <option name="x" value="-809" />
+                            <option name="y" value="1129" />
                           </Point>
                         </option>
                       </LayoutPositions>
