@@ -45,7 +45,6 @@ class BeersListFragment : BaseFragment(R.layout.fragment_beers_list) {
         val tryAgainAction: TryAgainAction = { adapter.retry() }
         val footerAdapter = DefaultLoadStateAdapter(tryAgainAction)
         val adapterWithLoadState: ConcatAdapter = adapter.withLoadStateFooter(footerAdapter)
-
         recycler = binding.recyclerViewBeers.apply {
             layoutManager = LinearLayoutManager(requireContext())
         }

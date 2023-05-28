@@ -46,11 +46,12 @@ class HomeFragment : BaseFragment(R.layout.fragment_home) {
         observeBeerAdblock()
         observePlaceAdblock()
 
-
         val search = binding.searchView.apply {
             setOnCloseListener(onCloseSearchListener)
             setOnQueryTextListener(onQueryTextListener)
         }
+
+
 
 
         binding.showAllBreweryTextView.setOnClickListener { navigateToBreweryListEvent() }

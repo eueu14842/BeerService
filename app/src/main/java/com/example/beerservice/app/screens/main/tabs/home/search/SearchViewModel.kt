@@ -10,7 +10,7 @@ import com.example.beerservice.app.utils.share
 import kotlinx.coroutines.launch
 
 class SearchViewModel(
-    val searchRepository: SearchRepository = Singletons.searchRepository
+    private val searchRepository: SearchRepository = Singletons.searchRepository
 ) : BaseViewModel() {
 
     private val _searchData = MutableLiveData<SearchData>()
@@ -19,7 +19,7 @@ class SearchViewModel(
     fun getSearchData(searchBy: String) {
         viewModelScope.launch {
             val data: SearchData = searchRepository.getSearchData(searchBy)
-            _searchData.value  =data
+            _searchData.value = data
         }
 
     }

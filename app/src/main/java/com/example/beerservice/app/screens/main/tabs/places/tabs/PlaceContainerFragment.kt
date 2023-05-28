@@ -32,7 +32,7 @@ class PlaceContainerFragment : Fragment(R.layout.fragment_place_container) {
         setupViews()
         placesCollectionAdapter = PlaceCollectionAdapter(this)
         viewPager.adapter = placesCollectionAdapter
-        prepareMediator()
+        setupMediator()
         onRequestLocationPermissions()
 
         pointListener = object : PointListener {
@@ -48,7 +48,7 @@ class PlaceContainerFragment : Fragment(R.layout.fragment_place_container) {
         viewPager = binding.pager
     }
 
-    private fun prepareMediator() {
+    private fun setupMediator() {
         TabLayoutMediator(tabLayout, viewPager) { tab, position ->
             viewPager.isUserInputEnabled = false
             if (position == 0) {

@@ -20,7 +20,7 @@ class MainActivity : AppCompatActivity() {
 
     private var navController: NavController? = null
 
-    private val topLevelDestinations = setOf(getTabsDestination(), getSignInDestination(),getSearchDestination())
+    private val topLevelDestinations = setOf(getTabsDestination(), getSignInDestination())
 
     private val fragmentListener = object : FragmentManager.FragmentLifecycleCallbacks() {
         override fun onFragmentViewCreated(
@@ -129,7 +129,6 @@ class MainActivity : AppCompatActivity() {
 
     private fun getSignInDestination(): Int = R.id.signInFragment
 
-    private fun getSearchDestination(): Int = R.id.placeContainerFragment
 
     private fun setupMapKit() {
         MapKitFactory.setApiKey(MAPKIT_API_KEY)

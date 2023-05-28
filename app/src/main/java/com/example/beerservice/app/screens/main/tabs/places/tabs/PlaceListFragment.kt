@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.NavBackStackEntry
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.ConcatAdapter
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -36,9 +37,9 @@ class PlaceListFragment : BaseFragment(R.layout.fragment_place_list) {
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentPlaceListBinding.inflate(layoutInflater)
-
         setupViews()
         observePlaces()
+        getCurrentDestination()
         return binding.root
     }
 
@@ -48,12 +49,19 @@ class PlaceListFragment : BaseFragment(R.layout.fragment_place_list) {
                 viewModel.getPlaces(location.lat, location.lon, location.rad)
                 viewModel.place.observe(viewLifecycleOwner) { result ->
                     result.map { places ->
-                        val adapter = PlaceListAdapter(places, onPlaceClickListener)
+                        val adapter = PlaceListAdapter(places, onPlaceClickListener2)
                         recycler.adapter = adapter
                     }
                 }
             }
         }
+    }
+
+    private fun getCurrentDestination() {
+        val previousBackStackEntry = findNavController().previousBackStackEntry
+        val previousFragmentName = previousBackStackEntry?.destination?.label
+        println(previousFragmentName)
+
     }
 
     private val onPlaceClickListener = object : OnPlaceClickListener {
@@ -64,6 +72,13 @@ class PlaceListFragment : BaseFragment(R.layout.fragment_place_list) {
         }
     }
 
+    private val onPlaceClickListener2 = object : OnPlaceClickListener {
+        override fun onPlaceClick(place: Place, position: Int) {
+            val direction =
+                PlaceListFragmentDirections.actionPlaceListFragmentToPlaceDetailsFragment(place.placeId!!)
+            findNavController().navigate(direction)
+        }
+    }
 
 
     private fun setupViews() {
@@ -87,6 +102,7 @@ class PlaceListFragment : BaseFragment(R.layout.fragment_place_list) {
         observePagedPlaces(adapter)
         observeLoadState(adapter)
     }
+
     fun observePagedPlaces(adapter: PlacePagingAdapter) {
         lifecycleScope.launch {
             viewModel.placesFlow.collectLatest { pagingData ->

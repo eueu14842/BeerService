@@ -27,7 +27,8 @@
             app:destination="@id/placeDetailsFragment" />
         <action
             android:id="@+id/action_homeFragment_to_placeListFragment"
-            app:destination="@id/placeListFragment" />
+            app:destination="@id/placeListFragment"
+            app:popUpToInclusive="false" />
         <action
             android:id="@+id/action_homeFragment_to_searchFragment"
             app:destination="@id/searchFragment" />
@@ -105,7 +106,17 @@
         android:id="@+id/searchFragment"
         android:name="com.example.beerservice.app.screens.main.tabs.home.search.SearchFragment"
         android:label="Поиск"
-        tools:layout="@layout/fragment_search" />
+        tools:layout="@layout/fragment_search" >
+        <action
+            android:id="@+id/action_searchFragment_to_breweryListFragment"
+            app:destination="@id/breweryListFragment" />
+        <action
+            android:id="@+id/action_searchFragment_to_beersListFragment"
+            app:destination="@id/beersListFragment" />
+        <action
+            android:id="@+id/action_searchFragment_to_placeListFragment"
+            app:destination="@id/placeListFragment" />
+    </fragment>
 
 
 </navigation>
