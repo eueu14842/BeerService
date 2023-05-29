@@ -120,8 +120,8 @@
                       <LayoutPositions>
                         <option name="myPosition">
                           <Point>
-                            <option name="x" value="-252" />
-                            <option name="y" value="1135" />
+                            <option name="x" value="-243" />
+                            <option name="y" value="1131" />
                           </Point>
                         </option>
                         <option name="myPositions">
@@ -141,8 +141,8 @@
                       <LayoutPositions>
                         <option name="myPosition">
                           <Point>
-                            <option name="x" value="-1045" />
-                            <option name="y" value="696" />
+                            <option name="x" value="-1027" />
+                            <option name="y" value="738" />
                           </Point>
                         </option>
                         <option name="myPositions">
@@ -213,8 +213,8 @@
                       <LayoutPositions>
                         <option name="myPosition">
                           <Point>
-                            <option name="x" value="-735" />
-                            <option name="y" value="350" />
+                            <option name="x" value="-676" />
+                            <option name="y" value="355" />
                           </Point>
                         </option>
                         <option name="myPositions">
@@ -234,8 +234,8 @@
                       <LayoutPositions>
                         <option name="myPosition">
                           <Point>
-                            <option name="x" value="-715" />
-                            <option name="y" value="1130" />
+                            <option name="x" value="-658" />
+                            <option name="y" value="1124" />
                           </Point>
                         </option>
                         <option name="myPositions">
@@ -475,8 +475,8 @@
                       <LayoutPositions>
                         <option name="myPosition">
                           <Point>
-                            <option name="x" value="770" />
-                            <option name="y" value="710" />
+                            <option name="x" value="672" />
+                            <option name="y" value="699" />
                           </Point>
                         </option>
                       </LayoutPositions>
@@ -545,7 +545,7 @@
                         </option>
                         <option name="myPositions">
                           <map>
-                            <entry key="action_placeListFragment_to_placeDetailsFragment2">
+                            <entry key="action_placeListFragment_to_placeDetailsFragment">
                               <value>
                                 <LayoutPositions />
                               </value>
@@ -608,13 +608,46 @@
             <LayoutPositions>
               <option name="myPositions">
                 <map>
+                  <entry key="placeContainerFragment">
+                    <value>
+                      <LayoutPositions>
+                        <option name="myPosition">
+                          <Point>
+                            <option name="x" value="12" />
+                            <option name="y" value="12" />
+                          </Point>
+                        </option>
+                        <option name="myPositions">
+                          <map>
+                            <entry key="action_placeContainerFragment_to_placeListFragment">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                          </map>
+                        </option>
+                      </LayoutPositions>
+                    </value>
+                  </entry>
+                  <entry key="placeListFragment">
+                    <value>
+                      <LayoutPositions>
+                        <option name="myPosition">
+                          <Point>
+                            <option name="x" value="256" />
+                            <option name="y" value="12" />
+                          </Point>
+                        </option>
+                      </LayoutPositions>
+                    </value>
+                  </entry>
                   <entry key="searchFragment">
                     <value>
                       <LayoutPositions>
                         <option name="myPosition">
                           <Point>
-                            <option name="x" value="-19" />
-                            <option name="y" value="41" />
+                            <option name="x" value="-335" />
+                            <option name="y" value="193" />
                           </Point>
                         </option>
                       </LayoutPositions>
@@ -669,8 +702,8 @@
                       <LayoutPositions>
                         <option name="myPosition">
                           <Point>
-                            <option name="x" value="-103" />
-                            <option name="y" value="-64" />
+                            <option name="x" value="-106" />
+                            <option name="y" value="-72" />
                           </Point>
                         </option>
                       </LayoutPositions>
@@ -681,8 +714,8 @@
                       <LayoutPositions>
                         <option name="myPosition">
                           <Point>
-                            <option name="x" value="-105" />
-                            <option name="y" value="25" />
+                            <option name="x" value="-107" />
+                            <option name="y" value="23" />
                           </Point>
                         </option>
                       </LayoutPositions>

@@ -54,6 +54,7 @@ class HomeFragment : BaseFragment(R.layout.fragment_home) {
 
 
 
+
         binding.showAllBreweryTextView.setOnClickListener { navigateToBreweryListEvent() }
         binding.showAllBeerTextView.setOnClickListener { navigateToBeerListEvent() }
         binding.showAllStoresTextView.setOnClickListener { navigateToPlaceListEvent() }

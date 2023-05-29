@@ -134,5 +134,10 @@ class MainActivity : AppCompatActivity() {
         MapKitFactory.setApiKey(MAPKIT_API_KEY)
     }
 
+    override fun onDestroy() {
+        supportFragmentManager.unregisterFragmentLifecycleCallbacks(fragmentListener)
+        navController = null
+        super.onDestroy()
+    }
 
 }

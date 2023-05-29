@@ -16,6 +16,7 @@ import com.example.beerservice.app.model.place.entities.Place
 import com.example.beerservice.app.screens.base.BaseFragment
 import com.example.beerservice.app.screens.base.DefaultLoadStateAdapter
 import com.example.beerservice.app.screens.base.TryAgainAction
+import com.example.beerservice.app.screens.main.tabs.places.PlaceDetailsFragment
 import com.example.beerservice.app.screens.main.tabs.places.adapters.OnPlaceClickListener
 import com.example.beerservice.app.screens.main.tabs.places.adapters.PlaceListAdapter
 import com.example.beerservice.app.screens.main.tabs.places.adapters.PlacePagingAdapter
@@ -40,6 +41,10 @@ class PlaceListFragment : BaseFragment(R.layout.fragment_place_list) {
         setupViews()
         observePlaces()
         getCurrentDestination()
+
+        println(getCurrentDestination())
+        println(findNavController().currentDestination?.parent?.id)
+
         return binding.root
     }
 
@@ -49,7 +54,7 @@ class PlaceListFragment : BaseFragment(R.layout.fragment_place_list) {
                 viewModel.getPlaces(location.lat, location.lon, location.rad)
                 viewModel.place.observe(viewLifecycleOwner) { result ->
                     result.map { places ->
-                        val adapter = PlaceListAdapter(places, onPlaceClickListener2)
+                        val adapter = PlaceListAdapter(places, getCurrentDestination())
                         recycler.adapter = adapter
                     }
                 }
@@ -57,22 +62,24 @@ class PlaceListFragment : BaseFragment(R.layout.fragment_place_list) {
         }
     }
 
-    private fun getCurrentDestination() {
-        val previousBackStackEntry = findNavController().previousBackStackEntry
-        val previousFragmentName = previousBackStackEntry?.destination?.label
-        println(previousFragmentName)
-
+    private fun getCurrentDestination(): OnPlaceClickListener {
+        when (findNavController().currentDestination?.parent?.id) {
+            R.id.place -> onPlaceClickListenerFromPlaces
+            R.id.home -> onPlaceClickListenerFromHome
+        }
+        return onPlaceClickListenerFromPlaces
     }
 
-    private val onPlaceClickListener = object : OnPlaceClickListener {
+    private val onPlaceClickListenerFromPlaces = object : OnPlaceClickListener {
         override fun onPlaceClick(place: Place, position: Int) {
             val direction =
                 PlaceContainerFragmentDirections.actionPlaceFragmentToPlaceDetailsFragment(place.placeId!!)
             findNavController().navigate(direction)
+
         }
     }
 
-    private val onPlaceClickListener2 = object : OnPlaceClickListener {
+    private val onPlaceClickListenerFromHome = object : OnPlaceClickListener {
         override fun onPlaceClick(place: Place, position: Int) {
             val direction =
                 PlaceListFragmentDirections.actionPlaceListFragmentToPlaceDetailsFragment(place.placeId!!)
@@ -89,7 +96,7 @@ class PlaceListFragment : BaseFragment(R.layout.fragment_place_list) {
 
 
     fun setupPagedPlaceList() {
-        val adapter = PlacePagingAdapter(onPlaceClickListener)
+        val adapter = PlacePagingAdapter(onPlaceClickListenerFromPlaces)
         val tryAgainAction: TryAgainAction = { adapter.retry() }
         val footerAdapter = DefaultLoadStateAdapter(tryAgainAction)
         val adapterWithLoadState: ConcatAdapter = adapter.withLoadStateFooter(footerAdapter)
