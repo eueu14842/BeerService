@@ -19,6 +19,8 @@ class ProfileFragment : BaseFragment(R.layout.fragment_profile) {
         binding = FragmentProfileBinding.bind(view)
 
 
+
+       println(findNavController().currentDestination)
         observeProfileTest()
     }
 
