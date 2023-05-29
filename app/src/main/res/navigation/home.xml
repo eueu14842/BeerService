@@ -27,12 +27,12 @@
             app:destination="@id/placeDetailsFragment" />
         <action
             android:id="@+id/action_homeFragment_to_placeListFragment"
-            app:destination="@id/placeListFragment" />
+            app:destination="@id/placeListFragment"
+            app:popUpToInclusive="false" />
         <action
-            android:id="@+id/action_homeFragment_to_search"
-            app:destination="@id/search"
-            app:popUpTo="@id/homeFragment"
-            app:popUpToInclusive="true" />
+            android:id="@+id/action_homeFragment_to_searchFragment"
+            app:destination="@id/searchFragment" />
+
     </fragment>
 
 
@@ -50,7 +50,7 @@
         android:id="@+id/beerDetailsFragment"
         android:name="com.example.beerservice.app.screens.main.tabs.home.beers.BeerDetailsFragment"
         android:label="Пиво"
-        tools:layout="@layout/fragment_beer_details" >
+        tools:layout="@layout/fragment_beer_details">
         <argument
             android:name="beerId"
             app:argType="integer" />
@@ -82,7 +82,7 @@
 
     <fragment
         android:id="@+id/placeDetailsFragment"
-        android:name="com.example.beerservice.app.screens.main.tabs.home.places.PlaceDetailsFragment"
+        android:name="com.example.beerservice.app.screens.main.tabs.places.PlaceDetailsFragment"
         android:label="PlaceDetailsFragment"
         tools:layout="@layout/fragment_place_details">
         <argument
@@ -95,14 +95,28 @@
 
     <fragment
         android:id="@id/placeListFragment"
-        android:name="com.example.beerservice.app.screens.main.tabs.home.places.tabs.PlaceListFragment"
+        android:name="com.example.beerservice.app.screens.main.tabs.places.tabs.PlaceListFragment"
         android:label="PlaceListFragment"
         tools:layout="@layout/fragment_place_list">
         <action
             android:id="@+id/action_placeListFragment_to_placeDetailsFragment"
             app:destination="@id/placeDetailsFragment" />
     </fragment>
-    <include app:graph="@navigation/search" />
+    <fragment
+        android:id="@+id/searchFragment"
+        android:name="com.example.beerservice.app.screens.main.tabs.home.search.SearchFragment"
+        android:label="Поиск"
+        tools:layout="@layout/fragment_search" >
+        <action
+            android:id="@+id/action_searchFragment_to_breweryListFragment"
+            app:destination="@id/breweryListFragment" />
+        <action
+            android:id="@+id/action_searchFragment_to_beersListFragment"
+            app:destination="@id/beersListFragment" />
+        <action
+            android:id="@+id/action_searchFragment_to_placeListFragment"
+            app:destination="@id/placeListFragment" />
+    </fragment>
 
 
 </navigation>

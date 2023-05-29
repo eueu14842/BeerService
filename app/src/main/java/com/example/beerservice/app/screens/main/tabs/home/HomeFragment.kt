@@ -2,6 +2,10 @@ package com.example.beerservice.app.screens.main.tabs.home
 
 import android.os.Bundle
 import android.view.View
+import android.widget.SearchView
+import android.widget.SearchView.OnCloseListener
+import android.widget.SearchView.OnSuggestionListener
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -17,8 +21,8 @@ import com.example.beerservice.app.screens.main.tabs.home.beers.adapters.BeerAdb
 import com.example.beerservice.app.screens.main.tabs.home.beers.adapters.OnBeerAdblockClickListener
 import com.example.beerservice.app.screens.main.tabs.home.brewery.BreweryAdapter
 import com.example.beerservice.app.screens.main.tabs.home.brewery.OnBreweryClickListener
-import com.example.beerservice.app.screens.main.tabs.home.places.adapters.OnPlaceClickListener
-import com.example.beerservice.app.screens.main.tabs.home.places.adapters.PlaceAdblockAdapter
+import com.example.beerservice.app.screens.main.tabs.places.adapters.OnPlaceClickListener
+import com.example.beerservice.app.screens.main.tabs.places.adapters.PlaceAdblockAdapter
 import com.example.beerservice.app.utils.ViewModelFactory
 import com.example.beerservice.app.utils.observeResult
 import com.example.beerservice.databinding.FragmentHomeBinding
@@ -42,6 +46,14 @@ class HomeFragment : BaseFragment(R.layout.fragment_home) {
         observeBeerAdblock()
         observePlaceAdblock()
 
+        val search = binding.searchView.apply {
+            setOnCloseListener(onCloseSearchListener)
+            setOnQueryTextListener(onQueryTextListener)
+        }
+
+
+
+
         binding.showAllBreweryTextView.setOnClickListener { navigateToBreweryListEvent() }
         binding.showAllBeerTextView.setOnClickListener { navigateToBeerListEvent() }
         binding.showAllStoresTextView.setOnClickListener { navigateToPlaceListEvent() }
@@ -49,6 +61,21 @@ class HomeFragment : BaseFragment(R.layout.fragment_home) {
 
     }
 
+    private val onCloseSearchListener = OnCloseListener {
+        Toast.makeText(requireContext(), "onClose", Toast.LENGTH_SHORT).show()
+        true
+    }
+
+    private val onQueryTextListener = object : SearchView.OnQueryTextListener {
+        override fun onQueryTextSubmit(p0: String?): Boolean {
+            navigateToSearchEvent()
+            return true
+        }
+
+        override fun onQueryTextChange(p0: String?): Boolean {
+            return false
+        }
+    }
 
     private fun initViews() {
         with(binding) {
@@ -65,10 +92,12 @@ class HomeFragment : BaseFragment(R.layout.fragment_home) {
                     LinearLayoutManager(requireContext(), RecyclerView.HORIZONTAL, false)
             }
         }
+
         breweryRecycler = binding.recyclerBrewery
         beerRecycler = binding.recyclerBeer
         placeRecycler = binding.recyclerPlaces
     }
+
     private fun observeBreweryAdblock() {
         binding.resultViewState.setTryAgainAction { println("try again") }
         viewModel.brewery.observeResult(this, binding.root, binding.resultViewState) { breweries ->
@@ -129,6 +158,10 @@ class HomeFragment : BaseFragment(R.layout.fragment_home) {
     }
 
     private fun navigateToPlaceListEvent() {
-        findNavController().navigate(R.id.action_homeFragment_to_search)
+        findNavController().navigate(R.id.action_homeFragment_to_placeListFragment)
+    }
+
+    private fun navigateToSearchEvent() {
+        findNavController().navigate(R.id.action_homeFragment_to_searchFragment)
     }
 }

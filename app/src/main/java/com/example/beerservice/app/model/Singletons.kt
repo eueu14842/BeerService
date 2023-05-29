@@ -11,6 +11,8 @@ import com.example.beerservice.app.model.feedback.FeedbackRepository
 import com.example.beerservice.app.model.feedback.FeedbackSource
 import com.example.beerservice.app.model.place.PlaceSource
 import com.example.beerservice.app.model.place.PlacesRepository
+import com.example.beerservice.app.model.search.SearchRepository
+import com.example.beerservice.app.model.search.SearchSource
 import com.example.beerservice.app.model.settings.AppSettings
 import com.example.beerservice.app.model.settings.SharedPrefAppSettings
 import com.example.beerservice.sources.SourceProviderHolder
@@ -44,6 +46,9 @@ object Singletons {
     private val placeSource: PlaceSource by lazy {
         sourcesProvider.getPlacesSource()
     }
+    private val searchSource: SearchSource by lazy {
+        sourcesProvider.getSearchSource()
+    }
 
     //repositories
     val accountsRepository: AccountsRepository by lazy {
@@ -70,6 +75,11 @@ object Singletons {
     val feedbackRepository: FeedbackRepository by lazy {
         FeedbackRepository(
             feedbackSource = feedbackSource
+        )
+    }
+    val searchRepository: SearchRepository by lazy {
+        SearchRepository(
+            searchSource = searchSource
         )
     }
 

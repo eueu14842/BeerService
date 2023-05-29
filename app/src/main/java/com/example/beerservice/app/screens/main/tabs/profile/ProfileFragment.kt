@@ -3,6 +3,7 @@ package com.example.beerservice.app.screens.main.tabs.profile
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import com.example.beerservice.R
 import com.example.beerservice.app.screens.base.BaseFragment
@@ -16,6 +17,7 @@ class ProfileFragment : BaseFragment(R.layout.fragment_profile) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentProfileBinding.bind(view)
+
 
         observeProfileTest()
     }
