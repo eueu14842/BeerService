@@ -4,12 +4,9 @@ import android.os.Bundle
 import android.view.View
 import android.widget.SearchView
 import android.widget.SearchView.OnCloseListener
-import android.widget.SearchView.OnSuggestionListener
 import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
-import androidx.navigation.ui.NavigationUI
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.beerservice.R
@@ -45,14 +42,10 @@ class HomeFragment : BaseFragment(R.layout.fragment_home) {
         observeBreweryAdblock()
         observeBeerAdblock()
         observePlaceAdblock()
-
         val search = binding.searchView.apply {
             setOnCloseListener(onCloseSearchListener)
             setOnQueryTextListener(onQueryTextListener)
         }
-
-
-
 
 
         binding.showAllBreweryTextView.setOnClickListener { navigateToBreweryListEvent() }
@@ -143,8 +136,8 @@ class HomeFragment : BaseFragment(R.layout.fragment_home) {
 
     private val onPlaceClickListener = object : OnPlaceClickListener {
         override fun onPlaceClick(place: Place, position: Int) {
-            val direction =
-                HomeFragmentDirections.actionHomeFragmentToPlaceDetailsFragment(place.placeId!!)
+            val direction = HomeFragmentDirections.actionHomeFragmentToPlaceDetailsFragment(
+                place.placeId!! )
             findNavController().navigate(direction)
         }
     }

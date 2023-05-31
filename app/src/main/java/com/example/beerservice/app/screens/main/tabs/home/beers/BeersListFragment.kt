@@ -29,6 +29,7 @@ class BeersListFragment : BaseFragment(R.layout.fragment_beers_list) {
     lateinit var recycler: RecyclerView
     override val viewModel: BeersListViewModel by viewModels { ViewModelFactory() }
     private lateinit var mainLoadStateHolder: DefaultLoadStateAdapter.Holder
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,

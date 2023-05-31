@@ -3,6 +3,7 @@ package com.example.beerservice.app.screens.main.tabs.home.search
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.example.beerservice.app.model.Singletons
+import com.example.beerservice.app.model.beers.entities.Beer
 import com.example.beerservice.app.model.search.SearchRepository
 import com.example.beerservice.app.model.search.entities.SearchData
 import com.example.beerservice.app.screens.base.BaseViewModel
@@ -16,11 +17,27 @@ class SearchViewModel(
     private val _searchData = MutableLiveData<SearchData>()
     val searchData = _searchData.share()
 
-    fun getSearchData(searchBy: String) {
+    private var _beers = MutableLiveData<List<Beer>?>()
+    val beers = _beers.share()
+
+    private var searchBy = MutableLiveData("")
+
+    init {
+        getSearchData()
+    }
+
+    private fun getSearchData() {
         viewModelScope.launch {
-            val data: SearchData = searchRepository.getSearchData(searchBy)
+            val data: SearchData = searchRepository.getSearchData(searchBy.value!!)
+            _beers.value = data.beer
             _searchData.value = data
         }
 
+    }
+
+
+    fun setSearchBy(value: String) {
+        if (this.searchBy.value == value) return
+        this.searchBy.value = value
     }
 }

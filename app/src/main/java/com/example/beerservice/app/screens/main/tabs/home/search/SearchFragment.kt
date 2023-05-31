@@ -3,7 +3,6 @@ package com.example.beerservice.app.screens.main.tabs.home.search
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.viewModels
-import androidx.navigation.fragment.findNavController
 import androidx.viewpager2.widget.ViewPager2
 import com.example.beerservice.R
 import com.example.beerservice.app.screens.base.BaseFragment
@@ -15,6 +14,7 @@ import com.google.android.material.tabs.TabLayoutMediator
 
 class SearchFragment : BaseFragment(R.layout.fragment_search) {
     lateinit var binding: FragmentSearchBinding
+
     override val viewModel: SearchViewModel by viewModels { ViewModelFactory() }
 
 
@@ -25,11 +25,12 @@ class SearchFragment : BaseFragment(R.layout.fragment_search) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentSearchBinding.bind(view)
-        getSearchData()
+
         setupViews()
         searchPagerAdapter = SearchPagerAdapter(this)
         viewPager.adapter = searchPagerAdapter
         setupMediator()
+        getSearchData()
     }
 
     private fun setupMediator() {
@@ -49,9 +50,8 @@ class SearchFragment : BaseFragment(R.layout.fragment_search) {
         viewPager = binding.pagerSearch
     }
 
-
     private fun getSearchData() {
-        viewModel.getSearchData("Абр")
+        viewModel.setSearchBy("Абр")
         viewModel.searchData.observe(viewLifecycleOwner) {
             println(it.beer?.size)
         }

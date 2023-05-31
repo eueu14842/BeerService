@@ -8,11 +8,51 @@
     <fragment
         android:id="@+id/searchFragment"
         android:name="com.example.beerservice.app.screens.main.tabs.home.search.SearchFragment"
-        android:label="SearchFragment"
+        android:label="Поиск"
         tools:layout="@layout/fragment_search">
+
         <action
-            android:id="@+id/action_searchFragment_to_placeContainerFragment2"
-            app:destination="@id/placeContainerFragment" />
+            android:id="@id/action_searchFragment_to_beerDetailsFragment"
+            app:destination="@+id/beerDetailsFragment" />
+        <action
+            android:id="@id/action_searchFragment_to_placeDetailsFragment"
+            app:destination="@id/placeDetailsFragment" />
+        <action
+            android:id="@id/action_searchFragment_to_breweryDetailsFragment"
+            app:destination="@id/breweryDetailsFragment" />
+
     </fragment>
+
+
+    <fragment
+        android:id="@id/beerDetailsFragment"
+        android:name="com.example.beerservice.app.screens.main.tabs.home.beers.BeerDetailsFragment"
+        android:label="BeerDetailsFragment"
+        tools:layout="@layout/fragment_beer_details">
+        <argument
+            android:name="beerId"
+            app:argType="integer" />
+    </fragment>
+
+    <fragment
+        android:id="@id/placeDetailsFragment"
+        android:name="com.example.beerservice.app.screens.main.tabs.places.PlaceDetailsFragment"
+        android:label="PlaceDetailsFragment"
+        tools:layout="@layout/fragment_place_details">
+        <argument
+            android:name="placeId"
+            app:argType="integer" />
+    </fragment>
+
+    <fragment
+        android:id="@id/breweryDetailsFragment"
+        android:name="com.example.beerservice.app.screens.main.tabs.home.brewery.BreweryDetailsFragment"
+        android:label="BreweryDetailsFragment"
+        tools:layout="@layout/fragment_beer_details">
+        <argument
+            android:name="breweryId"
+            app:argType="integer" />
+    </fragment>
+
 
 </navigation>

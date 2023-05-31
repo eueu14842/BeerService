@@ -85,7 +85,7 @@ class BreweryListFragment : BaseFragment(R.layout.fragment_brewery_list) {
     private val onBreweryListener = object : OnBreweryPagedClickListener {
         override fun onBreweryPagedClick(brewery: Brewery, position: Int) {
             val direction =
-                BreweryListFragmentDirections.actionBreweryListFragmentToBreweryFragment(brewery.id!!)
+                BreweryListFragmentDirections.actionBreweryListFragmentToBreweryDetailsFragment(brewery.id!!)
             findNavController().navigate(direction)
         }
     }

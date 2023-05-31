@@ -1,13 +1,9 @@
 package com.example.beerservice.app.screens.main.tabs.home.brewery
 
-import android.net.Uri
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
-import androidx.navigation.NavArgs
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.ConcatAdapter
@@ -21,15 +17,12 @@ import com.example.beerservice.app.model.Pending
 import com.example.beerservice.app.model.Success
 import com.example.beerservice.app.model.beers.entities.Beer
 import com.example.beerservice.app.screens.base.BaseFragment
-import com.example.beerservice.app.screens.base.BaseViewModel
 import com.example.beerservice.app.screens.base.DefaultLoadStateAdapter
 import com.example.beerservice.app.screens.base.TryAgainAction
-import com.example.beerservice.app.screens.main.tabs.home.beers.BeersListFragmentDirections
 import com.example.beerservice.app.screens.main.tabs.home.beers.adapters.BeerPagingAdapter
 import com.example.beerservice.app.screens.main.tabs.home.beers.adapters.OnBeerClickListener
 import com.example.beerservice.app.utils.ViewModelFactory
 import com.example.beerservice.databinding.FragmentBreweryBinding
-import com.example.beerservice.databinding.FragmentBreweryListBinding
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.debounce
 import kotlinx.coroutines.launch

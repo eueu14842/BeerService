@@ -14,6 +14,7 @@
         <action
             android:id="@+id/action_placeFragment_to_placeMapFragment"
             app:destination="@+id/placeMapFragment" />
+
         <action
             android:id="@+id/action_placeFragment_to_placeListFragment"
             app:destination="@+id/placeListFragment" />
@@ -25,12 +26,15 @@
 
     <fragment
         android:id="@id/placeListFragment"
-        android:name="com.example.beerservice.app.screens.main.tabs.places.tabs.PlaceListFragment"
+        android:name="com.example.beerservice.app.screens.main.tabs.places.tabs.PlaceLocationListFragment"
         android:label="Места - список "
         tools:layout="@layout/fragment_place_list">
         <action
             android:id="@id/action_placeListFragment_to_placeDetailsFragment"
             app:destination="@id/placeDetailsFragment" />
+        <argument
+            android:name="usePaging"
+            app:argType="boolean" />
     </fragment>
     <fragment
         android:id="@id/placeMapFragment"
