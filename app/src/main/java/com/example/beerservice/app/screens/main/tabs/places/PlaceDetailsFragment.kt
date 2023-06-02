@@ -29,6 +29,7 @@ import kotlinx.coroutines.launch
 
 class PlaceDetailsFragment : BaseFragment(R.layout.fragment_place_details) {
     lateinit var binding: FragmentPlaceDetailsBinding
+
     override val viewModel: PlaceDetailsViewModel by viewModels { ViewModelFactory() }
     private val args by navArgs<PlaceDetailsFragmentArgs>()
     lateinit var recycler: RecyclerView

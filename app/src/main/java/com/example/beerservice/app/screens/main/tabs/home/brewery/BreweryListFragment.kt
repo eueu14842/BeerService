@@ -38,7 +38,6 @@ class BreweryListFragment : BaseFragment(R.layout.fragment_brewery_list) {
     ): View? {
         binding = FragmentBreweryListBinding.inflate(layoutInflater)
 
-
         setupBreweriesList()
         return binding.root
     }
@@ -62,7 +61,6 @@ class BreweryListFragment : BaseFragment(R.layout.fragment_brewery_list) {
         observeBreweries(adapter)
         observeLoadState(adapter)
 
-
     }
 
     private fun observeBreweries(adapter: BreweryPagingAdapter) {
@@ -85,7 +83,7 @@ class BreweryListFragment : BaseFragment(R.layout.fragment_brewery_list) {
     private val onBreweryListener = object : OnBreweryPagedClickListener {
         override fun onBreweryPagedClick(brewery: Brewery, position: Int) {
             val direction =
-                BreweryListFragmentDirections.actionBreweryListFragmentToBreweryFragment(brewery.id!!)
+                BreweryListFragmentDirections.actionBreweryListFragmentToBreweryDetailsFragment(brewery.id!!)
             findNavController().navigate(direction)
         }
     }

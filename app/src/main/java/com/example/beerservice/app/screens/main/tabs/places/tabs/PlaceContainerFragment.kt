@@ -6,7 +6,9 @@ import android.os.Bundle
 import android.view.View
 import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.ui.NavigationUI
 import androidx.viewpager2.widget.ViewPager2
 import com.example.beerservice.R
 import com.example.beerservice.app.screens.main.tabs.places.adapters.PlaceCollectionAdapter
@@ -22,28 +24,17 @@ class PlaceContainerFragment : Fragment(R.layout.fragment_place_container) {
     private lateinit var tabLayout: TabLayout
 
 
-    interface PointListener {
-        fun getPoint(point: Point)
-    }
-
-    lateinit var pointListener: PointListener
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentPlaceContainerBinding.bind(view)
+
         setupViews()
+
         placesCollectionAdapter = PlaceCollectionAdapter(this)
         viewPager.adapter = placesCollectionAdapter
         setupMediator()
         onRequestLocationPermissions()
 
-        println("PlaceContainerFragment ${findNavController().previousBackStackEntry?.destination?.id}")
-
-        pointListener = object : PointListener {
-            override fun getPoint(point: Point) {
-                TODO("Not yet implemented")
-            }
-        }
 
     }
 
