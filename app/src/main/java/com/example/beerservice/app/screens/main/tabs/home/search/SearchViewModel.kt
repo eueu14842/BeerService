@@ -22,19 +22,13 @@ class SearchViewModel(
 
     private var searchBy = MutableLiveData("")
 
-    init {
-        getSearchData()
-    }
-
-    private fun getSearchData() {
+    fun getSearchData() {
         viewModelScope.launch {
             val data: SearchData = searchRepository.getSearchData(searchBy.value!!)
             _beers.value = data.beer
             _searchData.value = data
         }
-
     }
-
 
     fun setSearchBy(value: String) {
         if (this.searchBy.value == value) return

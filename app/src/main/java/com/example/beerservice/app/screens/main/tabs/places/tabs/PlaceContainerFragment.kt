@@ -24,12 +24,6 @@ class PlaceContainerFragment : Fragment(R.layout.fragment_place_container) {
     private lateinit var tabLayout: TabLayout
 
 
-    interface PointListener {
-        fun getPoint(point: Point)
-    }
-
-    lateinit var pointListener: PointListener
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentPlaceContainerBinding.bind(view)
@@ -41,11 +35,6 @@ class PlaceContainerFragment : Fragment(R.layout.fragment_place_container) {
         setupMediator()
         onRequestLocationPermissions()
 
-        pointListener = object : PointListener {
-            override fun getPoint(point: Point) {
-                TODO("Not yet implemented")
-            }
-        }
 
     }
 

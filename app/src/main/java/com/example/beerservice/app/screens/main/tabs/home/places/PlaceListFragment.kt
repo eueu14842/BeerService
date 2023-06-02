@@ -63,7 +63,7 @@ class PlaceListFragment : BaseFragment(R.layout.fragment_place_list) {
     }
 
 
-    fun setupPagedPlaceList() {
+    private fun setupPagedPlaceList() {
         val adapter = PlacePagingAdapter(onPlaceClickListenerFromHome)
         val tryAgainAction: TryAgainAction = { adapter.retry() }
         val footerAdapter = DefaultLoadStateAdapter(tryAgainAction)

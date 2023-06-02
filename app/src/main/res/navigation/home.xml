@@ -65,6 +65,10 @@
         <action
             android:id="@+id/action_breweryListFragment_to_breweryDetailsFragment"
             app:destination="@id/breweryDetailsFragment" />
+        <argument
+            android:name="searchBy"
+            app:argType="string"
+            android:defaultValue='" "' />
     </fragment>
 
     <fragment
@@ -118,6 +122,10 @@
         <action
             android:id="@+id/action_searchFragment_to_breweryDetailsFragment"
             app:destination="@id/breweryDetailsFragment" />
+        <argument
+            android:name="searchBy"
+            app:argType="string" />
+
 
     </fragment>
 

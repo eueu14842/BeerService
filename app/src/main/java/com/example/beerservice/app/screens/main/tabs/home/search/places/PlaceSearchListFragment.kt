@@ -11,41 +11,66 @@ import androidx.recyclerview.widget.ConcatAdapter
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.beerservice.R
+import com.example.beerservice.app.Const.SEARCH_KEY
+import com.example.beerservice.app.model.brewery.entities.Brewery
 import com.example.beerservice.app.model.place.entities.Place
 import com.example.beerservice.app.screens.base.BaseFragment
 import com.example.beerservice.app.screens.base.DefaultLoadStateAdapter
 import com.example.beerservice.app.screens.base.TryAgainAction
+import com.example.beerservice.app.screens.main.tabs.home.brewery.BreweryAdapter
 import com.example.beerservice.app.screens.main.tabs.home.search.SearchFragmentDirections
+import com.example.beerservice.app.screens.main.tabs.home.search.SearchViewModel
+import com.example.beerservice.app.screens.main.tabs.home.search.breweries.BrewerySearchListFragment
 import com.example.beerservice.app.screens.main.tabs.places.adapters.OnPlaceClickListener
+import com.example.beerservice.app.screens.main.tabs.places.adapters.PlaceListAdapter
 import com.example.beerservice.app.screens.main.tabs.places.adapters.PlacePagingAdapter
-import com.example.beerservice.app.screens.main.tabs.places.tabs.PlaceLocationListFragmentDirections
 import com.example.beerservice.app.screens.main.tabs.places.tabs.PlaceViewModel
 import com.example.beerservice.app.utils.ViewModelFactory
-import com.example.beerservice.databinding.FragmentPlaceListBinding
 import com.example.beerservice.databinding.FragmentSearchPlaceListBinding
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.debounce
 import kotlinx.coroutines.launch
 
+
+
 class PlaceSearchListFragment : BaseFragment(R.layout.fragment_search_place_list) {
-    lateinit var binding: FragmentSearchPlaceListBinding
-    lateinit var recycler: RecyclerView
+    private lateinit var binding: FragmentSearchPlaceListBinding
+    private lateinit var recycler: RecyclerView
 
-    override val viewModel: PlaceViewModel by viewModels { ViewModelFactory() }
-
-
+    override val viewModel: SearchViewModel by viewModels { ViewModelFactory() }
+    private lateinit var breweryAdapter: PlaceListAdapter
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentSearchPlaceListBinding.inflate(layoutInflater)
-
         setupViews()
-        setupPagedPlaceList()
+        observeSearchPlace()
+
+
 
         return binding.root
     }
+
+    private fun observeSearchPlace() {
+        lifecycleScope.launch {
+            viewModel.getSearchData()
+            viewModel.setSearchBy(arguments?.getString(SEARCH_KEY, "") ?: "")
+            viewModel.searchData.observe(viewLifecycleOwner) {
+                val list = it.place
+                breweryAdapter = PlaceListAdapter(list!!, onPlaceClickListenerFromHome)
+                recycler.adapter = breweryAdapter
+            }
+        }
+    }
+
+    private fun setupViews() {
+        recycler = binding.recyclerPlaceList.apply {
+            layoutManager = LinearLayoutManager(requireContext())
+        }
+    }
+
 
     private val onPlaceClickListenerFromHome = object : OnPlaceClickListener {
         override fun onPlaceClick(place: Place, position: Int) {
@@ -56,42 +81,13 @@ class PlaceSearchListFragment : BaseFragment(R.layout.fragment_search_place_list
     }
 
 
-    private fun setupViews() {
-        recycler = binding.recyclerPlaceList.apply {
-            layoutManager = LinearLayoutManager(requireContext())
-        }
-    }
-
-
-    fun setupPagedPlaceList() {
-        val adapter = PlacePagingAdapter(onPlaceClickListenerFromHome)
-        val tryAgainAction: TryAgainAction = { adapter.retry() }
-        val footerAdapter = DefaultLoadStateAdapter(tryAgainAction)
-        val adapterWithLoadState: ConcatAdapter = adapter.withLoadStateFooter(footerAdapter)
-
-        recycler = binding.recyclerPlaceList.apply {
-            layoutManager = LinearLayoutManager(requireContext())
-        }
-        recycler.adapter = adapterWithLoadState
-
-        observePagedPlaces(adapter)
-        observeLoadState(adapter)
-    }
-
-    private fun observePagedPlaces(adapter: PlacePagingAdapter) {
-        lifecycleScope.launch {
-            viewModel.placesFlow.collectLatest { pagingData ->
-                adapter.submitData(pagingData)
+    companion object {
+        fun newInstance(searchBy: String) =
+            PlaceSearchListFragment().apply {
+                arguments = Bundle().apply {
+                    putString(SEARCH_KEY, searchBy)
+                }
             }
-        }
-    }
-
-    private fun observeLoadState(adapter: PlacePagingAdapter) {
-        lifecycleScope.launch {
-            adapter.loadStateFlow.debounce(200).collectLatest { state ->
-//                mainLoadStateHolder.bind(state.refresh)
-            }
-        }
     }
 
 

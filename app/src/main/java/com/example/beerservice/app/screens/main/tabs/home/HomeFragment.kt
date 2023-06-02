@@ -42,6 +42,7 @@ class HomeFragment : BaseFragment(R.layout.fragment_home) {
         observeBreweryAdblock()
         observeBeerAdblock()
         observePlaceAdblock()
+
         val search = binding.searchView.apply {
             setOnCloseListener(onCloseSearchListener)
             setOnQueryTextListener(onQueryTextListener)
@@ -62,7 +63,7 @@ class HomeFragment : BaseFragment(R.layout.fragment_home) {
 
     private val onQueryTextListener = object : SearchView.OnQueryTextListener {
         override fun onQueryTextSubmit(p0: String?): Boolean {
-            navigateToSearchEvent()
+            navigateToSearchEvent(p0 ?: "")
             return true
         }
 
@@ -137,7 +138,8 @@ class HomeFragment : BaseFragment(R.layout.fragment_home) {
     private val onPlaceClickListener = object : OnPlaceClickListener {
         override fun onPlaceClick(place: Place, position: Int) {
             val direction = HomeFragmentDirections.actionHomeFragmentToPlaceDetailsFragment(
-                place.placeId!! )
+                place.placeId!!
+            )
             findNavController().navigate(direction)
         }
     }
@@ -155,7 +157,8 @@ class HomeFragment : BaseFragment(R.layout.fragment_home) {
         findNavController().navigate(R.id.action_homeFragment_to_placeListFragment)
     }
 
-    private fun navigateToSearchEvent() {
-        findNavController().navigate(R.id.action_homeFragment_to_searchFragment)
+    private fun navigateToSearchEvent(searchBy: String) {
+        val direction = HomeFragmentDirections.actionHomeFragmentToSearchFragment(searchBy)
+        findNavController().navigate(direction)
     }
 }

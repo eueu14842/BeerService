@@ -38,7 +38,6 @@ class BreweryListFragment : BaseFragment(R.layout.fragment_brewery_list) {
     ): View? {
         binding = FragmentBreweryListBinding.inflate(layoutInflater)
 
-
         setupBreweriesList()
         return binding.root
     }
@@ -61,7 +60,6 @@ class BreweryListFragment : BaseFragment(R.layout.fragment_brewery_list) {
              )
         observeBreweries(adapter)
         observeLoadState(adapter)
-
 
     }
 
