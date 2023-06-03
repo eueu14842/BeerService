@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
@@ -32,7 +33,8 @@ class PlaceLocationListFragment : BaseFragment(R.layout.fragment_place_location_
 
     override val viewModel: PlaceViewModel by viewModels { ViewModelFactory() }
 
-    private val navArgs by navArgs<PlaceLocationListFragmentArgs>()
+    private lateinit var viewModelPlace: PlaceViewModel
+
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -41,18 +43,18 @@ class PlaceLocationListFragment : BaseFragment(R.layout.fragment_place_location_
     ): View? {
         binding = FragmentPlaceLocationListBinding.inflate(layoutInflater)
         setupViews()
+        viewModelPlace = ViewModelProvider(requireActivity())[PlaceViewModel::class.java]
 
         observePlaces()
-
         return binding.root
     }
 
 
     private fun observePlaces() {
         lifecycleScope.launch {
-            viewModel.location.observe(viewLifecycleOwner) { location ->
-                viewModel.getPlaces(location.lat, location.lon, location.rad)
-                viewModel.place.observe(viewLifecycleOwner) { result ->
+            viewModelPlace.location.observe(viewLifecycleOwner) { location ->
+                viewModelPlace.getPlaces(location.lat, location.lon, location.rad)
+                viewModelPlace.place.observe(viewLifecycleOwner) { result ->
                     result.map { places ->
                         val adapter =
                             PlaceListAdapter(places, getCurrentListenerDependsOnDestination())
@@ -86,7 +88,6 @@ class PlaceLocationListFragment : BaseFragment(R.layout.fragment_place_location_
             findNavController().navigate(direction)
         }
     }
-
 
     private fun setupViews() {
         recycler = binding.recyclerPlaceList.apply {

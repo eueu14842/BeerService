@@ -12,6 +12,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.app.ActivityCompat
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
@@ -33,7 +34,7 @@ import kotlin.math.pow
 class PlaceMapFragment : BaseFragment(R.layout.fragment_places_map), CameraListener {
 
     override val viewModel: PlaceViewModel by viewModels { ViewModelFactory() }
-
+    lateinit var viewModelPlace: PlaceViewModel
     private var locationManager: android.location.LocationManager? = null
     private var point: Point = Point(55.764094, 37.617617)
 
@@ -54,12 +55,13 @@ class PlaceMapFragment : BaseFragment(R.layout.fragment_places_map), CameraListe
     ): View? {
         binding = FragmentPlacesMapBinding.inflate(inflater, container, false)
 
+        viewModelPlace = ViewModelProvider(requireActivity())[PlaceViewModel::class.java]
         mapview = binding.mapview
         map = mapview.map
         mapObjects = map.mapObjects.addCollection()
 
-        setupLocationManager()
 
+        setupLocationManager()
         getCurrentPosition(getAvailableProvider())
         observePlaces(point.latitude, point.longitude)
         onNavigateToCurrentPosition(point)
@@ -71,8 +73,8 @@ class PlaceMapFragment : BaseFragment(R.layout.fragment_places_map), CameraListe
 
     private fun observePlaces(lat: Double, lon: Double) {
         lifecycleScope.launch {
-            viewModel.getPlaces(lat, lon, 1.5)
-            viewModel.place.observe(viewLifecycleOwner) { result ->
+            viewModelPlace.getPlaces(lat, lon, 1.5)
+            viewModelPlace.place.observe(viewLifecycleOwner) { result ->
                 result.map { places ->
                     places.forEach {
                         createTappableMark(
@@ -120,7 +122,7 @@ class PlaceMapFragment : BaseFragment(R.layout.fragment_places_map), CameraListe
 
 
     private fun setLocation(lat: Double, lon: Double, rad: Double) {
-        viewModel.setPlacesLocation(lat, lon, rad)
+        viewModelPlace.setPlacesLocation(lat, lon)
     }
 
 
@@ -205,7 +207,7 @@ class PlaceMapFragment : BaseFragment(R.layout.fragment_places_map), CameraListe
         if (finished) {
             val currentZoom = position.zoom
             val radius: Double = calculateRadiusInKilometers(currentZoom, point.latitude)
-            viewModel.getPlaces(
+            viewModelPlace.getPlaces(
                 point.latitude,
                 point.longitude,
                 radius * 10
