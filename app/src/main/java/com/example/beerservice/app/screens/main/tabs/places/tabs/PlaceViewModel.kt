@@ -44,13 +44,13 @@ class PlaceViewModel(
         }
     }
 
-    fun setPlacesLocation(lat: Double, lon: Double,rad:Double) {
-        this._location.value = SharedLocation()
+    fun setPlacesLocation(lat: Double, lon: Double) {
+        this._location.value = SharedLocation(lat, lon)
     }
 
     data class SharedLocation(
-        val lat: Double = 43.592918,
-        val lon: Double = 39.728160,
+        val lat: Double = 0.0,
+        val lon: Double = 0.0,
         val rad: Double = 1.5
     )
 }
