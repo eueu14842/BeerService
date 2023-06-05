@@ -1,14 +1,17 @@
 package com.example.beerservice.app.screens.main.tabs.home
 
+import android.Manifest
+import android.content.pm.PackageManager
 import android.os.Bundle
 import android.view.View
 import android.widget.SearchView
 import android.widget.SearchView.OnCloseListener
-import android.widget.Toast
+import androidx.core.app.ActivityCompat
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.budiyev.android.codescanner.*
 import com.example.beerservice.R
 import com.example.beerservice.app.model.beers.entities.Beer
 import com.example.beerservice.app.model.brewery.entities.Brewery
@@ -22,7 +25,11 @@ import com.example.beerservice.app.screens.main.tabs.places.adapters.OnPlaceClic
 import com.example.beerservice.app.screens.main.tabs.places.adapters.PlaceAdblockAdapter
 import com.example.beerservice.app.utils.ViewModelFactory
 import com.example.beerservice.app.utils.observeResult
+import com.example.beerservice.app.utils.setupScanner
 import com.example.beerservice.databinding.FragmentHomeBinding
+
+
+private const val PERMISSION_CAMERA_REQUEST = 1
 
 class HomeFragment : BaseFragment(R.layout.fragment_home) {
     lateinit var binding: FragmentHomeBinding
@@ -33,6 +40,7 @@ class HomeFragment : BaseFragment(R.layout.fragment_home) {
     lateinit var beerRecycler: RecyclerView
     lateinit var placeRecycler: RecyclerView
 
+    private lateinit var codeScanner: CodeScanner
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -57,9 +65,46 @@ class HomeFragment : BaseFragment(R.layout.fragment_home) {
     }
 
     private val onCloseSearchListener = OnCloseListener {
-        Toast.makeText(requireContext(), "onClose", Toast.LENGTH_SHORT).show()
+        onRequestCameraPermissions()
+        viewModel.setupScanner(true)
+        if (checkCameraPermission()) {
+            startScanning()
+        } else {
+            ActivityCompat.requestPermissions(
+                requireActivity(),
+                arrayOf(Manifest.permission.CAMERA),
+                PERMISSION_CAMERA_REQUEST
+            )
+        }
+
         true
     }
+
+    private fun startScanning() {
+        viewModel.isAvailableScanner.setupScanner(this, binding.scannerViewState) {
+            val scannerView = view?.findViewById<CodeScannerView>(R.id.scanner_view)
+            val activity = requireActivity()
+            codeScanner = CodeScanner(activity, scannerView!!)
+            codeScanner.camera = CodeScanner.CAMERA_BACK
+            codeScanner.formats = CodeScanner.ALL_FORMATS
+            codeScanner.autoFocusMode = AutoFocusMode.SAFE
+            codeScanner.scanMode = ScanMode.SINGLE
+            codeScanner.isAutoFocusEnabled = true
+            codeScanner.isFlashEnabled = false
+
+            codeScanner.startPreview()
+            codeScanner.decodeCallback = DecodeCallback {
+                activity.runOnUiThread {
+                    /*   Toast.makeText(activity, it.text, Toast.LENGTH_LONG).show()*/
+                    navigateToSearchEvent(it.text)
+                }
+            }
+            scannerView.setOnClickListener {
+                codeScanner.startPreview()
+            }
+        }
+    }
+
 
     private val onQueryTextListener = object : SearchView.OnQueryTextListener {
         override fun onQueryTextSubmit(p0: String?): Boolean {
@@ -160,5 +205,25 @@ class HomeFragment : BaseFragment(R.layout.fragment_home) {
     private fun navigateToSearchEvent(searchBy: String) {
         val direction = HomeFragmentDirections.actionHomeFragmentToSearchFragment(searchBy)
         findNavController().navigate(direction)
+    }
+
+    private fun onRequestCameraPermissions() {
+        if (ActivityCompat.checkSelfPermission(
+                requireActivity(),
+                Manifest.permission.CAMERA
+            ) != PackageManager.PERMISSION_GRANTED
+        ) {
+            val permissions = arrayOf(
+                Manifest.permission.CAMERA,
+            )
+            ActivityCompat.requestPermissions(requireActivity(), permissions, 0)
+        }
+    }
+
+    private fun checkCameraPermission(): Boolean {
+        return ActivityCompat.checkSelfPermission(
+            requireContext(),
+            Manifest.permission.CAMERA
+        ) == PackageManager.PERMISSION_GRANTED
     }
 }
