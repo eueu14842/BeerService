@@ -12,6 +12,7 @@ import com.example.beerservice.app.model.ResultState
 import com.example.beerservice.app.model.Success
 import com.example.beerservice.app.screens.base.BaseFragment
 import com.example.beerservice.app.views.ResultStateView
+import com.example.beerservice.app.views.ScannerStateView
 
 
 fun <T> LiveData<ResultState<T>>.observeResult(
@@ -35,6 +36,18 @@ fun <T> LiveData<ResultState<T>>.observeResult(
                     it.isVisible = result is Success<*>
                 }
         }
+        if (result is Success) onSuccess.invoke(result.value)
+
+    }
+}
+
+fun <T> LiveData<ResultState<T>>.setupScanner(
+    fragment: BaseFragment,
+    scannerStateView: ScannerStateView,
+    onSuccess: (T) -> Unit
+) {
+    observe(fragment.viewLifecycleOwner) { result ->
+        scannerStateView.setResult(fragment, result)
         if (result is Success) onSuccess.invoke(result.value)
 
     }

@@ -51,6 +51,11 @@ class BeersListFragment : BaseFragment(R.layout.fragment_beers_list) {
         }
         recycler.adapter = adapterWithLoadState
 
+        mainLoadStateHolder = DefaultLoadStateAdapter.Holder(
+            binding.loadStateView,
+            null,
+            tryAgainAction
+        )
         observeBeers(adapter)
         observeLoadState(adapter)
 
@@ -68,7 +73,7 @@ class BeersListFragment : BaseFragment(R.layout.fragment_beers_list) {
     private fun observeLoadState(adapter: BeerPagingAdapter) {
         lifecycleScope.launch {
             adapter.loadStateFlow.debounce(200).collectLatest { state ->
-//                mainLoadStateHolder.bind(state.refresh)
+                mainLoadStateHolder.bind(state.refresh)
             }
         }
     }
