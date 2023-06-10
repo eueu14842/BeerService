@@ -13,6 +13,7 @@ class GetBeerResponseEntity(
     val ibu: Float?= null,
     val breweryId: Int? = null,
     val totalReviews: Int? = null,
+    val breweryName: String? = null,
 ) {
     fun toBeer() = Beer(
         id = id,
@@ -24,6 +25,7 @@ class GetBeerResponseEntity(
         abv = abv,
         ibu = ibu,
         breweryId = breweryId,
-        totalReviews = totalReviews
+        totalReviews = totalReviews,
+        breweryName = breweryName
     )
 }

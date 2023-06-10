@@ -3,6 +3,7 @@ package com.example.beerservice.app.views
 import android.content.Context
 import android.util.AttributeSet
 import android.view.LayoutInflater
+import android.view.View
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.isVisible
 import com.example.beerservice.R
@@ -26,6 +27,13 @@ class ScannerStateView @JvmOverloads constructor(
 
     fun <T> setResult(fragment: BaseFragment, result: ResultState<T>) {
         binding.scannerView.isVisible = result is Success<*>
+        binding.close.isVisible = result is Success<*>
+
+        binding.close.setOnClickListener {
+            fragment.onStart()
+            binding.scannerView.visibility = View.GONE
+            binding.close.visibility = View.GONE
+        }
     }
 
 

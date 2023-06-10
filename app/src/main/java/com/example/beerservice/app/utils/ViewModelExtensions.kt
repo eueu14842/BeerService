@@ -8,6 +8,7 @@ import androidx.core.view.children
 import androidx.core.view.isVisible
 import androidx.lifecycle.LiveData
 import androidx.recyclerview.widget.RecyclerView
+import com.example.beerservice.app.model.Empty
 import com.example.beerservice.app.model.ResultState
 import com.example.beerservice.app.model.Success
 import com.example.beerservice.app.screens.base.BaseFragment

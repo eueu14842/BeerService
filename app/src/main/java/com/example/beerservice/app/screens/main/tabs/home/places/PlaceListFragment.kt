@@ -30,7 +30,7 @@ class PlaceListFragment : BaseFragment(R.layout.fragment_place_list) {
     lateinit var recycler: RecyclerView
 
     override val viewModel: PlaceViewModel by viewModels { ViewModelFactory() }
-
+    private lateinit var mainLoadStateHolder: DefaultLoadStateAdapter.Holder
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -72,8 +72,13 @@ class PlaceListFragment : BaseFragment(R.layout.fragment_place_list) {
         recycler = binding.recyclerPlaceList.apply {
             layoutManager = LinearLayoutManager(requireContext())
         }
-        recycler.adapter = adapterWithLoadState
 
+        recycler.adapter = adapterWithLoadState
+        mainLoadStateHolder = DefaultLoadStateAdapter.Holder(
+            binding.loadStateView,
+            null,
+            tryAgainAction
+        )
         observePagedPlaces(adapter)
         observeLoadState(adapter)
     }
@@ -89,7 +94,7 @@ class PlaceListFragment : BaseFragment(R.layout.fragment_place_list) {
     private fun observeLoadState(adapter: PlacePagingAdapter) {
         lifecycleScope.launch {
             adapter.loadStateFlow.debounce(200).collectLatest { state ->
-//                mainLoadStateHolder.bind(state.refresh)
+                mainLoadStateHolder.bind(state.refresh)
             }
         }
     }

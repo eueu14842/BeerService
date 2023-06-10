@@ -30,4 +30,7 @@
     <string name="internal_error">Внутення ошибка. Попробуйте снова!</string>
     <string name="action_logout">Выход</string>
     <string name="action_try_again">Попробуйте снова</string>
+    <string name="close">Закрыть</string>
+    <string name="beer_title">Название позиции</string>
+    <string name="beer_description_adblock">Описание позиции</string>
 </resources>

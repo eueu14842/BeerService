@@ -1,5 +1,6 @@
 package com.example.beerservice.app.model.beers.entities
 
+
 data class Beer(
     val id: Int? = null,
     val name: String? = null,
@@ -11,4 +12,5 @@ data class Beer(
     val ibu: Float? = null,
     val breweryId: Int? = null,
     val totalReviews: Int? = null,
+    val breweryName: String? = null,
 )

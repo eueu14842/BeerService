@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.View
 import android.widget.SearchView
 import android.widget.SearchView.OnCloseListener
+import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -39,9 +40,9 @@ class HomeFragment : BaseFragment(R.layout.fragment_home) {
     lateinit var breweryRecycler: RecyclerView
     lateinit var beerRecycler: RecyclerView
     lateinit var placeRecycler: RecyclerView
-
+    lateinit var searchView: SearchView
     private lateinit var codeScanner: CodeScanner
-
+    var scannerView: CodeScannerView? = null
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentHomeBinding.bind(view)
@@ -51,55 +52,50 @@ class HomeFragment : BaseFragment(R.layout.fragment_home) {
         observeBeerAdblock()
         observePlaceAdblock()
 
-        val search = binding.searchView.apply {
-            setOnCloseListener(onCloseSearchListener)
-            setOnQueryTextListener(onQueryTextListener)
-        }
-
+        searchView.setOnQueryTextListener(onQueryTextListener)
+        searchView.setOnCloseListener(onCloseSearchListener)
+        scannerView = view.findViewById(R.id.scanner_view)
+        codeScanner = CodeScanner(requireActivity(), scannerView!!)
+        binding.imageViewScanner.setOnClickListener { initializeScanner() }
 
         binding.showAllBreweryTextView.setOnClickListener { navigateToBreweryListEvent() }
         binding.showAllBeerTextView.setOnClickListener { navigateToBeerListEvent() }
         binding.showAllStoresTextView.setOnClickListener { navigateToPlaceListEvent() }
 
-
     }
 
     private val onCloseSearchListener = OnCloseListener {
+        Toast.makeText(activity, "Close", Toast.LENGTH_LONG).show()
+        true
+    }
+
+    private fun initializeScanner() {
         onRequestCameraPermissions()
-        viewModel.setupScanner(true)
+        viewModel.isAvailableScanner(true)
         if (checkCameraPermission()) {
             startScanning()
         } else {
             ActivityCompat.requestPermissions(
-                requireActivity(),
-                arrayOf(Manifest.permission.CAMERA),
-                PERMISSION_CAMERA_REQUEST
+                requireActivity(), arrayOf(Manifest.permission.CAMERA), PERMISSION_CAMERA_REQUEST
             )
         }
-
-        true
     }
 
     private fun startScanning() {
         viewModel.isAvailableScanner.setupScanner(this, binding.scannerViewState) {
-            val scannerView = view?.findViewById<CodeScannerView>(R.id.scanner_view)
-            val activity = requireActivity()
-            codeScanner = CodeScanner(activity, scannerView!!)
             codeScanner.camera = CodeScanner.CAMERA_BACK
             codeScanner.formats = CodeScanner.ALL_FORMATS
             codeScanner.autoFocusMode = AutoFocusMode.SAFE
             codeScanner.scanMode = ScanMode.SINGLE
             codeScanner.isAutoFocusEnabled = true
             codeScanner.isFlashEnabled = false
-
             codeScanner.startPreview()
             codeScanner.decodeCallback = DecodeCallback {
-                activity.runOnUiThread {
-                    /*   Toast.makeText(activity, it.text, Toast.LENGTH_LONG).show()*/
+                activity?.runOnUiThread {
                     navigateToSearchEvent(it.text)
                 }
             }
-            scannerView.setOnClickListener {
+            scannerView?.setOnClickListener {
                 codeScanner.startPreview()
             }
         }
@@ -118,6 +114,8 @@ class HomeFragment : BaseFragment(R.layout.fragment_home) {
     }
 
     private fun initViews() {
+        searchView = binding.searchView
+
         with(binding) {
             recyclerBrewery.apply {
                 layoutManager =
@@ -139,7 +137,7 @@ class HomeFragment : BaseFragment(R.layout.fragment_home) {
     }
 
     private fun observeBreweryAdblock() {
-        binding.resultViewState.setTryAgainAction { println("try again") }
+        binding.resultViewState.setTryAgainAction { println("Попробуйте снова") }
         viewModel.brewery.observeResult(this, binding.root, binding.resultViewState) { breweries ->
             val adapter = BreweryAdapter(breweries, onBreweryClickListener)
             breweryRecycler.adapter = adapter
@@ -147,7 +145,7 @@ class HomeFragment : BaseFragment(R.layout.fragment_home) {
     }
 
     private fun observeBeerAdblock() {
-        binding.resultViewState.setTryAgainAction { println("try again") }
+        binding.resultViewState.setTryAgainAction { println("Попробуйте снова") }
         viewModel.beer.observeResult(this, binding.root, binding.resultViewState) { beers ->
             val adapter = BeerAdblockAdapter(beers, onBeerAdblockClickListener)
             beerRecycler.adapter = adapter
@@ -209,8 +207,7 @@ class HomeFragment : BaseFragment(R.layout.fragment_home) {
 
     private fun onRequestCameraPermissions() {
         if (ActivityCompat.checkSelfPermission(
-                requireActivity(),
-                Manifest.permission.CAMERA
+                requireActivity(), Manifest.permission.CAMERA
             ) != PackageManager.PERMISSION_GRANTED
         ) {
             val permissions = arrayOf(
@@ -222,8 +219,7 @@ class HomeFragment : BaseFragment(R.layout.fragment_home) {
 
     private fun checkCameraPermission(): Boolean {
         return ActivityCompat.checkSelfPermission(
-            requireContext(),
-            Manifest.permission.CAMERA
+            requireContext(), Manifest.permission.CAMERA
         ) == PackageManager.PERMISSION_GRANTED
     }
 }

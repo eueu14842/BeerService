@@ -3,14 +3,15 @@ package com.example.beerservice.sources.beers
 import com.example.beerservice.sources.beers.entities.GetBeerResponseEntity
 import retrofit2.http.GET
 import retrofit2.http.POST
+import retrofit2.http.Path
 import retrofit2.http.Query
 
 interface BeerApi {
     @POST("beer/createBeer")
     suspend fun createBeer()
 
-    @GET("beer/profile")
-    suspend fun getBeer(@Query("id") id: Int): GetBeerResponseEntity
+    @GET("beer/profile/{id}")
+    suspend fun getBeer(@Path("id") id: Int): GetBeerResponseEntity
 
     @GET("/beer/list")
     suspend fun getBeerList(): List<GetBeerResponseEntity>
