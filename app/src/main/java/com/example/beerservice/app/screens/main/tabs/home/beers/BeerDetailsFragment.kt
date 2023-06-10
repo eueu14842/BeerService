@@ -38,8 +38,8 @@ class BeerDetailsFragment : BaseFragment(R.layout.fragment_beer_details) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentBeerDetailsBinding.bind(view)
-        setupBeerDetailsBlock()
-        setupFeedbackList()
+       setupBeerDetailsBlock()
+       setupFeedbackList()
     }
 
 

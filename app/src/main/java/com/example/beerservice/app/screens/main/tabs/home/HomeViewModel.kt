@@ -53,7 +53,7 @@ class HomeViewModel(
         }
     }
 
-    fun setupScanner(boolean: Boolean) {
+    fun isAvailableScanner(boolean: Boolean) {
         _isAvailableScanner.value = Success(boolean)
     }
 }

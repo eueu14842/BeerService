@@ -1,10 +1,7 @@
 package com.example.beerservice.sources.place
 
 import com.example.beerservice.sources.place.entities.GetPlaceResponseEntity
-import retrofit2.http.Body
-import retrofit2.http.GET
-import retrofit2.http.POST
-import retrofit2.http.Query
+import retrofit2.http.*
 
 interface PlaceApi {
     @POST("place/createPlaceToBuy")
@@ -30,8 +27,8 @@ interface PlaceApi {
     @GET("place/adblock")
     suspend fun getPlaceAdblockList(): List<GetPlaceResponseEntity>
 
-    @GET("place/profile")
+    @GET("place/profile/{id}")
     suspend fun getPlaceById(
-        @Query("id") id: Int
+        @Path("id") id: Int
     ): GetPlaceResponseEntity
 }

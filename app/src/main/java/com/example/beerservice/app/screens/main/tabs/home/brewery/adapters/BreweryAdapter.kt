@@ -5,6 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.beerservice.app.model.brewery.entities.Brewery
+import com.example.beerservice.databinding.ItemAdblockBinding
 import com.example.beerservice.databinding.ItemBreweryBinding
 
 interface OnBreweryClickListener {
@@ -17,12 +18,12 @@ class BreweryAdapter(
 
 ) :
     RecyclerView.Adapter<BreweryAdapter.BreweryViewHolder>() {
-    class BreweryViewHolder(val binding: ItemBreweryBinding) : RecyclerView.ViewHolder(binding.root)
+    class BreweryViewHolder(val binding: ItemAdblockBinding) : RecyclerView.ViewHolder(binding.root)
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BreweryViewHolder {
         val inflater = LayoutInflater.from(parent.context)
-        val binding = ItemBreweryBinding.inflate(inflater)
+        val binding = ItemAdblockBinding.inflate(inflater)
 
         return BreweryViewHolder(binding)
     }
@@ -32,9 +33,8 @@ class BreweryAdapter(
         with(holder.binding) {
             Glide.with(holder.itemView)
                 .load(brewery.image)
-                .into(ivBreweryImage)
-            tvBreweryName.text = brewery.name
-            tvBreweryDescription.text = brewery.description
+                .into(ivItemImage)
+            tvItemName.text = brewery.name
         }
         holder.itemView.setOnClickListener {
             onBreweryClickListener.onBreweryClick(brewery, position)
