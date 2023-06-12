@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.beerservice.app.model.place.entities.Place
 import com.example.beerservice.databinding.ItemAdblockBinding
+import com.example.beerservice.databinding.ItemAdblockPlaceBinding
 import com.example.beerservice.databinding.ItemBreweryBinding
 
 class PlaceAdblockAdapter(
@@ -13,11 +14,11 @@ class PlaceAdblockAdapter(
     val onPlaceAdblockClickListener: OnPlaceClickListener
 ) :
     RecyclerView.Adapter<PlaceAdblockAdapter.BreweryViewHolder>() {
-    class BreweryViewHolder(val binding: ItemAdblockBinding) : RecyclerView.ViewHolder(binding.root)
+    class BreweryViewHolder(val binding: ItemAdblockPlaceBinding) : RecyclerView.ViewHolder(binding.root)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BreweryViewHolder {
         val inflater = LayoutInflater.from(parent.context)
-        val binding = ItemAdblockBinding.inflate(inflater)
+        val binding = ItemAdblockPlaceBinding.inflate(inflater)
         return BreweryViewHolder(binding)
     }
 
@@ -26,8 +27,8 @@ class PlaceAdblockAdapter(
         with(holder.binding) {
             Glide.with(holder.itemView)
                 .load(place.image)
-                .into(ivItemImage)
-            tvItemName.text = place.name
+                .into(ivPlaceImage)
+            tvPlaceName.text = place.name
         }
         holder.itemView.setOnClickListener {
             onPlaceAdblockClickListener.onPlaceClick(place, position)
