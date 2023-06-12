@@ -12,7 +12,7 @@ import com.example.beerservice.app.screens.base.BaseViewModel
 import com.example.beerservice.app.utils.share
 import kotlinx.coroutines.launch
 
-class ProfileViewModel(val accountsRepository: AccountsRepository = Singletons.accountsRepository) :
+class ProfileViewModel() :
     BaseViewModel() {
 
     private val _profile = MutableLiveData<ResultState<User>>()
@@ -25,5 +25,6 @@ class ProfileViewModel(val accountsRepository: AccountsRepository = Singletons.a
             _profile.value = Success(profile)
         }
     }
+
 
 }

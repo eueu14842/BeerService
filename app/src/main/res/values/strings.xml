@@ -4,7 +4,7 @@
     <string name="field_is_empty">Заполните поле</string>
     <string name="field_email">Email</string>
     <string name="field_username">Имя</string>
-    <string name="field_tel">Телефон</string>
+    <string name="field_tel">Телефон(опционально)</string>
     <string name="field_password">Пароль</string>
     <string name="action_sign_in">Войти</string>
     <string name="action_create_account">Зарегистрироваться</string>
@@ -33,4 +33,7 @@
     <string name="close">Закрыть</string>
     <string name="beer_title">Название позиции</string>
     <string name="beer_description_adblock">Описание позиции</string>
+    <string name="sign_up_success">Поздравляю! Вы создали аккаунт. Теперь вы можете войти</string>
+    <string name="account_already_exists">Такой аккаунт уже существует!</string>
+    <string name="password_mismatch">Введеный пароль не совпадает</string>
 </resources>
