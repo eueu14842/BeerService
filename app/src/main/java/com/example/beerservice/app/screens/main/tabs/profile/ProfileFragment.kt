@@ -9,6 +9,7 @@ import com.example.beerservice.R
 import com.example.beerservice.app.screens.base.BaseFragment
 import com.example.beerservice.app.utils.ViewModelFactory
 import com.example.beerservice.databinding.FragmentProfileBinding
+import kotlin.math.log
 
 class ProfileFragment : BaseFragment(R.layout.fragment_profile) {
     lateinit var binding: FragmentProfileBinding
@@ -19,8 +20,7 @@ class ProfileFragment : BaseFragment(R.layout.fragment_profile) {
         binding = FragmentProfileBinding.bind(view)
 
 
-
-       println(findNavController().currentDestination)
+        binding.buttonLogout.setOnClickListener { logout() }
         observeProfileTest()
     }
 

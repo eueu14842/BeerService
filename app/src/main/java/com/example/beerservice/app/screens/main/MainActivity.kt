@@ -10,7 +10,6 @@ import androidx.navigation.NavDestination
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
 import com.example.beerservice.R
-import com.example.beerservice.app.Const.MAPKIT_API_KEY
 import com.example.beerservice.app.screens.main.tabs.TabsFragment
 import com.yandex.mapkit.MapKitFactory
 import java.util.regex.Pattern
@@ -131,7 +130,7 @@ class MainActivity : AppCompatActivity() {
 
 
     private fun setupMapKit() {
-        MapKitFactory.setApiKey(MAPKIT_API_KEY)
+        MapKitFactory.initialize(this)
     }
 
     override fun onDestroy() {

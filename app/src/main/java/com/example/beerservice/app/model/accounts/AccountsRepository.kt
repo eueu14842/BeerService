@@ -51,6 +51,11 @@ class AccountsRepository(
         return profileResult
     }
 
+    fun logout(){
+        appSettings.setCurrentToken(null)
+
+    }
+
 
     suspend fun refreshUser() {
         withContext(Dispatchers.IO) {

@@ -18,6 +18,7 @@ import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.target.CustomTarget
 import com.example.beerservice.R
+import com.example.beerservice.app.Const
 import com.example.beerservice.app.screens.base.BaseFragment
 import com.example.beerservice.app.utils.ViewModelFactory
 import com.example.beerservice.databinding.FragmentPlacesMapBinding
@@ -47,7 +48,6 @@ class PlaceMapFragment : BaseFragment(R.layout.fragment_places_map), CameraListe
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        MapKitFactory.initialize(requireActivity())
     }
 
     override fun onCreateView(

@@ -13,9 +13,9 @@ interface AccountApi {
     @POST("user/create")
     suspend fun signUp(@Body body: SignUpRequestEntity)
 
-    @POST("/user/auth")
+    @POST("user/auth")
     suspend fun signIn(@Body signInRequestEntity: SignInRequestEntity): SignInResponseEntity
 
-    @GET("/user/profile")
+    @GET("user/profile")
     suspend fun getProfile(): GetUserResponseEntity
 }

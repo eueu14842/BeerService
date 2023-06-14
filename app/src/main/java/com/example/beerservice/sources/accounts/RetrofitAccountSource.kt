@@ -16,15 +16,22 @@ class RetrofitAccountSource(
     val accountApi = retrofit.create(AccountApi::class.java)
 
     override suspend fun signIn(
-        login: String,
-        password: String
+        login: String, password: String
     ): String = wrapRetrofitExceptions {
         val signInRequestEntity = SignInRequestEntity(login, password)
         accountApi.signIn(signInRequestEntity).token
     }
 
     override suspend fun signUp(signUpData: SignUpData) = wrapRetrofitExceptions {
-        accountApi.signUp(signUpData.toSignUpRequestEntity())
+        delay(1000)
+        val signUpRequestEntity = SignUpRequestEntity(
+            signUpData.tel,
+            signUpData.mail,
+            signUpData.userName,
+            signUpData.login,
+            signUpData.password
+        )
+        accountApi.signUp(signUpRequestEntity)
     }
 
     override suspend fun getUser(): User = wrapRetrofitExceptions {

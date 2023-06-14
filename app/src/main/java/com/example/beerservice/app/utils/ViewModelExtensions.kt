@@ -15,6 +15,9 @@ import com.example.beerservice.app.screens.base.BaseFragment
 import com.example.beerservice.app.views.ResultStateView
 import com.example.beerservice.app.views.ScannerStateView
 
+fun <T> LiveData<T>.requireValue(): T {
+    return this.value ?: throw IllegalStateException("Value is empty")
+}
 
 fun <T> LiveData<ResultState<T>>.observeResult(
     fragment: BaseFragment,
