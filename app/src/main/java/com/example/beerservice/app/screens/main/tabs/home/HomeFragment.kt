@@ -1,13 +1,16 @@
 package com.example.beerservice.app.screens.main.tabs.home
 
 import android.Manifest
+import android.app.Activity
+import android.content.Context
 import android.content.pm.PackageManager
 import android.os.Bundle
 import android.view.View
+import android.view.inputmethod.InputMethodManager
 import android.widget.SearchView
 import android.widget.SearchView.OnCloseListener
-import android.widget.Toast
 import androidx.core.app.ActivityCompat
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -30,8 +33,6 @@ import com.example.beerservice.app.utils.setupScanner
 import com.example.beerservice.databinding.FragmentHomeBinding
 
 
-private const val PERMISSION_CAMERA_REQUEST = 1
-
 class HomeFragment : BaseFragment(R.layout.fragment_home) {
     lateinit var binding: FragmentHomeBinding
 
@@ -43,11 +44,12 @@ class HomeFragment : BaseFragment(R.layout.fragment_home) {
     lateinit var searchView: SearchView
     private lateinit var codeScanner: CodeScanner
     var scannerView: CodeScannerView? = null
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentHomeBinding.bind(view)
 
-        initViews()
+        initializeViews()
         observeBreweryAdblock()
         observeBeerAdblock()
         observePlaceAdblock()
@@ -65,7 +67,7 @@ class HomeFragment : BaseFragment(R.layout.fragment_home) {
     }
 
     private val onCloseSearchListener = OnCloseListener {
-        Toast.makeText(activity, "Close", Toast.LENGTH_LONG).show()
+        hideKeyboard()
         true
     }
 
@@ -101,7 +103,6 @@ class HomeFragment : BaseFragment(R.layout.fragment_home) {
         }
     }
 
-
     private val onQueryTextListener = object : SearchView.OnQueryTextListener {
         override fun onQueryTextSubmit(p0: String?): Boolean {
             navigateToSearchEvent(p0 ?: "")
@@ -113,7 +114,7 @@ class HomeFragment : BaseFragment(R.layout.fragment_home) {
         }
     }
 
-    private fun initViews() {
+    private fun initializeViews() {
         searchView = binding.searchView
 
         with(binding) {
@@ -137,7 +138,7 @@ class HomeFragment : BaseFragment(R.layout.fragment_home) {
     }
 
     private fun observeBreweryAdblock() {
-        binding.resultViewState.setTryAgainAction { println("Попробуйте снова") }
+        binding.resultViewState.setTryAgainAction { println(R.string.action_try_again) }
         viewModel.brewery.observeResult(this, binding.root, binding.resultViewState) { breweries ->
             val adapter = BreweryAdapter(breweries, onBreweryClickListener)
             breweryRecycler.adapter = adapter
@@ -145,7 +146,7 @@ class HomeFragment : BaseFragment(R.layout.fragment_home) {
     }
 
     private fun observeBeerAdblock() {
-        binding.resultViewState.setTryAgainAction { println("Попробуйте снова") }
+        binding.resultViewState.setTryAgainAction { println(R.string.try_again) }
         viewModel.beer.observeResult(this, binding.root, binding.resultViewState) { beers ->
             val adapter = BeerAdblockAdapter(beers, onBeerAdblockClickListener)
             beerRecycler.adapter = adapter
@@ -153,12 +154,12 @@ class HomeFragment : BaseFragment(R.layout.fragment_home) {
     }
 
     private fun observePlaceAdblock() {
+        binding.resultViewState.setTryAgainAction { println(R.string.try_again) }
         viewModel.place.observeResult(this, binding.root, binding.resultViewState) { stores ->
             val adapter = PlaceAdblockAdapter(stores, onPlaceClickListener)
             placeRecycler.adapter = adapter
         }
     }
-
 
     private val onBreweryClickListener = object : OnBreweryClickListener {
         override fun onBreweryClick(brewery: Brewery, position: Int) {
@@ -168,7 +169,6 @@ class HomeFragment : BaseFragment(R.layout.fragment_home) {
         }
     }
 
-
     private val onBeerAdblockClickListener = object : OnBeerAdblockClickListener {
         override fun onBeerClick(beer: Beer, position: Int) {
             val direction =
@@ -176,7 +176,6 @@ class HomeFragment : BaseFragment(R.layout.fragment_home) {
             findNavController().navigate(direction)
         }
     }
-
 
     private val onPlaceClickListener = object : OnPlaceClickListener {
         override fun onPlaceClick(place: Place, position: Int) {
@@ -186,7 +185,6 @@ class HomeFragment : BaseFragment(R.layout.fragment_home) {
             findNavController().navigate(direction)
         }
     }
-
 
     private fun navigateToBreweryListEvent() {
         findNavController().navigate(R.id.action_homeFragment_to_breweryListFragment)
@@ -222,4 +220,20 @@ class HomeFragment : BaseFragment(R.layout.fragment_home) {
             requireContext(), Manifest.permission.CAMERA
         ) == PackageManager.PERMISSION_GRANTED
     }
+
+    companion object {
+
+        private const val PERMISSION_CAMERA_REQUEST = 1
+
+        fun Fragment.hideKeyboard() {
+            view?.let { activity?.hideKeyboard(it) }
+        }
+
+        private fun Context.hideKeyboard(view: View) {
+            val inputMethodManager =
+                getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
+            inputMethodManager.hideSoftInputFromWindow(view.windowToken, 0)
+        }
+    }
 }
+

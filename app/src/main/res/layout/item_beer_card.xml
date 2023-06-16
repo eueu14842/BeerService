@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:app2="http://schemas.android/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:clipChildren="false"
+    android:clipToPadding="false"
+    android:paddingTop="5dp"
+    android:paddingBottom="5dp">
+
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/card_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app2:cardBackgroundColor="#B8BC6C"
+        app2:cardCornerRadius="4dp"
+        app2:cardElevation="4dp"
+        app2:cardPreventCornerOverlap="false"
+        app2:cardUseCompatPadding="true"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="10dp">
+
+            <ImageView
+                android:id="@+id/imageViewBeer"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginBottom="8dp"
+                android:scaleType="centerCrop" />
+
+            <TextView
+                android:id="@+id/textViewPlaceTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_toEndOf="@id/imageViewBeer"
+                android:text="@string/beer_title"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+            <RatingBar
+                android:id="@+id/ratingBar2"
+                style="@android:style/Widget.DeviceDefault.Light.RatingBar.Indicator"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/textViewPlaceTitle"
+                android:layout_marginStart="6dp"
+                android:layout_marginTop="7dp"
+                android:layout_toEndOf="@+id/imageViewBeer" />
+
+            <TextView
+                android:id="@+id/textViewBeerDesc"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/ratingBar2"
+                android:layout_alignParentEnd="true"
+                android:layout_marginStart="9dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="70dp"
+                android:layout_toEndOf="@id/imageViewBeer"
+                android:ellipsize="end"
+                android:lines="2"
+                android:text="@string/beer_description_adblock" />
+
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentEnd="true"
+                android:layout_marginStart="19dp"
+                android:layout_marginTop="30dp"
+                android:layout_marginEnd="4dp"
+                android:layout_toEndOf="@+id/ratingBar2"
+                android:text="TextView" />
+
+        </RelativeLayout>
+
+    </androidx.cardview.widget.CardView>
+</androidx.constraintlayout.widget.ConstraintLayout>

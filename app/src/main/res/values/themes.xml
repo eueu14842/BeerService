@@ -15,6 +15,7 @@
         <item name="textInputStyle">@style/GlobalTextInputStyle</item>
         <item name="materialButtonStyle">@style/GlobalButtonStyle</item>
     </style>
+
     <style name="GlobalTextInputStyle" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
         <item name="android:minWidth">@dimen/big_width</item>
     </style>

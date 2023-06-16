@@ -6,7 +6,6 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-
     <ScrollView
         android:id="@+id/scrollContainer"
         android:layout_width="match_parent"
@@ -65,19 +64,21 @@
                 <TextView
                     android:id="@+id/tv_breweries"
                     style="@style/GlobalTextInputStyle.Big"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
+                    android:text="@string/title_slider_brewery"
                     android:textSize="20sp"
-                    android:text="@string/title_slider_brewery" />
+                    android:layout_weight="1"
+                    />
 
                 <TextView
                     android:id="@+id/show_all_brewery_textView"
                     style="@style/LinkTextView"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
                     android:gravity="end"
+                    android:layout_weight="1"
+
                     android:text="@string/slider_show_all"
                     android:textColor="#2E7D32" />
             </LinearLayout>
@@ -102,7 +103,7 @@
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="16dp"
                 android:layout_marginEnd="8dp"
-                android:layout_weight="0"
+
                 android:orientation="horizontal"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -111,20 +112,21 @@
                 <TextView
                     android:id="@+id/tv_beers"
                     style="@style/GlobalTextInputStyle.Big"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textSize="20sp"
-                    android:text="@string/title_slider_beer" />
+                    android:text="@string/title_slider_beer"
+                    android:layout_weight="1"/>
 
                 <TextView
                     android:id="@+id/show_all_beer_textView"
                     style="@style/LinkTextView"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
                     android:gravity="end"
+                    android:text="@string/slider_show_all"
                     android:textColor="#2E7D32"
-                    android:text="@string/slider_show_all" />
+                    android:layout_weight="1"/>
             </LinearLayout>
 
             <androidx.recyclerview.widget.RecyclerView
@@ -146,7 +148,6 @@
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="16dp"
                 android:layout_marginEnd="8dp"
-                android:layout_weight="0"
                 android:orientation="horizontal"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -155,18 +156,20 @@
                 <TextView
                     android:id="@+id/tv_places"
                     style="@style/GlobalTextInputStyle.Big"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textSize="20sp"
-                    android:text="@string/title_slider_store" />
+                    android:text="@string/title_slider_store"
+                    android:layout_weight="1"
+                    />
 
                 <TextView
                     android:id="@+id/show_all_stores_textView"
                     style="@style/LinkTextView"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
                     android:gravity="end"
+                    android:layout_weight="1"
                     android:textColor="#2E7D32"
                     android:text="@string/slider_show_all" />
             </LinearLayout>

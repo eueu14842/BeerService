@@ -6,14 +6,11 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.annotation.StringRes
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
-import androidx.navigation.fragment.navArgs
 import com.example.beerservice.R
 import com.example.beerservice.app.model.accounts.entities.SignUpData
 import com.example.beerservice.app.screens.base.BaseFragment
-import com.example.beerservice.app.screens.base.BaseViewModel
 import com.example.beerservice.app.utils.ViewModelFactory
 import com.example.beerservice.app.utils.observeEvent
 import com.example.beerservice.databinding.FragmentSignUpBinding
