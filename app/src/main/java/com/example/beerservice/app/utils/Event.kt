@@ -19,6 +19,7 @@ fun <T> MutableLiveData<T>.share(): LiveData<T> = this
 typealias MutableLiveEvent<T> = MutableLiveData<Event<T>>
 typealias LiveEvent<T> = LiveData<Event<T>>
 typealias EventListener<T> = (T) -> Unit
+
 fun <T> MutableLiveData<Event<T>>.publishEvent(value: T) {
     this.value = Event(value)
 }

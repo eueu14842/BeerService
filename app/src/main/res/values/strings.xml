@@ -31,9 +31,13 @@
     <string name="action_logout">Выход</string>
     <string name="action_try_again">Попробуйте снова</string>
     <string name="close">Закрыть</string>
-    <string name="beer_title">Название позиции</string>
+    <string name="beer_title">Название</string>
     <string name="beer_description_adblock">Описание позиции</string>
     <string name="sign_up_success">Поздравляю! Вы создали аккаунт. Теперь вы можете войти</string>
     <string name="account_already_exists">Такой аккаунт уже существует!</string>
     <string name="password_mismatch">Введеный пароль не совпадает</string>
+    <string name="show_on_map">Смотреть на карте</string>
+    <string name="city">Город</string>
+    <string name="magazine">Магазин</string>
+    <string name="type_of_brewery">Тип пивоварни</string>
 </resources>

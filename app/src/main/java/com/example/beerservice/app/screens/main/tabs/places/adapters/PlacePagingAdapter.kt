@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.beerservice.app.model.place.entities.Place
 import com.example.beerservice.databinding.ItemPlaceBinding
+import com.example.beerservice.databinding.ItemPlaceCardBinding
 
 interface OnPlaceClickListener {
     fun onPlaceClick(place: Place, position: Int)
@@ -26,7 +27,6 @@ class PlacePagingAdapter(
                 .into(imageViewPlace)
             textViewPlaceTitle.text = place.name
             textViewPlaceDesc.text = place.description
-            textViewPlaceAddress.text = place.address
             textViewPlaceCity.text = place.city
         }
         holder.itemView.setOnClickListener {
@@ -36,12 +36,12 @@ class PlacePagingAdapter(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Holder {
         val inflater = LayoutInflater.from(parent.context)
-        val binding = ItemPlaceBinding.inflate(inflater)
+        val binding = ItemPlaceCardBinding.inflate(inflater)
         return Holder(binding)
     }
 
 
-    class Holder(val binding: ItemPlaceBinding) : RecyclerView.ViewHolder(binding.root)
+    class Holder(val binding: ItemPlaceCardBinding) : RecyclerView.ViewHolder(binding.root)
 }
 
 class PlaceDiffCallback : DiffUtil.ItemCallback<Place>() {

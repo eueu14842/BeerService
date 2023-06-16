@@ -15,7 +15,6 @@ import kotlinx.coroutines.launch
 
 class SignUpViewModel : BaseViewModel() {
 
-
     private val _goBackEvent = MutableUnitLiveEvent()
     val goBackEvent = _goBackEvent.share()
 
