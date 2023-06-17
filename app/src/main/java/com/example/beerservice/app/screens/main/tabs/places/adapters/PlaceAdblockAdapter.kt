@@ -8,13 +8,15 @@ import com.example.beerservice.app.model.place.entities.Place
 import com.example.beerservice.databinding.ItemAdblockBinding
 import com.example.beerservice.databinding.ItemAdblockPlaceBinding
 import com.example.beerservice.databinding.ItemBreweryBinding
+import jp.wasabeef.glide.transformations.RoundedCornersTransformation
 
 class PlaceAdblockAdapter(
     private val breweryList: List<Place>,
     val onPlaceAdblockClickListener: OnPlaceClickListener
 ) :
     RecyclerView.Adapter<PlaceAdblockAdapter.BreweryViewHolder>() {
-    class BreweryViewHolder(val binding: ItemAdblockPlaceBinding) : RecyclerView.ViewHolder(binding.root)
+    class BreweryViewHolder(val binding: ItemAdblockPlaceBinding) :
+        RecyclerView.ViewHolder(binding.root)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BreweryViewHolder {
         val inflater = LayoutInflater.from(parent.context)
@@ -27,6 +29,14 @@ class PlaceAdblockAdapter(
         with(holder.binding) {
             Glide.with(holder.itemView)
                 .load(place.image)
+                .centerCrop()
+                .transform(
+                    RoundedCornersTransformation(
+                        150,
+                        0,
+                        RoundedCornersTransformation.CornerType.TOP
+                    )
+                )
                 .into(ivPlaceImage)
             tvPlaceName.text = place.name
         }

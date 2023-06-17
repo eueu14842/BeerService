@@ -13,12 +13,10 @@ import com.example.beerservice.R
 import com.example.beerservice.app.Const.SEARCH_KEY
 import com.example.beerservice.app.model.brewery.entities.Brewery
 import com.example.beerservice.app.screens.base.BaseFragment
-import com.example.beerservice.app.screens.main.tabs.home.brewery.BreweryAdapter
-import com.example.beerservice.app.screens.main.tabs.home.brewery.BreweryListViewModel
-import com.example.beerservice.app.screens.main.tabs.home.brewery.OnBreweryClickListener
+import com.example.beerservice.app.screens.main.tabs.home.brewery.adapters.BreweryAdblockAdapter
+import com.example.beerservice.app.screens.main.tabs.home.brewery.adapters.OnBreweryClickListener
 import com.example.beerservice.app.screens.main.tabs.home.search.SearchFragmentDirections
 import com.example.beerservice.app.screens.main.tabs.home.search.SearchViewModel
-import com.example.beerservice.app.screens.main.tabs.home.search.beers.BeerSearchListFragment
 import com.example.beerservice.app.utils.ViewModelFactory
 import com.example.beerservice.databinding.FragmentSearchBreweryListBinding
 import kotlinx.coroutines.launch
@@ -31,7 +29,7 @@ class BrewerySearchListFragment : BaseFragment(R.layout.fragment_search_brewery_
 
     override val viewModel: SearchViewModel by viewModels { ViewModelFactory() }
 
-    private lateinit var breweryAdapter: BreweryAdapter
+    private lateinit var breweryAdblockAdapter: BreweryAdblockAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -60,8 +58,8 @@ class BrewerySearchListFragment : BaseFragment(R.layout.fragment_search_brewery_
             viewModel.setSearchBy(arguments?.getString(SEARCH_KEY, "") ?: "")
             viewModel.searchData.observe(viewLifecycleOwner) {
                 val list: List<Brewery>? = it.brewery
-                breweryAdapter = BreweryAdapter(list!!, onBreweryListener)
-                recycler.adapter = breweryAdapter
+                breweryAdblockAdapter = BreweryAdblockAdapter(list!!, onBreweryListener)
+                recycler.adapter = breweryAdblockAdapter
             }
         }
     }

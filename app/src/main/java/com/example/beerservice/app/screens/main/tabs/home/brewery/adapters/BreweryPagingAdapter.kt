@@ -7,8 +7,6 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.beerservice.app.model.brewery.entities.Brewery
-import com.example.beerservice.app.screens.main.tabs.home.brewery.OnBreweryClickListener
-import com.example.beerservice.databinding.ItemBreweryBinding
 import com.example.beerservice.databinding.ItemBreweryCardBinding
 
 interface OnBreweryPagedClickListener {

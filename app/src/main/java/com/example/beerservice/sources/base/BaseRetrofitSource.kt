@@ -42,7 +42,6 @@ open class BaseRetrofitSource(
         return try {
             val errorBody: ErrorResponseBody = errorAdapter.fromJson(
                 e.response()!!.errorBody()!!.string())!!
-            //Expected a string but was BOOLEAN
             BackendException(e.code(), errorBody.error.toString())
         } catch (e: Exception) {
             throw ParseBackendResponseException(e)

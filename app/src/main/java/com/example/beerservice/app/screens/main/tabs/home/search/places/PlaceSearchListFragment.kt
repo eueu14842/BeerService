@@ -7,27 +7,18 @@ import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.ConcatAdapter
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.beerservice.R
 import com.example.beerservice.app.Const.SEARCH_KEY
-import com.example.beerservice.app.model.brewery.entities.Brewery
 import com.example.beerservice.app.model.place.entities.Place
 import com.example.beerservice.app.screens.base.BaseFragment
-import com.example.beerservice.app.screens.base.DefaultLoadStateAdapter
-import com.example.beerservice.app.screens.base.TryAgainAction
-import com.example.beerservice.app.screens.main.tabs.home.brewery.BreweryAdapter
 import com.example.beerservice.app.screens.main.tabs.home.search.SearchFragmentDirections
 import com.example.beerservice.app.screens.main.tabs.home.search.SearchViewModel
-import com.example.beerservice.app.screens.main.tabs.home.search.breweries.BrewerySearchListFragment
 import com.example.beerservice.app.screens.main.tabs.places.adapters.OnPlaceClickListener
 import com.example.beerservice.app.screens.main.tabs.places.adapters.PlaceListAdapter
-import com.example.beerservice.app.screens.main.tabs.places.adapters.PlacePagingAdapter
-import com.example.beerservice.app.screens.main.tabs.places.tabs.PlaceViewModel
 import com.example.beerservice.app.utils.ViewModelFactory
 import com.example.beerservice.databinding.FragmentSearchPlaceListBinding
-import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.debounce
 import kotlinx.coroutines.launch
 

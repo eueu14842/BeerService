@@ -166,10 +166,11 @@ class PlaceMapFragment : BaseFragment(R.layout.fragment_places_map), CameraListe
                 }
 
                 override fun onLoadCleared(placeholder: Drawable?) {
-                    bitmap.recycle()
+//                    bitmap.recycle()
                 }
 
             })
+
     }
 
     private val mapPlaceTapListener = MapObjectTapListener { mapObject, _ ->
@@ -188,6 +189,7 @@ class PlaceMapFragment : BaseFragment(R.layout.fragment_places_map), CameraListe
     override fun onStop() {
         mapview.onStop()
         MapKitFactory.getInstance().onStop();
+
         super.onStop()
     }
 
@@ -196,6 +198,10 @@ class PlaceMapFragment : BaseFragment(R.layout.fragment_places_map), CameraListe
         mapview.onStart()
         MapKitFactory.getInstance().onStart();
 
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
     }
 
     override fun onCameraPositionChanged(
