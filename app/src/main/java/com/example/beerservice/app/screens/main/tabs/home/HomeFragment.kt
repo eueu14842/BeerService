@@ -23,8 +23,8 @@ import com.example.beerservice.app.model.place.entities.Place
 import com.example.beerservice.app.screens.base.BaseFragment
 import com.example.beerservice.app.screens.main.tabs.home.beers.adapters.BeerAdblockAdapter
 import com.example.beerservice.app.screens.main.tabs.home.beers.adapters.OnBeerAdblockClickListener
-import com.example.beerservice.app.screens.main.tabs.home.brewery.BreweryAdapter
-import com.example.beerservice.app.screens.main.tabs.home.brewery.OnBreweryClickListener
+import com.example.beerservice.app.screens.main.tabs.home.brewery.adapters.BreweryAdblockAdapter
+import com.example.beerservice.app.screens.main.tabs.home.brewery.adapters.OnBreweryClickListener
 import com.example.beerservice.app.screens.main.tabs.places.adapters.OnPlaceClickListener
 import com.example.beerservice.app.screens.main.tabs.places.adapters.PlaceAdblockAdapter
 import com.example.beerservice.app.utils.ViewModelFactory
@@ -140,7 +140,7 @@ class HomeFragment : BaseFragment(R.layout.fragment_home) {
     private fun observeBreweryAdblock() {
         binding.resultViewState.setTryAgainAction { println(R.string.action_try_again) }
         viewModel.brewery.observeResult(this, binding.root, binding.resultViewState) { breweries ->
-            val adapter = BreweryAdapter(breweries, onBreweryClickListener)
+            val adapter = BreweryAdblockAdapter(breweries, onBreweryClickListener)
             breweryRecycler.adapter = adapter
         }
     }

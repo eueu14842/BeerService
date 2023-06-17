@@ -41,7 +41,7 @@
                 android:scaleType="centerCrop" />
 
             <TextView
-                android:id="@+id/textViewPlaceTitle"
+                android:id="@+id/textViewBeerTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentTop="true"
@@ -54,14 +54,27 @@
 
             <RatingBar
                 android:id="@+id/ratingBar2"
-                style="@android:style/Widget.DeviceDefault.Light.RatingBar.Indicator"
+                style="@android:style/Widget.Holo.Light.RatingBar.Small"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/textViewPlaceTitle"
+                android:layout_below="@+id/textViewBeerTitle"
                 android:layout_marginStart="6dp"
                 android:layout_marginTop="7dp"
                 android:layout_toEndOf="@+id/imageViewBeer" />
-
+            <TextView
+                android:id="@+id/textViewBeerFeedBack"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentEnd="true"
+                android:layout_marginStart="6dp"
+                android:layout_marginTop="40dp"
+                android:layout_marginEnd="2dp"
+                android:textSize="12sp"
+                android:gravity="end"
+                android:layout_toEndOf="@+id/ratingBar2"
+                android:text="@string/create_feedback"
+            />
             <TextView
                 android:id="@+id/textViewBeerDesc"
                 android:layout_width="match_parent"
@@ -76,17 +89,7 @@
                 android:lines="2"
                 android:text="@string/beer_description_adblock" />
 
-            <TextView
-                android:id="@+id/textView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_alignParentTop="true"
-                android:layout_alignParentEnd="true"
-                android:layout_marginStart="19dp"
-                android:layout_marginTop="30dp"
-                android:layout_marginEnd="4dp"
-                android:layout_toEndOf="@+id/ratingBar2"
-                android:text="TextView" />
+
 
         </RelativeLayout>
 
