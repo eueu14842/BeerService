@@ -17,7 +17,7 @@
             android:id="@+id/iv_item_image"
             android:layout_width="160dp"
             android:layout_height="120dp"
-            android:scaleType="center"/>
+            android:scaleType="centerCrop"/>
 
     </com.google.android.material.card.MaterialCardView>
 
