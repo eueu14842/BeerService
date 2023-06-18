@@ -88,5 +88,8 @@
         <item name="android:textColor">#7EB53F</item>
     </style>
 
+    <style name="ratingBar" parent="@android:style/Widget.Holo.Light.RatingBar.Small">
+    </style>
+
 
 </resources>
