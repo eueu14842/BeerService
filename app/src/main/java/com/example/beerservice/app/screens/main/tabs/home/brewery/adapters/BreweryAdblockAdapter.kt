@@ -33,14 +33,6 @@ class BreweryAdblockAdapter(
         with(holder.binding) {
             Glide.with(holder.itemView)
                 .load(brewery.image)
-                .centerCrop()
-                .transform(
-                    RoundedCornersTransformation(
-                        100,
-                        0,
-                        RoundedCornersTransformation.CornerType.TOP
-                    )
-                )
                 .into(ivItemImage)
             tvItemName.text = brewery.name
         }

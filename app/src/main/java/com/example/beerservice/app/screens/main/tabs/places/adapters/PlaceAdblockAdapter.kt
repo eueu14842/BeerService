@@ -29,14 +29,6 @@ class PlaceAdblockAdapter(
         with(holder.binding) {
             Glide.with(holder.itemView)
                 .load(place.image)
-                .centerCrop()
-                .transform(
-                    RoundedCornersTransformation(
-                        150,
-                        1,
-                        RoundedCornersTransformation.CornerType.TOP
-                    )
-                )
                 .into(ivPlaceImage)
             tvPlaceName.text = place.name
         }

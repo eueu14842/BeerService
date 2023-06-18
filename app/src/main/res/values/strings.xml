@@ -41,4 +41,5 @@
     <string name="magazine">Магазин</string>
     <string name="type_of_brewery">Тип пивоварни</string>
     <string name="create_feedback">Оставить отзыв</string>
+    <string name="rating">4,9</string>
 </resources>
