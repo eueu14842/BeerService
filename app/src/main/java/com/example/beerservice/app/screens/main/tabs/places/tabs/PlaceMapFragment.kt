@@ -166,7 +166,7 @@ class PlaceMapFragment : BaseFragment(R.layout.fragment_places_map), CameraListe
                 }
 
                 override fun onLoadCleared(placeholder: Drawable?) {
-//                    bitmap.recycle()
+                  bitmap.recycle()
                 }
 
             })

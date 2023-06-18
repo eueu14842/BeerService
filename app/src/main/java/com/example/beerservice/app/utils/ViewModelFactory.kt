@@ -13,6 +13,7 @@ import com.example.beerservice.app.screens.main.tabs.home.brewery.BreweryListVie
 import com.example.beerservice.app.screens.main.tabs.home.search.SearchViewModel
 import com.example.beerservice.app.screens.main.tabs.places.PlaceDetailsViewModel
 import com.example.beerservice.app.screens.main.tabs.places.tabs.PlaceViewModel
+import com.example.beerservice.app.screens.main.tabs.profile.EditProfileVieModel
 import com.example.beerservice.app.screens.main.tabs.profile.ProfileViewModel
 
 @Suppress("UNCHECKED_CAST")
@@ -31,6 +32,7 @@ class ViewModelFactory(
             PlaceDetailsViewModel::class.java -> PlaceDetailsViewModel() as T
             SearchViewModel::class.java -> SearchViewModel() as T
             SignUpViewModel::class.java -> SignUpViewModel() as T
+            EditProfileVieModel::class.java -> EditProfileVieModel() as T
             else -> {
                 throw IllegalArgumentException("Unknown ViewModel class: ${modelClass.name}")
             }

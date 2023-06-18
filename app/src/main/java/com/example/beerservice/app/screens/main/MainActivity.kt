@@ -3,6 +3,7 @@ package com.example.beerservice.app.screens.main
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.navigation.NavController
@@ -43,6 +44,7 @@ class MainActivity : AppCompatActivity() {
         prepareRootNavController(isSignedIn(), navController)
         onNavControllerActivated(navController)
         supportFragmentManager.registerFragmentLifecycleCallbacks(fragmentListener, true)
+
     }
 
     private fun prepareRootNavController(isSignedIn: Boolean, navController: NavController) {
@@ -99,6 +101,7 @@ class MainActivity : AppCompatActivity() {
         return navController?.navigateUp() ?: false || super.onSupportNavigateUp()
     }
 
+
     private fun prepareTitle(label: CharSequence?, arguments: Bundle?): String {
         // copied from Google sources
         if (label == null) return ""
@@ -127,6 +130,8 @@ class MainActivity : AppCompatActivity() {
     private fun getTabsDestination(): Int = R.id.tabsFragment
 
     private fun getSignInDestination(): Int = R.id.signInFragment
+
+    private fun getProfileDestination(): Int = R.id.profileFragment
 
 
     private fun setupMapKit() {

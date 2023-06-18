@@ -33,7 +33,7 @@ class PlaceAdblockAdapter(
                 .transform(
                     RoundedCornersTransformation(
                         150,
-                        0,
+                        1,
                         RoundedCornersTransformation.CornerType.TOP
                     )
                 )

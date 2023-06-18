@@ -1,7 +1,12 @@
 package com.example.beerservice.app.screens.main.tabs.profile
 
+import android.app.ActionBar
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
@@ -9,35 +14,32 @@ import com.example.beerservice.R
 import com.example.beerservice.app.screens.base.BaseFragment
 import com.example.beerservice.app.utils.ViewModelFactory
 import com.example.beerservice.databinding.FragmentProfileBinding
-import kotlin.math.log
 
 class ProfileFragment : BaseFragment(R.layout.fragment_profile) {
     lateinit var binding: FragmentProfileBinding
     override val viewModel: ProfileViewModel by viewModels { ViewModelFactory() }
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        binding = FragmentProfileBinding.inflate(inflater, container, false)
+
+
+        return binding.root
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding = FragmentProfileBinding.bind(view)
+
+
 
 
         binding.buttonLogout.setOnClickListener { logout() }
-        observeProfileTest()
+        observeProfile()
     }
 
-    fun observeProfile() {
-        viewModel.getProfile()
-        viewModel.profile.observe(viewLifecycleOwner) {
-            it.map {
-                with(binding) {
-                    Glide.with(requireContext()).load(it.image).into(imageViewUserPhoto)
-                    textViewUsername.text = it.userName
-                    textViewUserLocation.text = it.country
-                }
-            }
-        }
-    }
-
-    private fun observeProfileTest() {
+    private fun observeProfile() {
         val user = viewModel.accountsRepository.getAccount()
         with(binding) {
             user.map {

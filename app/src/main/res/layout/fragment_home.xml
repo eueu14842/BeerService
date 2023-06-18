@@ -66,18 +66,17 @@
                     style="@style/GlobalTextInputStyle.Big"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/title_slider_brewery"
-                    android:textSize="20sp"
                     android:layout_weight="1"
-                    />
+                    android:text="@string/title_slider_brewery"
+                    android:textSize="20sp" />
 
                 <TextView
                     android:id="@+id/show_all_brewery_textView"
                     style="@style/LinkTextView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:gravity="end"
                     android:layout_weight="1"
+                    android:gravity="end"
 
                     android:text="@string/slider_show_all"
                     android:textColor="#2E7D32" />
@@ -93,8 +92,7 @@
                 android:layout_weight="1"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/breweryLinear"
-               />
+                app:layout_constraintTop_toBottomOf="@+id/breweryLinear" />
 
             <LinearLayout
                 android:id="@+id/beerLinear"
@@ -114,19 +112,19 @@
                     style="@style/GlobalTextInputStyle.Big"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textSize="20sp"
+                    android:layout_weight="1"
                     android:text="@string/title_slider_beer"
-                    android:layout_weight="1"/>
+                    android:textSize="20sp" />
 
                 <TextView
                     android:id="@+id/show_all_beer_textView"
                     style="@style/LinkTextView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_weight="1"
                     android:gravity="end"
                     android:text="@string/slider_show_all"
-                    android:textColor="#2E7D32"
-                    android:layout_weight="1"/>
+                    android:textColor="#2E7D32" />
             </LinearLayout>
 
             <androidx.recyclerview.widget.RecyclerView
@@ -158,20 +156,19 @@
                     style="@style/GlobalTextInputStyle.Big"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textSize="20sp"
-                    android:text="@string/title_slider_store"
                     android:layout_weight="1"
-                    />
+                    android:text="@string/title_slider_store"
+                    android:textSize="20sp" />
 
                 <TextView
                     android:id="@+id/show_all_stores_textView"
                     style="@style/LinkTextView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:gravity="end"
                     android:layout_weight="1"
-                    android:textColor="#2E7D32"
-                    android:text="@string/slider_show_all" />
+                    android:gravity="end"
+                    android:text="@string/slider_show_all"
+                    android:textColor="#2E7D32" />
             </LinearLayout>
 
             <androidx.recyclerview.widget.RecyclerView

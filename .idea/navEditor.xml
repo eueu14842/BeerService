@@ -603,13 +603,13 @@
             <LayoutPositions>
               <option name="myPositions">
                 <map>
-                  <entry key="main_graph">
+                  <entry key="editProfileFragment">
                     <value>
                       <LayoutPositions>
                         <option name="myPosition">
                           <Point>
-                            <option name="x" value="260" />
-                            <option name="y" value="135" />
+                            <option name="x" value="172" />
+                            <option name="y" value="49" />
                           </Point>
                         </option>
                       </LayoutPositions>
@@ -620,9 +620,18 @@
                       <LayoutPositions>
                         <option name="myPosition">
                           <Point>
-                            <option name="x" value="59" />
-                            <option name="y" value="72" />
+                            <option name="x" value="-29" />
+                            <option name="y" value="50" />
                           </Point>
+                        </option>
+                        <option name="myPositions">
+                          <map>
+                            <entry key="action_profileFragment_to_editProfileFragment">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                          </map>
                         </option>
                       </LayoutPositions>
                     </value>
