@@ -49,6 +49,7 @@ class MainActivity : AppCompatActivity() {
         supportActionBar?.setDisplayShowHomeEnabled(true)
         supportActionBar?.setLogo(R.drawable.main_icon_app)
         supportActionBar?.setDisplayUseLogoEnabled(true)
+        supportActionBar?.setHomeAsUpIndicator(R.drawable.layer_back)
 
     }
 
