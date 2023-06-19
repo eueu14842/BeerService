@@ -33,8 +33,6 @@ class ProfileFragment : BaseFragment(R.layout.fragment_profile) {
         super.onViewCreated(view, savedInstanceState)
 
 
-
-
         binding.buttonLogout.setOnClickListener { logout() }
         observeProfile()
     }

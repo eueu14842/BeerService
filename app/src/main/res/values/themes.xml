@@ -1,6 +1,6 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="Theme.BeerService" parent="Theme.MaterialComponents.Light.DarkActionBar">
+    <style name="Theme.BeerService" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
         <item name="colorPrimary">@android:color/holo_orange_light</item>
         <item name="colorPrimaryVariant">#3F51B5</item>
         <item name="colorOnPrimary">@color/white</item>
@@ -95,7 +95,9 @@
         <item name="android:textColor">#007AFF</item>
     </style>
 
-    <style name="MyActionBar" parent="@style/Widget.AppCompat.Light.ActionBar.Solid.Inverse">
+    <style name="MyActionBar" parent="@style/Widget.MaterialComponents.Light.ActionBar.Solid">
+        <item name="android:textAllCaps">true</item>
+        <item name="textAllCaps">true</item>
         <item name="android:background">@drawable/gradient_bg</item>
         <item name="background">@drawable/gradient_bg</item>
     </style>
