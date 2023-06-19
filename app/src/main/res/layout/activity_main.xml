@@ -6,14 +6,11 @@
     android:layout_height="match_parent"
     tools:context=".app.screens.main.MainActivity">
 
-    <include layout="@layout/custom_appbar"/>
-
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/fragmentContainer"
         android:name="androidx.navigation.fragment.NavHostFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="45sp"
         app:defaultNavHost="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

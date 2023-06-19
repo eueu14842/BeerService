@@ -42,4 +42,6 @@
     <string name="type_of_brewery">Тип пивоварни</string>
     <string name="create_feedback">Оставить отзыв</string>
     <string name="rating">4,9</string>
+    <string name="password">Пароль</string>
+    <string name="login">Логин</string>
 </resources>
