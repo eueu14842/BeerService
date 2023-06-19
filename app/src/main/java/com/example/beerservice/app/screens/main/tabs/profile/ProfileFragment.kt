@@ -31,9 +31,6 @@ class ProfileFragment : BaseFragment(R.layout.fragment_profile) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-
-        binding.buttonLogout.setOnClickListener { logout() }
         observeProfile()
     }
 
