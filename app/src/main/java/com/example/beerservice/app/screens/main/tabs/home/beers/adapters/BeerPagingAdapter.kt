@@ -27,7 +27,6 @@ class BeerPagingAdapter(
         with(holder.binding) {
             Glide.with(holder.itemView)
                 .load(beer.image)
-                .centerCrop()
                 .into(imageViewBeer)
             textViewBeerTitle.text = beer.name
             textViewBeerDesc.text = beer.description
