@@ -44,4 +44,11 @@
     <string name="rating">4,9</string>
     <string name="password">Пароль</string>
     <string name="login">Логин</string>
+    <string name="edit_name">Редактировать имя</string>
+    <string name="edit_email">Редактировать почту</string>
+    <string name="edit_phone">Редактировать телефон</string>
+    <string name="edit_birthday">Редактировать день рождения</string>
+    <string name="edit_country">Редактировать страну</string>
+    <string name="edit_city">Редактировать город</string>
+    <string name="save_edition">Сохранить</string>
 </resources>

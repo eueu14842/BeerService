@@ -24,16 +24,13 @@ class ProfileFragment : BaseFragment(R.layout.fragment_profile) {
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentProfileBinding.inflate(inflater, container, false)
-
+        binding.buttonEditProfile.setOnClickListener { onEditProfileButtonPressed() }
 
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-
-        binding.buttonLogout.setOnClickListener { logout() }
         observeProfile()
     }
 
@@ -46,6 +43,11 @@ class ProfileFragment : BaseFragment(R.layout.fragment_profile) {
                 textViewUserLocation.text = it.country
             }
         }
+    }
+
+    private fun onEditProfileButtonPressed() {
+        val directions = ProfileFragmentDirections.actionProfileFragmentToEditProfileFragment()
+        findNavController().navigate(directions)
     }
 
 
