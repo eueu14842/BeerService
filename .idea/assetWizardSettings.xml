@@ -23,7 +23,7 @@
                                 <PersistentState>
                                   <option name="values">
                                     <map>
-                                      <entry key="url" value="file:/$USER_HOME$/AppData/Local/Android/Sdk/icons/material/materialicons/visibility/baseline_visibility_24.xml" />
+                                      <entry key="url" value="jar:file:/C:/Program%20Files/Android/Android%20Studio/plugins/android/lib/android.jar!/images/material/icons/materialicons/arrow_back_ios/baseline_arrow_back_ios_24.xml" />
                                     </map>
                                   </option>
                                 </PersistentState>
@@ -33,9 +33,9 @@
                         </option>
                         <option name="values">
                           <map>
-                            <entry key="opacityPercent" value="59" />
-                            <entry key="outputName" value="ic_baseline_visibility_24" />
-                            <entry key="sourceFile" value="C:\Users\User\AndroidStudioProjects\BeerService" />
+                            <entry key="opacityPercent" value="50" />
+                            <entry key="outputName" value="baseline_arrow_back_ios_24" />
+                            <entry key="sourceFile" value="C:\Users\Rubby\Downloads\Layer 1.svg" />
                           </map>
                         </option>
                       </PersistentState>

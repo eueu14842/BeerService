@@ -1,6 +1,7 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
     <style name="Theme.BeerService" parent="Theme.MaterialComponents.Light.DarkActionBar">
+        <item name="actionBarTheme">@style/ThemeOverlay.Actionbar</item>
         <item name="colorPrimary">@android:color/holo_orange_light</item>
         <item name="colorPrimaryVariant">#3F51B5</item>
         <item name="colorOnPrimary">@color/white</item>
@@ -98,6 +99,11 @@
     <style name="MyActionBar" parent="@style/Widget.AppCompat.Light.ActionBar.Solid.Inverse">
         <item name="android:background">@drawable/gradient_bg</item>
         <item name="background">@drawable/gradient_bg</item>
+    </style>
+
+    <style name="ThemeOverlay.Actionbar" parent="ThemeOverlay.MaterialComponents.Dark.ActionBar" >
+        <item name="android:textColorPrimary">@color/black</item>
+        <item name="colorControlNormal">#007AFF</item>
     </style>
 
 </resources>
