@@ -3,6 +3,7 @@ package com.example.beerservice.app.model.accounts
 import com.example.beerservice.app.model.*
 import com.example.beerservice.app.model.accounts.entities.SignUpData
 import com.example.beerservice.app.model.accounts.entities.User
+import com.example.beerservice.app.model.accounts.entities.UserEditData
 import com.example.beerservice.app.model.settings.AppSettings
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -51,11 +52,10 @@ class AccountsRepository(
         return profileResult
     }
 
-    fun logout(){
+    fun logout() {
         appSettings.setCurrentToken(null)
 
     }
-
 
     suspend fun refreshUser() {
         withContext(Dispatchers.IO) {
@@ -74,4 +74,10 @@ class AccountsRepository(
         }
     }
 
+    suspend fun updateAccount(userId: Int, userEditData: UserEditData) = wrapBackendExceptions {
+        println("AccountsRepository updateAccount")
+        if (userEditData.userName!!.isBlank()) throw EmptyFieldException(Field.Username)
+        if (userEditData.mail!!.isBlank()) throw EmptyFieldException(Field.Username)
+        accountsSource.updateAccount(userId, userEditData)
+    }
 }

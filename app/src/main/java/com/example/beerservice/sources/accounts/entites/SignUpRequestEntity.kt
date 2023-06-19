@@ -8,6 +8,6 @@ data class SignUpRequestEntity(
     val userName: String,
     val login: String,
     val password: String
-
-)
+){
+}
 
