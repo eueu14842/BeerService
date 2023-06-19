@@ -40,6 +40,10 @@ class EditProfileVieModel : BaseViewModel() {
         }
     }
 
+   suspend fun publishAccount() {
+        accountsRepository.refreshUser()
+    }
+
     fun updateAccount(userId: Int, userEditData: UserEditData) = viewModelScope.safeLaunch {
         showProgress()
         try {
