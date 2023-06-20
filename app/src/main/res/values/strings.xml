@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">BeerService</string>
+    <string name="app_name">TapTrack</string>
     <string name="field_login">Логин</string>
     <string name="field_is_empty">Заполните поле</string>
     <string name="field_email">Email</string>
