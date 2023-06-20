@@ -8,8 +8,8 @@ interface PlaceSource {
     suspend fun getPlaceList(geoLat: Double, geoLon: Double, visibleRegion: Double): List<Place>
     suspend fun getPlacesAdblockList(): List<Place>
     suspend fun getPagedPlaces(limit: Int, offset: Int): List<Place>
-    //    suspend fun getPlacesByBeerId(): Place
-    //    suspend fun createPlace()
+    suspend fun addFavorite(placeId: Int, userId: Int)
+    suspend fun removeFavorite(placeId: Int, userId: Int)
 
 
 }

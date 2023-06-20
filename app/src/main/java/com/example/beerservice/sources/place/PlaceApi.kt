@@ -7,6 +7,12 @@ interface PlaceApi {
     @POST("place/createPlaceToBuy")
     suspend fun createPlace(@Body body: Body)
 
+    @POST("place/favorite")
+    suspend fun addFavorite(@Body placeId: Int, userId: Int)
+
+    @DELETE("place/favorite/remove")
+    suspend fun removeFavorite(@Body placeId: Int, userId: Int)
+
     @POST("place/buyThisBeerFromUs")
     suspend fun buyBeerFromPlace(@Body body: Body)
 

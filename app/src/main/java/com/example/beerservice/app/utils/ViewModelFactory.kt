@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModelProvider
 
 import com.example.beerservice.app.screens.main.auth.SignInViewModel
 import com.example.beerservice.app.screens.main.auth.SignUpViewModel
+import com.example.beerservice.app.screens.main.tabs.favorites.FavoritesViewModel
 import com.example.beerservice.app.screens.main.tabs.home.HomeViewModel
 import com.example.beerservice.app.screens.main.tabs.home.beers.BeerViewModel
 import com.example.beerservice.app.screens.main.tabs.home.beers.BeersListViewModel
@@ -33,6 +34,7 @@ class ViewModelFactory(
             SearchViewModel::class.java -> SearchViewModel() as T
             SignUpViewModel::class.java -> SignUpViewModel() as T
             EditProfileVieModel::class.java -> EditProfileVieModel() as T
+            FavoritesViewModel::class.java -> FavoritesViewModel() as T
             else -> {
                 throw IllegalArgumentException("Unknown ViewModel class: ${modelClass.name}")
             }

@@ -78,4 +78,8 @@ class AccountsRepository(
         if (userEditData.mail!!.isBlank()) throw EmptyFieldException(Field.Username)
         accountsSource.updateAccount(userId, userEditData)
     }
+
+    suspend fun getFavoritePlaces(placeId: Int) = wrapBackendExceptions {
+        accountsSource.getFavoritePlaces(placeId)
+    }
 }

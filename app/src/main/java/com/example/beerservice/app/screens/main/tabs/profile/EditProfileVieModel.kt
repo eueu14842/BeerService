@@ -28,11 +28,10 @@ class EditProfileVieModel : BaseViewModel() {
 
     init {
         viewModelScope.launch {
-            val result= accountsRepository.doGetProfile()
+            val result = accountsRepository.doGetProfile()
                 _userIdState.value = result.userId
                 _initialEditEvent.publishEvent(result)
         }
-
     }
 
    suspend fun publishAccount() {

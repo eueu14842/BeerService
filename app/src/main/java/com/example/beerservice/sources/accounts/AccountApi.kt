@@ -1,6 +1,7 @@
 package com.example.beerservice.sources.accounts
 
 import com.example.beerservice.sources.accounts.entites.*
+import com.example.beerservice.sources.place.entities.GetPlaceResponseEntity
 import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.POST
@@ -22,4 +23,10 @@ interface AccountApi {
         @Query("id") userId: Int,
         @Body body: UserEditDataRequestEntity
     )
+
+    @GET("user/favorite/place")
+    suspend fun getFavoritePlaces(
+        @Query("id") userId: Int
+    ): List<GetPlaceResponseEntity>
+
 }

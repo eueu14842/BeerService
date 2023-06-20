@@ -31,5 +31,13 @@ class RetrofitPlaceSource(
         placeApi.getPagedPlaces(limit, offset).map { it.toPlace() }
     }
 
+    override suspend fun addFavorite(placeId: Int, userId: Int) {
+        placeApi.addFavorite(placeId,userId)
+    }
+
+    override suspend fun removeFavorite(placeId: Int, userId: Int) {
+        placeApi.removeFavorite(placeId,userId)
+    }
+
 
 }

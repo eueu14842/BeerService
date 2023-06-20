@@ -4,6 +4,7 @@ import com.example.beerservice.app.model.accounts.AccountsSource
 import com.example.beerservice.app.model.accounts.entities.SignUpData
 import com.example.beerservice.app.model.accounts.entities.User
 import com.example.beerservice.app.model.accounts.entities.UserEditData
+import com.example.beerservice.app.model.place.entities.Place
 import com.example.beerservice.sources.accounts.entites.SignInRequestEntity
 import com.example.beerservice.sources.accounts.entites.SignUpRequestEntity
 import com.example.beerservice.sources.accounts.entites.UserEditDataRequestEntity
@@ -40,9 +41,15 @@ class RetrofitAccountSource(
         accountApi.getProfile().toUser()
     }
 
-    override suspend fun updateAccount(userId: Int, userData: UserEditData) {
-        accountApi.editProfile(userId, userData.toUserEditDataEntity())
+    override suspend fun getFavoritePlaces(userId: Int): List<Place> = wrapRetrofitExceptions {
+        accountApi.getFavoritePlaces(userId).map { it.toPlace() }
     }
+
+
+    override suspend fun updateAccount(userId: Int, userData: UserEditData) =
+        wrapRetrofitExceptions {
+            accountApi.editProfile(userId, userData.toUserEditDataEntity())
+        }
 
 
 }
