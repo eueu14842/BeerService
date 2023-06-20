@@ -9,10 +9,12 @@ data class GetUserResponseEntity(
     val mail: String? = null,
     val telephoneNumber: String? = null,
     val birthday: String? = null,
+    val city: String? = null,
     val country: String? = null,
     val image: String? = null,
     val dateReg: String? = null,
-    val totalFeedback: Int? = null
+    val totalFeedback: Int? = null,
+    val userRole: Int? = null
 
 ) {
     fun toUser(): User = User(
@@ -23,8 +25,10 @@ data class GetUserResponseEntity(
         telephoneNumber = telephoneNumber,
         birthday = birthday,
         country = country,
+        city = city,
         image = image,
         dateReg = dateReg,
-        totalFeedback = totalFeedback
+        totalFeedback = totalFeedback,
+        userRole = userRole
     )
 }

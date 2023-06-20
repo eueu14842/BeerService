@@ -4,8 +4,6 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.example.beerservice.R
 import com.example.beerservice.app.model.EmptyFieldException
-import com.example.beerservice.app.model.ResultState
-import com.example.beerservice.app.model.Success
 import com.example.beerservice.app.model.accounts.entities.User
 import com.example.beerservice.app.model.accounts.entities.UserEditData
 import com.example.beerservice.app.screens.base.BaseViewModel
@@ -16,7 +14,7 @@ import kotlinx.coroutines.launch
 
 class EditProfileVieModel : BaseViewModel() {
 
-    private val _initialEditEvent = MutableLiveEvent<UserEditData>()
+    private val _initialEditEvent = MutableLiveEvent<User>()
     val initialEditEvent = _initialEditEvent.share()
 
     private val _userIdState = MutableLiveData<Int?>()
@@ -30,12 +28,11 @@ class EditProfileVieModel : BaseViewModel() {
 
     init {
         viewModelScope.launch {
-            val result: ResultState<User> = accountsRepository.getAccount()
-            result.map {
-                _userIdState.value = it.userId
-                if (result is Success) _initialEditEvent.publishEvent(it.toUserEditData())
-            }
+            val result= accountsRepository.doGetProfile()
+                _userIdState.value = result.userId
+                _initialEditEvent.publishEvent(result)
         }
+
     }
 
    suspend fun publishAccount() {
@@ -62,4 +59,6 @@ class EditProfileVieModel : BaseViewModel() {
     }
 
     private fun showEmptyFieldErrorMessage() = _showErrorEvent.publishEvent(R.string.field_is_empty)
+
+
 }

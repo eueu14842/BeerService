@@ -1,7 +1,9 @@
 package com.example.beerservice.app.screens.main.tabs.profile
 
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
@@ -17,16 +19,19 @@ class EditProfileFragment : BaseFragment(R.layout.fragment_edit_profile) {
     lateinit var binding: FragmentEditProfileBinding
     override val viewModel: EditProfileVieModel by viewModels { ViewModelFactory() }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        binding = FragmentEditProfileBinding.bind(view)
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        binding = FragmentEditProfileBinding.inflate(inflater,container,false)
 
         listenInitialEditEvent()
         observeSaveInProgress()
         observeEmptyFieldErrorEvent()
         binding.saveButton.setOnClickListener { onSaveButtonPressed() }
         binding.logoutButton.setOnClickListener { logout() }
-        refreshAccount()
+        return binding.root
     }
 
     private fun onSaveButtonPressed() {
@@ -40,12 +45,12 @@ class EditProfileFragment : BaseFragment(R.layout.fragment_edit_profile) {
             binding.cityEditText.text.toString()
         )
         viewModel.updateAccount(id!!, userEditData)
-        refreshAccount()
     }
 
     private fun listenInitialEditEvent() =
         viewModel.initialEditEvent.observeEvent(viewLifecycleOwner) { user ->
             with(binding) {
+                println(user.userId)
                 editTextName.setText(user.userName)
                 editMail.setText(user.mail)
                 editTel.setText(user.telephoneNumber)

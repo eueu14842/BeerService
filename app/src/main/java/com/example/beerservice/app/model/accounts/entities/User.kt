@@ -11,16 +11,6 @@ data class User(
     val city: String? = null,
     val image: String? = null,
     val dateReg: String? = null,
-    val totalFeedback: Int? = null
-
-
-) {
-    fun toUserEditData() = UserEditData(
-        userName = userName,
-        mail = mail,
-        telephoneNumber = telephoneNumber,
-        birthday = birthday,
-        country = country,
-        city = city
-    )
-}
+    val totalFeedback: Int? = null,
+    val userRole: Int? = null
+)

@@ -10,15 +10,18 @@ import com.example.beerservice.app.model.ConnectionException
 import com.example.beerservice.app.model.Singletons
 import com.example.beerservice.app.model.accounts.AccountsRepository
 import com.example.beerservice.app.utils.Event
+import com.example.beerservice.app.utils.logger.LogCatLogger
+import com.example.beerservice.app.utils.logger.Logger
 import com.example.beerservice.app.utils.publishEvent
 import com.example.beerservice.app.utils.share
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 
 open class BaseViewModel(
-    val accountsRepository: AccountsRepository = Singletons.accountsRepository
-) : ViewModel() {
+    val accountsRepository: AccountsRepository = Singletons.accountsRepository,
 
+    ) : ViewModel() {
+    val logger: Logger = LogCatLogger
 
     private val _showErrorMessageResEvent = MutableLiveData<Event<Int>>()
     val showErrorMessageResEvent = _showErrorMessageResEvent.share()
@@ -35,18 +38,29 @@ open class BaseViewModel(
             try {
                 block.invoke(this)
             } catch (e: ConnectionException) {
+                logError(e)
                 _showErrorMessageResEvent.publishEvent(R.string.connection_error)
             } catch (e: BackendException) {
+                logError(e)
                 _showErrorMessageEvent.publishEvent(e.message ?: "")
             } catch (e: AuthException) {
+                logError(e)
                 _showAuthErrorAndRestartEvent.publishEvent()
             } catch (e: Exception) {
+                logError(e)
                 _showErrorMessageResEvent.publishEvent(R.string.internal_error)
             }
         }
     }
 
+
+    fun logError(e: Throwable) {
+        logger.error(javaClass.simpleName, e)
+    }
+
     fun logout() {
         accountsRepository.logout()
     }
+
+
 }

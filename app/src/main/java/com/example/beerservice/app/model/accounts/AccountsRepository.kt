@@ -74,7 +74,6 @@ class AccountsRepository(
     }
 
     suspend fun updateAccount(userId: Int, userEditData: UserEditData) = wrapBackendExceptions {
-        println("AccountsRepository updateAccount")
         if (userEditData.userName!!.isBlank()) throw EmptyFieldException(Field.Username)
         if (userEditData.mail!!.isBlank()) throw EmptyFieldException(Field.Username)
         accountsSource.updateAccount(userId, userEditData)

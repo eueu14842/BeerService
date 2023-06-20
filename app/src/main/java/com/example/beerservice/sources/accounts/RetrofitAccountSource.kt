@@ -41,7 +41,6 @@ class RetrofitAccountSource(
     }
 
     override suspend fun updateAccount(userId: Int, userData: UserEditData) {
-        println("RetrofitAccountSource updateAccount")
         accountApi.editProfile(userId, userData.toUserEditDataEntity())
     }
 
