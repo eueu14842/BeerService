@@ -12,11 +12,9 @@ import com.example.beerservice.app.screens.base.BaseViewModel
 import com.example.beerservice.app.utils.MutableLiveEvent
 import com.example.beerservice.app.utils.publishEvent
 import com.example.beerservice.app.utils.share
-import com.example.beerservice.sources.accounts.entites.UserEditDataRequestEntity
 import kotlinx.coroutines.launch
 
 class EditProfileVieModel : BaseViewModel() {
-
 
     private val _initialEditEvent = MutableLiveEvent<UserEditData>()
     val initialEditEvent = _initialEditEvent.share()

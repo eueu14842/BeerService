@@ -5,13 +5,9 @@ import android.view.View
 import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
-import com.bumptech.glide.Glide
 import com.example.beerservice.R
-import com.example.beerservice.app.model.ResultState
-import com.example.beerservice.app.model.accounts.entities.User
 import com.example.beerservice.app.model.accounts.entities.UserEditData
 import com.example.beerservice.app.screens.base.BaseFragment
-import com.example.beerservice.app.screens.base.BaseViewModel
 import com.example.beerservice.app.utils.ViewModelFactory
 import com.example.beerservice.app.utils.observeEvent
 import com.example.beerservice.databinding.FragmentEditProfileBinding
@@ -34,7 +30,6 @@ class EditProfileFragment : BaseFragment(R.layout.fragment_edit_profile) {
     }
 
     private fun onSaveButtonPressed() {
-
         val id = viewModel.userIdState.value
         val userEditData = UserEditData(
             binding.editTextName.text.toString(),
@@ -46,7 +41,6 @@ class EditProfileFragment : BaseFragment(R.layout.fragment_edit_profile) {
         )
         viewModel.updateAccount(id!!, userEditData)
         refreshAccount()
-
     }
 
     private fun listenInitialEditEvent() =
@@ -59,14 +53,12 @@ class EditProfileFragment : BaseFragment(R.layout.fragment_edit_profile) {
                 countryEditText.setText(user.country)
                 cityEditText.setText(user.city)
             }
-
         }
 
     private fun observeEmptyFieldErrorEvent() =
         viewModel.showErrorEvent.observeEvent(viewLifecycleOwner) {
             Toast.makeText(requireContext(), it, Toast.LENGTH_SHORT).show()
         }
-
 
     private fun observeSaveInProgress() = viewModel.saveInProgress.observe(viewLifecycleOwner) {
         if (it) {
@@ -89,7 +81,6 @@ class EditProfileFragment : BaseFragment(R.layout.fragment_edit_profile) {
             binding.cityTextInput.isEnabled = true
         }
     }
-
 
     private fun refreshAccount() {
         lifecycleScope.launch {

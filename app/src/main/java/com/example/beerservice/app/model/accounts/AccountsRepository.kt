@@ -54,7 +54,6 @@ class AccountsRepository(
 
     fun logout() {
         appSettings.setCurrentToken(null)
-
     }
 
     suspend fun refreshUser() {
