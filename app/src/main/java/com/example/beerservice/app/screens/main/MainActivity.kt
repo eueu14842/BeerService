@@ -3,6 +3,7 @@ package com.example.beerservice.app.screens.main
 import android.os.Bundle
 import android.view.Menu
 import android.view.View
+import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
@@ -46,6 +47,7 @@ class MainActivity : AppCompatActivity() {
         onNavControllerActivated(navController)
         supportFragmentManager.registerFragmentLifecycleCallbacks(fragmentListener, true)
 
+//        экшенБар
         supportActionBar?.setDisplayShowHomeEnabled(true)
         supportActionBar?.setLogo(R.drawable.main_icon_app)
         supportActionBar?.setDisplayUseLogoEnabled(true)

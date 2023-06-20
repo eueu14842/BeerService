@@ -3,9 +3,20 @@
     xmlns:app2="http://schemas.android/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="150dp"
+    android:layout_height="wrap_content"
+    android:clipChildren="false"
+    android:clipToPadding="false"
     android:paddingTop="5dp"
     android:paddingBottom="5dp">
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app2:cardBackgroundColor="#B8BC6C"
+        app2:cardCornerRadius="4dp"
+        app2:cardElevation="4dp"
+        app2:cardPreventCornerOverlap="false"
+        app2:cardUseCompatPadding="true">
 
 
     <LinearLayout
@@ -20,7 +31,9 @@
             android:layout_gravity="center_vertical"
             android:layout_marginEnd="8dp"
             android:layout_marginStart="20dp"
-            app:cardCornerRadius="16dp">
+            android:layout_marginTop="10dp"
+            app:cardCornerRadius="16dp"
+            android:layout_marginBottom="10dp">
 
             <ImageView
                 android:id="@+id/imageViewPlace"
@@ -98,7 +111,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="16dp"
                 android:layout_gravity="bottom"
                 android:gravity="bottom"
                 android:weightSum="4">
@@ -126,5 +139,7 @@
         </LinearLayout>
 
     </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
 
 </RelativeLayout>
