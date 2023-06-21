@@ -1,13 +1,14 @@
+.gradle
+/local.properties
+.idea
+.idea
+.DS_Store
 /build
-local.properties
-build.gradle
-settings.gradle
-gradlew.bat
-gradlew
+Добавить такие строки:
 gradle.properties
-/gradle
-/app/build
-/app/src/test
-/app/src/androidTest
-/.idea/
-/.gradle/
+.idea
+.navigation
+/captures
+*.iml
+gradlew
+gradlew.bat
