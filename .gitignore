@@ -9,3 +9,5 @@ gradle.properties
 /app/build
 /app/src/test
 /app/src/androidTest
+/.idea/
+/.gradle/
