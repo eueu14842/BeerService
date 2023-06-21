@@ -6,7 +6,6 @@
 /build
 Добавить такие строки:
 gradle.properties
-.idea
 .navigation
 /captures
 *.iml
