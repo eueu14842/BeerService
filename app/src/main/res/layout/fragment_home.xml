@@ -6,134 +6,210 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <SearchView
-        android:id="@+id/searchView"
+    <ScrollView
+        android:id="@+id/scrollContainer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:layout_marginEnd="4dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent">
 
-    <LinearLayout
-        android:id="@+id/breweryLinear"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/searchView">
-
-        <TextView
-            android:id="@+id/tv_breweries"
-            style="@style/GlobalTextInputStyle.Big"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="@string/title_slider_brewery" />
+            android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/show_all_brewery_textView"
-            style="@style/LinkTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="end"
-            android:text="@string/slider_show_all"
-            android:textColor="#2E7D32" />
-    </LinearLayout>
+            <LinearLayout
+                android:id="@+id/searchLinear"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                android:orientation="horizontal"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recycler_brewery"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        app:layout_constraintTop_toBottomOf="@+id/breweryLinear"
-        tools:listitem="@layout/item_brewery" />
+                <SearchView
+                    android:id="@+id/searchView"
+                    style="@style/GlobalTextInputStyle.Big"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:queryHint="Введите запрос" />
 
-    <LinearLayout
-        android:id="@+id/beerLinear"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="0"
-        android:orientation="horizontal"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/recycler_brewery">
+                <ImageView
+                    android:id="@+id/imageViewScanner"
+                    android:layout_width="45dp"
+                    android:layout_height="45dp"
+                    android:gravity="end"
+                    app:srcCompat="@drawable/ic_baseline_qr_code_scanner_24" />
 
-        <TextView
-            android:id="@+id/tv_beers"
-            style="@style/GlobalTextInputStyle.Big"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="@string/title_slider_beer" />
+            </LinearLayout>
 
-        <TextView
-            android:id="@+id/show_all_beer_textView"
-            style="@style/LinkTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="end"
-            android:text="@string/slider_show_all" />
-    </LinearLayout>
+            <LinearLayout
+                android:id="@+id/breweryLinear"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:orientation="horizontal"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/searchLinear">
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recycler_beer"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/beerLinear" />
+                <TextView
+                    android:id="@+id/tv_breweries"
+                    style="@style/GlobalTextInputStyle.Big"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/title_slider_brewery"
+                    android:textSize="20sp" />
 
+                <TextView
+                    android:id="@+id/show_all_brewery_textView"
+                    style="@style/LinkTextView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="end"
 
-    <LinearLayout
-        android:id="@+id/placesLinear"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="0"
-        android:orientation="horizontal"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/recycler_beer">
+                    android:text="@string/slider_show_all"
+                    android:textColor="#2E7D32" />
+            </LinearLayout>
 
-        <TextView
-            android:id="@+id/tv_places"
-            style="@style/GlobalTextInputStyle.Big"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="@string/title_slider_store" />
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recycler_brewery"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_weight="1"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/breweryLinear" />
 
-        <TextView
-            android:id="@+id/show_all_stores_textView"
-            style="@style/LinkTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="end"
-            android:text="@string/slider_show_all" />
-    </LinearLayout>
+            <LinearLayout
+                android:id="@+id/beerLinear"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="8dp"
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recycler_places"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintEnd_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/placesLinear" />
+                android:orientation="horizontal"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/recycler_brewery">
+
+                <TextView
+                    android:id="@+id/tv_beers"
+                    style="@style/GlobalTextInputStyle.Big"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/title_slider_beer"
+                    android:textSize="20sp" />
+
+                <TextView
+                    android:id="@+id/show_all_beer_textView"
+                    style="@style/LinkTextView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="end"
+                    android:text="@string/slider_show_all"
+                    android:textColor="#2E7D32" />
+            </LinearLayout>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recycler_beer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_weight="1"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/beerLinear" />
+
+            <LinearLayout
+                android:id="@+id/placesLinear"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="8dp"
+                android:orientation="horizontal"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/recycler_beer">
+
+                <TextView
+                    android:id="@+id/tv_places"
+                    style="@style/GlobalTextInputStyle.Big"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/title_slider_store"
+                    android:textSize="20sp" />
+
+                <TextView
+                    android:id="@+id/show_all_stores_textView"
+                    style="@style/LinkTextView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="end"
+                    android:text="@string/slider_show_all"
+                    android:textColor="#2E7D32" />
+            </LinearLayout>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recycler_places"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="8dp"
+                android:layout_weight="1"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintEnd_toStartOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/placesLinear" />
+        </LinearLayout>
+    </ScrollView>
 
     <com.example.beerservice.app.views.ResultStateView
         android:id="@+id/resultViewState"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
+        android:layout_marginStart="8dp"
         android:layout_marginTop="276dp"
+        android:layout_marginEnd="8dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <com.example.beerservice.app.views.ScannerStateView
+        android:id="@+id/scannerViewState"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:layout_marginTop="0dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+    </com.example.beerservice.app.views.ScannerStateView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

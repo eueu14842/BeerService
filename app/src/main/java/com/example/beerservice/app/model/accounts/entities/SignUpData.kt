@@ -6,7 +6,7 @@ import com.example.beerservice.sources.accounts.entites.SignUpRequestEntity
 import kotlin.math.log
 
 class SignUpData(
-    val tel: String,
+    val tel: String = "",
     val mail: String,
     val userName: String,
     val login: String,
@@ -14,14 +14,10 @@ class SignUpData(
 ) {
     fun validate() {
         if (login.isBlank()) throw EmptyFieldException(Field.Login)
+        if (userName.isBlank()) throw EmptyFieldException(Field.Username)
         if (password.isBlank()) throw EmptyFieldException(Field.Password)
         if (mail.isBlank()) throw EmptyFieldException(Field.Mail)
     }
-    fun toSignUpRequestEntity() = SignUpRequestEntity(
-        tel =tel,
-        mail = mail,
-        userName = userName,
-        login = login,
-        password = password
-    )
+
+
 }

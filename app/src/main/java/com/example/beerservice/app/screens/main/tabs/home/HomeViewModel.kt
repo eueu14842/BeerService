@@ -31,8 +31,13 @@ class HomeViewModel(
     private val _place = MutableLiveData<ResultState<List<Place>>>()
     val place = _place.share()
 
+    private val _isAvailableScanner = MutableLiveData<ResultState<Boolean>>()
+    val isAvailableScanner = _isAvailableScanner.share()
 
     init {
+        viewModelScope.launch {
+            _isAvailableScanner.value = Success(false)
+        }
         viewModelScope.launch {
             _brewery.value = Pending()
             _brewery.value = Success(breweryRepository.getBreweryAdblockList())
@@ -46,5 +51,9 @@ class HomeViewModel(
             _place.value = Pending()
             _place.value = Success(placeRepository.getPlacesAdblockList())
         }
+    }
+
+    fun isAvailableScanner(boolean: Boolean) {
+        _isAvailableScanner.value = Success(boolean)
     }
 }

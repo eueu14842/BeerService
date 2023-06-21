@@ -18,12 +18,8 @@ class BeersListViewModel(
     private val beersRepository: BeersRepository = Singletons.beerRepository
 ) : BaseViewModel() {
 
-    private val _beers = MutableLiveData<ResultState<List<Beer>>>()
-    val beers = _beers.share()
-
     val beersFlow: Flow<PagingData<Beer>>
     private var searchBy = MutableLiveData("")
-
 
     init {
         beersFlow = searchBy.asFlow()
@@ -34,16 +30,4 @@ class BeersListViewModel(
             .cachedIn(viewModelScope)
     }
 
-
-/*    init {
-        viewModelScope.launch {
-            val beers: List<Beer> = beersRepository.getBeerList()
-            if (beers.isEmpty()) {
-                _beers.value =
-                    ErrorResult(IllegalStateException("Opps"))
-            }
-            _beers.value = Pending()
-            _beers.value = Success(beers)
-        }
-    }*/
 }

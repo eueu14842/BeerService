@@ -13,8 +13,8 @@ interface BreweryApi {
     @POST("/brewery/create")
     suspend fun createBrewery(@Body body: CreateBreweryRequestEntity)
 
-    @GET("brewery/profile")
-    suspend fun getBreweryById(@Query("id") id: Int): GetBreweryResponseEntity
+    @GET("brewery/profile/{id}")
+    suspend fun getBreweryById(@Path("id") id: Int): GetBreweryResponseEntity
 
     @GET("brewery/list")
     suspend fun getBreweryList(

@@ -1,0 +1,145 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:app2="http://schemas.android/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:clipChildren="false"
+    android:clipToPadding="false"
+    android:paddingTop="5dp"
+    android:paddingBottom="5dp">
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app2:cardBackgroundColor="#B8BC6C"
+        app2:cardCornerRadius="4dp"
+        app2:cardElevation="4dp"
+        app2:cardPreventCornerOverlap="false"
+        app2:cardUseCompatPadding="true">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardView"
+            android:layout_width="84dp"
+            android:layout_height="110dp"
+            android:layout_gravity="center_vertical"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="10dp"
+            app:cardCornerRadius="16dp"
+            android:layout_marginBottom="10dp">
+
+            <ImageView
+                android:id="@+id/imageViewPlace"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="centerCrop" />
+
+            <ImageView
+                android:id="@+id/imageView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right"
+                android:layout_marginEnd="4dp"
+                app:srcCompat="@drawable/ic_baseline_favorite_border_24" />
+
+        </androidx.cardview.widget.CardView>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="110dp"
+            android:layout_marginEnd="20dp"
+            android:layout_gravity="center_vertical"
+            android:orientation="vertical">
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_gravity="top"
+                android:weightSum="3"
+                android:gravity="right">
+
+                <TextView
+                    android:id="@+id/textViewPlaceTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:text="@string/beer_title"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/black"/>
+
+                <TextView
+                    style="@style/linkText"
+                    android:id="@+id/textViewPlaceMagazine"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="right"
+                    android:layout_weight="1"
+                    android:gravity="right"
+                    android:text="@string/magazine" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="8dp"
+                android:weightSum="1"
+                android:gravity="right">
+
+                <TextView
+                    android:id="@+id/textViewPlaceDesc"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="11sp"
+                    android:ellipsize="end"
+                    android:lines="3"
+                    android:text="@string/beer_description_adblock" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="16dp"
+                android:layout_gravity="bottom"
+                android:gravity="bottom"
+                android:weightSum="4">
+
+                <TextView
+                    style="@style/linkText"
+                    android:id="@+id/textViewPlaceCity"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="3"
+                    android:layout_gravity="bottom"
+                    android:text="@string/city" />
+
+                <TextView
+                    style="@style/linkText"
+                    android:id="@+id/textViewShowPlaceOnMap"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="right"
+                    android:layout_gravity="bottom"
+                    android:text="@string/show_on_map" />
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
+
+</RelativeLayout>

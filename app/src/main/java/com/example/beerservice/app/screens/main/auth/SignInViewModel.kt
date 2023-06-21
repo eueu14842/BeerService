@@ -16,10 +16,8 @@ import kotlinx.coroutines.launch
 import java.time.Year
 
 class SignInViewModel(
-    val accountsRepository: AccountsRepository = Singletons.accountsRepository
 
 ) : BaseViewModel() {
-
 
     private val _state = MutableLiveData(State())
     val state = _state.share()

@@ -11,6 +11,10 @@ class RetrofitPlaceSource(
 
     private val placeApi = retrofit.create(PlaceApi::class.java)
 
+    override suspend fun getPlaceProfile(id: Int) = wrapRetrofitExceptions {
+        placeApi.getPlaceById(id).toPlace()
+    }
+
     override suspend fun getPlaceList(
         geoLat: Double,
         geoLon: Double,
@@ -26,5 +30,14 @@ class RetrofitPlaceSource(
     override suspend fun getPagedPlaces(limit: Int, offset: Int) = wrapRetrofitExceptions {
         placeApi.getPagedPlaces(limit, offset).map { it.toPlace() }
     }
+
+    override suspend fun addFavorite(placeId: Int, userId: Int) {
+        placeApi.addFavorite(placeId,userId)
+    }
+
+    override suspend fun removeFavorite(placeId: Int, userId: Int) {
+        placeApi.removeFavorite(placeId,userId)
+    }
+
 
 }

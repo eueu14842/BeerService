@@ -5,6 +5,7 @@ import com.example.beerservice.app.model.beers.BeersSource
 import com.example.beerservice.app.model.brewery.BrewerySource
 import com.example.beerservice.app.model.feedback.FeedbackSource
 import com.example.beerservice.app.model.place.PlaceSource
+import com.example.beerservice.app.model.search.SearchSource
 
 interface SourcesProvider {
     fun getAccountsSource(): AccountsSource
@@ -15,5 +16,7 @@ interface SourcesProvider {
 
     fun getFeedbackSource(): FeedbackSource
 
-    fun getPlacesSource():PlaceSource
+    fun getPlacesSource(): PlaceSource
+
+    fun getSearchSource(): SearchSource
 }

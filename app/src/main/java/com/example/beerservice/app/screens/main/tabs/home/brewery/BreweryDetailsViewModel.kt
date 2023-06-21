@@ -18,7 +18,7 @@ import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.launch
 
 class BreweryDetailsViewModel(
-    val breweryRepository: BreweryRepository = Singletons.breweryRepository,
+    private val breweryRepository: BreweryRepository = Singletons.breweryRepository,
     private val beersRepository: BeersRepository = Singletons.beerRepository
 ) : BaseViewModel() {
 

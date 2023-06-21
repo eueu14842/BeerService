@@ -5,6 +5,7 @@ import android.view.View
 import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.ConcatAdapter
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -37,13 +38,12 @@ class BeerDetailsFragment : BaseFragment(R.layout.fragment_beer_details) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentBeerDetailsBinding.bind(view)
-        setupBeerDetailsBlock()
+       setupBeerDetailsBlock()
        setupFeedbackList()
-
     }
 
 
-    fun setupFeedbackList() {
+    private fun setupFeedbackList() {
         val adapter = FeedbackForBeerPagingAdapter(onFeedbackClickListener)
         val tryAgainAction: TryAgainAction = { adapter.retry() }
         val footerAdapter = DefaultLoadStateAdapter(tryAgainAction)
@@ -60,7 +60,7 @@ class BeerDetailsFragment : BaseFragment(R.layout.fragment_beer_details) {
 
     }
 
-    fun setupBeerDetailsBlock() {
+    private fun setupBeerDetailsBlock() {
         viewModel.getBeerById(navArgs.beerId)
         viewModel.beer.observe(viewLifecycleOwner) {
             when (it) {
@@ -74,7 +74,7 @@ class BeerDetailsFragment : BaseFragment(R.layout.fragment_beer_details) {
                         textViewBeerDescription.text = it.value.description
                         textViewBeerTitle.text = it.value.name
 
-                        setBeerId(it.value.id)
+                        setBeerId(it.value.id!!)
                     }
 
                 }
