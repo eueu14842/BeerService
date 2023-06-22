@@ -75,7 +75,6 @@ class PlaceLocationListFragment : BaseFragment(R.layout.fragment_place_location_
             val direction =
                 PlaceContainerFragmentDirections.actionPlaceFragmentToPlaceDetailsFragment(place.placeId!!)
             findNavController().navigate(direction)
-
         }
     }
 

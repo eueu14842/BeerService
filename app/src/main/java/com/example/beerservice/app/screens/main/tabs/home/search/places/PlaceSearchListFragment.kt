@@ -19,9 +19,7 @@ import com.example.beerservice.app.screens.main.tabs.places.adapters.OnPlaceClic
 import com.example.beerservice.app.screens.main.tabs.places.adapters.PlaceListAdapter
 import com.example.beerservice.app.utils.ViewModelFactory
 import com.example.beerservice.databinding.FragmentSearchPlaceListBinding
-import kotlinx.coroutines.flow.debounce
 import kotlinx.coroutines.launch
-
 
 
 class PlaceSearchListFragment : BaseFragment(R.layout.fragment_search_place_list) {
