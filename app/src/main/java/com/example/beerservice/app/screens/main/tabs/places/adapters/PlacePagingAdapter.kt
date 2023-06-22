@@ -1,23 +1,33 @@
 package com.example.beerservice.app.screens.main.tabs.places.adapters
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.example.beerservice.R
 import com.example.beerservice.app.model.place.entities.Place
 import com.example.beerservice.databinding.ItemPlaceBinding
 import com.example.beerservice.databinding.ItemPlaceCardBinding
 
-interface OnPlaceClickListener {
-    fun onPlaceClick(place: Place, position: Int)
-}
 
 class PlacePagingAdapter(
-    private val onPlaceClickListener: OnPlaceClickListener
+    private val listener: Listener
 ) :
-    PagingDataAdapter<Place, PlacePagingAdapter.Holder>(PlaceDiffCallback()) {
+    PagingDataAdapter<Place, PlacePagingAdapter.Holder>(PlaceDiffCallback()), View.OnClickListener {
+
+
+    override fun onClick(v: View?) {
+        val place = v?.tag as Place
+        when (v.id) {
+            R.id.heartImageView -> listener.onToggleFavoriteFlag(place)
+            R.id.textViewShowPlaceOnMap -> listener.onNavigateToMap()
+            v.id -> listener.onNavigateToPlaceDetails()
+        }
+
+    }
 
     override fun onBindViewHolder(holder: Holder, position: Int) {
         val place: Place = getItem(position) ?: return
@@ -28,10 +38,12 @@ class PlacePagingAdapter(
             textViewPlaceTitle.text = place.name
             textViewPlaceDesc.text = place.description
             textViewPlaceCity.text = place.city
+
+            heartImageView.tag = place
+            textViewShowPlaceOnMap.tag = place
+            holder.itemView.tag = place
         }
-        holder.itemView.setOnClickListener {
-            onPlaceClickListener.onPlaceClick(place, position)
-        }
+
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Holder {
@@ -40,8 +52,18 @@ class PlacePagingAdapter(
         return Holder(binding)
     }
 
-
     class Holder(val binding: ItemPlaceCardBinding) : RecyclerView.ViewHolder(binding.root)
+
+    interface Listener {
+
+        fun onNavigateToPlaceDetails()
+
+        fun onNavigateToMap()
+
+        fun onToggleFavoriteFlag(place: Place)
+    }
+
+
 }
 
 class PlaceDiffCallback : DiffUtil.ItemCallback<Place>() {
