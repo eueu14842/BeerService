@@ -9,7 +9,9 @@ import com.example.beerservice.databinding.ItemAdblockBinding
 import com.example.beerservice.databinding.ItemAdblockPlaceBinding
 import com.example.beerservice.databinding.ItemBreweryBinding
 import jp.wasabeef.glide.transformations.RoundedCornersTransformation
-
+interface OnPlaceClickListener {
+    fun onPlaceClick(place: Place, position: Int)
+}
 class PlaceAdblockAdapter(
     private val breweryList: List<Place>,
     val onPlaceAdblockClickListener: OnPlaceClickListener

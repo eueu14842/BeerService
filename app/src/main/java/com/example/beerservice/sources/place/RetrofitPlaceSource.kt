@@ -2,8 +2,10 @@ package com.example.beerservice.sources.place
 
 import com.example.beerservice.app.model.place.PlaceSource
 import com.example.beerservice.app.model.place.entities.Place
+import com.example.beerservice.app.model.place.entities.PlaceIdUserId
 import com.example.beerservice.sources.base.BaseRetrofitSource
 import com.example.beerservice.sources.base.RetrofitConfig
+import com.example.beerservice.sources.search.entities.GetSearchResponseEntity
 
 class RetrofitPlaceSource(
     config: RetrofitConfig
@@ -31,12 +33,12 @@ class RetrofitPlaceSource(
         placeApi.getPagedPlaces(limit, offset).map { it.toPlace() }
     }
 
-    override suspend fun addFavorite(placeId: Int, userId: Int) {
-        placeApi.addFavorite(placeId,userId)
+    override suspend fun addFavorite(placeIdUserId: PlaceIdUserId) {
+        placeApi.addFavorite(placeIdUserId.toGetPlaceIdUserId())
     }
 
-    override suspend fun removeFavorite(placeId: Int, userId: Int) {
-        placeApi.removeFavorite(placeId,userId)
+    override suspend fun removeFavorite(placeIdUserId: PlaceIdUserId) {
+        placeApi.removeFavorite(placeIdUserId.toGetPlaceIdUserId())
     }
 
 

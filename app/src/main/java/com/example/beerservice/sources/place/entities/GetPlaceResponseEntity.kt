@@ -12,7 +12,7 @@ class GetPlaceResponseEntity(
     val city: String? = null,
     val geoLat: Double? = null,
     val geoLon: Double? = null,
-    val setAvailabilityOfSpaceForTheUser: Boolean = false
+    val setAvailabilityOfSpaceForTheUser: Boolean? = false
 ) {
     fun toPlace() = Place(
         placeId = placeId,

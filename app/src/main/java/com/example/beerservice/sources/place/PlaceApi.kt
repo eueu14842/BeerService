@@ -1,5 +1,6 @@
 package com.example.beerservice.sources.place
 
+import com.example.beerservice.sources.place.entities.GetPlaceIdUserIdEntity
 import com.example.beerservice.sources.place.entities.GetPlaceResponseEntity
 import retrofit2.http.*
 
@@ -8,10 +9,10 @@ interface PlaceApi {
     suspend fun createPlace(@Body body: Body)
 
     @POST("place/favorite")
-    suspend fun addFavorite(@Body placeId: Int, userId: Int)
+    suspend fun addFavorite(@Body getPlaceIdUserIdEntity: GetPlaceIdUserIdEntity)
 
-    @DELETE("place/favorite/remove")
-    suspend fun removeFavorite(@Body placeId: Int, userId: Int)
+    @HTTP(method = "DELETE", path = "place/favorite/remove", hasBody = true)
+    suspend fun removeFavorite(@Body getPlaceIdUserIdEntity: GetPlaceIdUserIdEntity)
 
     @POST("place/buyThisBeerFromUs")
     suspend fun buyBeerFromPlace(@Body body: Body)

@@ -4,17 +4,13 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.beerservice.R
-import com.example.beerservice.app.model.place.entities.Place
 import com.example.beerservice.app.screens.base.BaseFragment
-import com.example.beerservice.app.screens.main.tabs.places.adapters.OnPlaceClickListener
 import com.example.beerservice.app.screens.main.tabs.places.adapters.PlaceListAdapter
 import com.example.beerservice.app.utils.ViewModelFactory
-import com.example.beerservice.app.utils.observeEvent
 import com.example.beerservice.databinding.FragmentFavoritesBinding
 
 class FavoritesFragment : BaseFragment(R.layout.fragment_favorites) {
@@ -40,7 +36,7 @@ class FavoritesFragment : BaseFragment(R.layout.fragment_favorites) {
         viewModel.place.observe(viewLifecycleOwner) { result ->
             result.map { places ->
                 val adapter =
-                    PlaceListAdapter(places, onPlaceClickListener)
+                    PlaceListAdapter(places)
                 recycler.adapter = adapter
             }
         }
@@ -52,9 +48,9 @@ class FavoritesFragment : BaseFragment(R.layout.fragment_favorites) {
         }
     }
 
-    private val onPlaceClickListener = object : OnPlaceClickListener {
+  /*  private val onPlaceClickListener = object : OnPlaceClickListener {
         override fun onPlaceClick(place: Place, position: Int) {
             Toast.makeText(requireContext(), "${place.name}", Toast.LENGTH_SHORT).show()
         }
-    }
+    }*/
 }

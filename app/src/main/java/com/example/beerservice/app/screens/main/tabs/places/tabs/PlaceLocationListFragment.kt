@@ -7,24 +7,13 @@ import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
-import androidx.navigation.fragment.findNavController
-import androidx.navigation.fragment.navArgs
-import androidx.recyclerview.widget.ConcatAdapter
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.beerservice.R
-import com.example.beerservice.app.model.place.entities.Place
 import com.example.beerservice.app.screens.base.BaseFragment
-import com.example.beerservice.app.screens.base.DefaultLoadStateAdapter
-import com.example.beerservice.app.screens.base.TryAgainAction
-import com.example.beerservice.app.screens.main.tabs.places.adapters.OnPlaceClickListener
 import com.example.beerservice.app.screens.main.tabs.places.adapters.PlaceListAdapter
-import com.example.beerservice.app.screens.main.tabs.places.adapters.PlacePagingAdapter
 import com.example.beerservice.app.utils.ViewModelFactory
-import com.example.beerservice.databinding.FragmentPlaceListBinding
 import com.example.beerservice.databinding.FragmentPlaceLocationListBinding
-import kotlinx.coroutines.flow.collectLatest
-import kotlinx.coroutines.flow.debounce
 import kotlinx.coroutines.launch
 
 class PlaceLocationListFragment : BaseFragment(R.layout.fragment_place_location_list) {
@@ -57,7 +46,7 @@ class PlaceLocationListFragment : BaseFragment(R.layout.fragment_place_location_
                 viewModelPlace.place.observe(viewLifecycleOwner) { result ->
                     result.map { places ->
                         val adapter =
-                            PlaceListAdapter(places, getCurrentListenerDependsOnDestination())
+                            PlaceListAdapter(places)
                         recycler.adapter = adapter
                     }
                 }
@@ -65,7 +54,7 @@ class PlaceLocationListFragment : BaseFragment(R.layout.fragment_place_location_
         }
     }
 
-    private fun getCurrentListenerDependsOnDestination(): OnPlaceClickListener {
+/*    private fun getCurrentListenerDependsOnDestination(): OnPlaceClickListener {
         return if (findNavController().currentDestination?.parent?.id == R.id.place) onPlaceClickListenerFromPlaces
         else onPlaceClickListenerFromHome
     }
@@ -86,7 +75,7 @@ class PlaceLocationListFragment : BaseFragment(R.layout.fragment_place_location_
                 )
             findNavController().navigate(direction)
         }
-    }
+    }*/
 
     private fun setupViews() {
         recycler = binding.recyclerPlaceList.apply {

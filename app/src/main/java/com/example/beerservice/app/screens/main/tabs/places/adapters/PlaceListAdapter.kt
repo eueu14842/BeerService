@@ -10,7 +10,6 @@ import com.example.beerservice.databinding.ItemPlaceBinding
 
 class PlaceListAdapter(
     val list: List<Place>,
-    private val onPlaceClickListener: OnPlaceClickListener
 ) :
     RecyclerView.Adapter<PlaceListAdapter.PlaceHolder>() {
     class PlaceHolder(val binding: ItemPlaceBinding) : RecyclerView.ViewHolder(binding.root)
@@ -37,7 +36,6 @@ class PlaceListAdapter(
             Toast.makeText(holder.itemView.context, "ASDAS a DAS ", Toast.LENGTH_SHORT).show()
         }
         holder.itemView.setOnClickListener {
-            onPlaceClickListener.onPlaceClick(place, position)
         }
     }
 

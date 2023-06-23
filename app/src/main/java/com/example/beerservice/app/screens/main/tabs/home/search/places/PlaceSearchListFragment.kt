@@ -48,7 +48,7 @@ class PlaceSearchListFragment : BaseFragment(R.layout.fragment_search_place_list
             viewModel.setSearchBy(arguments?.getString(SEARCH_KEY, "") ?: "")
             viewModel.searchData.observe(viewLifecycleOwner) {
                 val list = it.place
-                breweryAdapter = PlaceListAdapter(list!!, onPlaceClickListenerFromHome)
+                breweryAdapter = PlaceListAdapter(list!!)
                 recycler.adapter = breweryAdapter
             }
         }
@@ -61,13 +61,13 @@ class PlaceSearchListFragment : BaseFragment(R.layout.fragment_search_place_list
     }
 
 
-    private val onPlaceClickListenerFromHome = object : OnPlaceClickListener {
+/*    private val onPlaceClickListenerFromHome = object : OnPlaceClickListener {
         override fun onPlaceClick(place: Place, position: Int) {
             val direction =
                 SearchFragmentDirections.actionSearchFragmentToPlaceDetailsFragment(place.placeId!!)
             findNavController().navigate(direction)
         }
-    }
+    }*/
 
 
     companion object {

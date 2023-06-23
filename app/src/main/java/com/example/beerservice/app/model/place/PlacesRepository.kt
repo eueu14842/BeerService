@@ -5,6 +5,7 @@ import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import com.example.beerservice.app.Const.PAGE_SIZE
 import com.example.beerservice.app.model.place.entities.Place
+import com.example.beerservice.app.model.place.entities.PlaceIdUserId
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.withContext
@@ -41,4 +42,11 @@ class PlacesRepository(
             val list: List<Place> = placeSource.getPagedPlaces(pageSize, offset)
             return@withContext list
         }
+
+     suspend fun setFavorite(placeIdUserId: PlaceIdUserId) {
+        placeSource.addFavorite(placeIdUserId)
+    }
+    suspend fun removeFavorite(placeIdUserId: PlaceIdUserId) {
+        placeSource.removeFavorite(placeIdUserId)
+    }
 }

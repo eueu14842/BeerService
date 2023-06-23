@@ -6,18 +6,14 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
-import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.ConcatAdapter
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.beerservice.R
-import com.example.beerservice.app.model.place.entities.Place
 import com.example.beerservice.app.screens.base.BaseFragment
 import com.example.beerservice.app.screens.base.DefaultLoadStateAdapter
 import com.example.beerservice.app.screens.base.TryAgainAction
-import com.example.beerservice.app.screens.main.tabs.places.adapters.OnPlaceClickListener
 import com.example.beerservice.app.screens.main.tabs.places.adapters.PlacePagingAdapter
-import com.example.beerservice.app.screens.main.tabs.places.tabs.PlaceLocationListFragmentDirections
 import com.example.beerservice.app.screens.main.tabs.places.tabs.PlaceViewModel
 import com.example.beerservice.app.utils.ViewModelFactory
 import com.example.beerservice.databinding.FragmentPlaceListBinding
@@ -45,7 +41,7 @@ class PlaceListFragment : BaseFragment(R.layout.fragment_place_list) {
         return binding.root
     }
 
-    private val onPlaceClickListenerFromHome = object : OnPlaceClickListener {
+/*    private val onPlaceClickListenerFromHome = object : OnPlaceClickListener {
         override fun onPlaceClick(place: Place, position: Int) {
             val direction =
                 PlaceLocationListFragmentDirections.actionPlaceListFragmentToPlaceDetailsFragment(
@@ -53,7 +49,7 @@ class PlaceListFragment : BaseFragment(R.layout.fragment_place_list) {
                 )
             findNavController().navigate(direction)
         }
-    }
+    }*/
 
 
     private fun setupViews() {
@@ -64,7 +60,7 @@ class PlaceListFragment : BaseFragment(R.layout.fragment_place_list) {
 
 
     private fun setupPagedPlaceList() {
-        val adapter = PlacePagingAdapter(onPlaceClickListenerFromHome)
+        val adapter = PlacePagingAdapter(viewModel)
         val tryAgainAction: TryAgainAction = { adapter.retry() }
         val footerAdapter = DefaultLoadStateAdapter(tryAgainAction)
         val adapterWithLoadState: ConcatAdapter = adapter.withLoadStateFooter(footerAdapter)
