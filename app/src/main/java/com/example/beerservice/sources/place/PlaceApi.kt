@@ -27,13 +27,14 @@ interface PlaceApi {
 
     @GET("place/list")
     suspend fun getPagedPlaces(
+        @Query("userId") userId: Int,
         @Query("limit") limit: Int,
         @Query("offset") offset: Int
     ): List<GetPlaceResponseEntity>
 
 
     @GET("place/adblock")
-    suspend fun getPlaceAdblockList(): List<GetPlaceResponseEntity>
+    suspend fun getPlaceAdblockList(@Query("userId") userId: Int): List<GetPlaceResponseEntity>
 
     @GET("place/profile/{id}")
     suspend fun getPlaceById(

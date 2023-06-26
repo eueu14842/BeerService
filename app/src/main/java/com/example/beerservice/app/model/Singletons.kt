@@ -69,7 +69,8 @@ object Singletons {
     }
     val placesRepository: PlacesRepository by lazy {
         PlacesRepository(
-            placeSource = placeSource
+            placeSource = placeSource,
+            accountsRepository = accountsRepository
         )
     }
     val feedbackRepository: FeedbackRepository by lazy {

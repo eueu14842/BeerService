@@ -18,20 +18,22 @@ class RetrofitPlaceSource(
     }
 
     override suspend fun getPlaceList(
+        userId: Int,
         geoLat: Double,
         geoLon: Double,
         visibleRegion: Double
     ): List<Place> = wrapRetrofitExceptions {
-        placeApi.getPlaceList(geoLat, geoLon, visibleRegion).map { it.toPlace() }
+        placeApi.getPlaceList(userId, geoLat, geoLon, visibleRegion).map { it.toPlace() }
     }
 
-    override suspend fun getPlacesAdblockList() = wrapRetrofitExceptions {
-        placeApi.getPlaceAdblockList().map { it.toPlace() }
+    override suspend fun getPlacesAdblockList(userId: Int) = wrapRetrofitExceptions {
+        placeApi.getPlaceAdblockList(userId).map { it.toPlace() }
     }
 
-    override suspend fun getPagedPlaces(limit: Int, offset: Int) = wrapRetrofitExceptions {
-        placeApi.getPagedPlaces(limit, offset).map { it.toPlace() }
-    }
+    override suspend fun getPagedPlaces(userId: Int, limit: Int, offset: Int) =
+        wrapRetrofitExceptions {
+            placeApi.getPagedPlaces(userId,limit, offset).map { it.toPlace() }
+        }
 
     override suspend fun addFavorite(placeIdUserId: PlaceIdUserId) {
         placeApi.addFavorite(placeIdUserId.toGetPlaceIdUserId())

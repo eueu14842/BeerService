@@ -1,12 +1,10 @@
 package com.example.beerservice.app.screens.main.tabs.places.tabs
 
-import android.widget.Toast
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.asFlow
 import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
-import androidx.paging.map
 import com.example.beerservice.app.model.*
 import com.example.beerservice.app.model.place.PlacesRepository
 import com.example.beerservice.app.model.place.entities.Place
@@ -74,7 +72,6 @@ class PlaceViewModel(
             }
         }
     }
-
 
     private suspend fun setFavoriteFlag(placeIdUserId: PlaceIdUserId) {
 //        val newFlagValue = place.setAvailabilityOfSpaceForTheUser
