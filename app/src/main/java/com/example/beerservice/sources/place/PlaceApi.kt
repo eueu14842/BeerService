@@ -19,6 +19,7 @@ interface PlaceApi {
 
     @GET("place/list/map")
     suspend fun getPlaceList(
+        @Query("userId") userId: Int,
         @Query("geoLat") geoLat: Double,
         @Query("geoLon") geoLon: Double,
         @Query("visibleRegion") visibleRegion: Double
