@@ -7,8 +7,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.beerservice.app.model.brewery.entities.Brewery
-import com.example.beerservice.app.screens.main.tabs.home.brewery.OnBreweryClickListener
-import com.example.beerservice.databinding.ItemBreweryBinding
+import com.example.beerservice.databinding.ItemBreweryCardBinding
 
 interface OnBreweryPagedClickListener {
     fun onBreweryPagedClick(brewery: Brewery, position: Int)
@@ -26,6 +25,8 @@ class BreweryPagingAdapter (
                 .into(ivBreweryImage)
             tvBreweryName.text = brewery.name
             tvBreweryDescription.text = brewery.description
+            tvBreweryCity.text = brewery.city
+            tvBreweryType.text = brewery.type
         }
         holder.itemView.setOnClickListener {
             onBreweryClickListener.onBreweryPagedClick(brewery, position)
@@ -34,11 +35,11 @@ class BreweryPagingAdapter (
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Holder {
         val inflater = LayoutInflater.from(parent.context)
-        val binding = ItemBreweryBinding.inflate(inflater)
+        val binding = ItemBreweryCardBinding.inflate(inflater)
         return Holder(binding)
     }
 
-    class Holder(val binding: ItemBreweryBinding) : RecyclerView.ViewHolder(binding.root)
+    class Holder(val binding: ItemBreweryCardBinding) : RecyclerView.ViewHolder(binding.root)
 }
 
 class BreweryDiffCallback : DiffUtil.ItemCallback<Brewery>() {

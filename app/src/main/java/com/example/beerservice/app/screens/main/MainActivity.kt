@@ -1,21 +1,22 @@
 package com.example.beerservice.app.screens.main
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.Menu
 import android.view.View
+import androidx.appcompat.app.ActionBar
+import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.navigation.NavController
 import androidx.navigation.NavDestination
-import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
-import androidx.navigation.ui.AppBarConfiguration
-import androidx.navigation.ui.setupActionBarWithNavController
 import com.example.beerservice.R
-import com.example.beerservice.app.screens.main.auth.SignInFragment
 import com.example.beerservice.app.screens.main.tabs.TabsFragment
+import com.yandex.mapkit.MapKitFactory
 import java.util.regex.Pattern
+
 
 class MainActivity : AppCompatActivity() {
 
@@ -40,11 +41,18 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        setupMapKit()
         val navController = getRootNavController()
         prepareRootNavController(isSignedIn(), navController)
         onNavControllerActivated(navController)
-
         supportFragmentManager.registerFragmentLifecycleCallbacks(fragmentListener, true)
+
+//        экшенБар
+        supportActionBar?.setDisplayShowHomeEnabled(true)
+        supportActionBar?.setLogo(R.drawable.main_icon_app)
+        supportActionBar?.setDisplayUseLogoEnabled(true)
+        supportActionBar?.setHomeAsUpIndicator(R.drawable.layer_back)
+
     }
 
     private fun prepareRootNavController(isSignedIn: Boolean, navController: NavController) {
@@ -101,6 +109,7 @@ class MainActivity : AppCompatActivity() {
         return navController?.navigateUp() ?: false || super.onSupportNavigateUp()
     }
 
+
     private fun prepareTitle(label: CharSequence?, arguments: Bundle?): String {
         // copied from Google sources
         if (label == null) return ""
@@ -130,5 +139,17 @@ class MainActivity : AppCompatActivity() {
 
     private fun getSignInDestination(): Int = R.id.signInFragment
 
+    private fun getProfileDestination(): Int = R.id.profileFragment
+
+
+    private fun setupMapKit() {
+        MapKitFactory.initialize(this)
+    }
+
+    override fun onDestroy() {
+        supportFragmentManager.unregisterFragmentLifecycleCallbacks(fragmentListener)
+        navController = null
+        super.onDestroy()
+    }
 
 }

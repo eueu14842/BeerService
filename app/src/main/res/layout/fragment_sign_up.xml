@@ -16,7 +16,7 @@
             android:id="@+id/tel_TextInput"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:hint="@string/field_email"
+            android:hint="@string/field_tel"
             app:layout_constraintBottom_toTopOf="@id/mail_TextInput"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -29,7 +29,8 @@
                 android:layout_height="wrap_content"
                 android:imeOptions="actionNext"
                 android:inputType="textEmailAddress"
-                android:lines="1" />
+                android:lines="1"
+               />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
@@ -102,7 +103,10 @@
             app:layout_constraintBottom_toTopOf="@id/signInButton"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/loginTextInput">
+            app:layout_constraintTop_toBottomOf="@+id/loginTextInput"
+            app:passwordToggleDrawable="@drawable/ic_baseline_visibility_24"
+            app:passwordToggleEnabled="true"
+            app:passwordToggleTint="@color/black">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/passwordEditText"
@@ -142,8 +146,9 @@
             android:id="@+id/progressBar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:visibility="gone"
+            android:layout_marginTop="68dp"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.498"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/signInButton" />
 

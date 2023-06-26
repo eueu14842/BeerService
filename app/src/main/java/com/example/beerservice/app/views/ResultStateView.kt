@@ -24,7 +24,6 @@ class ResultStateView @JvmOverloads constructor(
         val inflater = LayoutInflater.from(context)
         inflater.inflate(R.layout.part_default_load_state, this, true)
         binding = PartDefaultLoadStateBinding.bind(this)
-
     }
 
     fun setTryAgainAction(action: () -> Unit) {
@@ -36,6 +35,7 @@ class ResultStateView @JvmOverloads constructor(
         binding.messageTextView.isVisible = result is ErrorResult<*>
         binding.tryAgainButton.isVisible = result is ErrorResult<*>
         binding.progressBar.isVisible = result is Pending<*>
+
         if (result is ErrorResult) {
             Log.e(javaClass.simpleName, "Error", result.error)
             val message = when (result.error) {

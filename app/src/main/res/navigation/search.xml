@@ -1,15 +1,58 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/search"
-    android:label="Поиск-список"
-    app:startDestination="@id/placeFragment2">
+    app:startDestination="@id/searchFragment">
+
     <fragment
-        android:id="@+id/placeFragment2"
-        android:name="com.example.beerservice.app.screens.main.tabs.home.places.PlaceContainerFragment"
-        android:label="Поиск" />
+        android:id="@+id/searchFragment"
+        android:name="com.example.beerservice.app.screens.main.tabs.home.search.SearchFragment"
+        android:label="Поиск"
+        tools:layout="@layout/fragment_search">
+
+        <action
+            android:id="@id/action_searchFragment_to_beerDetailsFragment"
+            app:destination="@+id/beerDetailsFragment" />
+        <action
+            android:id="@id/action_searchFragment_to_placeDetailsFragment"
+            app:destination="@id/placeDetailsFragment" />
+        <action
+            android:id="@id/action_searchFragment_to_breweryDetailsFragment"
+            app:destination="@id/breweryDetailsFragment" />
+
+    </fragment>
+
+
     <fragment
-        android:id="@+id/placeMapFragment2"
-        android:name="com.example.beerservice.app.screens.main.tabs.home.places.PlaceMapFragment"
-        android:label="PlaceMapFragment" />
+        android:id="@id/beerDetailsFragment"
+        android:name="com.example.beerservice.app.screens.main.tabs.home.beers.BeerDetailsFragment"
+        android:label="BeerDetailsFragment"
+        tools:layout="@layout/fragment_beer_details">
+        <argument
+            android:name="beerId"
+            app:argType="integer" />
+    </fragment>
+
+    <fragment
+        android:id="@id/placeDetailsFragment"
+        android:name="com.example.beerservice.app.screens.main.tabs.places.PlaceDetailsFragment"
+        android:label="PlaceDetailsFragment"
+        tools:layout="@layout/fragment_place_details">
+        <argument
+            android:name="placeId"
+            app:argType="integer" />
+    </fragment>
+
+    <fragment
+        android:id="@id/breweryDetailsFragment"
+        android:name="com.example.beerservice.app.screens.main.tabs.home.brewery.BreweryDetailsFragment"
+        android:label="BreweryDetailsFragment"
+        tools:layout="@layout/fragment_beer_details">
+        <argument
+            android:name="breweryId"
+            app:argType="integer" />
+    </fragment>
+
+
 </navigation>
