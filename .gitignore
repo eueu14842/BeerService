@@ -1,11 +1,7 @@
 /build
 local.properties
-build.gradle
-settings.gradle
-gradlew.bat
-gradlew
-gradle.properties
 /gradle
 /app/build
 /app/src/test
 /app/src/androidTest
+.idea
