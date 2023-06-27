@@ -5,6 +5,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.example.beerservice.R
 import com.example.beerservice.app.model.place.entities.Place
 import com.example.beerservice.databinding.ItemPlaceBinding
 
@@ -31,6 +32,11 @@ class PlaceListAdapter(
             textViewPlaceDesc.text = place.description
             textViewPlaceCity.text = place.city
             textViewPlaceAddress.text = place.address
+
+            heartImageView.setImageResource(
+                if (place.setAvailabilityOfSpaceForTheUser == true) R.drawable.ic_baseline_favorite_24
+                else R.drawable.ic_baseline_favorite_border_24
+            )
         }
         holder.binding.textViewPlaceMagazine.setOnClickListener {
             Toast.makeText(holder.itemView.context, "ASDAS a DAS ", Toast.LENGTH_SHORT).show()

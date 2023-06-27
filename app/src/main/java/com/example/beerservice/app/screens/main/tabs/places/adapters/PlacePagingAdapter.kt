@@ -1,5 +1,6 @@
 package com.example.beerservice.app.screens.main.tabs.places.adapters
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -39,10 +40,16 @@ class PlacePagingAdapter(
             heartImageView.tag = place
             textViewShowPlaceOnMap.tag = place
             holder.itemView.tag = place
+
+            heartImageView.setImageResource(
+                if (place.setAvailabilityOfSpaceForTheUser == true) R.drawable.ic_baseline_favorite_24
+                else R.drawable.ic_baseline_favorite_border_24
+            )
         }
 
     }
 
+    @SuppressLint("SuspiciousIndentation")
     private fun loadPhoto(imageView: ImageView, url: String?) {
         val context = imageView.context
             Glide.with(context)

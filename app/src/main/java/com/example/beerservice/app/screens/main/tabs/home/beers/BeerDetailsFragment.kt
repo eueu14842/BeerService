@@ -38,8 +38,8 @@ class BeerDetailsFragment : BaseFragment(R.layout.fragment_beer_details) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentBeerDetailsBinding.bind(view)
-       setupBeerDetailsBlock()
-       setupFeedbackList()
+        setupBeerDetailsBlock()
+        setupFeedbackList()
     }
 
 
@@ -70,10 +70,9 @@ class BeerDetailsFragment : BaseFragment(R.layout.fragment_beer_details) {
                     with(binding) {
                         Glide.with(this@BeerDetailsFragment)
                             .load(it.value.image)
-                            .into(imageViewBeerDetails)
-                        textViewBeerDescription.text = it.value.description
+                            .into(imageViewBeer)
                         textViewBeerTitle.text = it.value.name
-
+                        textViewBeerDesc.text = it.value.description
                         setBeerId(it.value.id!!)
                     }
 

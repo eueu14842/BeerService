@@ -2,6 +2,7 @@ package com.example.beerservice.app.screens.main.tabs.home.brewery
 
 import android.os.Bundle
 import android.view.View
+import android.widget.TextView
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
@@ -40,9 +41,7 @@ class BreweryDetailsFragment() : BaseFragment(R.layout.fragment_brewery) {
         setupBeersList()
         setupBreweryDetailsBlock()
 
-
     }
-
 
     private fun setupBeersList() {
         val adapter = BeerPagingAdapter(onBeerClickListener)
@@ -71,11 +70,11 @@ class BreweryDetailsFragment() : BaseFragment(R.layout.fragment_brewery) {
                     with(binding) {
                         Glide.with(this@BreweryDetailsFragment)
                             .load(it.value.image)
-                            .into(imageViewBrewery)
-                        textViewBreweryDesc.text = it.value.description
-                        textViewBreweryTitle.text = it.value.name
-                        textViewBreweryAddress.text = it.value.city
-                        textViewBreweryCity.text = it.value.city
+                            .into(ivBreweryImage)
+                        tvBreweryName.text = it.value.name
+                        tvBreweryDescription.text = it.value.description
+                        tvBreweryCity.text = it.value.city
+                        tvBreweryType.text = it.value.type
                         setupBreweryId(it.value.id!!)
                     }
 
@@ -110,7 +109,9 @@ class BreweryDetailsFragment() : BaseFragment(R.layout.fragment_brewery) {
     private val onBeerClickListener = object : OnBeerClickListener {
         override fun onBeerClick(beer: Beer, position: Int) {
             val direction =
-                BreweryDetailsFragmentDirections.actionBreweryDetailsFragmentToBeerDetailsFragment(beer.id!!)
+                BreweryDetailsFragmentDirections.actionBreweryDetailsFragmentToBeerDetailsFragment(
+                    beer.id!!
+                )
             findNavController().navigate(direction)
         }
     }
