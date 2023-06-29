@@ -52,4 +52,6 @@
     <string name="edit_city">Редактировать город</string>
     <string name="save_edition">Сохранить</string>
     <string name="stile">стиль</string>
+    <string name="tel">Телефон</string>
+    <string name="email">Почта</string>
 </resources>
