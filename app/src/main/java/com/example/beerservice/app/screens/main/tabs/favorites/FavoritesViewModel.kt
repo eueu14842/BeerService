@@ -54,7 +54,6 @@ class FavoritesViewModel(
             removeFavorite(PlaceIdUserId(placeId, user.userId!!))
             getFavorite()
         }
-
     }
 
     private suspend fun removeFavorite(placeIdUserId: PlaceIdUserId) {
