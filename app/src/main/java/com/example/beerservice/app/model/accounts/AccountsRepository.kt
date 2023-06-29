@@ -79,7 +79,7 @@ class AccountsRepository(
         accountsSource.updateAccount(userId, userEditData)
     }
 
-    suspend fun getFavoritePlaces(placeId: Int) = wrapBackendExceptions {
-        accountsSource.getFavoritePlaces(placeId)
+    suspend fun getFavoritePlaces(userId: Int) = wrapBackendExceptions {
+        accountsSource.getFavoritePlaces(userId)
     }
 }

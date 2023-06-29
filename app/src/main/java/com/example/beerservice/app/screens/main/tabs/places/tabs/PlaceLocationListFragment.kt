@@ -46,7 +46,7 @@ class PlaceLocationListFragment : BaseFragment(R.layout.fragment_place_location_
                 viewModelPlace.place.observe(viewLifecycleOwner) { result ->
                     result.map { places ->
                         val adapter =
-                            PlaceListAdapter(places,object : PlaceListAdapter.Listener{
+                            PlaceListAdapter(places,object : PlaceListAdapter.FavoriteListener{
                                 override fun onNavigateToPlaceDetails(placeId: Int) {
                                     TODO("Not yet implemented")
                                 }
@@ -56,8 +56,8 @@ class PlaceLocationListFragment : BaseFragment(R.layout.fragment_place_location_
                                 }
 
                                 override fun onToggleFavoriteFlag(
-                                    placeId: Int,
-                                    isFavorite: Boolean
+                                    placeId: Int
+
                                 ) {
                                     TODO("Not yet implemented")
                                 }

@@ -2,11 +2,7 @@ package com.example.beerservice.app.screens.main.tabs.favorites
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
-import androidx.paging.cachedIn
 import com.example.beerservice.app.model.*
-import com.example.beerservice.app.model.Singletons.placesRepository
-import com.example.beerservice.app.model.accounts.AccountsRepository
-import com.example.beerservice.app.model.accounts.entities.User
 import com.example.beerservice.app.model.place.PlacesRepository
 import com.example.beerservice.app.model.place.entities.Place
 import com.example.beerservice.app.model.place.entities.PlaceIdUserId
@@ -19,9 +15,8 @@ import kotlinx.coroutines.launch
 import java.lang.IllegalStateException
 
 class FavoritesViewModel(
-    accountsRepository: AccountsRepository = Singletons.accountsRepository,
     val placesRepository: PlacesRepository = Singletons.placesRepository
-) : BaseViewModel(),PlaceListAdapter.Listener {
+) : BaseViewModel(), PlaceListAdapter.FavoriteListener {
 
 
     private var _place = MutableLiveData<ResultState<List<Place>>>()
@@ -53,22 +48,12 @@ class FavoritesViewModel(
         TODO("Not yet implemented")
     }
 
-    override fun onToggleFavoriteFlag(placeId: Int, isFavorite: Boolean) {
+    override fun onToggleFavoriteFlag(placeId: Int) {
         viewModelScope.launch {
             val user = accountsRepository.doGetProfile()
-            try {
-                if (!isFavorite) { addFavorite(PlaceIdUserId(placeId, user.userId!!)) }
-                if (isFavorite) { removeFavorite(PlaceIdUserId(placeId, user.userId!!)) }
-            } catch (e: java.lang.Exception) {
-                logError(e)
-            }
-//            placesFlow = placeRepository.getPagedPlaces().cachedIn(viewModelScope)
+            removeFavorite(PlaceIdUserId(placeId, user.userId!!))
             _onToggleFavoriteEvent.publishEvent(true)
         }
-
-    }
-    private suspend fun addFavorite(placeIdUserId: PlaceIdUserId) {
-        placesRepository.setFavorite(placeIdUserId)
 
     }
 

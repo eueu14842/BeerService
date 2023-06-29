@@ -54,11 +54,10 @@ class PlacePagingAdapter(
                 val newIsFavorite = !place.setAvailabilityOfSpaceForTheUser!!
                 place.setAvailabilityOfSpaceForTheUser = newIsFavorite
                 notifyItemChanged(position)
-                println(place.setAvailabilityOfSpaceForTheUser)
                 updateFavoriteIcon(holder, newIsFavorite)
             }
         }
-        updateFavoriteIcon(holder, place.setAvailabilityOfSpaceForTheUser!!)
+       updateFavoriteIcon(holder, place.setAvailabilityOfSpaceForTheUser!!)
     }
 
     private fun updateFavoriteIcon(holder: Holder, isFavorite: Boolean) {

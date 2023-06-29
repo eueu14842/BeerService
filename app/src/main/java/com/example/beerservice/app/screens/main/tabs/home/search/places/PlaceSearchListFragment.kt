@@ -6,16 +6,12 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
-import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.beerservice.R
 import com.example.beerservice.app.Const.SEARCH_KEY
-import com.example.beerservice.app.model.place.entities.Place
 import com.example.beerservice.app.screens.base.BaseFragment
-import com.example.beerservice.app.screens.main.tabs.home.search.SearchFragmentDirections
 import com.example.beerservice.app.screens.main.tabs.home.search.SearchViewModel
-import com.example.beerservice.app.screens.main.tabs.places.adapters.OnPlaceClickListener
 import com.example.beerservice.app.screens.main.tabs.places.adapters.PlaceListAdapter
 import com.example.beerservice.app.utils.ViewModelFactory
 import com.example.beerservice.databinding.FragmentSearchPlaceListBinding
@@ -48,7 +44,7 @@ class PlaceSearchListFragment : BaseFragment(R.layout.fragment_search_place_list
             viewModel.setSearchBy(arguments?.getString(SEARCH_KEY, "") ?: "")
             viewModel.searchData.observe(viewLifecycleOwner) {
                 val list = it.place
-                breweryAdapter = PlaceListAdapter(list!!,object : PlaceListAdapter.Listener{
+                breweryAdapter = PlaceListAdapter(list!!,object : PlaceListAdapter.FavoriteListener{
                     override fun onNavigateToPlaceDetails(placeId: Int) {
                         TODO("Not yet implemented")
                     }
@@ -57,7 +53,7 @@ class PlaceSearchListFragment : BaseFragment(R.layout.fragment_search_place_list
                         TODO("Not yet implemented")
                     }
 
-                    override fun onToggleFavoriteFlag(placeId: Int, isFavorite: Boolean) {
+                    override fun onToggleFavoriteFlag(placeId: Int) {
                         TODO("Not yet implemented")
                     }
                 })

@@ -3,7 +3,6 @@ package com.example.beerservice.app.screens.main.tabs.places.adapters
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.beerservice.R
@@ -12,7 +11,7 @@ import com.example.beerservice.databinding.ItemPlaceBinding
 
 class PlaceListAdapter(
     val list: List<Place>,
-    val listener: Listener
+    val favoriteListener: FavoriteListener
 ) :
     RecyclerView.Adapter<PlaceListAdapter.PlaceHolder>(), View.OnClickListener {
 
@@ -40,40 +39,22 @@ class PlaceListAdapter(
             textViewPlaceCity.text = place.city
             textViewPlaceAddress.text = place.address
 
+            holder.binding.heartImageView.setImageResource(R.drawable.ic_baseline_favorite_24)
             heartImageView.setOnClickListener {
-                listener.onToggleFavoriteFlag(
-                    place.placeId!!, place.setAvailabilityOfSpaceForTheUser!!
-                )
-                val newIsFavorite = !place.setAvailabilityOfSpaceForTheUser!!
-                place.setAvailabilityOfSpaceForTheUser = newIsFavorite
-                notifyItemChanged(position)
-                println(place.setAvailabilityOfSpaceForTheUser)
-                updateFavoriteIcon(holder, newIsFavorite)
+                favoriteListener.onToggleFavoriteFlag(place.placeId!!)
             }
         }
-        holder.binding.textViewPlaceMagazine.setOnClickListener {
-            Toast.makeText(holder.itemView.context, "ASDAS a DAS ", Toast.LENGTH_SHORT).show()
-        }
-        holder.itemView.setOnClickListener {
-        }
+
     }
 
-    private fun updateFavoriteIcon(holder: PlaceListAdapter.PlaceHolder, isFavorite: Boolean) {
-        val iconResId = if (isFavorite) {
-            R.drawable.ic_baseline_favorite_24
-        } else {
-            R.drawable.ic_baseline_favorite_border_24
-        }
-        holder.binding.heartImageView.setImageResource(iconResId)
-    }
 
-    interface Listener {
+    interface FavoriteListener {
 
         fun onNavigateToPlaceDetails(placeId: Int)
 
         fun onNavigateToMap()
 
-        fun onToggleFavoriteFlag(placeId: Int, isFavorite: Boolean)
+        fun onToggleFavoriteFlag(placeId: Int)
 
     }
 
@@ -83,13 +64,13 @@ class PlaceListAdapter(
         val place = v?.tag as Place
         when (v.id) {
             R.id.heartImageView -> {
-                listener.onToggleFavoriteFlag(
-                    place.placeId!!, place.setAvailabilityOfSpaceForTheUser!!
+                favoriteListener.onToggleFavoriteFlag(
+                    place.placeId!!
                 )
             }
-            R.id.textViewShowPlaceOnMap -> listener.onNavigateToMap()
+            R.id.textViewShowPlaceOnMap -> favoriteListener.onNavigateToMap()
             else -> {
-                listener.onNavigateToPlaceDetails(place.placeId!!)
+                favoriteListener.onNavigateToPlaceDetails(place.placeId!!)
             }
         }
     }
