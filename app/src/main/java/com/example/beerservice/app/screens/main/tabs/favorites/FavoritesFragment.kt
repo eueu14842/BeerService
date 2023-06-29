@@ -36,7 +36,7 @@ class FavoritesFragment : BaseFragment(R.layout.fragment_favorites) {
         viewModel.place.observe(viewLifecycleOwner) { result ->
             result.map { places ->
                 val adapter =
-                    PlaceListAdapter(places)
+                    PlaceListAdapter(places,viewModel)
                 recycler.adapter = adapter
             }
         }

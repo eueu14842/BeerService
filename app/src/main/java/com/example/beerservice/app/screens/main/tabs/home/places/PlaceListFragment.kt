@@ -41,18 +41,16 @@ class PlaceListFragment : BaseFragment(R.layout.fragment_place_list) {
 
         setupViews()
         setupPagedPlaceList()
-        observeOnToggleFavoriteEvent()
+//        observeOnToggleFavoriteEvent()
         observeOnNavigateToPlaceDetailsEvent()
         return binding.root
     }
-
 
     private fun setupViews() {
         recycler = binding.recyclerPlaceList.apply {
             layoutManager = LinearLayoutManager(requireContext())
         }
     }
-
 
     private fun setupPagedPlaceList() {
         val adapter = PlacePagingAdapter(viewModel)
@@ -95,6 +93,11 @@ class PlaceListFragment : BaseFragment(R.layout.fragment_place_list) {
         viewModel.onToggleFavoriteEvent.observeEvent(viewLifecycleOwner) {
             if (it) setupPagedPlaceList()
         }
+    }
+
+    override fun onPause() {
+        super.onPause()
+        observeOnToggleFavoriteEvent()
     }
 
     private fun observeOnNavigateToPlaceDetailsEvent() {

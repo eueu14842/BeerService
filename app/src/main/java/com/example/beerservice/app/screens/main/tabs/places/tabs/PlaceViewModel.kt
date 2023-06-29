@@ -71,28 +71,28 @@ class PlaceViewModel(
         viewModelScope.launch {
             val user = accountsRepository.doGetProfile()
             try {
-                if (!isFavorite) {
-                    addFavorite(PlaceIdUserId(placeId, user.userId!!))
-                }
-                if (isFavorite) {
-                    removeFavorite(PlaceIdUserId(placeId, user.userId!!))
-
-                }
+                if (!isFavorite) { addFavorite(PlaceIdUserId(placeId, user.userId!!)) }
+                if (isFavorite) { removeFavorite(PlaceIdUserId(placeId, user.userId!!)) }
             } catch (e: java.lang.Exception) {
                 logError(e)
             }
             placesFlow = placeRepository.getPagedPlaces().cachedIn(viewModelScope)
+            _onToggleFavoriteEvent.publishEvent(true)
         }
 
     }
 
     private suspend fun addFavorite(placeIdUserId: PlaceIdUserId) {
         placeRepository.setFavorite(placeIdUserId)
+
     }
 
     private suspend fun removeFavorite(placeIdUserId: PlaceIdUserId) {
         placeRepository.removeFavorite(placeIdUserId)
+
     }
+
+
 
 
 }

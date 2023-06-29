@@ -48,7 +48,19 @@ class PlaceSearchListFragment : BaseFragment(R.layout.fragment_search_place_list
             viewModel.setSearchBy(arguments?.getString(SEARCH_KEY, "") ?: "")
             viewModel.searchData.observe(viewLifecycleOwner) {
                 val list = it.place
-                breweryAdapter = PlaceListAdapter(list!!)
+                breweryAdapter = PlaceListAdapter(list!!,object : PlaceListAdapter.Listener{
+                    override fun onNavigateToPlaceDetails(placeId: Int) {
+                        TODO("Not yet implemented")
+                    }
+
+                    override fun onNavigateToMap() {
+                        TODO("Not yet implemented")
+                    }
+
+                    override fun onToggleFavoriteFlag(placeId: Int, isFavorite: Boolean) {
+                        TODO("Not yet implemented")
+                    }
+                })
                 recycler.adapter = breweryAdapter
             }
         }

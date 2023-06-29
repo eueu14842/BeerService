@@ -11,21 +11,21 @@ import com.bumptech.glide.Glide
 import com.example.beerservice.R
 import com.example.beerservice.app.model.place.entities.Place
 import com.example.beerservice.databinding.ItemPlaceCardBinding
+import com.google.gson.annotations.Until
 import okhttp3.internal.notifyAll
+import kotlin.concurrent.thread
 
 
 class PlacePagingAdapter(
     private val listener: Listener
-) :
-    PagingDataAdapter<Place, PlacePagingAdapter.Holder>(PlaceDiffCallback()), View.OnClickListener {
+) : PagingDataAdapter<Place, PlacePagingAdapter.Holder>(PlaceDiffCallback()), View.OnClickListener {
 
     override fun onClick(v: View?) {
         val place = v?.tag as Place
         when (v.id) {
             R.id.heartImageView -> {
                 listener.onToggleFavoriteFlag(
-                    place.placeId!!,
-                    place.setAvailabilityOfSpaceForTheUser!!
+                    place.placeId!!, place.setAvailabilityOfSpaceForTheUser!!
                 )
             }
             R.id.textViewShowPlaceOnMap -> listener.onNavigateToMap()
@@ -48,17 +48,17 @@ class PlacePagingAdapter(
             holder.itemView.tag = place
 
             heartImageView.setOnClickListener {
-                val newIsFavorite = place.setAvailabilityOfSpaceForTheUser!!
+                listener.onToggleFavoriteFlag(
+                    place.placeId!!, place.setAvailabilityOfSpaceForTheUser!!
+                )
+                val newIsFavorite = !place.setAvailabilityOfSpaceForTheUser!!
                 place.setAvailabilityOfSpaceForTheUser = newIsFavorite
-                updateFavoriteIcon(holder, !newIsFavorite)
-                listener.onToggleFavoriteFlag(place.placeId!!, newIsFavorite)
-
+                notifyItemChanged(position)
+                println(place.setAvailabilityOfSpaceForTheUser)
+                updateFavoriteIcon(holder, newIsFavorite)
             }
-            /*      holder.itemView.setOnClickListener{
-                      listener.onNavigateToPlaceDetails(place.placeId!!)
-                  }*/
-            updateFavoriteIcon(holder, place.setAvailabilityOfSpaceForTheUser!!)
         }
+        updateFavoriteIcon(holder, place.setAvailabilityOfSpaceForTheUser!!)
     }
 
     private fun updateFavoriteIcon(holder: Holder, isFavorite: Boolean) {
@@ -72,16 +72,14 @@ class PlacePagingAdapter(
 
     private fun loadPhoto(imageView: ImageView, url: String?) {
         val context = imageView.context
-        Glide.with(context)
-            .load(url)
-            .into(imageView)
+        Glide.with(context).load(url).into(imageView)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Holder {
         val inflater = LayoutInflater.from(parent.context)
         val binding = ItemPlaceCardBinding.inflate(inflater)
 
-//        binding.heartImageView.setOnClickListener(this)
+        binding.heartImageView.setOnClickListener(this)
         binding.textViewShowPlaceOnMap.setOnClickListener(this)
         binding.root.setOnClickListener(this)
         return Holder(binding)
@@ -96,6 +94,8 @@ class PlacePagingAdapter(
         fun onNavigateToMap()
 
         fun onToggleFavoriteFlag(placeId: Int, isFavorite: Boolean)
+
+
     }
 }
 
