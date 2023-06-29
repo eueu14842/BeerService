@@ -95,10 +95,7 @@ class PlaceListFragment : BaseFragment(R.layout.fragment_place_list) {
         }
     }
 
-    override fun onPause() {
-        super.onPause()
-        observeOnToggleFavoriteEvent()
-    }
+
 
     private fun observeOnNavigateToPlaceDetailsEvent() {
         viewModel.onNavigateToMapPlaceDetails.observeEvent(viewLifecycleOwner) {

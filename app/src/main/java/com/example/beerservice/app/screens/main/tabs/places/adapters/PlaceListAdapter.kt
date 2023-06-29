@@ -44,7 +44,6 @@ class PlaceListAdapter(
                 favoriteListener.onToggleFavoriteFlag(place.placeId!!)
             }
         }
-
     }
 
 

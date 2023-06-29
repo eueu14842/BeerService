@@ -52,7 +52,7 @@ class FavoritesViewModel(
         viewModelScope.launch {
             val user = accountsRepository.doGetProfile()
             removeFavorite(PlaceIdUserId(placeId, user.userId!!))
-            _onToggleFavoriteEvent.publishEvent(true)
+            getFavorite()
         }
 
     }

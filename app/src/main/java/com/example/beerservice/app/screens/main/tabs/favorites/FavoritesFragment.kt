@@ -11,6 +11,7 @@ import com.example.beerservice.R
 import com.example.beerservice.app.screens.base.BaseFragment
 import com.example.beerservice.app.screens.main.tabs.places.adapters.PlaceListAdapter
 import com.example.beerservice.app.utils.ViewModelFactory
+import com.example.beerservice.app.utils.observeEvent
 import com.example.beerservice.databinding.FragmentFavoritesBinding
 
 class FavoritesFragment : BaseFragment(R.layout.fragment_favorites) {
@@ -36,7 +37,7 @@ class FavoritesFragment : BaseFragment(R.layout.fragment_favorites) {
         viewModel.place.observe(viewLifecycleOwner) { result ->
             result.map { places ->
                 val adapter =
-                    PlaceListAdapter(places,viewModel)
+                    PlaceListAdapter(places, viewModel)
                 recycler.adapter = adapter
             }
         }
@@ -48,9 +49,15 @@ class FavoritesFragment : BaseFragment(R.layout.fragment_favorites) {
         }
     }
 
-  /*  private val onPlaceClickListener = object : OnPlaceClickListener {
-        override fun onPlaceClick(place: Place, position: Int) {
-            Toast.makeText(requireContext(), "${place.name}", Toast.LENGTH_SHORT).show()
+    private fun onToggleFavoriteEvent() {
+        viewModel.onToggleFavoriteEvent.observeEvent(viewLifecycleOwner) {
+            getFavoritePlaces()
         }
-    }*/
+    }
+
+    /*  private val onPlaceClickListener = object : OnPlaceClickListener {
+          override fun onPlaceClick(place: Place, position: Int) {
+              Toast.makeText(requireContext(), "${place.name}", Toast.LENGTH_SHORT).show()
+          }
+      }*/
 }

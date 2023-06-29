@@ -14,6 +14,7 @@ import com.example.beerservice.app.screens.main.tabs.places.adapters.PlacePaging
 import com.example.beerservice.app.utils.MutableLiveEvent
 import com.example.beerservice.app.utils.publishEvent
 import com.example.beerservice.app.utils.share
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 
@@ -45,6 +46,7 @@ class PlaceViewModel(
 
     fun getPlaces(lat: Double, lon: Double, rad: Double) {
         viewModelScope.launch {
+            delay(2000)
             val places = placeRepository.getPlacesList(lat, lon, rad)
             if (places.isEmpty()) _place.value = ErrorResult(java.lang.IllegalStateException(""))
             else _place.value = Pending()
@@ -71,12 +73,16 @@ class PlaceViewModel(
         viewModelScope.launch {
             val user = accountsRepository.doGetProfile()
             try {
-                if (!isFavorite) { addFavorite(PlaceIdUserId(placeId, user.userId!!)) }
-                if (isFavorite) { removeFavorite(PlaceIdUserId(placeId, user.userId!!)) }
+                if (!isFavorite) {
+                    addFavorite(PlaceIdUserId(placeId, user.userId!!))
+                }
+                if (isFavorite) {
+                    removeFavorite(PlaceIdUserId(placeId, user.userId!!))
+                }
             } catch (e: java.lang.Exception) {
                 logError(e)
             }
-            placesFlow = placeRepository.getPagedPlaces().cachedIn(viewModelScope)
+            placesFlow = placeRepository.getPagedPlaces()
             _onToggleFavoriteEvent.publishEvent(true)
         }
 
@@ -91,8 +97,6 @@ class PlaceViewModel(
         placeRepository.removeFavorite(placeIdUserId)
 
     }
-
-
 
 
 }
