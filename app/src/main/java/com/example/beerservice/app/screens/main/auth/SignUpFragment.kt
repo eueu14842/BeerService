@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import android.widget.Toast
 import androidx.annotation.StringRes
 import androidx.fragment.app.viewModels
@@ -14,7 +15,6 @@ import com.example.beerservice.app.screens.base.BaseFragment
 import com.example.beerservice.app.utils.ViewModelFactory
 import com.example.beerservice.app.utils.observeEvent
 import com.example.beerservice.databinding.FragmentSignUpBinding
-import com.google.android.material.textfield.TextInputLayout
 
 class SignUpFragment() : BaseFragment(R.layout.fragment_sign_up) {
     lateinit var binding: FragmentSignUpBinding
@@ -70,13 +70,13 @@ class SignUpFragment() : BaseFragment(R.layout.fragment_sign_up) {
             Toast.makeText(requireContext(), it, Toast.LENGTH_LONG).show()
         }
 
-    private fun fillError(input: TextInputLayout, @StringRes stringRes: Int) {
+    private fun fillError(input: TextView, @StringRes stringRes: Int) {
         if (stringRes == SignUpViewModel.NO_ERROR_MESSAGE) {
             input.error = null
-            input.isErrorEnabled = false
+//            input.isErrorEnabled = false
         } else {
             input.error = getString(stringRes)
-            input.isErrorEnabled = true
+//            input.isErrorEnabled = true
         }
     }
 }
