@@ -43,6 +43,9 @@ class PlaceListAdapter(
             heartImageView.setOnClickListener {
                 favoriteListener.onToggleFavoriteFlag(place.placeId!!)
             }
+            holder.itemView.setOnClickListener {
+                favoriteListener.onNavigateToPlaceDetails(place.placeId!!)
+            }
         }
     }
 
