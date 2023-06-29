@@ -11,10 +11,10 @@ import com.example.beerservice.app.model.place.entities.Place
 import com.example.beerservice.app.model.place.entities.PlaceIdUserId
 import com.example.beerservice.app.screens.base.BaseViewModel
 import com.example.beerservice.app.screens.main.tabs.places.adapters.PlacePagingAdapter
+import com.example.beerservice.app.utils.MutableLiveEvent
+import com.example.beerservice.app.utils.publishEvent
 import com.example.beerservice.app.utils.share
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.debounce
-import kotlinx.coroutines.flow.flatMapLatest
+import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 
 class PlaceViewModel(
@@ -30,6 +30,12 @@ class PlaceViewModel(
     private var _location = MutableLiveData(SharedLocation())
     var location = _location.share()
 
+    private var _onToggleFavoriteEvent = MutableLiveEvent<Boolean>()
+    val onToggleFavoriteEvent = _onToggleFavoriteEvent.share()
+
+
+    private var _onNavigateToMapPlaceDetails = MutableLiveEvent<Int>()
+    val onNavigateToMapPlaceDetails = _onNavigateToMapPlaceDetails.share()
 
     init {
         placesFlow = searchBy.asFlow().debounce(400).flatMapLatest {
@@ -54,29 +60,40 @@ class PlaceViewModel(
         val lat: Double = 0.0, val lon: Double = 0.0, val rad: Double = 1.5
     )
 
-    override fun onNavigateToPlaceDetails() {
-        println("details")
+    override fun onNavigateToPlaceDetails(placeId: Int) {
+        _onNavigateToMapPlaceDetails.publishEvent(placeId)
     }
 
     override fun onNavigateToMap() {
-        println("navigate")
     }
 
-    override fun onToggleFavoriteFlag(placeId: Int) {
+    override fun onToggleFavoriteFlag(placeId: Int, isFavorite: Boolean) {
         viewModelScope.launch {
+            val user = accountsRepository.doGetProfile()
             try {
-                val user = accountsRepository.doGetProfile()
-                setFavoriteFlag(PlaceIdUserId(placeId, user.userId!!))
+                if (!isFavorite) {
+                    addFavorite(PlaceIdUserId(placeId, user.userId!!))
+                }
+                if (isFavorite) {
+                    removeFavorite(PlaceIdUserId(placeId, user.userId!!))
+
+                }
             } catch (e: java.lang.Exception) {
                 logError(e)
             }
+            placesFlow = placeRepository.getPagedPlaces().cachedIn(viewModelScope)
         }
+
     }
 
-    private suspend fun setFavoriteFlag(placeIdUserId: PlaceIdUserId) {
-//        val newFlagValue = place.setAvailabilityOfSpaceForTheUser
+    private suspend fun addFavorite(placeIdUserId: PlaceIdUserId) {
+        placeRepository.setFavorite(placeIdUserId)
+    }
+
+    private suspend fun removeFavorite(placeIdUserId: PlaceIdUserId) {
         placeRepository.removeFavorite(placeIdUserId)
     }
+
 
 }
 

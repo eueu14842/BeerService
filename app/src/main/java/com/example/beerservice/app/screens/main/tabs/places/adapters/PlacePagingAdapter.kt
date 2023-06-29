@@ -1,6 +1,5 @@
 package com.example.beerservice.app.screens.main.tabs.places.adapters
 
-import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,6 +11,7 @@ import com.bumptech.glide.Glide
 import com.example.beerservice.R
 import com.example.beerservice.app.model.place.entities.Place
 import com.example.beerservice.databinding.ItemPlaceCardBinding
+import okhttp3.internal.notifyAll
 
 
 class PlacePagingAdapter(
@@ -19,13 +19,19 @@ class PlacePagingAdapter(
 ) :
     PagingDataAdapter<Place, PlacePagingAdapter.Holder>(PlaceDiffCallback()), View.OnClickListener {
 
-
     override fun onClick(v: View?) {
         val place = v?.tag as Place
         when (v.id) {
-            R.id.heartImageView -> listener.onToggleFavoriteFlag(place.placeId!!)
+            R.id.heartImageView -> {
+                listener.onToggleFavoriteFlag(
+                    place.placeId!!,
+                    place.setAvailabilityOfSpaceForTheUser!!
+                )
+            }
             R.id.textViewShowPlaceOnMap -> listener.onNavigateToMap()
-            v.id -> listener.onNavigateToPlaceDetails()
+            else -> {
+                listener.onNavigateToPlaceDetails(place.placeId!!)
+            }
         }
     }
 
@@ -41,27 +47,43 @@ class PlacePagingAdapter(
             textViewShowPlaceOnMap.tag = place
             holder.itemView.tag = place
 
-            heartImageView.setImageResource(
-                if (place.setAvailabilityOfSpaceForTheUser == true) R.drawable.ic_baseline_favorite_24
-                else R.drawable.ic_baseline_favorite_border_24
-            )
-        }
+            heartImageView.setOnClickListener {
+                val newIsFavorite = place.setAvailabilityOfSpaceForTheUser!!
+                place.setAvailabilityOfSpaceForTheUser = newIsFavorite
+                updateFavoriteIcon(holder, !newIsFavorite)
+                listener.onToggleFavoriteFlag(place.placeId!!, newIsFavorite)
 
+            }
+            /*      holder.itemView.setOnClickListener{
+                      listener.onNavigateToPlaceDetails(place.placeId!!)
+                  }*/
+            updateFavoriteIcon(holder, place.setAvailabilityOfSpaceForTheUser!!)
+        }
     }
 
-    @SuppressLint("SuspiciousIndentation")
+    private fun updateFavoriteIcon(holder: Holder, isFavorite: Boolean) {
+        val iconResId = if (isFavorite) {
+            R.drawable.ic_baseline_favorite_24
+        } else {
+            R.drawable.ic_baseline_favorite_border_24
+        }
+        holder.binding.heartImageView.setImageResource(iconResId)
+    }
+
     private fun loadPhoto(imageView: ImageView, url: String?) {
         val context = imageView.context
-            Glide.with(context)
-                .load(url)
-                .into(imageView)
+        Glide.with(context)
+            .load(url)
+            .into(imageView)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Holder {
         val inflater = LayoutInflater.from(parent.context)
         val binding = ItemPlaceCardBinding.inflate(inflater)
-        binding.heartImageView.setOnClickListener(this)
+
+//        binding.heartImageView.setOnClickListener(this)
         binding.textViewShowPlaceOnMap.setOnClickListener(this)
+        binding.root.setOnClickListener(this)
         return Holder(binding)
     }
 
@@ -69,13 +91,12 @@ class PlacePagingAdapter(
 
     interface Listener {
 
-        fun onNavigateToPlaceDetails()
+        fun onNavigateToPlaceDetails(placeId: Int)
 
         fun onNavigateToMap()
 
-        fun onToggleFavoriteFlag(placeId: Int)
+        fun onToggleFavoriteFlag(placeId: Int, isFavorite: Boolean)
     }
-
 }
 
 class PlaceDiffCallback : DiffUtil.ItemCallback<Place>() {

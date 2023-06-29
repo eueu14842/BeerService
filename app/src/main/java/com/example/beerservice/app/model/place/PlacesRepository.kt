@@ -28,7 +28,7 @@ class PlacesRepository(
     suspend fun getPlaceById(id: Int) = placeSource.getPlaceProfile(id)
 
     suspend fun getPagedPlaces(): Flow<PagingData<Place>> {
-        val loader: PlacePageLoader = { pageIndex, pageSize ->
+         val loader: PlacePageLoader = { pageIndex, pageSize ->
             getPlaces(pageIndex, pageSize)
         }
         return Pager(

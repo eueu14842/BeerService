@@ -10,5 +10,5 @@ data class Place(
     val city: String? = null,
     val geoLat: Double? = null,
     val geoLon: Double? = null,
-    val setAvailabilityOfSpaceForTheUser: Boolean? = false
+    var setAvailabilityOfSpaceForTheUser: Boolean? = false
 )

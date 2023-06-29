@@ -6,14 +6,11 @@ import com.example.beerservice.R
 import com.example.beerservice.app.model.EmptyFieldException
 import com.example.beerservice.app.model.Field
 import com.example.beerservice.app.model.InvalidCredentialsException
-import com.example.beerservice.app.model.Singletons
-import com.example.beerservice.app.model.accounts.AccountsRepository
 import com.example.beerservice.app.screens.base.BaseViewModel
 import com.example.beerservice.app.utils.Event
 import com.example.beerservice.app.utils.publishEvent
 import com.example.beerservice.app.utils.share
 import kotlinx.coroutines.launch
-import java.time.Year
 
 class SignInViewModel(
 
