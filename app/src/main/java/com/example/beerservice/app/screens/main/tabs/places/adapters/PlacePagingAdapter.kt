@@ -11,9 +11,6 @@ import com.bumptech.glide.Glide
 import com.example.beerservice.R
 import com.example.beerservice.app.model.place.entities.Place
 import com.example.beerservice.databinding.ItemPlaceCardBinding
-import com.google.gson.annotations.Until
-import okhttp3.internal.notifyAll
-import kotlin.concurrent.thread
 
 
 class PlacePagingAdapter(
@@ -93,7 +90,6 @@ class PlacePagingAdapter(
         fun onNavigateToMap()
 
         fun onToggleFavoriteFlag(placeId: Int, isFavorite: Boolean)
-
 
     }
 }

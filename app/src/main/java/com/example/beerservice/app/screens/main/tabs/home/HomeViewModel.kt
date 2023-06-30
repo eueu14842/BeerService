@@ -12,15 +12,19 @@ import com.example.beerservice.app.model.brewery.BreweryRepository
 import com.example.beerservice.app.model.brewery.entities.Brewery
 import com.example.beerservice.app.model.place.PlacesRepository
 import com.example.beerservice.app.model.place.entities.Place
+import com.example.beerservice.app.model.place.entities.PlaceIdUserId
 import com.example.beerservice.app.screens.base.BaseViewModel
+import com.example.beerservice.app.screens.main.tabs.places.adapters.PlaceAdblockAdapter
+import com.example.beerservice.app.utils.MutableLiveEvent
+import com.example.beerservice.app.utils.publishEvent
 import com.example.beerservice.app.utils.share
 import kotlinx.coroutines.launch
 
 class HomeViewModel(
-    breweryRepository: BreweryRepository = Singletons.breweryRepository,
-    beerRepository: BeersRepository = Singletons.beerRepository,
-    placeRepository: PlacesRepository = Singletons.placesRepository
-) : BaseViewModel() {
+    val breweryRepository: BreweryRepository = Singletons.breweryRepository,
+    val beerRepository: BeersRepository = Singletons.beerRepository,
+    val placeRepository: PlacesRepository = Singletons.placesRepository
+) : BaseViewModel(), PlaceAdblockAdapter.Listener {
 
     private val _brewery = MutableLiveData<ResultState<List<Brewery>>>()
     val brewery = _brewery.share()
@@ -33,6 +37,12 @@ class HomeViewModel(
 
     private val _isAvailableScanner = MutableLiveData<ResultState<Boolean>>()
     val isAvailableScanner = _isAvailableScanner.share()
+
+    private var _onNavigateToMapPlaceDetails = MutableLiveEvent<Int>()
+    val onNavigateToMapPlaceDetails = _onNavigateToMapPlaceDetails.share()
+
+    private var _onToggleFavoriteEvent = MutableLiveEvent<Boolean>()
+    val onToggleFavoriteEvent = _onToggleFavoriteEvent.share()
 
     init {
         viewModelScope.launch {
@@ -56,4 +66,39 @@ class HomeViewModel(
     fun isAvailableScanner(boolean: Boolean) {
         _isAvailableScanner.value = Success(boolean)
     }
+
+    override fun onNavigateToPlaceDetails(placeId: Int) {
+        _onNavigateToMapPlaceDetails.publishEvent(placeId)
+    }
+
+
+    override fun onToggleFavoriteFlag(placeId: Int, isFavorite: Boolean) {
+        viewModelScope.launch {
+            val user = accountsRepository.doGetProfile()
+            try {
+                if (!isFavorite) {
+                    addFavorite(PlaceIdUserId(placeId, user.userId!!))
+                }
+                if (isFavorite) {
+                    removeFavorite(PlaceIdUserId(placeId, user.userId!!))
+                }
+            } catch (e: java.lang.Exception) {
+                logError(e)
+            }
+            _onToggleFavoriteEvent.publishEvent(true)
+        }
+
+    }
+
+    private suspend fun addFavorite(placeIdUserId: PlaceIdUserId) {
+        placeRepository.setFavorite(placeIdUserId)
+
+    }
+
+    private suspend fun removeFavorite(placeIdUserId: PlaceIdUserId) {
+        placeRepository.removeFavorite(placeIdUserId)
+
+    }
+
+
 }

@@ -19,15 +19,15 @@ import com.budiyev.android.codescanner.*
 import com.example.beerservice.R
 import com.example.beerservice.app.model.beers.entities.Beer
 import com.example.beerservice.app.model.brewery.entities.Brewery
-import com.example.beerservice.app.model.place.entities.Place
 import com.example.beerservice.app.screens.base.BaseFragment
 import com.example.beerservice.app.screens.main.tabs.home.beers.adapters.BeerAdblockAdapter
 import com.example.beerservice.app.screens.main.tabs.home.beers.adapters.OnBeerAdblockClickListener
 import com.example.beerservice.app.screens.main.tabs.home.brewery.adapters.BreweryAdblockAdapter
 import com.example.beerservice.app.screens.main.tabs.home.brewery.adapters.OnBreweryClickListener
-import com.example.beerservice.app.screens.main.tabs.places.adapters.OnPlaceClickListener
 import com.example.beerservice.app.screens.main.tabs.places.adapters.PlaceAdblockAdapter
+import com.example.beerservice.app.screens.main.tabs.places.tabs.PlaceLocationListFragmentDirections
 import com.example.beerservice.app.utils.ViewModelFactory
+import com.example.beerservice.app.utils.observeEvent
 import com.example.beerservice.app.utils.observeResult
 import com.example.beerservice.app.utils.setupScanner
 import com.example.beerservice.databinding.FragmentHomeBinding
@@ -53,6 +53,7 @@ class HomeFragment : BaseFragment(R.layout.fragment_home) {
         observeBreweryAdblock()
         observeBeerAdblock()
         observePlaceAdblock()
+        observeOnNavigateToPlaceDetailsEvent()
 
         searchView.setOnQueryTextListener(onQueryTextListener)
         searchView.setOnCloseListener(onCloseSearchListener)
@@ -156,7 +157,7 @@ class HomeFragment : BaseFragment(R.layout.fragment_home) {
     private fun observePlaceAdblock() {
         binding.resultViewState.setTryAgainAction { println(R.string.try_again) }
         viewModel.place.observeResult(this, binding.root, binding.resultViewState) { stores ->
-            val adapter = PlaceAdblockAdapter(stores, onPlaceClickListener)
+            val adapter = PlaceAdblockAdapter(stores, viewModel)
             placeRecycler.adapter = adapter
         }
     }
@@ -177,11 +178,11 @@ class HomeFragment : BaseFragment(R.layout.fragment_home) {
         }
     }
 
-    private val onPlaceClickListener = object : OnPlaceClickListener {
-        override fun onPlaceClick(place: Place, position: Int) {
-            val direction = HomeFragmentDirections.actionHomeFragmentToPlaceDetailsFragment(
-                place.placeId!!
-            )
+    private fun observeOnNavigateToPlaceDetailsEvent() {
+        viewModel.onNavigateToMapPlaceDetails.observeEvent(viewLifecycleOwner) {
+            val direction =
+                HomeFragmentDirections
+                    .actionHomeFragmentToPlaceDetailsFragment(it)
             findNavController().navigate(direction)
         }
     }
