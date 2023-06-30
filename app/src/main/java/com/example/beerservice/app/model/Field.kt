@@ -5,5 +5,4 @@ enum class Field {
     Login,
     Password,
     Mail
-
 }

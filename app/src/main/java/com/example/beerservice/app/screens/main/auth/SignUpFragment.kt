@@ -50,6 +50,7 @@ class SignUpFragment() : BaseFragment(R.layout.fragment_sign_up) {
     private fun observeState() = viewModel.state.observe(viewLifecycleOwner) { state ->
         binding.signUpButton.isEnabled = state.enableViews
         binding.mailEditText.isEnabled = state.enableViews
+        binding.telEditText.isEnabled = state.enableViews
         binding.usernameTextInput.isEnabled = state.enableViews
         binding.passwordTextInput.isEnabled = state.enableViews
 
@@ -73,7 +74,7 @@ class SignUpFragment() : BaseFragment(R.layout.fragment_sign_up) {
     private fun fillError(input: TextView, @StringRes stringRes: Int) {
         if (stringRes == SignUpViewModel.NO_ERROR_MESSAGE) {
             input.error = null
-//            input.isErrorEnabled = false
+//           input.isErrorEnabled = false
         } else {
             input.error = getString(stringRes)
 //            input.isErrorEnabled = true
