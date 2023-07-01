@@ -54,6 +54,7 @@ class HomeFragment : BaseFragment(R.layout.fragment_home) {
         observeBeerAdblock()
         observePlaceAdblock()
         observeOnNavigateToPlaceDetailsEvent()
+        observeOnToggleFavoriteEvent()
 
         searchView.setOnQueryTextListener(onQueryTextListener)
         searchView.setOnCloseListener(onCloseSearchListener)
@@ -187,6 +188,12 @@ class HomeFragment : BaseFragment(R.layout.fragment_home) {
         }
     }
 
+
+    private fun observeOnToggleFavoriteEvent() {
+        viewModel.onToggleFavoriteEvent.observeEvent(viewLifecycleOwner) {
+        }
+    }
+
     private fun navigateToBreweryListEvent() {
         findNavController().navigate(R.id.action_homeFragment_to_breweryListFragment)
     }
@@ -221,6 +228,7 @@ class HomeFragment : BaseFragment(R.layout.fragment_home) {
             requireContext(), Manifest.permission.CAMERA
         ) == PackageManager.PERMISSION_GRANTED
     }
+
 
     companion object {
 

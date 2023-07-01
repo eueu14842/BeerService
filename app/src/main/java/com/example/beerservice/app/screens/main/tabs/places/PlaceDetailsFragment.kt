@@ -21,7 +21,9 @@ import com.example.beerservice.app.screens.base.DefaultLoadStateAdapter
 import com.example.beerservice.app.screens.base.TryAgainAction
 import com.example.beerservice.app.screens.main.tabs.home.beers.adapters.BeerPagingAdapter
 import com.example.beerservice.app.screens.main.tabs.home.beers.adapters.OnBeerClickListener
+import com.example.beerservice.app.screens.main.tabs.places.adapters.PlacePagingAdapter
 import com.example.beerservice.app.utils.ViewModelFactory
+import com.example.beerservice.app.utils.observeEvent
 import com.example.beerservice.databinding.FragmentPlaceDetailsBinding
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.debounce
@@ -33,6 +35,7 @@ class PlaceDetailsFragment : BaseFragment(R.layout.fragment_place_details) {
     override val viewModel: PlaceDetailsViewModel by viewModels { ViewModelFactory() }
     private val args by navArgs<PlaceDetailsFragmentArgs>()
     lateinit var recycler: RecyclerView
+    private lateinit var mainLoadStateHolder: DefaultLoadStateAdapter.Holder
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -43,7 +46,6 @@ class PlaceDetailsFragment : BaseFragment(R.layout.fragment_place_details) {
 
     }
 
-
     private fun setupBeersList() {
         val adapter = BeerPagingAdapter(onBeerClickListener)
         val tryAgainAction: TryAgainAction = { adapter.retry() }
@@ -53,13 +55,20 @@ class PlaceDetailsFragment : BaseFragment(R.layout.fragment_place_details) {
         recycler = binding.recyclerBeerByPlaceDetails.apply {
             layoutManager = LinearLayoutManager(requireContext())
         }
+
+        mainLoadStateHolder = DefaultLoadStateAdapter.Holder(
+            binding.loadStateView,
+            null,
+            tryAgainAction
+        )
         recycler.adapter = adapterWithLoadState
 
         observeLoadState(adapter)
         observeBeers(adapter)
-
+        observeOnToggleFavoriteEvent()
 
     }
+
     private fun setupBreweryDetailsBlock() {
         viewModel.getPlace(args.placeId)
         viewModel.place.observe(viewLifecycleOwner) {
@@ -71,10 +80,20 @@ class PlaceDetailsFragment : BaseFragment(R.layout.fragment_place_details) {
                         Glide.with(this@PlaceDetailsFragment)
                             .load(it.value.image)
                             .into(imageViewPlace)
+
                         textViewPlaceDesc.text = it.value.description
                         textViewPlaceTitle.text = it.value.name
                         textViewPlaceAddress.text = it.value.city
                         textViewPlaceCity.text = it.value.city
+
+                        heartImageView.setOnClickListener(viewModel)
+                        textViewShowPlaceOnMap.setOnClickListener(viewModel)
+
+                        heartImageView.setImageResource(
+                            if (it.value.setAvailabilityOfSpaceForTheUser == true) R.drawable.ic_baseline_favorite_24
+                            else R.drawable.ic_baseline_favorite_border_24
+                        )
+
                         setupPlaceId(it.value.placeId!!)
                     }
                 }
@@ -82,6 +101,7 @@ class PlaceDetailsFragment : BaseFragment(R.layout.fragment_place_details) {
             }
         }
     }
+
     private fun setupPlaceId(id: Int) {
         viewModel.setPlaceId(id)
     }
@@ -99,15 +119,22 @@ class PlaceDetailsFragment : BaseFragment(R.layout.fragment_place_details) {
     private fun observeLoadState(adapter: BeerPagingAdapter) {
         lifecycleScope.launch {
             adapter.loadStateFlow.debounce(200).collectLatest { state ->
-//                mainLoadStateHolder.bind(state.refresh)
+                mainLoadStateHolder.bind(state.refresh)
             }
         }
     }
+
     private val onBeerClickListener = object : OnBeerClickListener {
         override fun onBeerClick(beer: Beer, position: Int) {
             val direction =
                 PlaceDetailsFragmentDirections.actionPlaceDetailsFragmentToBeerDetailsFragment(beer.id!!)
             findNavController().navigate(direction)
+        }
+    }
+
+    private fun observeOnToggleFavoriteEvent() {
+        viewModel.onToggleFavoriteEvent.observeEvent(viewLifecycleOwner) {
+            if (it) setupBreweryDetailsBlock()
         }
     }
 

@@ -4,7 +4,7 @@ import com.example.beerservice.app.model.place.entities.Place
 import com.example.beerservice.app.model.place.entities.PlaceIdUserId
 
 interface PlaceSource {
-    suspend fun getPlaceProfile(id: Int): Place
+    suspend fun getPlaceProfile(id: Int,userId: Int): Place
 
     suspend fun getPlaceList(userId: Int,geoLat: Double, geoLon: Double, visibleRegion: Double): List<Place>
     suspend fun getPlacesAdblockList(userId: Int): List<Place>

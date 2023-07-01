@@ -9,6 +9,7 @@ data class FeedbackBeer(
     val breweryName: String? = null,
     val beerName: String? = null,
     val breweryId: Int? = null,
-    val beerId: Int? = null
+    val beerId: Int? = null,
+    val imageBeer: String? = null
 ) {
 }

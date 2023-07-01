@@ -67,6 +67,7 @@ class HomeViewModel(
         _isAvailableScanner.value = Success(boolean)
     }
 
+
     override fun onNavigateToPlaceDetails(placeId: Int) {
         _onNavigateToMapPlaceDetails.publishEvent(placeId)
     }
@@ -85,9 +86,8 @@ class HomeViewModel(
             } catch (e: java.lang.Exception) {
                 logError(e)
             }
-            _onToggleFavoriteEvent.publishEvent(true)
         }
-
+        _onToggleFavoriteEvent.publishEvent(true)
     }
 
     private suspend fun addFavorite(placeIdUserId: PlaceIdUserId) {

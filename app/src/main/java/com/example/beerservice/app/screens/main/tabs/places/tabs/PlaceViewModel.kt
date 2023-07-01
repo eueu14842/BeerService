@@ -70,6 +70,7 @@ class PlaceViewModel(
     }
 
     override fun onToggleFavoriteFlag(placeId: Int, isFavorite: Boolean) {
+        println("onToggleFavoriteFlag")
         viewModelScope.launch {
             val user = accountsRepository.doGetProfile()
             try {
@@ -82,7 +83,7 @@ class PlaceViewModel(
             } catch (e: java.lang.Exception) {
                 logError(e)
             }
-            placesFlow = placeRepository.getPagedPlaces()
+           placesFlow = placeRepository.getPagedPlaces()
             _onToggleFavoriteEvent.publishEvent(true)
         }
 

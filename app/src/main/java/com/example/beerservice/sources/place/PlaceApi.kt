@@ -38,6 +38,7 @@ interface PlaceApi {
 
     @GET("place/profile/{id}")
     suspend fun getPlaceById(
-        @Path("id") id: Int
+        @Path("id") id: Int,
+        @Query("userId") userId: Int
     ): GetPlaceResponseEntity
 }

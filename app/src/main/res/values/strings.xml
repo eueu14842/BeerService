@@ -54,4 +54,6 @@
     <string name="stile">стиль</string>
     <string name="tel">Телефон</string>
     <string name="email">Почта</string>
+    <string name="date">Дата</string>
+    <string name="username">Имя пользователя</string>
 </resources>

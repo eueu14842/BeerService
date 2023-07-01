@@ -25,10 +25,10 @@ class PlacesRepository(
         return placeSource.getPlacesAdblockList(user.userId!!)
     }
 
-    suspend fun getPlaceById(id: Int) = placeSource.getPlaceProfile(id)
+    suspend fun getPlaceById(id: Int, userId: Int) = placeSource.getPlaceProfile(id, userId)
 
     suspend fun getPagedPlaces(): Flow<PagingData<Place>> {
-         val loader: PlacePageLoader = { pageIndex, pageSize ->
+        val loader: PlacePageLoader = { pageIndex, pageSize ->
             getPlaces(pageIndex, pageSize)
         }
         return Pager(

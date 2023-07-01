@@ -11,7 +11,8 @@ class GetFeedbackResponseEntity(
     val breweryName: String? = null,
     val beerName: String? = null,
     val breweryId: Int? = null,
-    val beerId: Int? = null
+    val beerId: Int? = null,
+    val imageBeer: String? = null
 ) {
     fun toFeedback() = FeedbackBeer(
         id = id,
@@ -22,6 +23,7 @@ class GetFeedbackResponseEntity(
         breweryName = breweryName,
         beerName = beerName,
         breweryId = breweryId,
-        beerId = beerId
+        beerId = beerId,
+        imageBeer = imageBeer
     )
 }
