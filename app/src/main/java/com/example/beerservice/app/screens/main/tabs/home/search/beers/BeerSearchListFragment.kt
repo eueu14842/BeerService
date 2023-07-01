@@ -13,7 +13,7 @@ import com.example.beerservice.R
 import com.example.beerservice.app.Const.SEARCH_KEY
 import com.example.beerservice.app.model.beers.entities.Beer
 import com.example.beerservice.app.screens.base.BaseFragment
-import com.example.beerservice.app.screens.main.tabs.home.beers.adapters.BeersAdapter
+import com.example.beerservice.app.screens.main.tabs.home.search.adapters.BeersAdapter
 import com.example.beerservice.app.screens.main.tabs.home.beers.adapters.OnBeerClickListener
 import com.example.beerservice.app.screens.main.tabs.home.search.SearchFragmentDirections
 import com.example.beerservice.app.screens.main.tabs.home.search.SearchViewModel

@@ -1,4 +1,4 @@
-package com.example.beerservice.app.screens.main.tabs.places.adapters
+package com.example.beerservice.app.screens.main.tabs.home.places.adapters
 
 import android.view.LayoutInflater
 import android.view.View

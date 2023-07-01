@@ -14,7 +14,7 @@ import com.example.beerservice.app.model.place.PlacesRepository
 import com.example.beerservice.app.model.place.entities.Place
 import com.example.beerservice.app.model.place.entities.PlaceIdUserId
 import com.example.beerservice.app.screens.base.BaseViewModel
-import com.example.beerservice.app.screens.main.tabs.places.adapters.PlaceAdblockAdapter
+import com.example.beerservice.app.screens.main.tabs.home.places.adapters.PlaceAdblockAdapter
 import com.example.beerservice.app.utils.MutableLiveEvent
 import com.example.beerservice.app.utils.publishEvent
 import com.example.beerservice.app.utils.share

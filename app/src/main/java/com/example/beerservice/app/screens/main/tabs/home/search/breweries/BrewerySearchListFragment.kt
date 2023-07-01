@@ -13,7 +13,7 @@ import com.example.beerservice.R
 import com.example.beerservice.app.Const.SEARCH_KEY
 import com.example.beerservice.app.model.brewery.entities.Brewery
 import com.example.beerservice.app.screens.base.BaseFragment
-import com.example.beerservice.app.screens.main.tabs.home.brewery.adapters.BreweryAdblockAdapter
+import com.example.beerservice.app.screens.main.tabs.home.search.adapters.BreweryAdapter
 import com.example.beerservice.app.screens.main.tabs.home.brewery.adapters.OnBreweryClickListener
 import com.example.beerservice.app.screens.main.tabs.home.search.SearchFragmentDirections
 import com.example.beerservice.app.screens.main.tabs.home.search.SearchViewModel
@@ -29,7 +29,7 @@ class BrewerySearchListFragment : BaseFragment(R.layout.fragment_search_brewery_
 
     override val viewModel: SearchViewModel by viewModels { ViewModelFactory() }
 
-    private lateinit var breweryAdblockAdapter: BreweryAdblockAdapter
+    private lateinit var breweryAdblockAdapter: BreweryAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -58,7 +58,7 @@ class BrewerySearchListFragment : BaseFragment(R.layout.fragment_search_brewery_
             viewModel.setSearchBy(arguments?.getString(SEARCH_KEY, "") ?: "")
             viewModel.searchData.observe(viewLifecycleOwner) {
                 val list: List<Brewery>? = it.brewery
-                breweryAdblockAdapter = BreweryAdblockAdapter(list!!, onBreweryListener)
+                breweryAdblockAdapter = BreweryAdapter(list!!)
                 recycler.adapter = breweryAdblockAdapter
             }
         }
