@@ -13,10 +13,12 @@ import com.example.beerservice.app.model.Singletons
 import com.example.beerservice.app.model.Success
 import com.example.beerservice.app.model.beers.BeersRepository
 import com.example.beerservice.app.model.beers.entities.Beer
+import com.example.beerservice.app.model.feedback.entities.FeedbackBeerCreate
 import com.example.beerservice.app.model.place.PlacesRepository
 import com.example.beerservice.app.model.place.entities.Place
 import com.example.beerservice.app.model.place.entities.PlaceIdUserId
 import com.example.beerservice.app.screens.base.BaseViewModel
+import com.example.beerservice.app.screens.main.tabs.home.beers.adapters.BeerPagingAdapter
 import com.example.beerservice.app.utils.MutableLiveEvent
 import com.example.beerservice.app.utils.publishEvent
 import com.example.beerservice.app.utils.share
@@ -28,7 +30,7 @@ import kotlinx.coroutines.launch
 class PlaceDetailsViewModel(
     val placesRepository: PlacesRepository = Singletons.placesRepository,
     val beersRepository: BeersRepository = Singletons.beerRepository
-) : BaseViewModel(), View.OnClickListener {
+) : BaseViewModel(), View.OnClickListener, BeerPagingAdapter.BeerListener {
 
 
     private val _place = MutableLiveData<ResultState<Place>>()
@@ -42,9 +44,12 @@ class PlaceDetailsViewModel(
     val onToggleFavoriteEvent = _onToggleFavoriteEvent.share()
 
 
+    private var _onNavigateToBeerDetails = MutableLiveEvent<Int>()
+    val onNavigateToBeerDetails = _onNavigateToBeerDetails.share()
+
     override fun onClick(v: View?) {
         val result = place.value
-        result?.map {place->
+        result?.map { place ->
             when (v?.id) {
                 R.id.heartImageView -> {
                     onToggleFavoriteFlag(
@@ -82,7 +87,7 @@ class PlaceDetailsViewModel(
     }
 
     fun onNavigateToMap() {
-       println("go to map")
+        println("go to map")
     }
 
     fun onToggleFavoriteFlag(placeId: Int, isFavorite: Boolean) {
@@ -111,6 +116,18 @@ class PlaceDetailsViewModel(
     private suspend fun removeFavorite(placeIdUserId: PlaceIdUserId) {
         placesRepository.removeFavorite(placeIdUserId)
 
+    }
+
+    override fun onNavigateToBeerDetails(beerId: Int) {
+        _onNavigateToBeerDetails.publishEvent(beerId)
+    }
+
+    override fun onToggleRatingBar() {
+        TODO("Not yet implemented")
+    }
+
+    override fun onCreateFeedback(feedbackBeerCreate: FeedbackBeerCreate) {
+        TODO("Not yet implemented")
     }
 
 

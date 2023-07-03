@@ -29,11 +29,6 @@ class BeersAdapter(val beerList: List<Beer>) :
         }
     }
 
-    interface BeerListener {
-        fun onNavigateToBeerDetails(beerId: Int)
-        fun onToggleRatingBar()
-        fun onCreateFeedback(feedbackBeerCreate: FeedbackBeerCreate)
-    }
 
     override fun getItemCount() = beerList.size
 }

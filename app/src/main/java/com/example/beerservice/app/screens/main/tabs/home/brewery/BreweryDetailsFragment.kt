@@ -20,9 +20,11 @@ import com.example.beerservice.app.model.beers.entities.Beer
 import com.example.beerservice.app.screens.base.BaseFragment
 import com.example.beerservice.app.screens.base.DefaultLoadStateAdapter
 import com.example.beerservice.app.screens.base.TryAgainAction
+import com.example.beerservice.app.screens.main.tabs.home.beers.BeersListFragmentDirections
 import com.example.beerservice.app.screens.main.tabs.home.beers.adapters.BeerPagingAdapter
 import com.example.beerservice.app.screens.main.tabs.home.beers.adapters.OnBeerClickListener
 import com.example.beerservice.app.utils.ViewModelFactory
+import com.example.beerservice.app.utils.observeEvent
 import com.example.beerservice.databinding.FragmentBreweryBinding
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.debounce
@@ -40,11 +42,11 @@ class BreweryDetailsFragment() : BaseFragment(R.layout.fragment_brewery) {
 
         setupBeersList()
         setupBreweryDetailsBlock()
-
+        observeOnNavigateBeerDetailsEvent()
     }
 
     private fun setupBeersList() {
-        val adapter = BeerPagingAdapter(onBeerClickListener)
+        val adapter = BeerPagingAdapter(viewModel)
         val tryAgainAction: TryAgainAction = { adapter.retry() }
         val footerAdapter = DefaultLoadStateAdapter(tryAgainAction)
         val adapterWithLoadState: ConcatAdapter = adapter.withLoadStateFooter(footerAdapter)
@@ -106,7 +108,17 @@ class BreweryDetailsFragment() : BaseFragment(R.layout.fragment_brewery) {
         viewModel.setBreweryId(id)
     }
 
-    private val onBeerClickListener = object : OnBeerClickListener {
+
+    private fun observeOnNavigateBeerDetailsEvent() {
+        viewModel.onNavigateToBeerDetails.observeEvent(viewLifecycleOwner){
+            val direction =
+                BreweryDetailsFragmentDirections.actionBreweryDetailsFragmentToBeerDetailsFragment(it)
+            findNavController().navigate(direction)
+        }
+    }
+
+
+/*    private val onBeerClickListener = object : OnBeerClickListener {
         override fun onBeerClick(beer: Beer, position: Int) {
             val direction =
                 BreweryDetailsFragmentDirections.actionBreweryDetailsFragmentToBeerDetailsFragment(
@@ -114,6 +126,6 @@ class BreweryDetailsFragment() : BaseFragment(R.layout.fragment_brewery) {
                 )
             findNavController().navigate(direction)
         }
-    }
+    }*/
 
 }

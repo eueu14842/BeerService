@@ -8,7 +8,7 @@ import retrofit2.http.POST
 import retrofit2.http.Query
 
 interface FeedbackApi {
-    @POST("feedback/createFeedbackBeer")
+    @POST("feedback/create")
     suspend fun createFeedbackBeer(@Body body: FeedbackBeerCreateRequestEntity)
 
     @GET("feedback/list/beer")
