@@ -5,6 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.beerservice.app.model.beers.entities.Beer
+import com.example.beerservice.app.model.feedback.entities.FeedbackBeerCreate
 import com.example.beerservice.databinding.ItemBeerCardBinding
 
 class BeersAdapter(val beerList: List<Beer>) :
@@ -25,8 +26,14 @@ class BeersAdapter(val beerList: List<Beer>) :
                 .into(imageViewBeer)
             textViewBeerTitle.text = beer.name
             textViewBeerDesc.text = beer.description
-
         }
     }
+
+    interface BeerListener {
+        fun onNavigateToBeerDetails(beerId: Int)
+        fun onToggleRatingBar()
+        fun onCreateFeedback(feedbackBeerCreate: FeedbackBeerCreate)
+    }
+
     override fun getItemCount() = beerList.size
 }

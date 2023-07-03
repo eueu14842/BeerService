@@ -43,7 +43,7 @@ class BreweryListFragment : BaseFragment(R.layout.fragment_brewery_list) {
     }
 
 
-     private fun setupBreweriesList() {
+    private fun setupBreweriesList() {
         val adapter = BreweryPagingAdapter(onBreweryListener)
         val tryAgainAction: TryAgainAction = { adapter.retry() }
         val footerAdapter = DefaultLoadStateAdapter(tryAgainAction)
@@ -53,11 +53,12 @@ class BreweryListFragment : BaseFragment(R.layout.fragment_brewery_list) {
             layoutManager = LinearLayoutManager(requireContext())
         }
         recycler.adapter = adapterWithLoadState
-             mainLoadStateHolder = DefaultLoadStateAdapter.Holder(
-                 binding.loadStateView,
-                 null,
-                 tryAgainAction
-             )
+
+        mainLoadStateHolder = DefaultLoadStateAdapter.Holder(
+            binding.loadStateView,
+            null,
+            tryAgainAction
+        )
         observeBreweries(adapter)
         observeLoadState(adapter)
 
@@ -74,7 +75,7 @@ class BreweryListFragment : BaseFragment(R.layout.fragment_brewery_list) {
     private fun observeLoadState(adapter: BreweryPagingAdapter) {
         lifecycleScope.launch {
             adapter.loadStateFlow.debounce(200).collectLatest { state ->
-              mainLoadStateHolder.bind(state.refresh)
+                mainLoadStateHolder.bind(state.refresh)
             }
         }
     }
@@ -83,7 +84,9 @@ class BreweryListFragment : BaseFragment(R.layout.fragment_brewery_list) {
     private val onBreweryListener = object : OnBreweryPagedClickListener {
         override fun onBreweryPagedClick(brewery: Brewery, position: Int) {
             val direction =
-                BreweryListFragmentDirections.actionBreweryListFragmentToBreweryDetailsFragment(brewery.id!!)
+                BreweryListFragmentDirections.actionBreweryListFragmentToBreweryDetailsFragment(
+                    brewery.id!!
+                )
             findNavController().navigate(direction)
         }
     }

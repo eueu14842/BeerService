@@ -85,6 +85,4 @@ class BeersListFragment : BaseFragment(R.layout.fragment_beers_list) {
             findNavController().navigate(direction)
         }
     }
-
-
 }

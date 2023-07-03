@@ -5,6 +5,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.LifecycleObserver
+import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -29,14 +32,11 @@ class PlaceSearchListFragment : BaseFragment(R.layout.fragment_search_place_list
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = FragmentSearchPlaceListBinding.inflate(layoutInflater)
         setupViews()
         observeSearchPlace()
-
-
-
         return binding.root
     }
+
 
     private fun observeSearchPlace() {
         lifecycleScope.launch {
@@ -44,19 +44,20 @@ class PlaceSearchListFragment : BaseFragment(R.layout.fragment_search_place_list
             viewModel.setSearchBy(arguments?.getString(SEARCH_KEY, "") ?: "")
             viewModel.searchData.observe(viewLifecycleOwner) {
                 val list = it.place
-                breweryAdapter = PlaceListAdapter(list!!,object : PlaceListAdapter.FavoriteListener{
-                    override fun onNavigateToPlaceDetails(placeId: Int) {
-                        TODO("Not yet implemented")
-                    }
+                breweryAdapter =
+                    PlaceListAdapter(list!!, object : PlaceListAdapter.FavoriteListener {
+                        override fun onNavigateToPlaceDetails(placeId: Int) {
+                            TODO("Not yet implemented")
+                        }
 
-                    override fun onNavigateToMap() {
-                        TODO("Not yet implemented")
-                    }
+                        override fun onNavigateToMap() {
+                            TODO("Not yet implemented")
+                        }
 
-                    override fun onToggleFavoriteFlag(placeId: Int) {
-                        TODO("Not yet implemented")
-                    }
-                })
+                        override fun onToggleFavoriteFlag(placeId: Int) {
+                            TODO("Not yet implemented")
+                        }
+                    })
                 recycler.adapter = breweryAdapter
             }
         }

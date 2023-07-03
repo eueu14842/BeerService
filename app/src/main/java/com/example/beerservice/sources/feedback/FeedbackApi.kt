@@ -1,6 +1,6 @@
 package com.example.beerservice.sources.feedback
 
-import com.example.beerservice.sources.feedback.entities.FeedbackBeerRequestEntity
+import com.example.beerservice.sources.feedback.entities.FeedbackBeerCreateRequestEntity
 import com.example.beerservice.sources.feedback.entities.GetFeedbackResponseEntity
 import retrofit2.http.Body
 import retrofit2.http.GET
@@ -9,7 +9,7 @@ import retrofit2.http.Query
 
 interface FeedbackApi {
     @POST("feedback/createFeedbackBeer")
-    suspend fun createFeedbackBeer(@Body body: FeedbackBeerRequestEntity)
+    suspend fun createFeedbackBeer(@Body body: FeedbackBeerCreateRequestEntity)
 
     @GET("feedback/list/beer")
     suspend fun getFeedbackByBeerId(
