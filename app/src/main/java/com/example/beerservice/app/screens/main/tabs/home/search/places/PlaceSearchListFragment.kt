@@ -27,14 +27,12 @@ class PlaceSearchListFragment : BaseFragment(R.layout.fragment_search_place_list
 
     override val viewModel: SearchViewModel by viewModels { ViewModelFactory() }
     private lateinit var breweryAdapter: PlaceListAdapter
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        binding = FragmentSearchPlaceListBinding.bind(view)
         setupViews()
         observeSearchPlace()
-        return binding.root
     }
 
 

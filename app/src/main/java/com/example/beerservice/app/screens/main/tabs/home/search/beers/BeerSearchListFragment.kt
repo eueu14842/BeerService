@@ -13,11 +13,12 @@ import com.example.beerservice.R
 import com.example.beerservice.app.Const.SEARCH_KEY
 import com.example.beerservice.app.model.beers.entities.Beer
 import com.example.beerservice.app.screens.base.BaseFragment
+import com.example.beerservice.app.screens.main.feedback.FeedbackCreateFragment
 import com.example.beerservice.app.screens.main.tabs.home.search.adapters.BeersAdapter
-import com.example.beerservice.app.screens.main.tabs.home.beers.adapters.OnBeerClickListener
 import com.example.beerservice.app.screens.main.tabs.home.search.SearchFragmentDirections
 import com.example.beerservice.app.screens.main.tabs.home.search.SearchViewModel
 import com.example.beerservice.app.utils.ViewModelFactory
+import com.example.beerservice.app.utils.observeEvent
 import com.example.beerservice.databinding.FragmentSearchBeerListBinding
 import kotlinx.coroutines.launch
 
@@ -43,6 +44,8 @@ class BeerSearchListFragment : BaseFragment(R.layout.fragment_search_beer_list) 
             layoutManager = LinearLayoutManager(requireContext())
         }
         observeSearchBeer()
+        observeOnNavigateToBeerDetailsEvent()
+        observeOnNavigateToCreateFeedbackEvent()
 
         return binding.root
     }
@@ -52,20 +55,32 @@ class BeerSearchListFragment : BaseFragment(R.layout.fragment_search_beer_list) 
             viewModel.getSearchData()
             viewModel.setSearchBy(arguments?.getString(SEARCH_KEY, "") ?: "")
             viewModel.searchData.observe(viewLifecycleOwner) {
-                val list: List<Beer>? = it.beer
-                beerAdapter = BeersAdapter(list!!)
+                if (it.beer.isNullOrEmpty()) return@observe
+                val list: List<Beer> = it.beer
+                beerAdapter = BeersAdapter(viewModel, list)
                 recycler.adapter = beerAdapter
             }
         }
     }
 
-    private val onBeerClickListener = object : OnBeerClickListener {
-        override fun onBeerClick(beer: Beer, position: Int) {
+    private fun observeOnNavigateToBeerDetailsEvent() {
+        viewModel.onNavigateToBeerDetails.observeEvent(viewLifecycleOwner) {
             val direction =
                 SearchFragmentDirections.actionSearchFragmentToBeerDetailsFragment(
-                    beer.id!!
+                    it
                 )
             findNavController().navigate(direction)
+        }
+    }
+
+    private fun observeOnNavigateToCreateFeedbackEvent() {
+        viewModel.onNavigateToCreateFeedback.observeEvent(viewLifecycleOwner) {
+            val direction =
+                SearchFragmentDirections.actionSearchFragmentToFeedbackCreateFragment(
+                    it
+                )
+            println("$it")
+          findNavController().navigate(direction)
         }
     }
 

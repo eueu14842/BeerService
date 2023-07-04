@@ -3,6 +3,7 @@ package com.example.beerservice.app.screens.main.tabs.places.adapters
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.beerservice.R
@@ -14,6 +15,21 @@ class PlaceListAdapter(
     val favoriteListener: FavoriteListener
 ) :
     RecyclerView.Adapter<PlaceListAdapter.PlaceHolder>(), View.OnClickListener {
+
+    override fun onClick(v: View?) {
+        val place = v?.tag as Place
+        when (v.id) {
+            R.id.heartImageView -> {
+                favoriteListener.onToggleFavoriteFlag(
+                    place.placeId!!
+                )
+            }
+            R.id.textViewShowPlaceOnMap -> favoriteListener.onNavigateToMap()
+            else -> {
+                favoriteListener.onNavigateToPlaceDetails(place.placeId!!)
+            }
+        }
+    }
 
     class PlaceHolder(val binding: ItemPlaceBinding) : RecyclerView.ViewHolder(binding.root)
 
@@ -31,9 +47,8 @@ class PlaceListAdapter(
     override fun onBindViewHolder(holder: PlaceHolder, position: Int) {
         val place = list[position]
         with(holder.binding) {
-            Glide.with(holder.itemView)
-                .load(place.image)
-                .into(imageViewPlace)
+            loadPhoto(imageViewPlace, place.image)
+
             textViewPlaceTitle.text = place.name
             textViewPlaceDesc.text = place.description
             textViewPlaceCity.text = place.city
@@ -62,18 +77,10 @@ class PlaceListAdapter(
 
     override fun getItemCount() = list.size
 
-    override fun onClick(v: View?) {
-        val place = v?.tag as Place
-        when (v.id) {
-            R.id.heartImageView -> {
-                favoriteListener.onToggleFavoriteFlag(
-                    place.placeId!!
-                )
-            }
-            R.id.textViewShowPlaceOnMap -> favoriteListener.onNavigateToMap()
-            else -> {
-                favoriteListener.onNavigateToPlaceDetails(place.placeId!!)
-            }
-        }
+    private fun loadPhoto(imageView: ImageView, url: String?) {
+        val context = imageView.context
+        Glide.with(context).load(url).into(imageView)
     }
+
+
 }

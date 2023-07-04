@@ -10,7 +10,6 @@
         android:name="com.example.beerservice.app.screens.main.tabs.home.search.SearchFragment"
         android:label="Поиск"
         tools:layout="@layout/fragment_search">
-
         <action
             android:id="@id/action_searchFragment_to_beerDetailsFragment"
             app:destination="@+id/beerDetailsFragment" />
@@ -20,9 +19,10 @@
         <action
             android:id="@id/action_searchFragment_to_breweryDetailsFragment"
             app:destination="@id/breweryDetailsFragment" />
-
+        <action
+            android:id="@id/action_searchFragment_to_feedbackCreateFragment"
+            app:destination="@+id/feedbackCreateFragment" />
     </fragment>
-
 
     <fragment
         android:id="@id/beerDetailsFragment"
@@ -51,6 +51,15 @@
         tools:layout="@layout/fragment_beer_details">
         <argument
             android:name="breweryId"
+            app:argType="integer" />
+    </fragment>
+    <fragment
+        android:id="@id/feedbackCreateFragment"
+        android:name="com.example.beerservice.app.screens.main.feedback.FeedbackCreateFragment"
+        android:label="FeedbackCreateFragment"
+        tools:layout="@layout/fragment_create_feedback">
+        <argument
+            android:name="beerId"
             app:argType="integer" />
     </fragment>
 

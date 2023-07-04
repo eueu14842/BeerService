@@ -125,6 +125,9 @@
         android:name="com.example.beerservice.app.screens.main.tabs.home.search.SearchFragment"
         android:label="Поиск"
         tools:layout="@layout/fragment_search">
+        <argument
+            android:name="searchBy"
+            app:argType="string" />
         <action
             android:id="@+id/action_searchFragment_to_beerDetailsFragment"
             app:destination="@id/beerDetailsFragment" />
@@ -134,15 +137,14 @@
         <action
             android:id="@+id/action_searchFragment_to_breweryDetailsFragment"
             app:destination="@id/breweryDetailsFragment" />
-        <argument
-            android:name="searchBy"
-            app:argType="string" />
         <action
             android:id="@+id/action_searchFragment_to_feedbackCreateFragment"
-            app:destination="@id/feedbackCreateFragment" />
+            app:destination="@+id/feedbackCreateFragment" />
+
 
 
     </fragment>
+
     <fragment
         android:id="@+id/feedbackCreateFragment"
         android:name="com.example.beerservice.app.screens.main.feedback.FeedbackCreateFragment"
