@@ -89,8 +89,10 @@ class BeersListFragment : BaseFragment(R.layout.fragment_beers_list) {
 
 
     private fun observeOnNavigateToCreateFeedbackEvent() {
-        viewModel.onNavigateToBeerDetails.observeEvent(viewLifecycleOwner) {
-
+        viewModel.onNavigateToCreateFeedback.observeEvent(viewLifecycleOwner) {
+            val direction =
+                BeersListFragmentDirections.actionBeersListFragmentToFeedbackCreateFragment(it)
+            findNavController().navigate(direction)
         }
     }
 }

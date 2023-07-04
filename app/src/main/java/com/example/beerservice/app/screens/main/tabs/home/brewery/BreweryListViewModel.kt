@@ -16,7 +16,6 @@ import kotlinx.coroutines.flow.flatMapLatest
 
 class BreweryListViewModel(
     breweryRepository: BreweryRepository = Singletons.breweryRepository,
-
 ) : BaseViewModel() {
 
     private val _brewery = MutableLiveData<ResultState<List<Brewery>>>()

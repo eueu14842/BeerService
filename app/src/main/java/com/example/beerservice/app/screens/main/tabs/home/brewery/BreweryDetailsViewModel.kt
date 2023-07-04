@@ -10,7 +10,6 @@ import com.example.beerservice.app.model.beers.BeersRepository
 import com.example.beerservice.app.model.beers.entities.Beer
 import com.example.beerservice.app.model.brewery.BreweryRepository
 import com.example.beerservice.app.model.brewery.entities.Brewery
-import com.example.beerservice.app.model.feedback.entities.FeedbackBeerCreate
 import com.example.beerservice.app.screens.base.BaseViewModel
 import com.example.beerservice.app.screens.main.tabs.home.beers.adapters.BeerPagingAdapter
 import com.example.beerservice.app.utils.MutableLiveEvent
@@ -24,7 +23,7 @@ import kotlinx.coroutines.launch
 class BreweryDetailsViewModel(
     private val breweryRepository: BreweryRepository = Singletons.breweryRepository,
     private val beersRepository: BeersRepository = Singletons.beerRepository
-) : BaseViewModel(), BeerPagingAdapter.BeerListener {
+) : BaseViewModel(), BeerPagingAdapter.BeerListListener {
 
     private val _brewery = MutableLiveData<ResultState<Brewery>>()
     val brewery = _brewery.share()
@@ -34,6 +33,10 @@ class BreweryDetailsViewModel(
 
     private var _onNavigateToBeerDetails = MutableLiveEvent<Int>()
     val onNavigateToBeerDetails = _onNavigateToBeerDetails.share()
+
+
+    private var _onNavigateToBeerCreateFeedback = MutableLiveEvent<Int>()
+    val onNavigateToBeerCreateFeedback = _onNavigateToBeerCreateFeedback.share()
 
 
     fun getBeersByBreweryId() {
@@ -63,12 +66,9 @@ class BreweryDetailsViewModel(
         _onNavigateToBeerDetails.publishEvent(beerId)
     }
 
-    override fun onToggleRatingBar() {
-        TODO("Not yet implemented")
-    }
 
-    override fun onCreateFeedback(feedbackBeerCreate: FeedbackBeerCreate) {
-        TODO("Not yet implemented")
+    override fun onNavigateToCreateFeedback(beerId: Int) {
+        _onNavigateToBeerCreateFeedback.publishEvent(beerId)
     }
 
 }

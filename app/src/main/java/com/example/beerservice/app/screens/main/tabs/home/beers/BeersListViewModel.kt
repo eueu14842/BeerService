@@ -20,7 +20,7 @@ import kotlinx.coroutines.flow.flatMapLatest
 
 class BeersListViewModel(
     private val beersRepository: BeersRepository = Singletons.beerRepository
-) : BaseViewModel(),BeerPagingAdapter.BeerListener {
+) : BaseViewModel(), BeerPagingAdapter.BeerListListener {
 
     val beersFlow: Flow<PagingData<Beer>>
     private var searchBy = MutableLiveData("")
@@ -46,12 +46,8 @@ class BeersListViewModel(
         _onNavigateToBeerDetails.publishEvent(beerId)
     }
 
-    override fun onToggleRatingBar() {
-        TODO("Not yet implemented")
-    }
-
     override fun onNavigateToCreateFeedback(beerId: Int) {
-        TODO("Not yet implemented")
+        _onNavigateToCreateFeedback.publishEvent(beerId)
     }
 
 

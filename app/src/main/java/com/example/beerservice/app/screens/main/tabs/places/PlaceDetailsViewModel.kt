@@ -13,7 +13,6 @@ import com.example.beerservice.app.model.Singletons
 import com.example.beerservice.app.model.Success
 import com.example.beerservice.app.model.beers.BeersRepository
 import com.example.beerservice.app.model.beers.entities.Beer
-import com.example.beerservice.app.model.feedback.entities.FeedbackBeerCreate
 import com.example.beerservice.app.model.place.PlacesRepository
 import com.example.beerservice.app.model.place.entities.Place
 import com.example.beerservice.app.model.place.entities.PlaceIdUserId
@@ -30,7 +29,7 @@ import kotlinx.coroutines.launch
 class PlaceDetailsViewModel(
     val placesRepository: PlacesRepository = Singletons.placesRepository,
     val beersRepository: BeersRepository = Singletons.beerRepository
-) : BaseViewModel(), View.OnClickListener, BeerPagingAdapter.BeerListener {
+) : BaseViewModel(), View.OnClickListener, BeerPagingAdapter.BeerListListener {
 
 
     private val _place = MutableLiveData<ResultState<Place>>()
@@ -122,11 +121,8 @@ class PlaceDetailsViewModel(
         _onNavigateToBeerDetails.publishEvent(beerId)
     }
 
-    override fun onToggleRatingBar() {
-        TODO("Not yet implemented")
-    }
 
-    override fun onCreateFeedback(feedbackBeerCreate: FeedbackBeerCreate) {
+    override fun onNavigateToCreateFeedback(beerId: Int) {
         TODO("Not yet implemented")
     }
 

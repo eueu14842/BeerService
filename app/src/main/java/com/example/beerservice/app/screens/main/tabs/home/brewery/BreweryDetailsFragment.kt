@@ -35,6 +35,7 @@ class BreweryDetailsFragment() : BaseFragment(R.layout.fragment_brewery) {
     private val args by navArgs<BreweryDetailsFragmentArgs>()
     lateinit var recycler: RecyclerView
     override val viewModel: BreweryDetailsViewModel by viewModels { ViewModelFactory() }
+    private lateinit var mainLoadStateHolder: DefaultLoadStateAdapter.Holder
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -43,6 +44,8 @@ class BreweryDetailsFragment() : BaseFragment(R.layout.fragment_brewery) {
         setupBeersList()
         setupBreweryDetailsBlock()
         observeOnNavigateBeerDetailsEvent()
+        observeOnNavigateToCreateFeedback()
+
     }
 
     private fun setupBeersList() {
@@ -56,9 +59,13 @@ class BreweryDetailsFragment() : BaseFragment(R.layout.fragment_brewery) {
         }
         recycler.adapter = adapterWithLoadState
 
+        mainLoadStateHolder = DefaultLoadStateAdapter.Holder(
+            binding.loadStateView,
+            null,
+            tryAgainAction
+        )
         observeLoadState(adapter)
         observeBeers(adapter)
-
 
     }
 
@@ -99,7 +106,7 @@ class BreweryDetailsFragment() : BaseFragment(R.layout.fragment_brewery) {
     private fun observeLoadState(adapter: BeerPagingAdapter) {
         lifecycleScope.launch {
             adapter.loadStateFlow.debounce(200).collectLatest { state ->
-//                mainLoadStateHolder.bind(state.refresh)
+               mainLoadStateHolder.bind(state.refresh)
             }
         }
     }
@@ -110,22 +117,24 @@ class BreweryDetailsFragment() : BaseFragment(R.layout.fragment_brewery) {
 
 
     private fun observeOnNavigateBeerDetailsEvent() {
-        viewModel.onNavigateToBeerDetails.observeEvent(viewLifecycleOwner){
+        viewModel.onNavigateToBeerDetails.observeEvent(viewLifecycleOwner) {
             val direction =
-                BreweryDetailsFragmentDirections.actionBreweryDetailsFragmentToBeerDetailsFragment(it)
+                BreweryDetailsFragmentDirections.actionBreweryDetailsFragmentToBeerDetailsFragment(
+                    it
+                )
             findNavController().navigate(direction)
         }
     }
 
-
-/*    private val onBeerClickListener = object : OnBeerClickListener {
-        override fun onBeerClick(beer: Beer, position: Int) {
+    private fun observeOnNavigateToCreateFeedback() {
+        viewModel.onNavigateToBeerCreateFeedback.observeEvent(viewLifecycleOwner) {
             val direction =
-                BreweryDetailsFragmentDirections.actionBreweryDetailsFragmentToBeerDetailsFragment(
-                    beer.id!!
+                BreweryDetailsFragmentDirections.actionBreweryDetailsFragmentToFeedbackCreateFragment(
+                    it
                 )
             findNavController().navigate(direction)
         }
-    }*/
+    }
+
 
 }

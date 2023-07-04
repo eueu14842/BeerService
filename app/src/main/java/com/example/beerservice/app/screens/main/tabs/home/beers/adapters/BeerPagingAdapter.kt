@@ -3,6 +3,7 @@ package com.example.beerservice.app.screens.main.tabs.home.beers.adapters
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
@@ -16,56 +17,55 @@ interface OnBeerClickListener {
 }
 
 class BeerPagingAdapter(
-    private val beerListener: BeerListener
+    private val beerListener: BeerListListener
 ) : PagingDataAdapter<Beer, BeerPagingAdapter.Holder>(BeerDiffCallback()), View.OnClickListener {
 
 
     override fun onClick(v: View?) {
         val beer = v?.tag as Beer
         when (v.id) {
-            R.id.rating_beer_stars -> {
-
-            }
-            R.id.textViewBeerFeedBack -> {
-
-            }
+            R.id.textViewBeerFeedBack ->
+                beerListener.onNavigateToCreateFeedback(beer.id!!)
+            else -> beerListener.onNavigateToBeerDetails(beer.id!!)
         }
     }
 
     override fun onBindViewHolder(holder: Holder, position: Int) {
         val beer: Beer = getItem(position) ?: return
+
         with(holder.binding) {
-            Glide.with(holder.itemView).load(beer.image).into(imageViewBeer)
+            root.tag = beer
+            textViewBeerFeedBack.tag = beer
+
+            loadPhoto(imageViewBeer, beer.image)
             textViewBeerTitle.text = beer.name
             textViewBeerDesc.text = beer.description
-            ratingBeerStars
-            textViewBeerFeedBack.setOnClickListener {
-                beerListener.onNavigateToCreateFeedback(beer.id!!)
-            }
-
-        }
-
-        holder.itemView.setOnClickListener {
-            beerListener.onNavigateToBeerDetails(beer.id!!)
+            stileBeer.text = beer.style
+            abv.text = beer.abv.toString()
+            ibu.text = beer.ibu.toString()
         }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Holder {
         val inflater = LayoutInflater.from(parent.context)
         val binding = ItemBeerCardBinding.inflate(inflater)
+
+        binding.textViewBeerFeedBack.setOnClickListener(this)
+        binding.root.setOnClickListener(this)
         return Holder(binding)
     }
 
+    private fun loadPhoto(imageView: ImageView, url: String?) {
+        val context = imageView.context
+        Glide.with(context).load(url).into(imageView)
+    }
 
     class Holder(val binding: ItemBeerCardBinding) : RecyclerView.ViewHolder(binding.root)
 
-    interface BeerListener {
+    interface BeerListListener {
         fun onNavigateToBeerDetails(beerId: Int)
-        fun onToggleRatingBar()
         fun onNavigateToCreateFeedback(beerId: Int)
     }
-
-
 }
 
 class BeerDiffCallback : DiffUtil.ItemCallback<Beer>() {

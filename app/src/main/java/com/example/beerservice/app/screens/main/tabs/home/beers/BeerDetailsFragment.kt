@@ -2,6 +2,7 @@ package com.example.beerservice.app.screens.main.tabs.home.beers
 
 import android.os.Bundle
 import android.view.View
+import android.widget.ImageView
 import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
@@ -22,18 +23,20 @@ import com.example.beerservice.app.screens.base.DefaultLoadStateAdapter
 import com.example.beerservice.app.screens.base.TryAgainAction
 import com.example.beerservice.app.screens.main.tabs.home.beers.adapters.FeedbackForBeerPagingAdapter
 import com.example.beerservice.app.screens.main.tabs.home.beers.adapters.OnFeedbackClickListener
+import com.example.beerservice.app.screens.main.tabs.places.adapters.PlacePagingAdapter
 import com.example.beerservice.app.utils.ViewModelFactory
 import com.example.beerservice.databinding.FragmentBeerDetailsBinding
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.debounce
 import kotlinx.coroutines.launch
 
+
 class BeerDetailsFragment : BaseFragment(R.layout.fragment_beer_details) {
     lateinit var binding: FragmentBeerDetailsBinding
     override val viewModel: BeerViewModel by viewModels { ViewModelFactory() }
     private val navArgs by navArgs<BeerDetailsFragmentArgs>()
     lateinit var recycler: RecyclerView
-
+    private lateinit var mainLoadStateHolder: DefaultLoadStateAdapter.Holder
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -54,7 +57,11 @@ class BeerDetailsFragment : BaseFragment(R.layout.fragment_beer_details) {
         }
         recycler.adapter = adapterWithLoadState
 
-
+        mainLoadStateHolder = DefaultLoadStateAdapter.Holder(
+            binding.loadStateView,
+            null,
+            tryAgainAction
+        )
         observeFeedbacks(adapter)
         observeLoadState(adapter)
 
@@ -62,24 +69,32 @@ class BeerDetailsFragment : BaseFragment(R.layout.fragment_beer_details) {
 
     private fun setupBeerDetailsBlock() {
         viewModel.getBeerById(navArgs.beerId)
-        viewModel.beer.observe(viewLifecycleOwner) {
-            when (it) {
+        viewModel.beer.observe(viewLifecycleOwner) { result ->
+            when (result) {
                 is ErrorResult -> TODO()
                 is Pending -> ""
                 is Success -> {
                     with(binding) {
-                        Glide.with(this@BeerDetailsFragment)
-                            .load(it.value.image)
-                            .into(imageViewBeer)
-                        textViewBeerTitle.text = it.value.name
-                        textViewBeerDesc.text = it.value.description
-                        setBeerId(it.value.id!!)
+                        loadPhoto(imageViewBeer, result.value.image)
+
+                        textViewBeerTitle.text = result.value.name
+                        textViewBeerDesc.text = result.value.description
+                        stileBeer.text = result.value.style
+                        textViewBeerFeedBack.setOnClickListener {
+                            onNavigateToCreateFeedback(result.value.id!!)
+                        }
+                        setBeerId(result.value.id!!)
                     }
 
                 }
                 is Empty -> TODO()
             }
         }
+    }
+
+    private fun loadPhoto(imageView: ImageView, url: String?) {
+        val context = imageView.context
+        Glide.with(context).load(url).into(imageView)
     }
 
     private fun observeFeedbacks(adapter: FeedbackForBeerPagingAdapter) {
@@ -95,7 +110,7 @@ class BeerDetailsFragment : BaseFragment(R.layout.fragment_beer_details) {
     private fun observeLoadState(adapter: FeedbackForBeerPagingAdapter) {
         lifecycleScope.launch {
             adapter.loadStateFlow.debounce(200).collectLatest { state ->
-//                mainLoadStateHolder.bind(state.refresh)
+                mainLoadStateHolder.bind(state.refresh)
             }
         }
     }
@@ -104,6 +119,11 @@ class BeerDetailsFragment : BaseFragment(R.layout.fragment_beer_details) {
         viewModel.setBeerId(id)
     }
 
+    private fun onNavigateToCreateFeedback(beerId: Int) {
+        val direction =
+            BeerDetailsFragmentDirections.actionBeerDetailsFragmentToFeedbackCreateFragment(beerId)
+        findNavController().navigate(direction)
+    }
 
     private val onFeedbackClickListener = object : OnFeedbackClickListener {
         override fun onFeedbackClick(feedback: FeedbackBeer, position: Int) {

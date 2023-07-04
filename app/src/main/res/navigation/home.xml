@@ -45,6 +45,9 @@
         <action
             android:id="@+id/action_beersListFragment_to_beerFragment"
             app:destination="@id/beerDetailsFragment" />
+        <action
+            android:id="@+id/action_beersListFragment_to_feedbackCreateFragment"
+            app:destination="@id/feedbackCreateFragment" />
     </fragment>
 
     <fragment
@@ -55,6 +58,9 @@
         <argument
             android:name="beerId"
             app:argType="integer" />
+        <action
+            android:id="@+id/action_beerDetailsFragment_to_feedbackCreateFragment"
+            app:destination="@id/feedbackCreateFragment" />
     </fragment>
 
     <fragment
@@ -82,6 +88,9 @@
         <action
             android:id="@+id/action_breweryDetailsFragment_to_beerDetailsFragment"
             app:destination="@id/beerDetailsFragment" />
+        <action
+            android:id="@+id/action_breweryDetailsFragment_to_feedbackCreateFragment"
+            app:destination="@id/feedbackCreateFragment" />
     </fragment>
 
 
@@ -96,6 +105,9 @@
         <action
             android:id="@+id/action_placeDetailsFragment_to_beerDetailsFragment"
             app:destination="@id/beerDetailsFragment" />
+        <action
+            android:id="@+id/action_placeDetailsFragment_to_feedbackCreateFragment"
+            app:destination="@id/feedbackCreateFragment" />
     </fragment>
 
     <fragment
@@ -125,8 +137,20 @@
         <argument
             android:name="searchBy"
             app:argType="string" />
+        <action
+            android:id="@+id/action_searchFragment_to_feedbackCreateFragment"
+            app:destination="@id/feedbackCreateFragment" />
 
 
+    </fragment>
+    <fragment
+        android:id="@+id/feedbackCreateFragment"
+        android:name="com.example.beerservice.app.screens.main.feedback.FeedbackCreateFragment"
+        android:label="FeedbackCreateFragment"
+        tools:layout="@layout/fragment_create_feedback">
+        <argument
+            android:name="beerid"
+            app:argType="integer" />
     </fragment>
 
 

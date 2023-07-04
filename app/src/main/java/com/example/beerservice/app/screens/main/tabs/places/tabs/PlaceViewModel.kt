@@ -70,7 +70,6 @@ class PlaceViewModel(
     }
 
     override fun onToggleFavoriteFlag(placeId: Int, isFavorite: Boolean) {
-        println("onToggleFavoriteFlag")
         viewModelScope.launch {
             val user = accountsRepository.doGetProfile()
             try {
