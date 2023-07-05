@@ -41,7 +41,6 @@ class PlaceListFragment : BaseFragment(R.layout.fragment_place_list) {
 
         setupViews()
         setupPagedPlaceList()
-//        observeOnToggleFavoriteEvent()
         observeOnNavigateToPlaceDetailsEvent()
         return binding.root
     }
@@ -70,7 +69,6 @@ class PlaceListFragment : BaseFragment(R.layout.fragment_place_list) {
         )
         observePagedPlaces(adapter)
         observeLoadState(adapter)
-
     }
 
     private fun observePagedPlaces(adapter: PlacePagingAdapter) {
@@ -88,14 +86,6 @@ class PlaceListFragment : BaseFragment(R.layout.fragment_place_list) {
             }
         }
     }
-
-    private fun observeOnToggleFavoriteEvent() {
-        viewModel.onToggleFavoriteEvent.observeEvent(viewLifecycleOwner) {
-            if (it) setupPagedPlaceList()
-        }
-    }
-
-
 
     private fun observeOnNavigateToPlaceDetailsEvent() {
         viewModel.onNavigateToMapPlaceDetails.observeEvent(viewLifecycleOwner) {

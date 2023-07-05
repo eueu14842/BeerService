@@ -65,7 +65,7 @@ class SearchViewModel(
     }
 
     override fun onNavigateToMap() {
-
+        println("go to map")
     }
 
     override fun onToggleFavoriteFlag(placeId: Int, isFavorite: Boolean) {

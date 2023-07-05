@@ -49,13 +49,13 @@ class PlaceListAdapter(
         val place = list[position]
         with(holder.binding) {
             loadPhoto(imageViewPlace, place.image)
+            textViewShowPlaceOnMap.tag = place
 
             textViewPlaceTitle.text = place.name
             textViewPlaceDesc.text = place.description
             textViewPlaceCity.text = place.city
             textViewPlaceAddress.text = place.address
 
-//            holder.binding.heartImageView.setImageResource(R.drawable.ic_baseline_favorite_24)
             updateFavoriteIcon(holder, place.setAvailabilityOfSpaceForTheUser)
             heartImageView.setOnClickListener {
                 favoriteListener.onToggleFavoriteFlag(place.placeId!!, false)
@@ -77,16 +77,6 @@ class PlaceListAdapter(
             holder.binding.heartImageView.setImageResource(iconResId)
         }
     }
-
-/*    interface FavoriteListener {
-
-        fun onNavigateToPlaceDetails(placeId: Int)
-
-        fun onNavigateToMap()
-
-        fun onToggleFavoriteFlag(placeId: Int)
-
-    }*/
 
     override fun getItemCount() = list.size
 

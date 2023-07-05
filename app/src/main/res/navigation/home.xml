@@ -141,14 +141,12 @@
             android:id="@+id/action_searchFragment_to_feedbackCreateFragment"
             app:destination="@+id/feedbackCreateFragment" />
 
-
-
     </fragment>
 
     <fragment
         android:id="@id/feedbackCreateFragment"
         android:name="com.example.beerservice.app.screens.main.feedback.FeedbackCreateFragment"
-        android:label="FeedbackCreateFragment"
+        android:label="Оставить отзыв"
         tools:layout="@layout/fragment_create_feedback">
         <argument
             android:name="beerId"
