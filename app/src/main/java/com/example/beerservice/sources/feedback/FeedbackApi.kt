@@ -15,6 +15,6 @@ interface FeedbackApi {
     suspend fun getFeedbackByBeerId(
         @Query("id") id: Int,
         @Query("limit") limit: Int,
-        @Query("offset") offset: Int
+        @Query("offset") offset: Int,
     ): List<GetFeedbackResponseEntity>
 }
