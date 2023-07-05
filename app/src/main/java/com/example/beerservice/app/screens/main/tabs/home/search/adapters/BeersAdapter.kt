@@ -42,6 +42,7 @@ class BeersAdapter(
             loadPhoto(imageViewBeer, beer.image)
             textViewBeerTitle.text = beer.name
             textViewBeerDesc.text = beer.description
+            stileBeer.text = beer.style
             abv.text = beer.abv.toString()
             ibu.text = beer.ibu.toString()
 

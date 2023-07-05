@@ -52,21 +52,14 @@ class FavoritesFragment : BaseFragment(R.layout.fragment_favorites) {
         }
     }
 
-    private fun onToggleFavoriteEvent() {
-        viewModel.onToggleFavoriteEvent.observeEvent(viewLifecycleOwner) {
-            getFavoritePlaces()
-        }
-    }
-
-
     private fun observeOnNavigateToPlaceDetailsEvent(){
-  /*      viewModel.onNavigateToPlaceDetails.observeEvent(viewLifecycleOwner) {
+      viewModel.onNavigateToPlaceDetails.observeEvent(viewLifecycleOwner) {
             val direction =
                 PlaceLocationListFragmentDirections.actionPlaceListFragmentToPlaceDetailsFragment(
                     it
                 )
             findNavController().navigate(direction)
-        }*/
+        }
     }
 
 

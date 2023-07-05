@@ -6,5 +6,8 @@ import retrofit2.http.Query
 
 interface SearchApi {
     @GET("search/beer")
-    suspend fun getSearch(@Query("name") searchBy: String): GetSearchResponseEntity
+    suspend fun getSearch(
+        @Query("userId") userId: Int,
+        @Query("name") searchBy: String
+    ): GetSearchResponseEntity
 }

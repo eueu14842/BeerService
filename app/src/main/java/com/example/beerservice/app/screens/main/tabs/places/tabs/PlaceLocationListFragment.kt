@@ -46,22 +46,7 @@ class PlaceLocationListFragment : BaseFragment(R.layout.fragment_place_location_
                 viewModelPlace.place.observe(viewLifecycleOwner) { result ->
                     result.map { places ->
                         val adapter =
-                            PlaceListAdapter(places,object : PlaceListAdapter.FavoriteListener{
-                                override fun onNavigateToPlaceDetails(placeId: Int) {
-                                    TODO("Not yet implemented")
-                                }
-
-                                override fun onNavigateToMap() {
-                                    TODO("Not yet implemented")
-                                }
-
-                                override fun onToggleFavoriteFlag(
-                                    placeId: Int
-
-                                ) {
-                                    TODO("Not yet implemented")
-                                }
-                            })
+                            PlaceListAdapter(places,viewModelPlace)
                         recycler.adapter = adapter
                     }
                 }

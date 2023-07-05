@@ -8,7 +8,8 @@ import com.example.beerservice.sources.base.RetrofitConfig
 class RetrofitSearchSource(config: RetrofitConfig) : BaseRetrofitSource(config), SearchSource {
     private val searchApi = retrofit.create(SearchApi::class.java)
 
-    override suspend fun getSearchData(searchBy: String): SearchData = wrapRetrofitExceptions {
-        searchApi.getSearch(searchBy).toSearchData()
-    }
+    override suspend fun getSearchData(userId: Int, searchBy: String): SearchData =
+        wrapRetrofitExceptions {
+            searchApi.getSearch(userId, searchBy).toSearchData()
+        }
 }

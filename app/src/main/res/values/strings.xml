@@ -56,4 +56,8 @@
     <string name="email">Почта</string>
     <string name="date">Дата</string>
     <string name="username">Имя пользователя</string>
+    <string name="brewery">Пивоварня</string>
+    <string name="rate">Оценить</string>
+    <string name="leaveFeedback">Оставить отзыв</string>
+    <string name="add_a_comment">Добавьте комментарий</string>
 </resources>

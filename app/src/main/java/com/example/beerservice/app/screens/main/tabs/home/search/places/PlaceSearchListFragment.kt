@@ -9,14 +9,18 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleObserver
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.beerservice.R
 import com.example.beerservice.app.Const.SEARCH_KEY
 import com.example.beerservice.app.screens.base.BaseFragment
+import com.example.beerservice.app.screens.main.tabs.home.search.SearchFragmentDirections
 import com.example.beerservice.app.screens.main.tabs.home.search.SearchViewModel
 import com.example.beerservice.app.screens.main.tabs.places.adapters.PlaceListAdapter
+import com.example.beerservice.app.screens.main.tabs.places.tabs.PlaceLocationListFragmentDirections
 import com.example.beerservice.app.utils.ViewModelFactory
+import com.example.beerservice.app.utils.observeEvent
 import com.example.beerservice.databinding.FragmentSearchPlaceListBinding
 import kotlinx.coroutines.launch
 
@@ -33,6 +37,7 @@ class PlaceSearchListFragment : BaseFragment(R.layout.fragment_search_place_list
         binding = FragmentSearchPlaceListBinding.bind(view)
         setupViews()
         observeSearchPlace()
+        observeOnNavigateToPlaceDetailsEvent()
     }
 
     private fun observeSearchPlace() {
@@ -42,7 +47,7 @@ class PlaceSearchListFragment : BaseFragment(R.layout.fragment_search_place_list
             viewModel.searchData.observe(viewLifecycleOwner) {
                 val list = it.place
                 breweryAdapter =
-                    PlaceListAdapter(list!!,viewModel)
+                    PlaceListAdapter(list!!, viewModel)
                 recycler.adapter = breweryAdapter
             }
         }
@@ -55,14 +60,15 @@ class PlaceSearchListFragment : BaseFragment(R.layout.fragment_search_place_list
     }
 
 
-/*    private val onPlaceClickListenerFromHome = object : OnPlaceClickListener {
-        override fun onPlaceClick(place: Place, position: Int) {
+    private fun observeOnNavigateToPlaceDetailsEvent() {
+        viewModel.onNavigateToMapPlaceDetails.observeEvent(viewLifecycleOwner) {
             val direction =
-                SearchFragmentDirections.actionSearchFragmentToPlaceDetailsFragment(place.placeId!!)
+                SearchFragmentDirections.actionSearchFragmentToPlaceDetailsFragment(
+                    it
+                )
             findNavController().navigate(direction)
         }
-    }*/
-
+    }
 
     companion object {
         fun newInstance(searchBy: String) =

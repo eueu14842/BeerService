@@ -10,7 +10,6 @@ import com.example.beerservice.app.model.search.SearchRepository
 import com.example.beerservice.app.model.search.entities.SearchData
 import com.example.beerservice.app.screens.base.BaseViewModel
 import com.example.beerservice.app.screens.main.tabs.home.search.adapters.BeersAdapter
-import com.example.beerservice.app.screens.main.tabs.places.adapters.PlaceListAdapter
 import com.example.beerservice.app.screens.main.tabs.places.adapters.PlacePagingAdapter
 import com.example.beerservice.app.utils.MutableLiveEvent
 import com.example.beerservice.app.utils.publishEvent
@@ -25,19 +24,14 @@ class SearchViewModel(
     private val _searchData = MutableLiveData<SearchData>()
     val searchData = _searchData.share()
 
-    private var _beers = MutableLiveData<List<Beer>?>()
-    val beers = _beers.share()
-
     private var _onNavigateToBeerDetails = MutableLiveEvent<Int>()
     val onNavigateToBeerDetails = _onNavigateToBeerDetails.share()
 
     private var _onNavigateToCreateFeedback = MutableLiveEvent<Int>()
     val onNavigateToCreateFeedback = _onNavigateToCreateFeedback.share()
 
-
     private var _onToggleFavoriteEvent = MutableLiveEvent<Boolean>()
     val onToggleFavoriteEvent = _onToggleFavoriteEvent.share()
-
 
     private var _onNavigateToMapPlaceDetails = MutableLiveEvent<Int>()
     val onNavigateToMapPlaceDetails = _onNavigateToMapPlaceDetails.share()
@@ -47,8 +41,8 @@ class SearchViewModel(
 
     fun getSearchData() {
         viewModelScope.launch {
-            val data: SearchData = searchRepository.getSearchData(searchBy.value!!)
-            _beers.value = data.beer
+            val user = accountsRepository.doGetProfile()
+            val data: SearchData = searchRepository.getSearchData(user.userId!!, searchBy.value!!)
             _searchData.value = data
         }
     }
@@ -66,13 +60,12 @@ class SearchViewModel(
         _onNavigateToCreateFeedback.publishEvent(beerId)
     }
 
-
-
     override fun onNavigateToPlaceDetails(placeId: Int) {
         _onNavigateToMapPlaceDetails.publishEvent(placeId)
     }
 
     override fun onNavigateToMap() {
+
     }
 
     override fun onToggleFavoriteFlag(placeId: Int, isFavorite: Boolean) {
@@ -88,7 +81,6 @@ class SearchViewModel(
             } catch (e: java.lang.Exception) {
                 logError(e)
             }
-//            placesFlow = placeRepository.getPagedPlaces()
             _onToggleFavoriteEvent.publishEvent(true)
         }
 

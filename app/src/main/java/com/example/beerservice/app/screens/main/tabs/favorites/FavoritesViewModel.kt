@@ -2,12 +2,14 @@ package com.example.beerservice.app.screens.main.tabs.favorites
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
+import androidx.paging.PagingDataAdapter
 import com.example.beerservice.app.model.*
 import com.example.beerservice.app.model.place.PlacesRepository
 import com.example.beerservice.app.model.place.entities.Place
 import com.example.beerservice.app.model.place.entities.PlaceIdUserId
 import com.example.beerservice.app.screens.base.BaseViewModel
 import com.example.beerservice.app.screens.main.tabs.places.adapters.PlaceListAdapter
+import com.example.beerservice.app.screens.main.tabs.places.adapters.PlacePagingAdapter
 import com.example.beerservice.app.utils.MutableLiveEvent
 import com.example.beerservice.app.utils.publishEvent
 import com.example.beerservice.app.utils.share
@@ -16,7 +18,7 @@ import java.lang.IllegalStateException
 
 class FavoritesViewModel(
     val placesRepository: PlacesRepository = Singletons.placesRepository
-) : BaseViewModel(), PlaceListAdapter.FavoriteListener {
+) : BaseViewModel(), PlacePagingAdapter.Listener {
 
 
     private var _place = MutableLiveData<ResultState<List<Place>>>()
@@ -48,7 +50,7 @@ class FavoritesViewModel(
         TODO("Not yet implemented")
     }
 
-    override fun onToggleFavoriteFlag(placeId: Int) {
+    override fun onToggleFavoriteFlag(placeId: Int, isFavorite: Boolean) {
         viewModelScope.launch {
             val user = accountsRepository.doGetProfile()
             removeFavorite(PlaceIdUserId(placeId, user.userId!!))

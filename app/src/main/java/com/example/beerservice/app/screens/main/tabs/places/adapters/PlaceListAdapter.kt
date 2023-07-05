@@ -4,6 +4,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import androidx.recyclerview.widget.PagerSnapHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.beerservice.R
@@ -12,7 +13,7 @@ import com.example.beerservice.databinding.ItemPlaceBinding
 
 class PlaceListAdapter(
     val list: List<Place>,
-    val favoriteListener: FavoriteListener
+    val favoriteListener: PlacePagingAdapter.Listener
 ) :
     RecyclerView.Adapter<PlaceListAdapter.PlaceHolder>(), View.OnClickListener {
 
@@ -21,7 +22,7 @@ class PlaceListAdapter(
         when (v.id) {
             R.id.heartImageView -> {
                 favoriteListener.onToggleFavoriteFlag(
-                    place.placeId!!
+                    place.placeId!!, false
                 )
             }
             R.id.textViewShowPlaceOnMap -> favoriteListener.onNavigateToMap()
@@ -54,9 +55,10 @@ class PlaceListAdapter(
             textViewPlaceCity.text = place.city
             textViewPlaceAddress.text = place.address
 
-            holder.binding.heartImageView.setImageResource(R.drawable.ic_baseline_favorite_24)
+//            holder.binding.heartImageView.setImageResource(R.drawable.ic_baseline_favorite_24)
+            updateFavoriteIcon(holder, place.setAvailabilityOfSpaceForTheUser)
             heartImageView.setOnClickListener {
-                favoriteListener.onToggleFavoriteFlag(place.placeId!!)
+                favoriteListener.onToggleFavoriteFlag(place.placeId!!, false)
             }
             holder.itemView.setOnClickListener {
                 favoriteListener.onNavigateToPlaceDetails(place.placeId!!)
@@ -64,8 +66,19 @@ class PlaceListAdapter(
         }
     }
 
+    private fun updateFavoriteIcon(holder: PlaceHolder, isFavorite: Boolean?) {
+        if (isFavorite == null) holder.binding.heartImageView.setImageResource(R.drawable.ic_baseline_favorite_24)
+        else {
+            val iconResId = if (isFavorite) {
+                R.drawable.ic_baseline_favorite_24
+            } else {
+                R.drawable.ic_baseline_favorite_border_24
+            }
+            holder.binding.heartImageView.setImageResource(iconResId)
+        }
+    }
 
-    interface FavoriteListener {
+/*    interface FavoriteListener {
 
         fun onNavigateToPlaceDetails(placeId: Int)
 
@@ -73,7 +86,7 @@ class PlaceListAdapter(
 
         fun onToggleFavoriteFlag(placeId: Int)
 
-    }
+    }*/
 
     override fun getItemCount() = list.size
 
