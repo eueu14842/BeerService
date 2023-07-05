@@ -5,11 +5,15 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.beerservice.app.model.brewery.entities.Brewery
+import com.example.beerservice.app.screens.main.tabs.home.brewery.adapters.OnBreweryClickListener
 import com.example.beerservice.databinding.ItemBreweryCardBinding
 
-class BreweryAdapter(val beerList: List<Brewery>) :
-    RecyclerView.Adapter<BreweryAdapter.BreweryViewHolder>() {
+class BreweryAdapter(
+    val breweryList: List<Brewery>,
+    private val onBreweryClickListener: OnBreweryClickListener
+) :
 
+    RecyclerView.Adapter<BreweryAdapter.BreweryViewHolder>() {
 
     class BreweryViewHolder(val binding: ItemBreweryCardBinding) :
         RecyclerView.ViewHolder(binding.root)
@@ -21,16 +25,18 @@ class BreweryAdapter(val beerList: List<Brewery>) :
     }
 
     override fun onBindViewHolder(holder: BreweryViewHolder, position: Int) {
-        val beer = beerList[position]
+        val brewery = breweryList[position]
         with(holder.binding) {
             Glide.with(holder.itemView)
-                .load(beer.image)
+                .load(brewery.image)
                 .into(ivBreweryImage)
-            tvBreweryName.text = beer.name
-            tvBreweryDescription.text = beer.description
-
+            tvBreweryName.text = brewery.name
+            tvBreweryDescription.text = brewery.description
+        }
+        holder.itemView.setOnClickListener {
+            onBreweryClickListener.onBreweryClick(brewery, position)
         }
     }
 
-    override fun getItemCount() = beerList.size
+    override fun getItemCount() = breweryList.size
 }

@@ -45,7 +45,10 @@ class BeerSearchListFragment : BaseFragment(R.layout.fragment_search_beer_list) 
         }
         observeSearchBeer()
         observeOnNavigateToBeerDetailsEvent()
+
+
         observeOnNavigateToCreateFeedbackEvent()
+
 
         return binding.root
     }
@@ -76,11 +79,8 @@ class BeerSearchListFragment : BaseFragment(R.layout.fragment_search_beer_list) 
     private fun observeOnNavigateToCreateFeedbackEvent() {
         viewModel.onNavigateToCreateFeedback.observeEvent(viewLifecycleOwner) {
             val direction =
-                SearchFragmentDirections.actionSearchFragmentToFeedbackCreateFragment(
-                    it
-                )
-            println("$it")
-          findNavController().navigate(direction)
+                SearchFragmentDirections.actionSearchFragmentToFeedbackCreateFragment(it)
+            findNavController().navigate(direction)
         }
     }
 

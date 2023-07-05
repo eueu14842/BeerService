@@ -146,12 +146,12 @@
     </fragment>
 
     <fragment
-        android:id="@+id/feedbackCreateFragment"
+        android:id="@id/feedbackCreateFragment"
         android:name="com.example.beerservice.app.screens.main.feedback.FeedbackCreateFragment"
         android:label="FeedbackCreateFragment"
         tools:layout="@layout/fragment_create_feedback">
         <argument
-            android:name="beerid"
+            android:name="beerId"
             app:argType="integer" />
     </fragment>
 

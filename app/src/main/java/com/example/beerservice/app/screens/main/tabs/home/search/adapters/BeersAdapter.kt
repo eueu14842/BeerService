@@ -47,6 +47,10 @@ class BeersAdapter(
 
             holder.itemView.tag = beer
             textViewBeerFeedBack.tag = beer
+
+            textViewBeerFeedBack.setOnClickListener {
+                listener.onNavigateToCreateFeedback(beer.id!!)
+            }
         }
     }
 

@@ -58,7 +58,7 @@ class BrewerySearchListFragment : BaseFragment(R.layout.fragment_search_brewery_
             viewModel.setSearchBy(arguments?.getString(SEARCH_KEY, "") ?: "")
             viewModel.searchData.observe(viewLifecycleOwner) {
                 val list: List<Brewery>? = it.brewery
-                breweryAdblockAdapter = BreweryAdapter(list!!)
+                breweryAdblockAdapter = BreweryAdapter(list!!, onBreweryListener)
                 recycler.adapter = breweryAdblockAdapter
             }
         }
