@@ -6,3 +6,8 @@ enum class Field {
     Password,
     Mail
 }
+enum class FeedbackField{
+    Text,
+    Rating,
+    Photo
+}

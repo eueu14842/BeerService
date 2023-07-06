@@ -60,4 +60,5 @@
     <string name="rate">Оценить</string>
     <string name="leaveFeedback">Оставить отзыв</string>
     <string name="add_a_comment">Добавьте комментарий</string>
+    <string name="feedback_published">Отзыв размещен!</string>
 </resources>

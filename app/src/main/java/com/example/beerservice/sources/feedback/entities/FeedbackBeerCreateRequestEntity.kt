@@ -4,7 +4,8 @@ data class FeedbackBeerCreateRequestEntity(
     val beerId: Int,
     val feedbackText: String,
     val rating: Int,
-    val userId: Int
+    val userId: Int,
+    val image: String
 ) {
 
 }

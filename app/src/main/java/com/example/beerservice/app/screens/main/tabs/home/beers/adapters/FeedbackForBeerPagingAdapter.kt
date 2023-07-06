@@ -8,10 +8,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.beerservice.R
-import com.example.beerservice.app.model.beers.entities.Beer
 import com.example.beerservice.app.model.feedback.entities.FeedbackBeer
-import com.example.beerservice.databinding.ItemBeerBinding
-import com.example.beerservice.databinding.ItemFeedbackBinding
 import com.example.beerservice.databinding.ItemFeedbackCardBinding
 
 interface OnFeedbackClickListener {

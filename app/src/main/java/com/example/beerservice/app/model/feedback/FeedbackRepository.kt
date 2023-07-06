@@ -6,14 +6,15 @@ import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import com.example.beerservice.app.Const.PAGE_SIZE
 import com.example.beerservice.app.model.feedback.entities.FeedbackBeer
+import com.example.beerservice.app.model.wrapBackendExceptions
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.withContext
+import okhttp3.RequestBody
 
 class FeedbackRepository(
-    val feedbackSource: FeedbackSource
+    private val feedbackSource: FeedbackSource
 ) {
-
     suspend fun getPagedFeedbackByBeerId(beerId: Int): Flow<PagingData<FeedbackBeer>> {
         val loader: FeedbackLoader = { pageIndex, pageSize ->
             getFeedbackByBeerId(beerId, pageIndex, pageSize)
@@ -37,5 +38,14 @@ class FeedbackRepository(
             return@withContext feedbackSource.getPagedFeedbackByBeerId(id, pageSize, offset)
         }
 
+    suspend fun createFeedback(
+        beerId: Int,
+        feedbackText: String,
+        rating: Int,
+        userId: Int,
+        body: RequestBody
+    ) = wrapBackendExceptions {
+        feedbackSource.createFeedback(beerId, feedbackText, rating, userId, body)
+    }
 
 }

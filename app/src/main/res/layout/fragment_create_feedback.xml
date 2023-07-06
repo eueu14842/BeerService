@@ -51,6 +51,7 @@
             android:weightSum="3">
 
             <RatingBar
+                android:id="@+id/ratingBar"
                 style="@android:style/Widget.Holo.Light.RatingBar.Small"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -65,6 +66,7 @@
             android:orientation="vertical">
 
             <EditText
+                android:id="@+id/editTexctFeedbackText"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:gravity="bottom|start"
@@ -91,6 +93,13 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:src="@drawable/ic_baseline_add_a_photo_24" />
+
+                <ProgressBar
+                    android:id="@+id/progressBar"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="16dp" />
             </FrameLayout>
         </LinearLayout>
 
@@ -101,7 +110,6 @@
             android:text="@string/leaveFeedback"
             android:textAllCaps="false" />
     </LinearLayout>
-
 
     <!-- <include
          android:id="@+id/loadStateView"

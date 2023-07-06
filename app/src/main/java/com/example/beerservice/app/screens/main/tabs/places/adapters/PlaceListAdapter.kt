@@ -4,12 +4,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
-import androidx.recyclerview.widget.PagerSnapHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.beerservice.R
 import com.example.beerservice.app.model.place.entities.Place
-import com.example.beerservice.databinding.ItemPlaceBinding
+import com.example.beerservice.databinding.ItemPlaceCardBinding
 
 class PlaceListAdapter(
     val list: List<Place>,
@@ -32,11 +31,11 @@ class PlaceListAdapter(
         }
     }
 
-    class PlaceHolder(val binding: ItemPlaceBinding) : RecyclerView.ViewHolder(binding.root)
+    class PlaceHolder(val binding: ItemPlaceCardBinding) : RecyclerView.ViewHolder(binding.root)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PlaceHolder {
         val inflater = LayoutInflater.from(parent.context)
-        val binding = ItemPlaceBinding.inflate(inflater)
+        val binding = ItemPlaceCardBinding.inflate(inflater)
 
         binding.heartImageView.setOnClickListener(this)
         binding.textViewShowPlaceOnMap.setOnClickListener(this)
@@ -54,7 +53,6 @@ class PlaceListAdapter(
             textViewPlaceTitle.text = place.name
             textViewPlaceDesc.text = place.description
             textViewPlaceCity.text = place.city
-            textViewPlaceAddress.text = place.address
 
             updateFavoriteIcon(holder, place.setAvailabilityOfSpaceForTheUser)
             heartImageView.setOnClickListener {

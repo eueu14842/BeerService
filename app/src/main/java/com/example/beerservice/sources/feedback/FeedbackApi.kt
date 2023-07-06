@@ -2,14 +2,20 @@ package com.example.beerservice.sources.feedback
 
 import com.example.beerservice.sources.feedback.entities.FeedbackBeerCreateRequestEntity
 import com.example.beerservice.sources.feedback.entities.GetFeedbackResponseEntity
-import retrofit2.http.Body
-import retrofit2.http.GET
-import retrofit2.http.POST
-import retrofit2.http.Query
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
+import retrofit2.http.*
+
 
 interface FeedbackApi {
     @POST("feedback/create")
-    suspend fun createFeedbackBeer(@Body body: FeedbackBeerCreateRequestEntity)
+    suspend fun createFeedbackBeer(
+        @Query("beerId") id: Int,
+        @Query("feedbackText") text: String,
+        @Query("rating") rating: Int,
+        @Query("userId") userId: Int,
+        @Part image: RequestBody
+    )
 
     @GET("feedback/list/beer")
     suspend fun getFeedbackByBeerId(
