@@ -13,7 +13,7 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:listitem="@layout/item_brewery" />
+        tools:listitem="@layout/__item_brewery" />
 
     <include
         android:id="@+id/loadStateView"

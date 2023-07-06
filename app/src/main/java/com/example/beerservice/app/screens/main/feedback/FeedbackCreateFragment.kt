@@ -39,6 +39,8 @@ class FeedbackCreateFragment : BaseFragment(R.layout.fragment_create_feedback) {
             val pickImg = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.INTERNAL_CONTENT_URI)
             changeImage.launch(pickImg)
         }
+
+
     }
 
     private val changeImage =

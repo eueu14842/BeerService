@@ -74,9 +74,8 @@ class BeerDetailsFragment : BaseFragment(R.layout.fragment_beer_details) {
                 is ErrorResult -> TODO()
                 is Pending -> ""
                 is Success -> {
-                    with(binding) {
+                    with(binding.beerView) {
                         loadPhoto(imageViewBeer, result.value.image)
-
                         textViewBeerTitle.text = result.value.name
                         textViewBeerDesc.text = result.value.description
                         stileBeer.text = result.value.style

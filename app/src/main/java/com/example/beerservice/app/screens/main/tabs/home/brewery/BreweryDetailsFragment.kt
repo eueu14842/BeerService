@@ -76,7 +76,7 @@ class BreweryDetailsFragment() : BaseFragment(R.layout.fragment_brewery) {
                 is ErrorResult -> TODO()
                 is Pending -> ""
                 is Success -> {
-                    with(binding) {
+                    with(binding.breweryView) {
                         Glide.with(this@BreweryDetailsFragment)
                             .load(it.value.image)
                             .into(ivBreweryImage)

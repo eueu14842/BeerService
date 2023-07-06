@@ -77,14 +77,13 @@ class PlaceDetailsFragment : BaseFragment(R.layout.fragment_place_details) {
                 is ErrorResult -> TODO()
                 is Pending -> ""
                 is Success -> {
-                    with(binding) {
+                    with(binding.placeView) {
                         Glide.with(this@PlaceDetailsFragment)
                             .load(it.value.image)
                             .into(imageViewPlace)
 
                         textViewPlaceDesc.text = it.value.description
                         textViewPlaceTitle.text = it.value.name
-                        textViewPlaceAddress.text = it.value.city
                         textViewPlaceCity.text = it.value.city
 
                         heartImageView.setOnClickListener(viewModel)
