@@ -55,7 +55,7 @@ class FavoritesFragment : BaseFragment(R.layout.fragment_favorites) {
     private fun observeOnNavigateToPlaceDetailsEvent(){
       viewModel.onNavigateToPlaceDetails.observeEvent(viewLifecycleOwner) {
             val direction =
-                PlaceLocationListFragmentDirections.actionPlaceListFragmentToPlaceDetailsFragment(
+                FavoritesFragmentDirections.actionFavoritesFragmentToPlaceDetailsFragment(
                     it
                 )
             findNavController().navigate(direction)
