@@ -62,6 +62,7 @@ class FeedbackCreateFragment : BaseFragment(R.layout.fragment_create_feedback) {
                     textViewBeerTitle.text = beer.name
                     textViewBeerDesc.text = beer.description
                     stileBeer.text = beer.style
+
                     textViewBeerFeedBack.isVisible = false
                 }
             }

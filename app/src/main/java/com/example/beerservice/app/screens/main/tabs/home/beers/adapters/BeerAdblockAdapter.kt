@@ -16,6 +16,7 @@ class BeerAdblockAdapter(
     val onBeerAdblockClickListener: OnBeerAdblockClickListener
 ) :
     RecyclerView.Adapter<BeerAdblockAdapter.BeerViewHolder>() {
+
     class BeerViewHolder(val binding: ItemAdblockBinding) : RecyclerView.ViewHolder(binding.root)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BeerViewHolder {
