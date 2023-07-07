@@ -42,9 +42,10 @@
 
                 <ImageView
                     android:id="@+id/imageViewScanner"
-                    android:layout_width="45dp"
-                    android:layout_height="45dp"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
                     android:gravity="end"
+                    android:layout_gravity="center"
                     app:srcCompat="@drawable/ic_baseline_qr_code_scanner_24" />
 
             </LinearLayout>
