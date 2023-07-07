@@ -42,6 +42,8 @@
     <string name="type_of_brewery">Тип пивоварни</string>
     <string name="create_feedback">Оставить отзыв</string>
     <string name="rating">4,9</string>
+    <string name="total_average">7446</string>
+    <string name="total_average_text">отзывов</string>
     <string name="password">Пароль</string>
     <string name="login">Логин</string>
     <string name="edit_name">Редактировать имя</string>

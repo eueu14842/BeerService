@@ -60,10 +60,9 @@ class FeedbackCreateFragment : BaseFragment(R.layout.fragment_create_feedback) {
                 with(binding.beerView) {
                     loadPhoto(imageViewBeer, beer.image)
                     textViewBeerTitle.text = beer.name
-                    textViewBeerDesc.text = beer.description
+//                    textViewBeerDesc.text = beer.description
                     stileBeer.text = beer.style
-
-                    textViewBeerFeedBack.isVisible = false
+//                    textViewBeerFeedBack.isVisible = false
                 }
             }
         }
