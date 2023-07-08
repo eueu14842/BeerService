@@ -4,6 +4,7 @@ import com.example.beerservice.app.model.feedback.FeedbackSource
 import com.example.beerservice.app.model.feedback.entities.FeedbackBeer
 import com.example.beerservice.sources.base.BaseRetrofitSource
 import com.example.beerservice.sources.base.RetrofitConfig
+import okhttp3.MultipartBody
 import okhttp3.RequestBody
 
 class RetrofitFeedbackSource(config: RetrofitConfig) : BaseRetrofitSource(config), FeedbackSource {
@@ -24,7 +25,7 @@ class RetrofitFeedbackSource(config: RetrofitConfig) : BaseRetrofitSource(config
         feedbackText: String,
         rating: Int,
         userId: Int,
-        body: RequestBody
+        body: MultipartBody.Part
     ) {
         feedbackApi.createFeedbackBeer(beerId, feedbackText, rating, userId, body)
     }

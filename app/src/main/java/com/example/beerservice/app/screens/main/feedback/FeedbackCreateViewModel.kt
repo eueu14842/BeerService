@@ -12,6 +12,7 @@ import com.example.beerservice.app.screens.base.BaseViewModel
 import com.example.beerservice.app.screens.main.auth.SignUpViewModel
 import com.example.beerservice.app.utils.*
 import kotlinx.coroutines.launch
+import okhttp3.MultipartBody
 import okhttp3.RequestBody
 
 class FeedbackCreateViewModel(
@@ -30,12 +31,14 @@ class FeedbackCreateViewModel(
     val state = _state.share()
 
     private var beerId = MutableLiveData<Int>()
+        get() = field
+
 
     private val _beer = MutableLiveData<ResultState<Beer>>()
     val beer = _beer.share()
 
 
-    fun getBeerDetails(){
+    fun getBeerDetails() {
         viewModelScope.launch {
             println(beerId.value)
             val result = beerRepository.getBeerById(beerId.value!!)
@@ -50,16 +53,21 @@ class FeedbackCreateViewModel(
     }
 
     fun createFeedback(
-        beerId: Int,
         feedbackText: String,
         rating: Int,
-        userId: Int,
-        body: RequestBody
+        body: MultipartBody.Part
     ) {
         viewModelScope.launch {
             showProgress()
             try {
-                feedbackRepository.createFeedback(beerId, feedbackText, rating, userId, body)
+                val userId = accountsRepository.doGetProfile()
+                feedbackRepository.createFeedback(
+                    beerId.value!!,
+                    feedbackText,
+                    rating,
+                    userId.userId!!,
+                    body
+                )
                 showSuccessPublishedFeedbackMessage()
                 goBack()
             } catch (e: EmptyFeedbackFieldException) {

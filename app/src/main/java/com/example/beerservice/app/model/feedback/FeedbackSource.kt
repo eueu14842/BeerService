@@ -1,7 +1,7 @@
 package com.example.beerservice.app.model.feedback
 
 import com.example.beerservice.app.model.feedback.entities.FeedbackBeer
-import okhttp3.RequestBody
+import okhttp3.MultipartBody
 
 interface FeedbackSource {
     suspend fun getPagedFeedbackByBeerId(beerId: Int, limit: Int, offset: Int): List<FeedbackBeer>
@@ -11,6 +11,6 @@ interface FeedbackSource {
         feedbackText: String,
         rating: Int,
         userId: Int,
-        body: RequestBody
+        body: MultipartBody.Part
     )
 }

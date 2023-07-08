@@ -10,6 +10,7 @@ import com.example.beerservice.app.model.wrapBackendExceptions
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.withContext
+import okhttp3.MultipartBody
 import okhttp3.RequestBody
 
 class FeedbackRepository(
@@ -38,12 +39,13 @@ class FeedbackRepository(
             return@withContext feedbackSource.getPagedFeedbackByBeerId(id, pageSize, offset)
         }
 
+
     suspend fun createFeedback(
         beerId: Int,
         feedbackText: String,
         rating: Int,
         userId: Int,
-        body: RequestBody
+        body: MultipartBody.Part
     ) = wrapBackendExceptions {
         feedbackSource.createFeedback(beerId, feedbackText, rating, userId, body)
     }
