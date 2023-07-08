@@ -1,6 +1,7 @@
 package com.example.beerservice.app.screens.main.feedback
 
 import androidx.annotation.StringRes
+import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.example.beerservice.R
@@ -84,8 +85,6 @@ class FeedbackCreateViewModel(
                 .copy(textErrorMessageRes = R.string.field_is_empty)
             FeedbackField.Rating -> _state.requireValue()
                 .copy(ratingErrorMessageRes = R.string.field_is_empty)
-            FeedbackField.Photo -> _state.requireValue()
-                .copy(photoErrorMessageRes = R.string.field_is_empty)
         }
     }
 
@@ -105,7 +104,6 @@ class FeedbackCreateViewModel(
     data class State(
         @StringRes val textErrorMessageRes: Int = NO_ERROR_MESSAGE,
         @StringRes val ratingErrorMessageRes: Int = NO_ERROR_MESSAGE,
-        @StringRes val photoErrorMessageRes: Int = NO_ERROR_MESSAGE,
         val signUpInProgress: Boolean = false,
     ) {
         val showProgress: Boolean get() = signUpInProgress

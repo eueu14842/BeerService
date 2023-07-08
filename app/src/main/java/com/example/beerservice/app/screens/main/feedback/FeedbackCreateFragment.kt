@@ -48,43 +48,42 @@ class FeedbackCreateFragment : BaseFragment(R.layout.fragment_create_feedback) {
         ratingBar = binding.ratingBarRateIt
 
         observeDetails()
-
-        binding.addImage.setOnClickListener {
-            val pickImg = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.INTERNAL_CONTENT_URI)
-            changeImage.launch(pickImg)
-        }
-        ratingBar.setOnClickListener {
-            println("fsdfs")
-        }
-        ratingBar.setOnRatingBarChangeListener { _, rating, _ ->
-
-            println("Установленное значение: $rating")
-            ratingBar.rating = rating
-
-        }
-        binding.addFeedbackButton.setOnClickListener {
-            onCreateFeedbackButtonClick()
-        }
         observeGoBackEvent()
+        observeState()
+        observeShowSuccessFeedbackPublishedMessageEvent()
+
+        //использую registerForActivityResult
+        binding.addImage.setOnClickListener { onIntentMediaStoreImages() }
+        binding.addFeedbackButton.setOnClickListener { onCreateFeedbackButtonClick() }
+
+
+        ratingBar.setOnRatingBarChangeListener { _, rating, _ ->
+            ratingBar.rating = rating
+        }
     }
 
     private fun onCreateFeedbackButtonClick() {
-        val albumDirectory =
-            Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES)
-
-        val imagePath =
-            albumDirectory?.absolutePath + "/$imageName"
-        val imageFile = File(imagePath)
-        val body: RequestBody = imageFile.asRequestBody("image/*".toMediaTypeOrNull())
-
-        println(imageFile.absolutePath)
         viewModel.createFeedback(
             binding.editTexctFeedbackText.text.toString(),
             binding.ratingBarRateIt.numStars,
-            MultipartBody.Part.create(body)
+            MultipartBody.Part.create(onCreateRequestBody())
         )
     }
 
+    private fun onIntentMediaStoreImages() {
+        val pickImg = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.INTERNAL_CONTENT_URI)
+        changeImage.launch(pickImg)
+    }
+
+    private fun onCreateRequestBody(): RequestBody {
+        val albumDirectory =
+            Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES)
+        val imagePath =
+            albumDirectory?.absolutePath + "/$imageName"
+        val imageFile = File(imagePath)
+        return imageFile.asRequestBody("image/*".toMediaTypeOrNull())
+
+    }
 
     private val changeImage =
         registerForActivityResult(
@@ -104,7 +103,6 @@ class FeedbackCreateFragment : BaseFragment(R.layout.fragment_create_feedback) {
                                 cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA)
                             val imagePath = cursor.getString(columnIndex)
                             imageName = imagePath?.substringAfterLast("/")
-                            println(imagePath)
                         }
                 }
 
@@ -118,6 +116,7 @@ class FeedbackCreateFragment : BaseFragment(R.layout.fragment_create_feedback) {
             }
         }
 
+    //если будет нужен стринг
     private fun bitmapToBase(bitmap: Bitmap): String {
         val byteArrayOutputStream = ByteArrayOutputStream()
         bitmap.compress(Bitmap.CompressFormat.JPEG, 100, byteArrayOutputStream)

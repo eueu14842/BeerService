@@ -9,5 +9,4 @@ enum class Field {
 enum class FeedbackField{
     Text,
     Rating,
-    Photo
 }
