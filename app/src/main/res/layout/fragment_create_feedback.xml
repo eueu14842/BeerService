@@ -12,6 +12,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -59,7 +60,7 @@
                 android:weightSum="3">
 
                 <RatingBar
-                    android:id="@+id/ratingBar"
+                    android:id="@+id/ratingBarRateIt"
                     style="@android:style/Widget.Holo.Light.RatingBar.Small"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -92,13 +93,12 @@
                 <FrameLayout
                     android:id="@+id/frameLayout"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/feedback_image">
+                    android:layout_height="100dp">
 
                     <ImageView
                         android:id="@+id/addImage"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
                         android:layout_gravity="center"
                         android:src="@drawable/ic_baseline_add_a_photo_24" />
 
@@ -107,7 +107,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:layout_marginTop="16dp" />
+                        android:layout_marginTop="16dp"
+                        android:visibility="gone" />
                 </FrameLayout>
             </LinearLayout>
 
@@ -119,6 +120,7 @@
                 android:textAllCaps="false" />
         </LinearLayout>
     </ScrollView>
+
     <!-- <include
          android:id="@+id/loadStateView"
          layout="@layout/part_default_load_state"

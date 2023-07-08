@@ -79,6 +79,12 @@ class BeerDetailsFragment : BaseFragment(R.layout.fragment_beer_details) {
                         textViewBeerTitle.text = result.value.name
                         textViewBeerDesc.text = result.value.description
                         stileBeer.text = result.value.style
+                        abv.text = result.value.abv.toString()
+                        ibu.text = result.value.ibu.toString()
+
+                        beerRating.text = result.value.averageRating.toString()
+                        totalAverage.text = result.value.totalReviews.toString()
+
                         textViewBeerFeedBack.setOnClickListener {
                             onNavigateToCreateFeedback(result.value.id!!)
                         }

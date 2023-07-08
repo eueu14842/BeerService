@@ -34,16 +34,18 @@ class FeedbackCreateFragment : BaseFragment(R.layout.fragment_create_feedback) {
     private lateinit var addImage: ImageView
     private lateinit var addFeedbackButton: Button
     private lateinit var frameLayout: FrameLayout
-
+    private lateinit var ratingBar: RatingBar
     private val args by navArgs<FeedbackCreateFragmentArgs>()
     lateinit var binding: FragmentCreateFeedbackBinding
     override val viewModel: FeedbackCreateViewModel by viewModels { ViewModelFactory() }
     var imageName: String? = null
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentCreateFeedbackBinding.bind(view)
         addFeedbackButton = binding.addFeedbackButton
         addImage = binding.addImage
+        ratingBar = binding.ratingBarRateIt
 
         observeDetails()
 
@@ -51,11 +53,19 @@ class FeedbackCreateFragment : BaseFragment(R.layout.fragment_create_feedback) {
             val pickImg = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.INTERNAL_CONTENT_URI)
             changeImage.launch(pickImg)
         }
+        ratingBar.setOnClickListener {
+            println("fsdfs")
+        }
+        ratingBar.setOnRatingBarChangeListener { _, rating, _ ->
 
+            println("Установленное значение: $rating")
+            ratingBar.rating = rating
+
+        }
         binding.addFeedbackButton.setOnClickListener {
             onCreateFeedbackButtonClick()
         }
-
+        observeGoBackEvent()
     }
 
     private fun onCreateFeedbackButtonClick() {
@@ -68,9 +78,9 @@ class FeedbackCreateFragment : BaseFragment(R.layout.fragment_create_feedback) {
         val body: RequestBody = imageFile.asRequestBody("image/*".toMediaTypeOrNull())
 
         println(imageFile.absolutePath)
-      viewModel.createFeedback(
+        viewModel.createFeedback(
             binding.editTexctFeedbackText.text.toString(),
-            binding.ratingBar.numStars,
+            binding.ratingBarRateIt.numStars,
             MultipartBody.Part.create(body)
         )
     }
@@ -84,10 +94,8 @@ class FeedbackCreateFragment : BaseFragment(R.layout.fragment_create_feedback) {
                 val data: Intent? = it.data
                 val imgUri = data?.data
 
-                // Создаем проекцию для запроса
                 val projection = arrayOf(MediaStore.Images.Media.DATA)
 
-                // Запрашиваем медиахранилище для URL изображения
                 imgUri?.let { uri ->
                     context?.contentResolver?.query(uri, projection, null, null, null)
                         ?.use { cursor ->
@@ -127,6 +135,10 @@ class FeedbackCreateFragment : BaseFragment(R.layout.fragment_create_feedback) {
                     loadPhoto(imageViewBeer, beer.image)
                     textViewBeerTitle.text = beer.name
                     stileBeer.text = beer.style
+                    abv.text = beer.abv.toString()
+                    ibu.text = beer.ibu.toString()
+                    beerRating.text = beer.averageRating.toString()
+                    totalAverage.text = beer.totalReviews.toString()
                 }
             }
         }
@@ -142,7 +154,7 @@ class FeedbackCreateFragment : BaseFragment(R.layout.fragment_create_feedback) {
     }
 
     private fun observeState() = viewModel.state.observe(viewLifecycleOwner) { state ->
-        binding.ratingBar.isEnabled = state.enableViews
+        binding.ratingBarRateIt.isEnabled = state.enableViews
         binding.editTexctFeedbackText.isEnabled = state.enableViews
         fillError(binding.editTexctFeedbackText, state.textErrorMessageRes)
 
