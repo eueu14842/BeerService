@@ -39,6 +39,7 @@ class FeedbackCreateFragment : BaseFragment(R.layout.fragment_create_feedback) {
     lateinit var binding: FragmentCreateFeedbackBinding
     override val viewModel: FeedbackCreateViewModel by viewModels { ViewModelFactory() }
     var imageName: String? = null
+    var imageBytes: ByteArray? = null
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -66,7 +67,7 @@ class FeedbackCreateFragment : BaseFragment(R.layout.fragment_create_feedback) {
         viewModel.createFeedback(
             binding.editTexctFeedbackText.text.toString(),
             binding.ratingBarRateIt.numStars,
-            MultipartBody.Part.create(onCreateRequestBody())
+            imageBytes!!
         )
     }
 
@@ -113,16 +114,17 @@ class FeedbackCreateFragment : BaseFragment(R.layout.fragment_create_feedback) {
                 }
                 if (bitmap != null) {
                     addImage.setImageBitmap(bitmap)
+                    imageBytes = bitmapToBase(bitmap)
+
                 }
             }
         }
 
-    //если будет нужен стринг
-    private fun bitmapToBase(bitmap: Bitmap): String {
+    private fun bitmapToBase(bitmap: Bitmap): ByteArray {
         val byteArrayOutputStream = ByteArrayOutputStream()
-        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, byteArrayOutputStream)
-        val byteArray = byteArrayOutputStream.toByteArray()
-        return Base64.encodeToString(byteArray, Base64.NO_WRAP)
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 10, byteArrayOutputStream)
+        return byteArrayOutputStream.toByteArray()
+//        return Base64.encodeToString(byteArray, Base64.NO_WRAP)
     }
 
 
