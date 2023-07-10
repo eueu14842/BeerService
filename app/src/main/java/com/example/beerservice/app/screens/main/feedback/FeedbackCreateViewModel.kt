@@ -56,7 +56,7 @@ class FeedbackCreateViewModel(
     fun createFeedback(
         feedbackText: String,
         rating: Int,
-        body:ByteArray
+        body:MultipartBody.Part
     ) {
         viewModelScope.launch {
             showProgress()

@@ -7,7 +7,6 @@ import android.graphics.BitmapFactory
 import android.os.Bundle
 import android.os.Environment
 import android.provider.MediaStore
-import android.util.Base64
 import android.view.View
 import android.widget.*
 import androidx.activity.result.contract.ActivityResultContracts
@@ -67,14 +66,17 @@ class FeedbackCreateFragment : BaseFragment(R.layout.fragment_create_feedback) {
         viewModel.createFeedback(
             binding.editTexctFeedbackText.text.toString(),
             binding.ratingBarRateIt.numStars,
-            imageBytes!!
+            MultipartBody.Part.createFormData("image", imageName, onCreateRequestBody())
         )
     }
 
 
     private fun onIntentMediaStoreImages() {
         val pickImg = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.INTERNAL_CONTENT_URI)
-        changeImage.launch(pickImg)
+        val cameraImg = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
+
+//        galleryLauncher.launch(pickImg)
+        cameraLauncher.launch(cameraImg)
     }
 
     private fun onCreateRequestBody(): RequestBody {
@@ -87,12 +89,12 @@ class FeedbackCreateFragment : BaseFragment(R.layout.fragment_create_feedback) {
 
     }
 
-    private val changeImage =
+    private val galleryLauncher =
         registerForActivityResult(
             ActivityResultContracts.StartActivityForResult()
-        ) {
-            if (it.resultCode == Activity.RESULT_OK) {
-                val data: Intent? = it.data
+        ) { result ->
+            if (result.resultCode == Activity.RESULT_OK) {
+                val data: Intent? = result.data
                 val imgUri = data?.data
 
                 val projection = arrayOf(MediaStore.Images.Media.DATA)
@@ -116,6 +118,20 @@ class FeedbackCreateFragment : BaseFragment(R.layout.fragment_create_feedback) {
                     addImage.setImageBitmap(bitmap)
                     imageBytes = bitmapToBase(bitmap)
 
+                }
+            }
+        }
+
+    private val cameraLauncher =
+        registerForActivityResult(
+            ActivityResultContracts.StartActivityForResult()
+        ) { result ->
+            if (result.resultCode == Activity.RESULT_OK) {
+                val data: Intent? = result.data
+                val bitmap: Bitmap? = data?.extras?.get("data") as Bitmap?
+
+                if (bitmap != null) {
+                    addImage.setImageBitmap(bitmap)
                 }
             }
         }

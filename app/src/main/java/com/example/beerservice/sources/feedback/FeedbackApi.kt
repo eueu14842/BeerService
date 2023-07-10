@@ -8,13 +8,14 @@ import retrofit2.http.*
 
 
 interface FeedbackApi {
+    @Multipart
     @POST("feedback/create")
     suspend fun createFeedbackBeer(
         @Query("beerId") id: Int,
         @Query("feedbackText") text: String,
         @Query("rating") rating: Int,
         @Query("userId") userId: Int,
-        @Body image: ByteArray
+        @Part image: MultipartBody.Part
     )
 
     @GET("feedback/list/beer")

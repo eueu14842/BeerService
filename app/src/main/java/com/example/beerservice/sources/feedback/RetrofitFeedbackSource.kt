@@ -25,7 +25,7 @@ class RetrofitFeedbackSource(config: RetrofitConfig) : BaseRetrofitSource(config
         feedbackText: String,
         rating: Int,
         userId: Int,
-        body: ByteArray
+        body: MultipartBody.Part
     ) {
         feedbackApi.createFeedbackBeer(beerId, feedbackText, rating, userId, body)
     }

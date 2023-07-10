@@ -11,6 +11,6 @@ interface FeedbackSource {
         feedbackText: String,
         rating: Int,
         userId: Int,
-        body: ByteArray
+        body: MultipartBody.Part
     )
 }
