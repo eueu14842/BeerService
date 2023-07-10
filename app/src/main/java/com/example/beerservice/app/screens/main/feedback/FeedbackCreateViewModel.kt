@@ -79,6 +79,8 @@ class FeedbackCreateViewModel(
         }
     }
 
+
+
     private fun processEmptyFieldException(e: EmptyFeedbackFieldException) {
         _state.value = when (e.field) {
             FeedbackField.Text -> _state.requireValue()

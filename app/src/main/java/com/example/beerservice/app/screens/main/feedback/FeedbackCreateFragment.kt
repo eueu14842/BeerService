@@ -38,7 +38,6 @@ class FeedbackCreateFragment : BaseFragment(R.layout.fragment_create_feedback) {
     lateinit var binding: FragmentCreateFeedbackBinding
     override val viewModel: FeedbackCreateViewModel by viewModels { ViewModelFactory() }
     var imageName: String? = null
-    var imageBytes: ByteArray? = null
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -52,7 +51,6 @@ class FeedbackCreateFragment : BaseFragment(R.layout.fragment_create_feedback) {
         observeState()
         observeShowSuccessFeedbackPublishedMessageEvent()
 
-        //использую registerForActivityResult
         binding.addImage.setOnClickListener { onIntentMediaStoreImages() }
         binding.addFeedbackButton.setOnClickListener { onCreateFeedbackButtonClick() }
 
@@ -116,7 +114,6 @@ class FeedbackCreateFragment : BaseFragment(R.layout.fragment_create_feedback) {
                 }
                 if (bitmap != null) {
                     addImage.setImageBitmap(bitmap)
-                    imageBytes = bitmapToBase(bitmap)
 
                 }
             }
@@ -136,12 +133,7 @@ class FeedbackCreateFragment : BaseFragment(R.layout.fragment_create_feedback) {
             }
         }
 
-    private fun bitmapToBase(bitmap: Bitmap): ByteArray {
-        val byteArrayOutputStream = ByteArrayOutputStream()
-        bitmap.compress(Bitmap.CompressFormat.JPEG, 10, byteArrayOutputStream)
-        return byteArrayOutputStream.toByteArray()
-//        return Base64.encodeToString(byteArray, Base64.NO_WRAP)
-    }
+
 
 
     private fun observeDetails() {
@@ -196,5 +188,15 @@ class FeedbackCreateFragment : BaseFragment(R.layout.fragment_create_feedback) {
         viewModel.showToastEvent.observeEvent(viewLifecycleOwner) {
             Toast.makeText(requireContext(), it, Toast.LENGTH_LONG).show()
         }
+
+
+    /*
+    private fun bitmapToBase(bitmap: Bitmap): ByteArray {
+        val byteArrayOutputStream = ByteArrayOutputStream()
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 10, byteArrayOutputStream)
+        return byteArrayOutputStream.toByteArray()
+        return Base64.encodeToString(byteArray, Base64.NO_WRAP)
+    }
+*/
 
 }
