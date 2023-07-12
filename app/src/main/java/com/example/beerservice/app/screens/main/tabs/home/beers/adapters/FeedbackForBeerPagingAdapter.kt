@@ -18,7 +18,8 @@ interface OnFeedbackClickListener {
 
 class FeedbackForBeerPagingAdapter(
     private val onFeedbackListener: OnFeedbackClickListener
-) : PagingDataAdapter<FeedbackBeer, FeedbackForBeerPagingAdapter.Holder>(FeedbackDiffCallback()) {
+) :
+    PagingDataAdapter<FeedbackBeer, FeedbackForBeerPagingAdapter.Holder>(FeedbackDiffCallback()) {
 
     override fun onBindViewHolder(holder: Holder, position: Int) {
         val feedback: FeedbackBeer = getItem(position) ?: return
@@ -27,11 +28,12 @@ class FeedbackForBeerPagingAdapter(
             textViewFeedbackText.text = feedback.feedbackText
             loadPhoto(imageViewFeedbackUserImg, R.drawable.ic_no_image)
             println("фотка ${feedback.imageFeedback}")
-            if (feedback.imageFeedback == null) cardViewImage.visibility = View.GONE
-            if (feedback.imageFeedback != null) loadPhoto(
-                imageViewFeedbackAddedImage, feedback.imageFeedback
-            )
-
+            if (feedback.imageFeedback != null) {
+                cardViewImage.visibility = View.VISIBLE
+                loadPhoto(imageViewFeedbackAddedImage, feedback.imageFeedback)
+            } else {
+                cardViewImage.visibility = View.GONE
+            }
         }
         holder.itemView.setOnClickListener {
             onFeedbackListener.onFeedbackClick(feedback, position)
