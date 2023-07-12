@@ -73,7 +73,7 @@ class FeedbackCreateFragment : BaseFragment(R.layout.fragment_create_feedback) {
         val pickImg = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.INTERNAL_CONTENT_URI)
         val cameraImg = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
 
-//        galleryLauncher.launch(pickImg)
+        galleryLauncher.launch(pickImg)
         cameraLauncher.launch(cameraImg)
     }
 
