@@ -15,7 +15,7 @@ interface FeedbackApi {
         @Query("feedbackText") text: String,
         @Query("rating") rating: Int,
         @Query("userId") userId: Int,
-        @Part image: MultipartBody.Part
+        @Part image: MultipartBody.Part? = null
     )
 
     @GET("feedback/list/beer")

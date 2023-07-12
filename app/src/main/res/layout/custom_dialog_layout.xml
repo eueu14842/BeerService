@@ -28,14 +28,14 @@
         android:gravity="center_horizontal">
 
         <Button
-            android:id="@+id/positive_button"
+            android:id="@+id/camera_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Камера"
             android:textStyle="bold" />
 
         <Button
-            android:id="@+id/negative_button"
+            android:id="@+id/gallery_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Альбом" />

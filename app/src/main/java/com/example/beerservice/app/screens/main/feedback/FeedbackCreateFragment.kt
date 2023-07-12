@@ -1,12 +1,14 @@
 package com.example.beerservice.app.screens.main.feedback
 
 import android.app.Activity
+import android.app.AlertDialog
 import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.os.Bundle
 import android.os.Environment
 import android.provider.MediaStore
+import android.view.LayoutInflater
 import android.view.View
 import android.widget.*
 import androidx.activity.result.contract.ActivityResultContracts
@@ -20,12 +22,12 @@ import com.example.beerservice.app.screens.base.BaseFragment
 import com.example.beerservice.app.screens.main.auth.SignUpViewModel
 import com.example.beerservice.app.utils.ViewModelFactory
 import com.example.beerservice.app.utils.observeEvent
+import com.example.beerservice.databinding.CustomDialogLayoutBinding
 import com.example.beerservice.databinding.FragmentCreateFeedbackBinding
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import okhttp3.RequestBody.Companion.asRequestBody
-import java.io.ByteArrayOutputStream
 import java.io.File
 
 class FeedbackCreateFragment : BaseFragment(R.layout.fragment_create_feedback) {
@@ -37,7 +39,7 @@ class FeedbackCreateFragment : BaseFragment(R.layout.fragment_create_feedback) {
     private val args by navArgs<FeedbackCreateFragmentArgs>()
     lateinit var binding: FragmentCreateFeedbackBinding
     override val viewModel: FeedbackCreateViewModel by viewModels { ViewModelFactory() }
-    var imageName: String? = null
+    private var imageName: String? = null
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -51,7 +53,7 @@ class FeedbackCreateFragment : BaseFragment(R.layout.fragment_create_feedback) {
         observeState()
         observeShowSuccessFeedbackPublishedMessageEvent()
 
-        binding.addImage.setOnClickListener { onIntentMediaStoreImages() }
+        binding.addImage.setOnClickListener { performDialog() }
         binding.addFeedbackButton.setOnClickListener { onCreateFeedbackButtonClick() }
 
 
@@ -64,17 +66,19 @@ class FeedbackCreateFragment : BaseFragment(R.layout.fragment_create_feedback) {
         viewModel.createFeedback(
             binding.editTexctFeedbackText.text.toString(),
             binding.ratingBarRateIt.numStars,
-            MultipartBody.Part.createFormData("image", imageName, onCreateRequestBody())
+            onCreateMultipartPart()
         )
     }
 
+    private fun onCreateMultipartPart(): MultipartBody.Part {
+        return if (imageName != null) MultipartBody.Part.createFormData(
+            "image",
+            imageName,
+            onCreateRequestBody()
+        ) else {
+            MultipartBody.Part.createFormData("image", "null")
+        }
 
-    private fun onIntentMediaStoreImages() {
-        val pickImg = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.INTERNAL_CONTENT_URI)
-        val cameraImg = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
-
-        galleryLauncher.launch(pickImg)
-        cameraLauncher.launch(cameraImg)
     }
 
     private fun onCreateRequestBody(): RequestBody {
@@ -85,6 +89,93 @@ class FeedbackCreateFragment : BaseFragment(R.layout.fragment_create_feedback) {
         val imageFile = File(imagePath)
         return imageFile.asRequestBody("image/*".toMediaTypeOrNull())
 
+    }
+
+
+    private fun observeDetails() {
+        setBeerId(args.beerId)
+        viewModel.getBeerDetails()
+        viewModel.beer.observe(viewLifecycleOwner) { result ->
+            result.map { beer ->
+                with(binding.beerView) {
+                    loadPhoto(imageViewBeer, beer.image)
+                    textViewBeerTitle.text = beer.name
+                    stileBeer.text = beer.style
+                    abv.text = beer.abv.toString()
+                    ibu.text = beer.ibu.toString()
+                    beerRating.text = beer.averageRating.toString()
+                    totalAverage.text = beer.totalReviews.toString()
+                }
+            }
+        }
+    }
+
+    private fun loadPhoto(imageView: ImageView, url: String?) {
+        val context = imageView.context
+        Glide.with(context).load(url).into(imageView)
+    }
+
+    private fun setBeerId(beerId: Int) {
+        viewModel.setBeerId(beerId)
+    }
+
+    private fun observeState() = viewModel.state.observe(viewLifecycleOwner) { state ->
+        binding.ratingBarRateIt.isEnabled = state.enableViews
+        binding.editTexctFeedbackText.isEnabled = state.enableViews
+        fillError(binding.editTexctFeedbackText, state.textErrorMessageRes)
+
+        binding.progressBar.visibility = if (state.showProgress) View.VISIBLE else View.INVISIBLE
+    }
+
+    private fun fillError(input: TextView, @StringRes stringRes: Int) {
+        if (stringRes == SignUpViewModel.NO_ERROR_MESSAGE) {
+            input.error = null
+        } else {
+            input.error = getString(stringRes)
+        }
+    }
+
+    private fun observeGoBackEvent() = viewModel.goBackEvent.observeEvent(viewLifecycleOwner) {
+        findNavController().popBackStack()
+    }
+
+    private fun observeShowSuccessFeedbackPublishedMessageEvent() =
+        viewModel.showToastEvent.observeEvent(viewLifecycleOwner) {
+            Toast.makeText(requireContext(), it, Toast.LENGTH_LONG).show()
+        }
+
+
+    private fun performDialog() {
+        val inflater = LayoutInflater.from(context)
+        val dialogView = CustomDialogLayoutBinding.inflate(inflater)
+
+        val alertDialog: AlertDialog = AlertDialog.Builder(context)
+            .setView(dialogView.root)
+            .create()
+
+        alertDialog.show()
+
+        with(dialogView) {
+            galleryButton.setOnClickListener {
+                launchGallery()
+                alertDialog.dismiss()
+            }
+            cameraButton.setOnClickListener {
+                launchCamera()
+                alertDialog.dismiss()
+            }
+        }
+    }
+
+    private fun launchGallery() {
+        val pickImg =
+            Intent(Intent.ACTION_PICK, MediaStore.Images.Media.INTERNAL_CONTENT_URI)
+        galleryLauncher.launch(pickImg)
+    }
+
+    private fun launchCamera() {
+        val cameraImg = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
+        cameraLauncher.launch(cameraImg)
     }
 
     private val galleryLauncher =
@@ -132,63 +223,6 @@ class FeedbackCreateFragment : BaseFragment(R.layout.fragment_create_feedback) {
                 }
             }
         }
-
-
-
-
-    private fun observeDetails() {
-        setBeerId(args.beerId)
-        viewModel.getBeerDetails()
-        viewModel.beer.observe(viewLifecycleOwner) { result ->
-            result.map { beer ->
-                with(binding.beerView) {
-                    loadPhoto(imageViewBeer, beer.image)
-                    textViewBeerTitle.text = beer.name
-                    stileBeer.text = beer.style
-                    abv.text = beer.abv.toString()
-                    ibu.text = beer.ibu.toString()
-                    beerRating.text = beer.averageRating.toString()
-                    totalAverage.text = beer.totalReviews.toString()
-                }
-            }
-        }
-    }
-
-    private fun loadPhoto(imageView: ImageView, url: String?) {
-        val context = imageView.context
-        Glide.with(context).load(url).into(imageView)
-    }
-
-    private fun setBeerId(beerId: Int) {
-        viewModel.setBeerId(beerId)
-    }
-
-    private fun observeState() = viewModel.state.observe(viewLifecycleOwner) { state ->
-        binding.ratingBarRateIt.isEnabled = state.enableViews
-        binding.editTexctFeedbackText.isEnabled = state.enableViews
-        fillError(binding.editTexctFeedbackText, state.textErrorMessageRes)
-
-        binding.progressBar.visibility = if (state.showProgress) View.VISIBLE else View.INVISIBLE
-    }
-
-    private fun fillError(input: TextView, @StringRes stringRes: Int) {
-        if (stringRes == SignUpViewModel.NO_ERROR_MESSAGE) {
-            input.error = null
-        } else {
-            input.error = getString(stringRes)
-        }
-    }
-
-
-    private fun observeGoBackEvent() = viewModel.goBackEvent.observeEvent(viewLifecycleOwner) {
-        findNavController().popBackStack()
-    }
-
-    private fun observeShowSuccessFeedbackPublishedMessageEvent() =
-        viewModel.showToastEvent.observeEvent(viewLifecycleOwner) {
-            Toast.makeText(requireContext(), it, Toast.LENGTH_LONG).show()
-        }
-
 
     /*
     private fun bitmapToBase(bitmap: Bitmap): ByteArray {

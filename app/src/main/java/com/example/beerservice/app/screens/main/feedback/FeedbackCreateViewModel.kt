@@ -1,11 +1,17 @@
 package com.example.beerservice.app.screens.main.feedback
 
+import android.app.Activity
+import android.app.Application
+import android.content.Intent
+import android.graphics.Bitmap
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.annotation.StringRes
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.example.beerservice.R
 import com.example.beerservice.app.model.*
+import com.example.beerservice.app.model.accounts.AccountsRepository
 import com.example.beerservice.app.model.beers.BeersRepository
 import com.example.beerservice.app.model.beers.entities.Beer
 import com.example.beerservice.app.model.feedback.FeedbackRepository
@@ -59,7 +65,7 @@ class FeedbackCreateViewModel(
     fun createFeedback(
         feedbackText: String,
         rating: Int,
-        body:MultipartBody.Part
+        body: MultipartBody.Part? = null
     ) {
         viewModelScope.launch {
             showProgress()
@@ -81,7 +87,6 @@ class FeedbackCreateViewModel(
             }
         }
     }
-
 
 
     private fun processEmptyFieldException(e: EmptyFeedbackFieldException) {

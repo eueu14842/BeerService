@@ -45,7 +45,7 @@ class FeedbackRepository(
         feedbackText: String,
         rating: Int,
         userId: Int,
-        body: MultipartBody.Part
+        body: MultipartBody.Part? = null
     ) = wrapBackendExceptions {
         feedbackSource.createFeedback(beerId, feedbackText, rating, userId, body)
     }

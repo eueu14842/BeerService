@@ -100,6 +100,7 @@
                 android:textSize="12sp" />
 
             <androidx.cardview.widget.CardView
+                android:id="@+id/cardViewImage"
                 android:layout_width="match_parent"
                 android:layout_height="108dp"
                 android:layout_marginStart="20dp"
