@@ -5,9 +5,12 @@ import android.app.AlertDialog
 import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
+import android.net.Uri
 import android.os.Bundle
 import android.os.Environment
 import android.provider.MediaStore
+import android.provider.OpenableColumns
+import android.util.Base64
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.*
@@ -24,11 +27,15 @@ import com.example.beerservice.app.utils.ViewModelFactory
 import com.example.beerservice.app.utils.observeEvent
 import com.example.beerservice.databinding.CustomDialogLayoutBinding
 import com.example.beerservice.databinding.FragmentCreateFeedbackBinding
+import okhttp3.MediaType
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import okhttp3.RequestBody.Companion.asRequestBody
+import okhttp3.RequestBody.Companion.toRequestBody
+import java.io.ByteArrayOutputStream
 import java.io.File
+import java.nio.charset.Charset
 
 class FeedbackCreateFragment : BaseFragment(R.layout.fragment_create_feedback) {
 
@@ -40,7 +47,8 @@ class FeedbackCreateFragment : BaseFragment(R.layout.fragment_create_feedback) {
     lateinit var binding: FragmentCreateFeedbackBinding
     override val viewModel: FeedbackCreateViewModel by viewModels { ViewModelFactory() }
     private var imageName: String? = null
-
+    private var imageUrlString: String? = null
+    private var requestBody: RequestBody? = null
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentCreateFeedbackBinding.bind(view)
@@ -71,26 +79,9 @@ class FeedbackCreateFragment : BaseFragment(R.layout.fragment_create_feedback) {
     }
 
     private fun onCreateMultipartPart(): MultipartBody.Part {
-        return if (imageName != null) MultipartBody.Part.createFormData(
-            "image",
-            imageName,
-            onCreateRequestBody()
-        ) else {
-            MultipartBody.Part.createFormData("image", "null")
-        }
-
+        return if (requestBody == null) MultipartBody.Part.createFormData("image", "null")
+        else MultipartBody.Part.createFormData("image", "image", requestBody!!)
     }
-
-    private fun onCreateRequestBody(): RequestBody {
-        val albumDirectory =
-            Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES)
-        val imagePath =
-            albumDirectory?.absolutePath + "/$imageName"
-        val imageFile = File(imagePath)
-        return imageFile.asRequestBody("image/*".toMediaTypeOrNull())
-
-    }
-
 
     private fun observeDetails() {
         setBeerId(args.beerId)
@@ -149,9 +140,8 @@ class FeedbackCreateFragment : BaseFragment(R.layout.fragment_create_feedback) {
         val inflater = LayoutInflater.from(context)
         val dialogView = CustomDialogLayoutBinding.inflate(inflater)
 
-        val alertDialog: AlertDialog = AlertDialog.Builder(context)
-            .setView(dialogView.root)
-            .create()
+        val alertDialog: AlertDialog =
+            AlertDialog.Builder(context).setView(dialogView.root).create()
 
         alertDialog.show()
 
@@ -168,8 +158,7 @@ class FeedbackCreateFragment : BaseFragment(R.layout.fragment_create_feedback) {
     }
 
     private fun launchGallery() {
-        val pickImg =
-            Intent(Intent.ACTION_PICK, MediaStore.Images.Media.INTERNAL_CONTENT_URI)
+        val pickImg = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.INTERNAL_CONTENT_URI)
         galleryLauncher.launch(pickImg)
     }
 
@@ -178,59 +167,48 @@ class FeedbackCreateFragment : BaseFragment(R.layout.fragment_create_feedback) {
         cameraLauncher.launch(cameraImg)
     }
 
-    private val galleryLauncher =
-        registerForActivityResult(
-            ActivityResultContracts.StartActivityForResult()
-        ) { result ->
-            if (result.resultCode == Activity.RESULT_OK) {
-                val data: Intent? = result.data
-                val imgUri = data?.data
-
-                val projection = arrayOf(MediaStore.Images.Media.DATA)
-
-                imgUri?.let { uri ->
-                    context?.contentResolver?.query(uri, projection, null, null, null)
-                        ?.use { cursor ->
-                            cursor.moveToFirst()
-                            val columnIndex =
-                                cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA)
-                            val imagePath = cursor.getString(columnIndex)
-                            imageName = imagePath?.substringAfterLast("/")
-                        }
-                }
-
-                val bitmap: Bitmap? = imgUri?.let { uri ->
-                    val inputStream = context?.contentResolver?.openInputStream(uri)
-                    BitmapFactory.decodeStream(inputStream)
-                }
-                if (bitmap != null) {
-                    addImage.setImageBitmap(bitmap)
-
-                }
+    private val galleryLauncher = registerForActivityResult(
+        ActivityResultContracts.StartActivityForResult()
+    ) { result ->
+        if (result.resultCode == Activity.RESULT_OK) {
+            val data: Intent? = result.data
+            val imgUri = data?.data
+            val bitmap: Bitmap? = imgUri?.let { uri ->
+                val inputStream = context?.contentResolver?.openInputStream(uri)
+                BitmapFactory.decodeStream(inputStream)
+            }
+            if (bitmap != null) {
+                addImage.setImageBitmap(bitmap)
+                requestBody = bitmapToRequestBody(bitmap)
             }
         }
+    }
 
-    private val cameraLauncher =
-        registerForActivityResult(
-            ActivityResultContracts.StartActivityForResult()
-        ) { result ->
-            if (result.resultCode == Activity.RESULT_OK) {
-                val data: Intent? = result.data
-                val bitmap: Bitmap? = data?.extras?.get("data") as Bitmap?
-
-                if (bitmap != null) {
-                    addImage.setImageBitmap(bitmap)
-                }
+    private val cameraLauncher = registerForActivityResult(
+        ActivityResultContracts.StartActivityForResult()
+    ) { result ->
+        if (result.resultCode == Activity.RESULT_OK) {
+            val data: Intent? = result.data
+            val bitmap: Bitmap? = data?.extras?.get("data") as Bitmap?
+            if (bitmap != null) {
+                addImage.setImageBitmap(bitmap)
+                requestBody = bitmapToRequestBody(bitmap)
             }
         }
+    }
 
-    /*
-    private fun bitmapToBase(bitmap: Bitmap): ByteArray {
+    private fun bitmapToRequestBody(bitmap: Bitmap): RequestBody {
+        val base64String = bitmapToBase(bitmap)
+        val bytes = Base64.decode(base64String, Base64.DEFAULT)
+        return bytes.toRequestBody("image/jpeg".toMediaTypeOrNull())
+    }
+
+    private fun bitmapToBase(bitmap: Bitmap): String {
         val byteArrayOutputStream = ByteArrayOutputStream()
-        bitmap.compress(Bitmap.CompressFormat.JPEG, 10, byteArrayOutputStream)
-        return byteArrayOutputStream.toByteArray()
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, byteArrayOutputStream)
+        val byteArray = byteArrayOutputStream.toByteArray()
         return Base64.encodeToString(byteArray, Base64.NO_WRAP)
     }
-*/
+
 
 }
