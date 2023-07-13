@@ -47,7 +47,6 @@ class FeedbackCreateViewModel(
 
     fun getBeerDetails() {
         viewModelScope.launch {
-            println(beerId.value)
             val result = beerRepository.getBeerById(beerId.value!!)
             _beer.value = Pending()
             _beer.value = Success(result)
@@ -61,7 +60,7 @@ class FeedbackCreateViewModel(
 
     fun createFeedback(
         feedbackText: String,
-        rating: Int,
+        rating: Float,
         body: MultipartBody.Part? = null
     ) {
         viewModelScope.launch {

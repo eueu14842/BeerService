@@ -23,7 +23,7 @@ class RetrofitFeedbackSource(config: RetrofitConfig) : BaseRetrofitSource(config
     override suspend fun createFeedback(
         beerId: Int,
         feedbackText: String,
-        rating: Int,
+        rating: Float,
         userId: Int,
         body: MultipartBody.Part?
     ) {

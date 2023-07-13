@@ -84,6 +84,8 @@ class BeerDetailsFragment : BaseFragment(R.layout.fragment_beer_details) {
 
                         beerRating.text = result.value.averageRating.toString()
                         totalAverage.text = result.value.totalReviews.toString()
+                        if (result.value.averageRating != null) ratingBeerStars.rating =
+                            result.value.averageRating
 
                         textViewBeerFeedBack.setOnClickListener {
                             onNavigateToCreateFeedback(result.value.id!!)

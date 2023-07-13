@@ -46,9 +46,8 @@ class FeedbackCreateFragment : BaseFragment(R.layout.fragment_create_feedback) {
     private val args by navArgs<FeedbackCreateFragmentArgs>()
     lateinit var binding: FragmentCreateFeedbackBinding
     override val viewModel: FeedbackCreateViewModel by viewModels { ViewModelFactory() }
-    private var imageName: String? = null
-    private var imageUrlString: String? = null
     private var requestBody: RequestBody? = null
+    private var userRating: Float? = null
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentCreateFeedbackBinding.bind(view)
@@ -67,6 +66,7 @@ class FeedbackCreateFragment : BaseFragment(R.layout.fragment_create_feedback) {
 
         ratingBar.setOnRatingBarChangeListener { _, rating, _ ->
             ratingBar.rating = rating
+            userRating = rating
         }
     }
 
@@ -83,6 +83,7 @@ class FeedbackCreateFragment : BaseFragment(R.layout.fragment_create_feedback) {
                     ibu.text = beer.ibu.toString()
                     beerRating.text = beer.averageRating.toString()
                     totalAverage.text = beer.totalReviews.toString()
+
                 }
             }
         }
@@ -96,7 +97,6 @@ class FeedbackCreateFragment : BaseFragment(R.layout.fragment_create_feedback) {
     private fun setBeerId(beerId: Int) {
         viewModel.setBeerId(beerId)
     }
-
 
     private fun performDialog() {
         val inflater = LayoutInflater.from(context)
@@ -158,6 +158,7 @@ class FeedbackCreateFragment : BaseFragment(R.layout.fragment_create_feedback) {
             }
         }
     }
+
     private fun bitmapToRequestBody(bitmap: Bitmap): RequestBody {
         val base64String = bitmapToBase(bitmap)
         val bytes = Base64.decode(base64String, Base64.DEFAULT)
@@ -171,15 +172,13 @@ class FeedbackCreateFragment : BaseFragment(R.layout.fragment_create_feedback) {
         return Base64.encodeToString(byteArray, Base64.NO_WRAP)
     }
 
-
     private fun onCreateFeedbackButtonClick() {
         viewModel.createFeedback(
             binding.editTexctFeedbackText.text.toString(),
-            binding.ratingBarRateIt.numStars,
+            userRating!!,
             onCreateMultipartPart()
         )
     }
-
 
     private fun onCreateMultipartPart(): MultipartBody.Part {
         return if (requestBody == null) MultipartBody.Part.createFormData("image", "null")
@@ -201,7 +200,6 @@ class FeedbackCreateFragment : BaseFragment(R.layout.fragment_create_feedback) {
             input.error = getString(stringRes)
         }
     }
-
 
 
     private fun observeGoBackEvent() = viewModel.goBackEvent.observeEvent(viewLifecycleOwner) {

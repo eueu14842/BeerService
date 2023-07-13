@@ -44,6 +44,7 @@ class BeerPagingAdapter(
             abv.text = beer.abv.toString()
             ibu.text = beer.ibu.toString()
             beerRating.text = beer.averageRating.toString()
+            if (beer.averageRating != null) ratingBeerStars.rating = beer.averageRating
 
 
         }

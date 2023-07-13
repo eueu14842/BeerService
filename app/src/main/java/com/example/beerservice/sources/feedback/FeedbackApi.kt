@@ -13,7 +13,7 @@ interface FeedbackApi {
     suspend fun createFeedbackBeer(
         @Query("beerId") id: Int,
         @Query("feedbackText") text: String,
-        @Query("rating") rating: Int,
+        @Query("rating") rating: Float,
         @Query("userId") userId: Int,
         @Part image: MultipartBody.Part? = null
     )

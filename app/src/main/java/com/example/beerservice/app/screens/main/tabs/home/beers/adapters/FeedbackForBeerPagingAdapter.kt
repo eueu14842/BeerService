@@ -33,6 +33,8 @@ class FeedbackForBeerPagingAdapter(
             } else {
                 cardViewImage.visibility = View.GONE
             }
+            if (feedback.rating != null) ratingFeedbackStars.rating = feedback.rating
+
         }
         holder.itemView.setOnClickListener {
             onFeedbackListener.onFeedbackClick(feedback, position)
