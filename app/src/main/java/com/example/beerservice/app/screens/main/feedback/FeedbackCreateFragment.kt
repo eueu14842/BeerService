@@ -70,19 +70,6 @@ class FeedbackCreateFragment : BaseFragment(R.layout.fragment_create_feedback) {
         }
     }
 
-    private fun onCreateFeedbackButtonClick() {
-        viewModel.createFeedback(
-            binding.editTexctFeedbackText.text.toString(),
-            binding.ratingBarRateIt.numStars,
-            onCreateMultipartPart()
-        )
-    }
-
-    private fun onCreateMultipartPart(): MultipartBody.Part {
-        return if (requestBody == null) MultipartBody.Part.createFormData("image", "null")
-        else MultipartBody.Part.createFormData("image", "image", requestBody!!)
-    }
-
     private fun observeDetails() {
         setBeerId(args.beerId)
         viewModel.getBeerDetails()
@@ -109,31 +96,6 @@ class FeedbackCreateFragment : BaseFragment(R.layout.fragment_create_feedback) {
     private fun setBeerId(beerId: Int) {
         viewModel.setBeerId(beerId)
     }
-
-    private fun observeState() = viewModel.state.observe(viewLifecycleOwner) { state ->
-        binding.ratingBarRateIt.isEnabled = state.enableViews
-        binding.editTexctFeedbackText.isEnabled = state.enableViews
-        fillError(binding.editTexctFeedbackText, state.textErrorMessageRes)
-
-        binding.progressBar.visibility = if (state.showProgress) View.VISIBLE else View.INVISIBLE
-    }
-
-    private fun fillError(input: TextView, @StringRes stringRes: Int) {
-        if (stringRes == SignUpViewModel.NO_ERROR_MESSAGE) {
-            input.error = null
-        } else {
-            input.error = getString(stringRes)
-        }
-    }
-
-    private fun observeGoBackEvent() = viewModel.goBackEvent.observeEvent(viewLifecycleOwner) {
-        findNavController().popBackStack()
-    }
-
-    private fun observeShowSuccessFeedbackPublishedMessageEvent() =
-        viewModel.showToastEvent.observeEvent(viewLifecycleOwner) {
-            Toast.makeText(requireContext(), it, Toast.LENGTH_LONG).show()
-        }
 
 
     private fun performDialog() {
@@ -196,7 +158,6 @@ class FeedbackCreateFragment : BaseFragment(R.layout.fragment_create_feedback) {
             }
         }
     }
-
     private fun bitmapToRequestBody(bitmap: Bitmap): RequestBody {
         val base64String = bitmapToBase(bitmap)
         val bytes = Base64.decode(base64String, Base64.DEFAULT)
@@ -209,6 +170,48 @@ class FeedbackCreateFragment : BaseFragment(R.layout.fragment_create_feedback) {
         val byteArray = byteArrayOutputStream.toByteArray()
         return Base64.encodeToString(byteArray, Base64.NO_WRAP)
     }
+
+
+    private fun onCreateFeedbackButtonClick() {
+        viewModel.createFeedback(
+            binding.editTexctFeedbackText.text.toString(),
+            binding.ratingBarRateIt.numStars,
+            onCreateMultipartPart()
+        )
+    }
+
+
+    private fun onCreateMultipartPart(): MultipartBody.Part {
+        return if (requestBody == null) MultipartBody.Part.createFormData("image", "null")
+        else MultipartBody.Part.createFormData("image", "image", requestBody!!)
+    }
+
+    private fun observeState() = viewModel.state.observe(viewLifecycleOwner) { state ->
+        binding.ratingBarRateIt.isEnabled = state.enableViews
+        binding.editTexctFeedbackText.isEnabled = state.enableViews
+        fillError(binding.editTexctFeedbackText, state.textErrorMessageRes)
+
+        binding.progressBar.visibility = if (state.showProgress) View.VISIBLE else View.INVISIBLE
+    }
+
+    private fun fillError(input: TextView, @StringRes stringRes: Int) {
+        if (stringRes == SignUpViewModel.NO_ERROR_MESSAGE) {
+            input.error = null
+        } else {
+            input.error = getString(stringRes)
+        }
+    }
+
+
+
+    private fun observeGoBackEvent() = viewModel.goBackEvent.observeEvent(viewLifecycleOwner) {
+        findNavController().popBackStack()
+    }
+
+    private fun observeShowSuccessFeedbackPublishedMessageEvent() =
+        viewModel.showToastEvent.observeEvent(viewLifecycleOwner) {
+            Toast.makeText(requireContext(), it, Toast.LENGTH_LONG).show()
+        }
 
 
 }

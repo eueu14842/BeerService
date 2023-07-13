@@ -44,9 +44,6 @@ class FeedbackCreateViewModel(
     private val _beer = MutableLiveData<ResultState<Beer>>()
     val beer = _beer.share()
 
-    private val _imageName = MutableLiveEvent<String>()
-    val imageName = _imageName.share()
-
 
     fun getBeerDetails() {
         viewModelScope.launch {
