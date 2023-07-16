@@ -6,6 +6,8 @@ import okhttp3.MultipartBody
 interface FeedbackSource {
     suspend fun getPagedFeedbackByBeerId(beerId: Int, limit: Int, offset: Int): List<FeedbackBeer>
 
+    suspend fun getPagedFeedbackByUserId(userId: Int, limit: Int, offset: Int): List<FeedbackBeer>
+
     suspend fun createFeedback(
         beerId: Int,
         feedbackText: String,

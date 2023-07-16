@@ -63,4 +63,9 @@
     <string name="leaveFeedback">Оставить отзыв</string>
     <string name="add_a_comment">Добавьте комментарий</string>
     <string name="feedback_published">Отзыв размещен!</string>
+    <string name="my_reviews">Мои отзывы</string>
+    <string name="friends">Друзья</string>
+    <string name="actions">Действия</string>
+    <string name="news">Новости</string>
+    <string name="beer">Пиво</string>
 </resources>

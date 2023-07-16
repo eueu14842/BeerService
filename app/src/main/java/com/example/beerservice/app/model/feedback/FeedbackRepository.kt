@@ -1,6 +1,5 @@
 package com.example.beerservice.app.model.feedback
 
-import android.graphics.pdf.PdfDocument.Page
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
@@ -11,12 +10,11 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.withContext
 import okhttp3.MultipartBody
-import okhttp3.RequestBody
 
 class FeedbackRepository(
     private val feedbackSource: FeedbackSource
 ) {
-    suspend fun getPagedFeedbackByBeerId(beerId: Int): Flow<PagingData<FeedbackBeer>> {
+    suspend fun getPagedFeedbackById(beerId: Int): Flow<PagingData<FeedbackBeer>> {
         val loader: FeedbackLoader = { pageIndex, pageSize ->
             getFeedbackByBeerId(beerId, pageIndex, pageSize)
         }

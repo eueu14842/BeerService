@@ -24,4 +24,12 @@ interface FeedbackApi {
         @Query("limit") limit: Int,
         @Query("offset") offset: Int,
     ): List<GetFeedbackResponseEntity>
+
+
+    @GET("feedback/list/user")
+    suspend fun getFeedbackByUserId(
+        @Query("id") id: Int,
+        @Query("limit") limit: Int,
+        @Query("offset") offset: Int,
+    ): List<GetFeedbackResponseEntity>
 }

@@ -20,6 +20,17 @@ class RetrofitFeedbackSource(config: RetrofitConfig) : BaseRetrofitSource(config
         feedbackApi.getFeedbackByBeerId(beerId, limit, offset).map { it.toFeedback() }
     }
 
+
+
+
+    override suspend fun getPagedFeedbackByUserId(
+        userId: Int,
+        limit: Int,
+        offset: Int
+    ): List<FeedbackBeer> = wrapRetrofitExceptions {
+        feedbackApi.getFeedbackByBeerId(userId, limit, offset).map { it.toFeedback() }
+    }
+
     override suspend fun createFeedback(
         beerId: Int,
         feedbackText: String,

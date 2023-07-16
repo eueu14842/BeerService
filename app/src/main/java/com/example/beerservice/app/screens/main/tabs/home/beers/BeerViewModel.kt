@@ -1,7 +1,6 @@
 package com.example.beerservice.app.screens.main.tabs.home.beers
 
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asFlow
 import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingData
@@ -12,7 +11,6 @@ import com.example.beerservice.app.model.beers.entities.Beer
 import com.example.beerservice.app.model.feedback.FeedbackRepository
 import com.example.beerservice.app.model.feedback.entities.FeedbackBeer
 import com.example.beerservice.app.screens.base.BaseViewModel
-import com.example.beerservice.app.screens.main.tabs.home.beers.adapters.BeerPagingAdapter
 import com.example.beerservice.app.utils.share
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.debounce
@@ -28,6 +26,7 @@ class BeerViewModel(
     val beer = _beer.share()
 
     var feedback: Flow<PagingData<FeedbackBeer>>? = null
+
     private var beerId = MutableLiveData(0)
 
     fun getBeerById(id: Int) {
@@ -43,7 +42,7 @@ class BeerViewModel(
         feedback = beerId.asFlow()
             .debounce(400)
             .flatMapLatest {
-                feedbackRepository.getPagedFeedbackByBeerId(it)
+                feedbackRepository.getPagedFeedbackById(it)
             }
             .cachedIn(viewModelScope)
     }
