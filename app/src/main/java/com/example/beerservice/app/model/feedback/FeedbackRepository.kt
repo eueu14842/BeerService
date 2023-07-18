@@ -14,9 +14,22 @@ import okhttp3.MultipartBody
 class FeedbackRepository(
     private val feedbackSource: FeedbackSource
 ) {
-    suspend fun getPagedFeedbackById(beerId: Int): Flow<PagingData<FeedbackBeer>> {
+    suspend fun getPagedFeedbackByBeerId(beerId: Int): Flow<PagingData<FeedbackBeer>> {
         val loader: FeedbackLoader = { pageIndex, pageSize ->
             getFeedbackByBeerId(beerId, pageIndex, pageSize)
+        }
+        return Pager(
+            config = PagingConfig(
+                pageSize = PAGE_SIZE,
+                enablePlaceholders = false
+            ),
+            pagingSourceFactory = { FeedbackPagingSource(loader, PAGE_SIZE) }
+        ).flow
+    }
+
+    suspend fun getPagedFeedbackByUserId(beerId: Int): Flow<PagingData<FeedbackBeer>> {
+        val loader: FeedbackLoader = { pageIndex, pageSize ->
+            getFeedbackByUserId(beerId, pageIndex, pageSize)
         }
         return Pager(
             config = PagingConfig(
@@ -35,6 +48,17 @@ class FeedbackRepository(
         withContext(Dispatchers.IO) {
             val offset = pageIndex * pageSize
             return@withContext feedbackSource.getPagedFeedbackByBeerId(id, pageSize, offset)
+        }
+
+
+    private suspend fun getFeedbackByUserId(
+        id: Int,
+        pageIndex: Int,
+        pageSize: Int
+    ): List<FeedbackBeer> =
+        withContext(Dispatchers.IO) {
+            val offset = pageIndex * pageSize
+            return@withContext feedbackSource.getPagedFeedbackByUserId(id, pageSize, offset)
         }
 
 

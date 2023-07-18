@@ -42,7 +42,7 @@ class BeerViewModel(
         feedback = beerId.asFlow()
             .debounce(400)
             .flatMapLatest {
-                feedbackRepository.getPagedFeedbackById(it)
+                feedbackRepository.getPagedFeedbackByBeerId(it)
             }
             .cachedIn(viewModelScope)
     }

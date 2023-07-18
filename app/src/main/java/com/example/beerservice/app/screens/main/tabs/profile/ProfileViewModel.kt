@@ -31,21 +31,13 @@ class ProfileViewModel(
     private var userId = MutableLiveData(0)
 
 
-    fun getProfile() {
+    suspend fun getBeerByUserId() {
+        userId.value = accountsRepository.doGetProfile().userId
         viewModelScope.launch {
-            val profile = accountsRepository.doGetProfile()
-            _profile.value = Pending()
-            _profile.value = Success(profile)
-        }
-    }
-
-    fun getBeerByUserId() {
-        viewModelScope.launch {
-            val user = accountsRepository.doGetProfile()
             feedback = userId.asFlow()
                 .debounce(400)
                 .flatMapLatest {
-                    feedbackRepository.getPagedFeedbackById(user.userId!!)
+                    feedbackRepository.getPagedFeedbackByUserId(it)
                 }
                 .cachedIn(viewModelScope)
         }

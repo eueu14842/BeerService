@@ -64,7 +64,6 @@ class BeerDetailsFragment : BaseFragment(R.layout.fragment_beer_details) {
         )
         observeFeedbacks(adapter)
         observeLoadState(adapter)
-
     }
 
     private fun setupBeerDetailsBlock() {
