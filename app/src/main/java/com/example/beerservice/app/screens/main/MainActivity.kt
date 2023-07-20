@@ -57,18 +57,6 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-  /*  override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menuInflater.inflate(R.menu.menu_profile, menu)
-        return true
-    }
-*/
-/*    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when (item.itemId) {
-            R.id.action_edit_profile -> Toast.makeText(this,"",Toast.LENGTH_SHORT).show()
-        }
-        return super.onOptionsItemSelected(item)
-    }*/
-
     private fun prepareRootNavController(isSignedIn: Boolean, navController: NavController) {
         val graph = navController.navInflater.inflate(getMainNavigationGraphId())
         graph.setStartDestination(

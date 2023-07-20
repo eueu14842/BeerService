@@ -46,7 +46,7 @@ class FavoritesViewModel(
         _onNavigateToPlaceDetails.publishEvent(placeId)
     }
 
-    override fun onNavigateToMap() {
+    override fun onNavigateToMap(geoLat: Double?, geoLon: Double) {
         TODO("Not yet implemented")
     }
 

@@ -64,9 +64,10 @@ class SearchViewModel(
         _onNavigateToMapPlaceDetails.publishEvent(placeId)
     }
 
-    override fun onNavigateToMap() {
-        println("go to map")
+    override fun onNavigateToMap(geoLat: Double?, geoLon: Double) {
+        TODO("Not yet implemented")
     }
+
 
     override fun onToggleFavoriteFlag(placeId: Int, isFavorite: Boolean) {
         viewModelScope.launch {

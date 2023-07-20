@@ -26,6 +26,7 @@ class FeedbackForBeerPagingAdapter(
         with(holder.binding) {
             textViewFeedbackUsername.text = feedback.userName
             textViewFeedbackText.text = feedback.feedbackText
+            textViewFeedbackDate.text = feedback.dateFeedback
             loadPhoto(imageViewFeedbackUserImg, R.drawable.ic_no_image)
             if (feedback.imageFeedback != null) {
                 cardViewImage.visibility = View.VISIBLE

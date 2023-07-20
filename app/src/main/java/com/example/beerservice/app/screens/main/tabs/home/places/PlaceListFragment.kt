@@ -88,12 +88,19 @@ class PlaceListFragment : BaseFragment(R.layout.fragment_place_list) {
     }
 
     private fun observeOnNavigateToPlaceDetailsEvent() {
-        viewModel.onNavigateToMapPlaceDetails.observeEvent(viewLifecycleOwner) {
+        viewModel.onNavigateToPlaceDetails.observeEvent(viewLifecycleOwner) {
             val direction =
                 PlaceLocationListFragmentDirections.actionPlaceListFragmentToPlaceDetailsFragment(
                     it
                 )
             findNavController().navigate(direction)
+        }
+    }
+
+    private fun observeOnNavigateToMapEvent() {
+        viewModel.onNavigateToMap.observeEvent(viewLifecycleOwner) {location->
+//            val direction = PlaceLocationListFragmentDirections.
+
         }
     }
 }

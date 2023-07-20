@@ -46,9 +46,7 @@ class PlaceMapFragment : BaseFragment(R.layout.fragment_places_map), CameraListe
     lateinit var mapObjects: MapObjectCollection
     lateinit var bitmap: Bitmap
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -200,10 +198,6 @@ class PlaceMapFragment : BaseFragment(R.layout.fragment_places_map), CameraListe
 
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
-    }
-
     override fun onCameraPositionChanged(
         map: Map,
         position: CameraPosition,
@@ -225,6 +219,7 @@ class PlaceMapFragment : BaseFragment(R.layout.fragment_places_map), CameraListe
             )
         }
     }
+
 
     /**
      * Рассчитываем радиус в километрах при текущем zoom level

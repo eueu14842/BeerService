@@ -35,8 +35,12 @@ class PlaceViewModel(
     val onToggleFavoriteEvent = _onToggleFavoriteEvent.share()
 
 
-    private var _onNavigateToMapPlaceDetails = MutableLiveEvent<Int>()
-    val onNavigateToMapPlaceDetails = _onNavigateToMapPlaceDetails.share()
+    private var _onNavigateToPlaceDetails = MutableLiveEvent<Int>()
+    val onNavigateToPlaceDetails = _onNavigateToPlaceDetails.share()
+
+    private var _onNavigateToMap = MutableLiveEvent<Location>()
+    val onNavigateToMap = _onNavigateToMap.share()
+
 
     init {
         placesFlow = searchBy.asFlow().debounce(400).flatMapLatest {
@@ -63,10 +67,12 @@ class PlaceViewModel(
     )
 
     override fun onNavigateToPlaceDetails(placeId: Int) {
-        _onNavigateToMapPlaceDetails.publishEvent(placeId)
+        _onNavigateToPlaceDetails.publishEvent(placeId)
     }
 
-    override fun onNavigateToMap() {
+
+    override fun onNavigateToMap(geoLat: Double?, geoLon: Double) {
+        _onNavigateToMap.publishEvent(Location(geoLat, geoLon))
     }
 
     override fun onToggleFavoriteFlag(placeId: Int, isFavorite: Boolean) {
@@ -82,10 +88,9 @@ class PlaceViewModel(
             } catch (e: java.lang.Exception) {
                 logError(e)
             }
-           placesFlow = placeRepository.getPagedPlaces()
+            placesFlow = placeRepository.getPagedPlaces()
             _onToggleFavoriteEvent.publishEvent(true)
         }
-
     }
 
     private suspend fun addFavorite(placeIdUserId: PlaceIdUserId) {
@@ -98,6 +103,10 @@ class PlaceViewModel(
 
     }
 
+    data class Location(
+        val geoLat: Double? = null,
+        val geoLon: Double? = null,
+    )
 
 }
 

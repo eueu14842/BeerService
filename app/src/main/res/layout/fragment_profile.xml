@@ -86,7 +86,7 @@
             android:id="@+id/textViewMoreButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Подробнее"
+            android:text="@string/More"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
 
@@ -112,39 +112,32 @@
             android:gravity="center_horizontal">
 
             <Button
-                style="@style/TextAppearance.AppCompat.Button"
+                style="@style/ButtonProfile"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:text="@string/my_feedbacks"
-                android:textAllCaps="false"
-                android:textSize="12sp" />
+                android:text="@string/my_feedbacks" />
 
             <Button
-                style="@style/TextAppearance.AppCompat.Button"
+                style="@style/ButtonProfile"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:text="@string/friends"
-                android:textAllCaps="false" />
+                android:text="@string/friends" />
 
             <Button
-                style="@style/TextAppearance.AppCompat.Button"
+                style="@style/ButtonProfile"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:text="@string/actions"
-                android:textAllCaps="false"
-                android:textSize="12sp" />
+                android:text="@string/actions" />
 
             <Button
-                style="@style/TextAppearance.AppCompat.Button"
+                style="@style/ButtonProfile"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:text="@string/news"
-                android:textAllCaps="false"
-                android:textSize="12sp" />
+                android:text="@string/news" />
         </LinearLayout>
     </androidx.cardview.widget.CardView>
 
@@ -157,23 +150,6 @@
         app:layout_constraintTop_toBottomOf="@+id/cardViewButton"
         tools:listitem="@layout/item_profile_card_feedback" />
 
-    <!--    <com.google.android.material.tabs.TabLayout
-            android:id="@+id/tab_layout_profile"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/linearLayout2" />
-
-        <androidx.viewpager2.widget.ViewPager2
-            android:id="@+id/pager_profile"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            app:layout_constraintBottom_toTopOf="@+id/buttonEditProfile"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tab_layout_profile" />-->
-
     <include
         android:id="@+id/loadStateView"
         layout="@layout/part_default_load_state"
@@ -183,4 +159,5 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -25,7 +25,7 @@ class PlacePagingAdapter(
                     place.placeId!!, place.setAvailabilityOfSpaceForTheUser!!
                 )
             }
-            R.id.textViewShowPlaceOnMap -> listener.onNavigateToMap()
+            R.id.textViewShowPlaceOnMap -> listener.onNavigateToMap(place.geoLat, place.geoLon!!)
             else -> {
                 listener.onNavigateToPlaceDetails(place.placeId!!)
             }
@@ -54,7 +54,7 @@ class PlacePagingAdapter(
                 updateFavoriteIcon(holder, newIsFavorite)
             }
         }
-       updateFavoriteIcon(holder, place.setAvailabilityOfSpaceForTheUser!!)
+        updateFavoriteIcon(holder, place.setAvailabilityOfSpaceForTheUser!!)
     }
 
     private fun updateFavoriteIcon(holder: Holder, isFavorite: Boolean) {
@@ -87,7 +87,7 @@ class PlacePagingAdapter(
 
         fun onNavigateToPlaceDetails(placeId: Int)
 
-        fun onNavigateToMap()
+        fun onNavigateToMap(geoLat: Double?, geoLon: Double)
 
         fun onToggleFavoriteFlag(placeId: Int, isFavorite: Boolean)
 

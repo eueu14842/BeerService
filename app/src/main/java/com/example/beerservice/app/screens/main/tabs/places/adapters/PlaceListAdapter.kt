@@ -24,7 +24,7 @@ class PlaceListAdapter(
                     place.placeId!!, false
                 )
             }
-            R.id.textViewShowPlaceOnMap -> favoriteListener.onNavigateToMap()
+            R.id.textViewShowPlaceOnMap -> favoriteListener.onNavigateToMap(place.geoLat,place.geoLon!!)
             else -> {
                 favoriteListener.onNavigateToPlaceDetails(place.placeId!!)
             }
