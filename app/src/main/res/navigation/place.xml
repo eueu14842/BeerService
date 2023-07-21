@@ -35,15 +35,21 @@
         <argument
             android:name="usePaging"
             app:argType="boolean" />
+        <action
+            android:id="@id/action_placeListFragment_to_placeMapFragment"
+            app:destination="@id/placeMapFragment" />
     </fragment>
     <fragment
-        android:id="@id/placeMapFragment"
+        android:id="@+id/placeMapFragment"
         android:name="com.example.beerservice.app.screens.main.tabs.places.tabs.PlaceMapFragment"
         android:label="Места - карта"
         tools:layout="@layout/fragment_places_map">
         <action
             android:id="@+id/action_placeMapFragment_to_placeDetailsFragment"
-            app:destination="@id/placeDetailsFragment" />
+            app:destination="@+id/placeDetailsFragment" />
+        <argument
+            android:name="lon"
+            app:argType="float" />
     </fragment>
 
     <fragment
@@ -57,12 +63,24 @@
         <action
             android:id="@+id/action_placeDetailsFragment_to_beerDetailsFragment"
             app:destination="@id/beerDetailsFragment" />
+        <action
+            android:id="@+id/action_placeDetailsFragment_to_feedbackCreateFragment"
+            app:destination="@id/feedbackCreateFragment" />
     </fragment>
     <fragment
         android:id="@id/beerDetailsFragment"
         android:name="com.example.beerservice.app.screens.main.tabs.home.beers.BeerDetailsFragment"
         android:label="Пиво"
         tools:layout="@layout/fragment_beer_details">
+        <argument
+            android:name="beerId"
+            app:argType="integer" />
+    </fragment>
+    <fragment
+        android:id="@+id/feedbackCreateFragment"
+        android:name="com.example.beerservice.app.screens.main.feedback.FeedbackCreateFragment"
+        android:label="FeedbackCreateFragment"
+        tools:layout="@layout/fragment_create_feedback">
         <argument
             android:name="beerId"
             app:argType="integer" />

@@ -11,6 +11,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.NavigationUI
 import androidx.viewpager2.widget.ViewPager2
 import com.example.beerservice.R
+import com.example.beerservice.app.screens.main.tabs.home.places.PlaceListFragment.Companion.LON
 import com.example.beerservice.app.screens.main.tabs.places.adapters.PlaceCollectionAdapter
 import com.example.beerservice.databinding.FragmentPlaceContainerBinding
 import com.google.android.material.tabs.TabLayout
@@ -35,6 +36,7 @@ class PlaceContainerFragment : Fragment(R.layout.fragment_place_container) {
         setupMediator()
         onRequestLocationPermissions()
 
+        println("PlaceContainerFragment ${arguments?.getDouble(LON)}")
 
     }
 

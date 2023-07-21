@@ -67,6 +67,8 @@ class PlaceDetailsFragment : BaseFragment(R.layout.fragment_place_details) {
         observeLoadState(adapter)
         observeBeers(adapter)
         observeOnToggleFavoriteEvent()
+        observeOnNavigateBeerDetailsEvent()
+        observeOnNavigateToCreateFeedback()
 
     }
 
@@ -129,6 +131,13 @@ class PlaceDetailsFragment : BaseFragment(R.layout.fragment_place_details) {
         viewModel.onNavigateToBeerDetails.observeEvent(viewLifecycleOwner){
             val direction =
                 PlaceDetailsFragmentDirections.actionPlaceDetailsFragmentToBeerDetailsFragment(it)
+            findNavController().navigate(direction)
+        }
+    }
+
+    private fun observeOnNavigateToCreateFeedback(){
+        viewModel.onNavigateToCreateFeedback.observeEvent(viewLifecycleOwner){
+            val direction = PlaceDetailsFragmentDirections.actionPlaceDetailsFragmentToFeedbackCreateFragment(it)
             findNavController().navigate(direction)
         }
     }

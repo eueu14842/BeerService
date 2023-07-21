@@ -73,8 +73,8 @@
             app:destination="@id/breweryDetailsFragment" />
         <argument
             android:name="searchBy"
-            app:argType="string"
-            android:defaultValue='" "' />
+            android:defaultValue='" "'
+            app:argType="string" />
     </fragment>
 
     <fragment
@@ -108,6 +108,9 @@
         <action
             android:id="@+id/action_placeDetailsFragment_to_feedbackCreateFragment"
             app:destination="@id/feedbackCreateFragment" />
+        <action
+            android:id="@+id/action_placeDetailsFragment_to_feedbackCreateFragment2"
+            app:destination="@id/feedbackCreateFragment" />
     </fragment>
 
     <fragment
@@ -118,6 +121,14 @@
         <action
             android:id="@+id/action_placeListFragment_to_placeDetailsFragment"
             app:destination="@id/placeDetailsFragment" />
+        <action
+            android:id="@+id/action_placeListFragment_to_placeMapFragment"
+            app:destination="@id/placeMapFragment" />
+        <action
+            android:id="@+id/action_placeListFragment_to_place"
+            app:destination="@id/place"
+            app:popUpTo="@id/homeFragment"
+            app:popUpToInclusive="true" />
     </fragment>
 
     <fragment
@@ -152,6 +163,16 @@
             android:name="beerId"
             app:argType="integer" />
     </fragment>
+<!--    <fragment
+        android:id="@+id/placeMapFragment"
+        android:name="com.example.beerservice.app.screens.main.tabs.places.tabs.PlaceMapFragment"
+        android:label="PlaceMapFragment"
+        tools:layout="@layout/fragment_places_map" >
+        <action
+            android:id="@+id/action_placeMapFragment_to_placeDetailsFragment"
+            app:destination="@id/placeDetailsFragment" />
+    </fragment>-->
+    <include app:graph="@navigation/place" />
 
 
 </navigation>

@@ -208,13 +208,25 @@
                       </LayoutPositions>
                     </value>
                   </entry>
+                  <entry key="place">
+                    <value>
+                      <LayoutPositions>
+                        <option name="myPosition">
+                          <Point>
+                            <option name="x" value="226" />
+                            <option name="y" value="31" />
+                          </Point>
+                        </option>
+                      </LayoutPositions>
+                    </value>
+                  </entry>
                   <entry key="placeDetailsFragment">
                     <value>
                       <LayoutPositions>
                         <option name="myPosition">
                           <Point>
-                            <option name="x" value="470" />
-                            <option name="y" value="751" />
+                            <option name="x" value="494" />
+                            <option name="y" value="727" />
                           </Point>
                         </option>
                         <option name="myPositions">
@@ -225,6 +237,11 @@
                               </value>
                             </entry>
                             <entry key="action_placeDetailsFragment_to_feedbackCreateFragment">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                            <entry key="action_placeDetailsFragment_to_feedbackCreateFragment2">
                               <value>
                                 <LayoutPositions />
                               </value>
@@ -245,7 +262,38 @@
                         </option>
                         <option name="myPositions">
                           <map>
+                            <entry key="action_placeListFragment_to_place">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
                             <entry key="action_placeListFragment_to_placeDetailsFragment">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                            <entry key="action_placeListFragment_to_placeMapFragment">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                          </map>
+                        </option>
+                      </LayoutPositions>
+                    </value>
+                  </entry>
+                  <entry key="placeMapFragment">
+                    <value>
+                      <LayoutPositions>
+                        <option name="myPosition">
+                          <Point>
+                            <option name="x" value="44" />
+                            <option name="y" value="146" />
+                          </Point>
+                        </option>
+                        <option name="myPositions">
+                          <map>
+                            <entry key="action_placeMapFragment_to_placeDetailsFragment">
                               <value>
                                 <LayoutPositions />
                               </value>
@@ -373,13 +421,25 @@
                       </LayoutPositions>
                     </value>
                   </entry>
+                  <entry key="feedbackCreateFragment">
+                    <value>
+                      <LayoutPositions>
+                        <option name="myPosition">
+                          <Point>
+                            <option name="x" value="614" />
+                            <option name="y" value="731" />
+                          </Point>
+                        </option>
+                      </LayoutPositions>
+                    </value>
+                  </entry>
                   <entry key="placeContainerFragment">
                     <value>
                       <LayoutPositions>
                         <option name="myPosition">
                           <Point>
-                            <option name="x" value="12" />
-                            <option name="y" value="76" />
+                            <option name="x" value="-88" />
+                            <option name="y" value="110" />
                           </Point>
                         </option>
                         <option name="myPositions">
@@ -420,6 +480,11 @@
                                 <LayoutPositions />
                               </value>
                             </entry>
+                            <entry key="action_placeDetailsFragment_to_feedbackCreateFragment">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
                           </map>
                         </option>
                       </LayoutPositions>
@@ -430,13 +495,18 @@
                       <LayoutPositions>
                         <option name="myPosition">
                           <Point>
-                            <option name="x" value="256" />
-                            <option name="y" value="368" />
+                            <option name="x" value="165" />
+                            <option name="y" value="387" />
                           </Point>
                         </option>
                         <option name="myPositions">
                           <map>
                             <entry key="action_placeListFragment_to_placeDetailsFragment">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                            <entry key="action_placeListFragment_to_placeMapFragment">
                               <value>
                                 <LayoutPositions />
                               </value>
@@ -451,8 +521,8 @@
                       <LayoutPositions>
                         <option name="myPosition">
                           <Point>
-                            <option name="x" value="256" />
-                            <option name="y" value="12" />
+                            <option name="x" value="163" />
+                            <option name="y" value="6" />
                           </Point>
                         </option>
                         <option name="myPositions">

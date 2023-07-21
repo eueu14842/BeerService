@@ -46,6 +46,10 @@ class PlaceDetailsViewModel(
     private var _onNavigateToBeerDetails = MutableLiveEvent<Int>()
     val onNavigateToBeerDetails = _onNavigateToBeerDetails.share()
 
+    private var _onNavigateToCreateFeedback = MutableLiveEvent<Int>()
+    val onNavigateToCreateFeedback = _onNavigateToCreateFeedback.share()
+
+
     override fun onClick(v: View?) {
         val result = place.value
         result?.map { place ->
@@ -123,7 +127,7 @@ class PlaceDetailsViewModel(
 
 
     override fun onNavigateToCreateFeedback(beerId: Int) {
-        TODO("Not yet implemented")
+        _onNavigateToCreateFeedback.publishEvent(beerId)
     }
 
 

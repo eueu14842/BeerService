@@ -15,11 +15,14 @@ import com.example.beerservice.app.screens.base.BaseFragment
 import com.example.beerservice.app.screens.base.DefaultLoadStateAdapter
 import com.example.beerservice.app.screens.base.TryAgainAction
 import com.example.beerservice.app.screens.main.tabs.places.adapters.PlacePagingAdapter
+import com.example.beerservice.app.screens.main.tabs.places.tabs.PlaceContainerFragmentDirections
 import com.example.beerservice.app.screens.main.tabs.places.tabs.PlaceLocationListFragmentDirections
+import com.example.beerservice.app.screens.main.tabs.places.tabs.PlaceMapFragment
 import com.example.beerservice.app.screens.main.tabs.places.tabs.PlaceViewModel
 import com.example.beerservice.app.utils.ViewModelFactory
 import com.example.beerservice.app.utils.observeEvent
 import com.example.beerservice.databinding.FragmentPlaceListBinding
+import com.google.android.gms.maps.MapFragment
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.debounce
 import kotlinx.coroutines.launch
@@ -42,6 +45,7 @@ class PlaceListFragment : BaseFragment(R.layout.fragment_place_list) {
         setupViews()
         setupPagedPlaceList()
         observeOnNavigateToPlaceDetailsEvent()
+        observeOnNavigateToMapEvent()
         return binding.root
     }
 
@@ -90,7 +94,7 @@ class PlaceListFragment : BaseFragment(R.layout.fragment_place_list) {
     private fun observeOnNavigateToPlaceDetailsEvent() {
         viewModel.onNavigateToPlaceDetails.observeEvent(viewLifecycleOwner) {
             val direction =
-                PlaceLocationListFragmentDirections.actionPlaceListFragmentToPlaceDetailsFragment(
+                PlaceListFragmentDirections.actionPlaceListFragmentToPlaceDetailsFragment(
                     it
                 )
             findNavController().navigate(direction)
@@ -98,10 +102,18 @@ class PlaceListFragment : BaseFragment(R.layout.fragment_place_list) {
     }
 
     private fun observeOnNavigateToMapEvent() {
-        viewModel.onNavigateToMap.observeEvent(viewLifecycleOwner) {location->
-//            val direction = PlaceLocationListFragmentDirections.
-
+        viewModel.onNavigateToMap.observeEvent(viewLifecycleOwner) { location ->
+            val direction =
+                PlaceListFragmentDirections.actionPlaceListFragmentToPlace()
+            direction.arguments.putDouble(LON, location.geoLon!!)
+            direction.arguments.putDouble(LAT, location.geoLon)
+            findNavController().navigate(direction)
         }
+    }
+
+    companion object {
+        const val LON = "LON"
+        const val LAT = "LAT"
     }
 }
 
