@@ -5,6 +5,7 @@
     android:id="@+id/place"
     android:label="Места"
     app:startDestination="@+id/placeContainerFragment">
+
     <fragment
         android:id="@id/placeContainerFragment"
         android:name="com.example.beerservice.app.screens.main.tabs.places.tabs.PlaceContainerFragment"

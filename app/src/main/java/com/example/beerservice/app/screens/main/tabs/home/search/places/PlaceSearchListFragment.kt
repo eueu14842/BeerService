@@ -59,7 +59,6 @@ class PlaceSearchListFragment : BaseFragment(R.layout.fragment_search_place_list
         }
     }
 
-
     private fun observeOnNavigateToPlaceDetailsEvent() {
         viewModel.onNavigateToMapPlaceDetails.observeEvent(viewLifecycleOwner) {
             val direction =
