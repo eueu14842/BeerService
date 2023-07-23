@@ -11,6 +11,8 @@ import androidx.recyclerview.widget.ConcatAdapter
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.beerservice.R
+import com.example.beerservice.app.Const.LATITUDE
+import com.example.beerservice.app.Const.LONGITUDE
 import com.example.beerservice.app.screens.base.BaseFragment
 import com.example.beerservice.app.screens.base.DefaultLoadStateAdapter
 import com.example.beerservice.app.screens.base.TryAgainAction
@@ -105,16 +107,12 @@ class PlaceListFragment : BaseFragment(R.layout.fragment_place_list) {
         viewModel.onNavigateToMap.observeEvent(viewLifecycleOwner) { location ->
             val direction =
                 PlaceListFragmentDirections.actionPlaceListFragmentToPlace()
-            direction.arguments.putDouble(LON, location.geoLon!!)
-            direction.arguments.putDouble(LAT, location.geoLon)
+            direction.arguments.putDouble(LONGITUDE, location.geoLon!!)
+            direction.arguments.putDouble(LATITUDE, location.geoLat!!)
             findNavController().navigate(direction)
         }
     }
 
-    companion object {
-        const val LON = "LON"
-        const val LAT = "LAT"
-    }
 }
 
 

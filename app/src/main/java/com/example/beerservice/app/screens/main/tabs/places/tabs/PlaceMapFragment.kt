@@ -19,9 +19,9 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.request.target.CustomTarget
 import com.example.beerservice.R
 import com.example.beerservice.app.Const
+import com.example.beerservice.app.Const.LATITUDE
+import com.example.beerservice.app.Const.LONGITUDE
 import com.example.beerservice.app.screens.base.BaseFragment
-import com.example.beerservice.app.screens.main.tabs.home.places.PlaceListFragment.Companion.LAT
-import com.example.beerservice.app.screens.main.tabs.home.places.PlaceListFragment.Companion.LON
 import com.example.beerservice.app.utils.ViewModelFactory
 import com.example.beerservice.databinding.FragmentPlacesMapBinding
 import com.yandex.mapkit.MapKitFactory
@@ -39,7 +39,7 @@ class PlaceMapFragment : BaseFragment(R.layout.fragment_places_map), CameraListe
     override val viewModel: PlaceViewModel by viewModels { ViewModelFactory() }
     lateinit var viewModelPlace: PlaceViewModel
     private var locationManager: android.location.LocationManager? = null
-    private var point: Point = Point(55.764094, 37.617617)
+    lateinit var point: Point
 
     lateinit var binding: FragmentPlacesMapBinding
 
@@ -60,14 +60,23 @@ class PlaceMapFragment : BaseFragment(R.layout.fragment_places_map), CameraListe
         mapObjects = map.mapObjects.addCollection()
 
         setupLocationManager()
-        getCurrentPosition(getAvailableProvider())
 
+        observePoint()
         observePlaces(point.latitude, point.longitude)
         onNavigateToCurrentPosition(point)
         map.addCameraListener(this)
 
         return binding.root
 
+    }
+
+    private fun observePoint() {
+        val lon = arguments?.getDouble(LONGITUDE)
+        val lat = arguments?.getDouble(LATITUDE)
+        println("PlaceMapFragment $lon")
+        if (lon != null && lat != null) {
+            point = Point(lat, lon)
+        } else getCurrentPosition(getAvailableProvider())
     }
 
     private fun observePlaces(lat: Double, lon: Double) {
@@ -91,14 +100,7 @@ class PlaceMapFragment : BaseFragment(R.layout.fragment_places_map), CameraListe
     }
 
     private fun onNavigateToCurrentPosition(point: Point) {
-        println(arguments?.getDouble(LON))
-        if (arguments == null) mapview.map.move(CameraPosition(point, 14F, 0F, 0F))
-        else {
-            val lon = requireArguments().getDouble(LON)
-            val lat = requireArguments().getDouble(LAT)
-            mapview.map.move(CameraPosition(Point(lon, lat), 14F, 0F, 0F))
-        }
-
+        mapview.map.move(CameraPosition(point, 14F, 0F, 0F))
     }
 
     private fun checkLocationPermission(): Boolean {
@@ -238,4 +240,20 @@ class PlaceMapFragment : BaseFragment(R.layout.fragment_places_map), CameraListe
     class MapObjectPlaceData(
         val id: Int?, val description: String?, val geoLat: Double?, val geoLon: Double?
     )
+
+    companion object {
+        fun newInstance(lon: Double?, lat: Double?) =
+            PlaceMapFragment().apply {
+                arguments = Bundle().apply {
+                    if (lon != null) {
+                        putDouble(Const.LONGITUDE, lon)
+                    }
+                    if (lat != null) {
+                        putDouble(Const.LATITUDE, lat)
+                    }
+                }
+            }
+    }
+
+
 }

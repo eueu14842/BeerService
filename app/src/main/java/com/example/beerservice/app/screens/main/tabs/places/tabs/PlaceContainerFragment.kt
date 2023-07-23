@@ -6,17 +6,14 @@ import android.os.Bundle
 import android.view.View
 import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
-import androidx.navigation.fragment.NavHostFragment
-import androidx.navigation.fragment.findNavController
-import androidx.navigation.ui.NavigationUI
 import androidx.viewpager2.widget.ViewPager2
 import com.example.beerservice.R
-import com.example.beerservice.app.screens.main.tabs.home.places.PlaceListFragment.Companion.LON
+import com.example.beerservice.app.Const.LATITUDE
+import com.example.beerservice.app.Const.LONGITUDE
 import com.example.beerservice.app.screens.main.tabs.places.adapters.PlaceCollectionAdapter
 import com.example.beerservice.databinding.FragmentPlaceContainerBinding
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
-import com.yandex.mapkit.geometry.Point
 
 class PlaceContainerFragment : Fragment(R.layout.fragment_place_container) {
     lateinit var binding: FragmentPlaceContainerBinding
@@ -31,12 +28,14 @@ class PlaceContainerFragment : Fragment(R.layout.fragment_place_container) {
 
         setupViews()
 
-        placesCollectionAdapter = PlaceCollectionAdapter(this)
+        val lon = arguments?.getDouble(LONGITUDE)
+        val lat = arguments?.getDouble(LATITUDE)
+        println("PlaceContainerFragment $lon")
+        placesCollectionAdapter = PlaceCollectionAdapter(this, lon, lat)
         viewPager.adapter = placesCollectionAdapter
         setupMediator()
         onRequestLocationPermissions()
 
-        println("PlaceContainerFragment ${arguments?.getDouble(LON)}")
 
     }
 

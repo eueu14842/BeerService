@@ -5,11 +5,13 @@ import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.example.beerservice.app.screens.main.tabs.places.tabs.PlaceLocationListFragment
 import com.example.beerservice.app.screens.main.tabs.places.tabs.PlaceMapFragment
 
-class PlaceCollectionAdapter(fragment: Fragment) : FragmentStateAdapter(fragment) {
+class PlaceCollectionAdapter(fragment: Fragment, val lon: Double? = null, val lat: Double? = null) :
+    FragmentStateAdapter(fragment) {
     override fun getItemCount(): Int = 2
 
     override fun createFragment(position: Int): Fragment {
-        return if (position == 0) PlaceMapFragment()
+        println("PlaceCollectionAdapter $lon")
+        return if (position == 0) PlaceMapFragment.newInstance(lon, lat)
         else PlaceLocationListFragment()
     }
 }
