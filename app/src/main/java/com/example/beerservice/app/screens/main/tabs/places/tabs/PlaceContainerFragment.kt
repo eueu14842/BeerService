@@ -31,7 +31,8 @@ class PlaceContainerFragment : Fragment(R.layout.fragment_place_container) {
         val lon = arguments?.getDouble(LONGITUDE)
         val lat = arguments?.getDouble(LATITUDE)
         println("PlaceContainerFragment $lon")
-        placesCollectionAdapter = PlaceCollectionAdapter(this, lon, lat)
+        placesCollectionAdapter = if (lon == null) PlaceCollectionAdapter(this)
+        else PlaceCollectionAdapter(this, lon, lat)
         viewPager.adapter = placesCollectionAdapter
         setupMediator()
         onRequestLocationPermissions()

@@ -18,6 +18,7 @@ import com.example.beerservice.app.model.place.entities.Place
 import com.example.beerservice.app.model.place.entities.PlaceIdUserId
 import com.example.beerservice.app.screens.base.BaseViewModel
 import com.example.beerservice.app.screens.main.tabs.home.beers.adapters.BeerPagingAdapter
+import com.example.beerservice.app.screens.main.tabs.places.tabs.PlaceViewModel
 import com.example.beerservice.app.utils.MutableLiveEvent
 import com.example.beerservice.app.utils.publishEvent
 import com.example.beerservice.app.utils.share
@@ -49,6 +50,9 @@ class PlaceDetailsViewModel(
     private var _onNavigateToCreateFeedback = MutableLiveEvent<Int>()
     val onNavigateToCreateFeedback = _onNavigateToCreateFeedback.share()
 
+    private var _onNavigateToMap = MutableLiveEvent<Location>()
+    val onNavigateToMap = _onNavigateToMap.share()
+
 
     override fun onClick(v: View?) {
         val result = place.value
@@ -60,7 +64,7 @@ class PlaceDetailsViewModel(
                         place.setAvailabilityOfSpaceForTheUser!!
                     )
                 }
-                R.id.textViewShowPlaceOnMap -> onNavigateToMap()
+                R.id.textViewShowPlaceOnMap -> onNavigateToMap(place.geoLat, place.geoLon!!)
             }
         }
 
@@ -89,8 +93,8 @@ class PlaceDetailsViewModel(
         this.breweryId.value = value
     }
 
-    fun onNavigateToMap() {
-        println("go to map")
+    fun onNavigateToMap(geoLat: Double?, geoLon: Double) {
+        _onNavigateToMap.publishEvent(Location(geoLat, geoLon))
     }
 
     fun onToggleFavoriteFlag(placeId: Int, isFavorite: Boolean) {
@@ -130,6 +134,11 @@ class PlaceDetailsViewModel(
         _onNavigateToCreateFeedback.publishEvent(beerId)
     }
 
+
+    data class Location(
+        val geoLat: Double? = null,
+        val geoLon: Double? = null,
+    )
 
 }
 

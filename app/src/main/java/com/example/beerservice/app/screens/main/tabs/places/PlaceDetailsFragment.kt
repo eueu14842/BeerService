@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.beerservice.R
+import com.example.beerservice.app.Const
 import com.example.beerservice.app.model.Empty
 import com.example.beerservice.app.model.ErrorResult
 import com.example.beerservice.app.model.Pending
@@ -22,6 +23,7 @@ import com.example.beerservice.app.screens.base.TryAgainAction
 import com.example.beerservice.app.screens.main.tabs.home.beers.adapters.BeerPagingAdapter
 import com.example.beerservice.app.screens.main.tabs.home.beers.adapters.OnBeerClickListener
 import com.example.beerservice.app.screens.main.tabs.home.brewery.BreweryDetailsFragmentDirections
+import com.example.beerservice.app.screens.main.tabs.home.places.PlaceListFragmentDirections
 import com.example.beerservice.app.screens.main.tabs.places.adapters.PlacePagingAdapter
 import com.example.beerservice.app.utils.ViewModelFactory
 import com.example.beerservice.app.utils.observeEvent
@@ -69,6 +71,7 @@ class PlaceDetailsFragment : BaseFragment(R.layout.fragment_place_details) {
         observeOnToggleFavoriteEvent()
         observeOnNavigateBeerDetailsEvent()
         observeOnNavigateToCreateFeedback()
+        observeOnNavigateToMapEvent()
 
     }
 
@@ -90,7 +93,7 @@ class PlaceDetailsFragment : BaseFragment(R.layout.fragment_place_details) {
 
                         heartImageView.setOnClickListener(viewModel)
                         textViewShowPlaceOnMap.setOnClickListener(viewModel)
-
+                        textViewShowPlaceOnMap.setOnClickListener(viewModel)
                         heartImageView.setImageResource(
                             if (it.value.setAvailabilityOfSpaceForTheUser == true) R.drawable.ic_baseline_favorite_24
                             else R.drawable.ic_baseline_favorite_border_24
@@ -128,29 +131,30 @@ class PlaceDetailsFragment : BaseFragment(R.layout.fragment_place_details) {
 
 
     private fun observeOnNavigateBeerDetailsEvent() {
-        viewModel.onNavigateToBeerDetails.observeEvent(viewLifecycleOwner){
+        viewModel.onNavigateToBeerDetails.observeEvent(viewLifecycleOwner) {
             val direction =
                 PlaceDetailsFragmentDirections.actionPlaceDetailsFragmentToBeerDetailsFragment(it)
             findNavController().navigate(direction)
         }
     }
 
-    private fun observeOnNavigateToCreateFeedback(){
-        viewModel.onNavigateToCreateFeedback.observeEvent(viewLifecycleOwner){
-            val direction = PlaceDetailsFragmentDirections.actionPlaceDetailsFragmentToFeedbackCreateFragment(it)
+    private fun observeOnNavigateToCreateFeedback() {
+        viewModel.onNavigateToCreateFeedback.observeEvent(viewLifecycleOwner) {
+            val direction =
+                PlaceDetailsFragmentDirections.actionPlaceDetailsFragmentToFeedbackCreateFragment(it)
             findNavController().navigate(direction)
         }
     }
 
-/*
-    private val onBeerClickListener = object : OnBeerClickListener {
-        override fun onBeerClick(beer: Beer, position: Int) {
+    private fun observeOnNavigateToMapEvent() {
+        viewModel.onNavigateToMap.observeEvent(viewLifecycleOwner) { location ->
             val direction =
-                PlaceDetailsFragmentDirections.actionPlaceDetailsFragmentToBeerDetailsFragment(beer.id!!)
+                PlaceDetailsFragmentDirections.actionPlaceDetailsFragmentToPlaceMapFragment()
+            direction.arguments.putDouble(Const.LONGITUDE, location.geoLon!!)
+            direction.arguments.putDouble(Const.LATITUDE, location.geoLat!!)
             findNavController().navigate(direction)
         }
     }
-*/
 
     private fun observeOnToggleFavoriteEvent() {
         viewModel.onToggleFavoriteEvent.observeEvent(viewLifecycleOwner) {
@@ -159,3 +163,4 @@ class PlaceDetailsFragment : BaseFragment(R.layout.fragment_place_details) {
     }
 
 }
+

@@ -43,7 +43,7 @@ class PlaceMapFragment : BaseFragment(R.layout.fragment_places_map), CameraListe
 
     lateinit var binding: FragmentPlacesMapBinding
 
-    lateinit var mapview: MapView
+    private lateinit var mapview: MapView
     lateinit var map: Map
     lateinit var mapObjects: MapObjectCollection
     lateinit var bitmap: Bitmap
@@ -71,11 +71,11 @@ class PlaceMapFragment : BaseFragment(R.layout.fragment_places_map), CameraListe
     }
 
     private fun observePoint() {
+        val isArguments = arguments?.isEmpty
         val lon = arguments?.getDouble(LONGITUDE)
         val lat = arguments?.getDouble(LATITUDE)
-        println("PlaceMapFragment $lon")
-        if (lon != null && lat != null) {
-            point = Point(lat, lon)
+        if (!isArguments!!) {
+            point = Point(lat!!, lon!!)
         } else getCurrentPosition(getAvailableProvider())
     }
 
@@ -241,19 +241,25 @@ class PlaceMapFragment : BaseFragment(R.layout.fragment_places_map), CameraListe
         val id: Int?, val description: String?, val geoLat: Double?, val geoLon: Double?
     )
 
-    companion object {
-        fun newInstance(lon: Double?, lat: Double?) =
-            PlaceMapFragment().apply {
-                arguments = Bundle().apply {
-                    if (lon != null) {
-                        putDouble(Const.LONGITUDE, lon)
-                    }
-                    if (lat != null) {
-                        putDouble(Const.LATITUDE, lat)
+    /*    companion object {
+            fun newInstance(lon: Double?, lat: Double?) = PlaceMapFragment().apply {
+                    arguments = Bundle().apply {
+                        if (lon != null) {
+                            putDouble(LONGITUDE, lon)
+                        }
+                        if (lat != null) {
+                            putDouble(LATITUDE, lat)
+                        }
                     }
                 }
+        }*/
+    companion object {
+        fun newInstance(lon: Double?, lat: Double?) = PlaceMapFragment().apply {
+            arguments = Bundle().apply {
+                lon?.let { putDouble(LONGITUDE, it) }
+                lat?.let { putDouble(LATITUDE, it) }
             }
+        }
     }
-
 
 }

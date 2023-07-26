@@ -34,13 +34,11 @@ class PlaceViewModel(
     private var _onToggleFavoriteEvent = MutableLiveEvent<Boolean>()
     val onToggleFavoriteEvent = _onToggleFavoriteEvent.share()
 
-
     private var _onNavigateToPlaceDetails = MutableLiveEvent<Int>()
     val onNavigateToPlaceDetails = _onNavigateToPlaceDetails.share()
 
     private var _onNavigateToMap = MutableLiveEvent<Location>()
     val onNavigateToMap = _onNavigateToMap.share()
-
 
     init {
         placesFlow = searchBy.asFlow().debounce(400).flatMapLatest {

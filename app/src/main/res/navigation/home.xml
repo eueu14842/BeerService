@@ -111,6 +111,12 @@
         <action
             android:id="@+id/action_placeDetailsFragment_to_feedbackCreateFragment2"
             app:destination="@id/feedbackCreateFragment" />
+        <action
+            android:id="@+id/action_placeDetailsFragment_to_place"
+            app:destination="@id/place" />
+        <action
+            android:id="@+id/action_placeDetailsFragment_to_placeMapFragment"
+            app:destination="@id/placeMapFragment" />
     </fragment>
 
     <fragment
@@ -173,6 +179,11 @@
             app:destination="@id/placeDetailsFragment" />
     </fragment>-->
     <include app:graph="@navigation/place" />
+    <fragment
+        android:id="@id/placeMapFragment"
+        android:name="com.example.beerservice.app.screens.main.tabs.places.tabs.PlaceMapFragment"
+        android:label="PlaceMapFragment"
+        tools:layout="@layout/fragment_places_map"/>
 
 
 </navigation>
