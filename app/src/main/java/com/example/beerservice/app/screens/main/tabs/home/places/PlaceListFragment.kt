@@ -106,7 +106,7 @@ class PlaceListFragment : BaseFragment(R.layout.fragment_place_list) {
     private fun observeOnNavigateToMapEvent() {
         viewModel.onNavigateToMap.observeEvent(viewLifecycleOwner) { location ->
             val direction =
-                PlaceListFragmentDirections.actionPlaceListFragmentToPlace()
+                PlaceListFragmentDirections.actionPlaceListFragmentToPlaceMapFragment()
             direction.arguments.putDouble(LONGITUDE, location.geoLon!!)
             direction.arguments.putDouble(LATITUDE, location.geoLat!!)
             findNavController().navigate(direction)

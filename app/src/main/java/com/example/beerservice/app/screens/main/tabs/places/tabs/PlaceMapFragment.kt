@@ -178,7 +178,7 @@ class PlaceMapFragment : BaseFragment(R.layout.fragment_places_map), CameraListe
         if (mapObject is PlacemarkMapObject) {
             val data = mapObject.userData as MapObjectPlaceData
             val direction =
-                PlaceContainerFragmentDirections.actionPlaceFragmentToPlaceDetailsFragment(
+                PlaceMapFragmentDirections.actionPlaceMapFragmentToPlaceDetailsFragment(
                     data.id!!
                 )
             findNavController().navigate(direction)
