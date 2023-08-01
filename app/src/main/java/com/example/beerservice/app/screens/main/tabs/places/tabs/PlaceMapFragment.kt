@@ -39,7 +39,7 @@ class PlaceMapFragment : BaseFragment(R.layout.fragment_places_map), CameraListe
     override val viewModel: PlaceViewModel by viewModels { ViewModelFactory() }
     lateinit var viewModelPlace: PlaceViewModel
     private var locationManager: android.location.LocationManager? = null
-    lateinit var point: Point
+     var point: Point = Point(0.0, 0.0)
 
     lateinit var binding: FragmentPlacesMapBinding
 
@@ -74,7 +74,7 @@ class PlaceMapFragment : BaseFragment(R.layout.fragment_places_map), CameraListe
         val isArguments = arguments?.isEmpty
         val lon = arguments?.getDouble(LONGITUDE)
         val lat = arguments?.getDouble(LATITUDE)
-        if (!isArguments!!) {
+        if (lon != 0.0) {
             point = Point(lat!!, lon!!)
         } else getCurrentPosition(getAvailableProvider())
     }
@@ -241,18 +241,6 @@ class PlaceMapFragment : BaseFragment(R.layout.fragment_places_map), CameraListe
         val id: Int?, val description: String?, val geoLat: Double?, val geoLon: Double?
     )
 
-    /*    companion object {
-            fun newInstance(lon: Double?, lat: Double?) = PlaceMapFragment().apply {
-                    arguments = Bundle().apply {
-                        if (lon != null) {
-                            putDouble(LONGITUDE, lon)
-                        }
-                        if (lat != null) {
-                            putDouble(LATITUDE, lat)
-                        }
-                    }
-                }
-        }*/
     companion object {
         fun newInstance(lon: Double?, lat: Double?) = PlaceMapFragment().apply {
             arguments = Bundle().apply {
