@@ -164,7 +164,7 @@
 
     <fragment
         android:id="@id/placeMapFragment"
-        android:name="com.example.beerservice.app.screens.main.tabs.places.tabs.PlaceMapFragment"
+        android:name="com.example.beerservice.app.screens.main.tabs.home.places.SinglePlaceMapFragment"
         android:label="PlaceMapFragment"
         tools:layout="@layout/fragment_places_map">
         <action

@@ -1,4 +1,4 @@
-package com.example.beerservice.app.screens.main.tabs.places.tabs
+package com.example.beerservice.app.screens.main.tabs.home.places
 
 import android.Manifest
 import android.content.Context
@@ -22,6 +22,7 @@ import com.example.beerservice.app.Const
 import com.example.beerservice.app.Const.LATITUDE
 import com.example.beerservice.app.Const.LONGITUDE
 import com.example.beerservice.app.screens.base.BaseFragment
+import com.example.beerservice.app.screens.main.tabs.places.tabs.PlaceViewModel
 import com.example.beerservice.app.utils.ViewModelFactory
 import com.example.beerservice.databinding.FragmentPlacesMapBinding
 import com.yandex.mapkit.MapKitFactory
@@ -34,12 +35,12 @@ import kotlinx.coroutines.launch
 import java.lang.Math.cos
 import kotlin.math.pow
 
-class PlaceMapFragment : BaseFragment(R.layout.fragment_places_map), CameraListener {
+class SinglePlaceMapFragment : BaseFragment(R.layout.fragment_places_map), CameraListener {
 
     override val viewModel: PlaceViewModel by viewModels { ViewModelFactory() }
     lateinit var viewModelPlace: PlaceViewModel
     private var locationManager: android.location.LocationManager? = null
-     lateinit var point: Point
+    lateinit var point: Point
 
     lateinit var binding: FragmentPlacesMapBinding
 
@@ -61,13 +62,19 @@ class PlaceMapFragment : BaseFragment(R.layout.fragment_places_map), CameraListe
 
         setupLocationManager()
 
-        getCurrentPosition(getAvailableProvider())
-        onNavigateToCurrentPosition(point)
+        observePoint()
         observePlaces(point.latitude, point.longitude)
+        onNavigateToCurrentPosition(point)
         map.addCameraListener(this)
 
         return binding.root
 
+    }
+
+    private fun observePoint() {
+        val lon = arguments?.getDouble(LONGITUDE)
+        val lat = arguments?.getDouble(LATITUDE)
+        point = Point(lat!!, lon!!)
     }
 
     private fun observePlaces(lat: Double, lon: Double) {
@@ -102,35 +109,8 @@ class PlaceMapFragment : BaseFragment(R.layout.fragment_places_map), CameraListe
         ) == PackageManager.PERMISSION_GRANTED
     }
 
-    private fun getCurrentPosition(provider: String) {
-        if (checkLocationPermission()) {
-            val location: Location? = locationManager?.getLastKnownLocation(provider)
-            println("локайшон $location")
-            if (location != null) {
-                point = Point(location.latitude, location.longitude)
-                return
-            }
-            locationManager?.requestLocationUpdates(
-                provider, 0, 0f
-            ) { loc -> point = Point(loc.latitude, loc.longitude)
-                println("локайшон ${loc.latitude}")}
-        } else return
-    }
-
-
     private fun setLocation(lat: Double, lon: Double, rad: Double) {
         viewModelPlace.setPlacesLocation(lat, lon)
-    }
-
-
-    private fun getAvailableProvider(): String {
-        val providers = locationManager!!.getProviders(true)
-        for (provider in providers) {
-            if (locationManager!!.isProviderEnabled(provider)) {
-                return provider
-            }
-        }
-        return android.location.LocationManager.NETWORK_PROVIDER
     }
 
     private fun setupLocationManager() {
@@ -171,7 +151,7 @@ class PlaceMapFragment : BaseFragment(R.layout.fragment_places_map), CameraListe
         if (mapObject is PlacemarkMapObject) {
             val data = mapObject.userData as MapObjectPlaceData
             val direction =
-                PlaceContainerFragmentDirections.actionPlaceFragmentToPlaceDetailsFragment(
+                SinglePlaceMapFragmentDirections.actionPlaceMapFragmentToPlaceDetailsFragment(
                     data.id!!
                 )
             findNavController().navigate(direction)
@@ -235,7 +215,7 @@ class PlaceMapFragment : BaseFragment(R.layout.fragment_places_map), CameraListe
     )
 
     companion object {
-        fun newInstance(lon: Double?, lat: Double?) = PlaceMapFragment().apply {
+        fun newInstance(lon: Double?, lat: Double?) = SinglePlaceMapFragment().apply {
             arguments = Bundle().apply {
                 lon?.let { putDouble(LONGITUDE, it) }
                 lat?.let { putDouble(LATITUDE, it) }

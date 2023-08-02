@@ -64,6 +64,9 @@
         <action
             android:id="@+id/action_placeDetailsFragment_to_placeMapFragment"
             app:destination="@id/placeMapFragment" />
+        <action
+            android:id="@+id/action_placeDetailsFragmentPlace_to_placeListFragment"
+            app:destination="@id/placeListFragment" />
     </fragment>
 
     <fragment
