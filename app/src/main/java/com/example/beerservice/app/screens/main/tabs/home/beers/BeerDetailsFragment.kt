@@ -78,6 +78,7 @@ class BeerDetailsFragment : BaseFragment(R.layout.fragment_beer_details) {
                         textViewBeerTitle.text = result.value.name
                         textViewBeerDesc.text = result.value.description
                         stileBeer.text = result.value.style
+                        breweryName.text = result.value.breweryName
                         abv.text = result.value.abv.toString()
                         ibu.text = result.value.ibu.toString()
 
@@ -89,9 +90,11 @@ class BeerDetailsFragment : BaseFragment(R.layout.fragment_beer_details) {
                         textViewBeerFeedBack.setOnClickListener {
                             onNavigateToCreateFeedback(result.value.id!!)
                         }
+                        textViewBeerShowOnMap.setOnClickListener {
+                            onNavigateToMapListByBeerId(result.value.id!!)
+                        }
                         setBeerId(result.value.id!!)
                     }
-
                 }
                 is Empty -> TODO()
             }
@@ -128,6 +131,11 @@ class BeerDetailsFragment : BaseFragment(R.layout.fragment_beer_details) {
     private fun onNavigateToCreateFeedback(beerId: Int) {
         val direction =
             BeerDetailsFragmentDirections.actionBeerDetailsFragmentToFeedbackCreateFragment(beerId)
+        findNavController().navigate(direction)
+    }
+
+    private fun onNavigateToMapListByBeerId(beerId: Int) {
+        val direction = BeerDetailsFragmentDirections.actionBeerDetailsFragmentToPlaceMapFragment()
         findNavController().navigate(direction)
     }
 

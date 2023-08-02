@@ -206,6 +206,7 @@
                         android:weightSum="5">
 
                         <TextView
+                            android:id="@+id/textViewBeerShowOnMap"
                             style="@style/linkText"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"

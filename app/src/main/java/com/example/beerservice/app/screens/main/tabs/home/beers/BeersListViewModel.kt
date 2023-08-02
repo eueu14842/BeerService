@@ -32,7 +32,6 @@ class BeersListViewModel(
     private var _onNavigateToCreateFeedback = MutableLiveEvent<Int>()
     val onNavigateToCreateFeedback = _onNavigateToCreateFeedback.share()
 
-
     init {
         beersFlow = searchBy.asFlow()
             .debounce(400)

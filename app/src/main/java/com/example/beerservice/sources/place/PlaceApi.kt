@@ -41,4 +41,9 @@ interface PlaceApi {
         @Path("id") id: Int,
         @Query("userId") userId: Int
     ): GetPlaceResponseEntity
+
+    @GET("place/beer/list")
+    suspend fun getPlaceByBeerId() {
+
+    }
 }

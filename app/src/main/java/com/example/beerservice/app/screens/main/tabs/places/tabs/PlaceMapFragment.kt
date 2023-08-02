@@ -39,7 +39,7 @@ class PlaceMapFragment : BaseFragment(R.layout.fragment_places_map), CameraListe
     override val viewModel: PlaceViewModel by viewModels { ViewModelFactory() }
     lateinit var viewModelPlace: PlaceViewModel
     private var locationManager: android.location.LocationManager? = null
-     lateinit var point: Point
+     var point: Point = Point(0.0,0.0)
 
     lateinit var binding: FragmentPlacesMapBinding
 
@@ -60,7 +60,6 @@ class PlaceMapFragment : BaseFragment(R.layout.fragment_places_map), CameraListe
         mapObjects = map.mapObjects.addCollection()
 
         setupLocationManager()
-
         getCurrentPosition(getAvailableProvider())
         onNavigateToCurrentPosition(point)
         observePlaces(point.latitude, point.longitude)
@@ -105,15 +104,13 @@ class PlaceMapFragment : BaseFragment(R.layout.fragment_places_map), CameraListe
     private fun getCurrentPosition(provider: String) {
         if (checkLocationPermission()) {
             val location: Location? = locationManager?.getLastKnownLocation(provider)
-            println("локайшон $location")
             if (location != null) {
                 point = Point(location.latitude, location.longitude)
                 return
             }
             locationManager?.requestLocationUpdates(
                 provider, 0, 0f
-            ) { loc -> point = Point(loc.latitude, loc.longitude)
-                println("локайшон ${loc.latitude}")}
+            ) { loc -> point = Point(loc.latitude, loc.longitude) }
         } else return
     }
 

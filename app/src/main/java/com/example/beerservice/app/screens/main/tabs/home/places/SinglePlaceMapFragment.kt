@@ -60,6 +60,7 @@ class SinglePlaceMapFragment : BaseFragment(R.layout.fragment_places_map), Camer
         map = mapview.map
         mapObjects = map.mapObjects.addCollection()
 
+        checkLocationPermission()
         setupLocationManager()
 
         observePoint()

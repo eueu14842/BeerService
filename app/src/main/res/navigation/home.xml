@@ -61,6 +61,9 @@
         <action
             android:id="@+id/action_beerDetailsFragment_to_feedbackCreateFragment"
             app:destination="@id/feedbackCreateFragment" />
+        <action
+            android:id="@+id/action_beerDetailsFragment_to_placeMapFragment"
+            app:destination="@id/placeMapFragment" />
     </fragment>
 
     <fragment
