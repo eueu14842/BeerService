@@ -23,6 +23,7 @@ import com.example.beerservice.app.screens.base.DefaultLoadStateAdapter
 import com.example.beerservice.app.screens.base.TryAgainAction
 import com.example.beerservice.app.screens.main.tabs.home.beers.adapters.FeedbackForBeerPagingAdapter
 import com.example.beerservice.app.screens.main.tabs.home.beers.adapters.OnFeedbackClickListener
+import com.example.beerservice.app.screens.main.tabs.home.places.SinglePlaceMapFragment
 import com.example.beerservice.app.screens.main.tabs.places.adapters.PlacePagingAdapter
 import com.example.beerservice.app.utils.ViewModelFactory
 import com.example.beerservice.databinding.FragmentBeerDetailsBinding
@@ -135,8 +136,9 @@ class BeerDetailsFragment : BaseFragment(R.layout.fragment_beer_details) {
     }
 
     private fun onNavigateToMapListByBeerId(beerId: Int) {
-        val direction = BeerDetailsFragmentDirections.actionBeerDetailsFragmentToPlaceMapFragment()
-        findNavController().navigate(direction)
+        parentFragmentManager.beginTransaction()
+            .replace(R.id.tabsContainer, SinglePlaceMapFragment.newInstance(0.0, 0.0))
+            .commit()
     }
 
     private val onFeedbackClickListener = object : OnFeedbackClickListener {

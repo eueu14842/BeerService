@@ -35,12 +35,21 @@ class RetrofitPlaceSource(
             placeApi.getPagedPlaces(userId, limit, offset).map { it.toPlace() }
         }
 
-    override suspend fun addFavorite(placeIdUserId: PlaceIdUserId) {
+    override suspend fun addFavorite(placeIdUserId: PlaceIdUserId) = wrapRetrofitExceptions {
         placeApi.addFavorite(placeIdUserId.toGetPlaceIdUserId())
     }
 
-    override suspend fun removeFavorite(placeIdUserId: PlaceIdUserId) {
+    override suspend fun removeFavorite(placeIdUserId: PlaceIdUserId) = wrapRetrofitExceptions {
         placeApi.removeFavorite(placeIdUserId.toGetPlaceIdUserId())
+    }
+
+    override suspend fun getPlacesByBeerId(
+        userId: Int,
+        beerId: Int,
+        limit: Int,
+        offset: Int
+    ): List<Place> = wrapRetrofitExceptions {
+        placeApi.getPlacesByBeerId(userId, beerId, limit, offset).map { it.toPlace() }
     }
 
 

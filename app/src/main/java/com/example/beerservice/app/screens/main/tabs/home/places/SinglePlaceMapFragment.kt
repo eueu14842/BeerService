@@ -221,6 +221,7 @@ class SinglePlaceMapFragment : BaseFragment(R.layout.fragment_places_map), Camer
                 lon?.let { putDouble(LONGITUDE, it) }
                 lat?.let { putDouble(LATITUDE, it) }
             }
+
         }
     }
 

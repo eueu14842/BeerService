@@ -13,7 +13,7 @@ import kotlinx.coroutines.withContext
 
 class PlacesRepository(
     val placeSource: PlaceSource,
-    val accountsRepository: AccountsRepository
+    val accountsRepository: AccountsRepository,
 ) {
     suspend fun getPlacesList(geoLat: Double, geoLon: Double, visibleRegion: Double): List<Place> {
         val user = accountsRepository.doGetProfile()
@@ -26,6 +26,19 @@ class PlacesRepository(
     }
 
     suspend fun getPlaceById(id: Int, userId: Int) = placeSource.getPlaceProfile(id, userId)
+
+    suspend fun getPagedPlacesByBeerId(beerId: Int): Flow<PagingData<Place>> {
+        val loader: PlacePageLoader = { pageIndex, pageSize ->
+            getPlacesByBeerId(beerId, pageIndex, pageSize)
+        }
+        return Pager(
+            config = PagingConfig(
+                pageSize = PAGE_SIZE,
+                enablePlaceholders = false
+            ),
+            pagingSourceFactory = { PlacePagingSource(loader, PAGE_SIZE) }
+        ).flow
+    }
 
     suspend fun getPagedPlaces(): Flow<PagingData<Place>> {
         val loader: PlacePageLoader = { pageIndex, pageSize ->
@@ -50,6 +63,22 @@ class PlacesRepository(
             return@withContext placeSource.getPagedPlaces(user.userId!!, pageSize, offset)
         }
 
+    suspend fun getPlacesByBeerId(
+        beerId: Int,
+        pageIndex: Int,
+        pageSize: Int
+    ): List<Place> =
+        withContext(Dispatchers.IO) {
+            val user = accountsRepository.doGetProfile()
+            val offset = pageIndex * pageSize
+            return@withContext placeSource.getPlacesByBeerId(
+                user.userId!!,
+                beerId,
+                pageSize,
+                offset
+            )
+        }
+
     suspend fun setFavorite(placeIdUserId: PlaceIdUserId) {
         placeSource.addFavorite(placeIdUserId)
     }
@@ -57,4 +86,5 @@ class PlacesRepository(
     suspend fun removeFavorite(placeIdUserId: PlaceIdUserId) {
         placeSource.removeFavorite(placeIdUserId)
     }
+
 }

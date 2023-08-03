@@ -48,12 +48,18 @@ class PlaceViewModel(
 
     fun getPlaces(lat: Double, lon: Double, rad: Double) {
         viewModelScope.launch {
-            delay(2000)
+            delay(500)
             val places = placeRepository.getPlacesList(lat, lon, rad)
             if (places.isEmpty()) _place.value = ErrorResult(java.lang.IllegalStateException(""))
             else _place.value = Pending()
             _place.value = Success(places)
         }
+    }
+
+    fun getPlacesByBeerId(beerId: Int) {
+        placesFlow = searchBy.asFlow().debounce(400).flatMapLatest {
+            placeRepository.getPagedPlacesByBeerId(beerId)
+        }.cachedIn(viewModelScope)
     }
 
     fun setPlacesLocation(lat: Double, lon: Double) {
