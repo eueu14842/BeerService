@@ -5,6 +5,7 @@ import android.content.Context
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.graphics.drawable.Drawable
+import android.location.Criteria
 import android.location.Location
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -39,7 +40,7 @@ class PlaceMapFragment : BaseFragment(R.layout.fragment_places_map), CameraListe
     override val viewModel: PlaceViewModel by viewModels { ViewModelFactory() }
     lateinit var viewModelPlace: PlaceViewModel
     private var locationManager: android.location.LocationManager? = null
-     var point: Point = Point(0.0,0.0)
+    private lateinit var point: Point
 
     lateinit var binding: FragmentPlacesMapBinding
 
@@ -106,12 +107,12 @@ class PlaceMapFragment : BaseFragment(R.layout.fragment_places_map), CameraListe
             val location: Location? = locationManager?.getLastKnownLocation(provider)
             if (location != null) {
                 point = Point(location.latitude, location.longitude)
-                return
+            }else{
+                locationManager?.requestLocationUpdates(
+                    provider, 0, 0f
+                ) { loc -> point = Point(loc.latitude, loc.longitude) }
             }
-            locationManager?.requestLocationUpdates(
-                provider, 0, 0f
-            ) { loc -> point = Point(loc.latitude, loc.longitude) }
-        } else return
+        } else point = Point(0.0, 0.0)
     }
 
 
@@ -121,13 +122,10 @@ class PlaceMapFragment : BaseFragment(R.layout.fragment_places_map), CameraListe
 
 
     private fun getAvailableProvider(): String {
-        val providers = locationManager!!.getProviders(true)
-        for (provider in providers) {
-            if (locationManager!!.isProviderEnabled(provider)) {
-                return provider
-            }
-        }
-        return android.location.LocationManager.NETWORK_PROVIDER
+        val criteria = Criteria()
+        criteria.accuracy = Criteria.ACCURACY_FINE
+        return locationManager?.getBestProvider(criteria, true)
+            ?: return android.location.LocationManager.NETWORK_PROVIDER
     }
 
     private fun setupLocationManager() {
@@ -155,11 +153,9 @@ class PlaceMapFragment : BaseFragment(R.layout.fragment_places_map), CameraListe
                     val scaledBitmap = Bitmap.createScaledBitmap(bitmap, iconSize, iconSize, false)
                     placeMark?.setIcon(ImageProvider.fromBitmap(scaledBitmap))
                 }
-
                 override fun onLoadCleared(placeholder: Drawable?) {
                     bitmap.recycle()
                 }
-
             })
 
     }
