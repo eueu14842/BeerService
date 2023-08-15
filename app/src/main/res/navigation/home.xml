@@ -122,7 +122,7 @@
     <fragment
         android:id="@+id/placeListFragment"
         android:name="com.example.beerservice.app.screens.main.tabs.home.places.PlaceListFragment"
-        android:label="Месте - все"
+        android:label="Места - все"
         tools:layout="@layout/fragment_place_list">
         <action
             android:id="@+id/action_placeListFragment_to_placeDetailsFragment"
