@@ -10,7 +10,10 @@ import com.example.beerservice.app.model.beers.BeersRepository
 import com.example.beerservice.app.model.beers.entities.Beer
 import com.example.beerservice.app.model.feedback.FeedbackRepository
 import com.example.beerservice.app.model.feedback.entities.FeedbackBeer
+import com.example.beerservice.app.model.place.PlacesRepository
+import com.example.beerservice.app.model.place.entities.Location
 import com.example.beerservice.app.screens.base.BaseViewModel
+import com.example.beerservice.app.utils.MutableLiveEvent
 import com.example.beerservice.app.utils.share
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.debounce
@@ -19,7 +22,8 @@ import kotlinx.coroutines.launch
 
 class BeerViewModel(
     val beersRepository: BeersRepository = Singletons.beerRepository,
-    val feedbackRepository: FeedbackRepository = Singletons.feedbackRepository
+    val feedbackRepository: FeedbackRepository = Singletons.feedbackRepository,
+    val placesRepository: PlacesRepository = Singletons.placesRepository
 ) : BaseViewModel() {
 
     private val _beer = MutableLiveData<ResultState<Beer>>()
@@ -28,6 +32,9 @@ class BeerViewModel(
     var feedback: Flow<PagingData<FeedbackBeer>>? = null
 
     private var beerId = MutableLiveData(0)
+
+    private var _onNavigateToMap = MutableLiveEvent<Location>()
+    val onNavigateToMap = _onNavigateToMap.share()
 
     fun getBeerById(id: Int) {
         viewModelScope.launch {
@@ -52,5 +59,10 @@ class BeerViewModel(
         this.beerId.value = value
     }
 
+    fun getPlaceByBeerId(){
+        viewModelScope.launch {
+
+        }
+    }
 
 }

@@ -3,8 +3,8 @@ package com.example.beerservice.app.screens.main.tabs.home.search
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.example.beerservice.app.model.Singletons
-import com.example.beerservice.app.model.beers.entities.Beer
 import com.example.beerservice.app.model.place.PlacesRepository
+import com.example.beerservice.app.model.place.entities.Location
 import com.example.beerservice.app.model.place.entities.PlaceIdUserId
 import com.example.beerservice.app.model.search.SearchRepository
 import com.example.beerservice.app.model.search.entities.SearchData
@@ -33,9 +33,12 @@ class SearchViewModel(
     private var _onToggleFavoriteEvent = MutableLiveEvent<Boolean>()
     val onToggleFavoriteEvent = _onToggleFavoriteEvent.share()
 
-    private var _onNavigateToMapPlaceDetails = MutableLiveEvent<Int>()
-    val onNavigateToMapPlaceDetails = _onNavigateToMapPlaceDetails.share()
+    private var _onNavigateToPlaceDetails = MutableLiveEvent<Int>()
+    val onNavigateToPlaceDetails = _onNavigateToPlaceDetails.share()
 
+
+    private var _onNavigateToMap = MutableLiveEvent<Location>()
+    val onNavigateToMap = _onNavigateToMap.share()
 
     private var searchBy = MutableLiveData("")
 
@@ -61,11 +64,11 @@ class SearchViewModel(
     }
 
     override fun onNavigateToPlaceDetails(placeId: Int) {
-        _onNavigateToMapPlaceDetails.publishEvent(placeId)
+        _onNavigateToPlaceDetails.publishEvent(placeId)
     }
 
     override fun onNavigateToMap(geoLat: Double?, geoLon: Double) {
-        TODO("Not yet implemented")
+        _onNavigateToMap.publishEvent(Location(geoLat, geoLon))
     }
 
 

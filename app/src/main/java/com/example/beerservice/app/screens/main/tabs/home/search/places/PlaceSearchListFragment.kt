@@ -1,13 +1,8 @@
 package com.example.beerservice.app.screens.main.tabs.home.search.places
 
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.LifecycleObserver
-import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -17,8 +12,8 @@ import com.example.beerservice.app.Const.SEARCH_KEY
 import com.example.beerservice.app.screens.base.BaseFragment
 import com.example.beerservice.app.screens.main.tabs.home.search.SearchFragmentDirections
 import com.example.beerservice.app.screens.main.tabs.home.search.SearchViewModel
+import com.example.beerservice.app.screens.main.tabs.places.PlaceDetailsFragmentDirections
 import com.example.beerservice.app.screens.main.tabs.places.adapters.PlaceListAdapter
-import com.example.beerservice.app.screens.main.tabs.places.tabs.PlaceLocationListFragmentDirections
 import com.example.beerservice.app.utils.ViewModelFactory
 import com.example.beerservice.app.utils.observeEvent
 import com.example.beerservice.databinding.FragmentSearchPlaceListBinding
@@ -38,6 +33,7 @@ class PlaceSearchListFragment : BaseFragment(R.layout.fragment_search_place_list
         setupViews()
         observeSearchPlace()
         observeOnNavigateToPlaceDetailsEvent()
+        observeOnNavigateToMap()
     }
 
     private fun observeSearchPlace() {
@@ -60,11 +56,17 @@ class PlaceSearchListFragment : BaseFragment(R.layout.fragment_search_place_list
     }
 
     private fun observeOnNavigateToPlaceDetailsEvent() {
-        viewModel.onNavigateToMapPlaceDetails.observeEvent(viewLifecycleOwner) {
+        viewModel.onNavigateToPlaceDetails.observeEvent(viewLifecycleOwner) {
             val direction =
                 SearchFragmentDirections.actionSearchFragmentToPlaceDetailsFragment(
                     it
                 )
+            findNavController().navigate(direction)
+        }
+    }
+    private fun observeOnNavigateToMap(){
+        viewModel.onNavigateToMap.observeEvent(viewLifecycleOwner){
+            val direction = PlaceDetailsFragmentDirections.actionPlaceDetailsFragmentToPlaceMapFragment()
             findNavController().navigate(direction)
         }
     }

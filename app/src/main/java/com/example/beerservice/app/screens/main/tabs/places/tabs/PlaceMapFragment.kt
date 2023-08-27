@@ -17,7 +17,9 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions
 import com.bumptech.glide.request.target.CustomTarget
+import com.bumptech.glide.request.transition.Transition
 import com.example.beerservice.R
 import com.example.beerservice.app.Const
 import com.example.beerservice.app.Const.LATITUDE
@@ -25,12 +27,14 @@ import com.example.beerservice.app.Const.LONGITUDE
 import com.example.beerservice.app.screens.base.BaseFragment
 import com.example.beerservice.app.utils.ViewModelFactory
 import com.example.beerservice.databinding.FragmentPlacesMapBinding
+import com.yandex.mapkit.MapKit
 import com.yandex.mapkit.MapKitFactory
 import com.yandex.mapkit.geometry.Point
 import com.yandex.mapkit.map.*
 import com.yandex.mapkit.map.Map
 import com.yandex.mapkit.mapview.MapView
 import com.yandex.runtime.image.ImageProvider
+import jp.wasabeef.glide.transformations.RoundedCornersTransformation
 import kotlinx.coroutines.launch
 import java.lang.Math.cos
 import kotlin.math.pow
@@ -54,11 +58,17 @@ class PlaceMapFragment : BaseFragment(R.layout.fragment_places_map), CameraListe
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View? {
         binding = FragmentPlacesMapBinding.inflate(inflater, container, false)
+        val mapKit = MapKitFactory.getInstance()
 
         viewModelPlace = ViewModelProvider(requireActivity())[PlaceViewModel::class.java]
         mapview = binding.mapview
         map = mapview.map
         mapObjects = map.mapObjects.addCollection()
+
+
+        mapKit.createUserLocationLayer(mapview.mapWindow).apply {
+            isVisible = true
+        }
 
         setupLocationManager()
         getCurrentPosition(getAvailableProvider())
@@ -107,7 +117,7 @@ class PlaceMapFragment : BaseFragment(R.layout.fragment_places_map), CameraListe
             val location: Location? = locationManager?.getLastKnownLocation(provider)
             if (location != null) {
                 point = Point(location.latitude, location.longitude)
-            }else{
+            } else {
                 locationManager?.requestLocationUpdates(
                     provider, 0, 0f
                 ) { loc -> point = Point(loc.latitude, loc.longitude) }
@@ -125,7 +135,7 @@ class PlaceMapFragment : BaseFragment(R.layout.fragment_places_map), CameraListe
         val criteria = Criteria()
         criteria.accuracy = Criteria.ACCURACY_FINE
         return locationManager?.getBestProvider(criteria, true)
-            ?: return android.location.LocationManager.NETWORK_PROVIDER
+            ?: return android.location.LocationManager.GPS_PROVIDER
     }
 
     private fun setupLocationManager() {
@@ -142,7 +152,10 @@ class PlaceMapFragment : BaseFragment(R.layout.fragment_places_map), CameraListe
     }
 
     private fun setPlaceMarkIcon(placeMark: PlacemarkMapObject?, imageUrl: String?) {
-        Glide.with(requireContext()).asBitmap().load(imageUrl)
+        Glide.with(requireContext())
+            .asBitmap()
+            .load(imageUrl)
+            .apply(RequestOptions.bitmapTransform(RoundedCornersTransformation(20, 0)))
             .into(object : CustomTarget<Bitmap>() {
                 override fun onResourceReady(
                     resource: Bitmap,
@@ -159,6 +172,7 @@ class PlaceMapFragment : BaseFragment(R.layout.fragment_places_map), CameraListe
             })
 
     }
+
 
     private val mapPlaceTapListener = MapObjectTapListener { mapObject, _ ->
         if (mapObject is PlacemarkMapObject) {

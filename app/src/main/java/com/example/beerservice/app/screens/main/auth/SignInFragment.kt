@@ -32,6 +32,7 @@ class SignInFragment : Fragment() {
         observeState()
         observeNavigateToTabsEvent()
         observeShowAuthErrorMessageEvent()
+        observeShowConnectionErrorMessageEvent()
         return binding.root
     }
 
@@ -50,6 +51,11 @@ class SignInFragment : Fragment() {
 
     private fun observeShowAuthErrorMessageEvent() =
         viewModel.showAuthToastEvent.observe(viewLifecycleOwner) {
+            Toast.makeText(requireContext(), it, Toast.LENGTH_SHORT).show()
+        }
+
+    private fun observeShowConnectionErrorMessageEvent() =
+        viewModel.showConnectionErrorToastEvent.observe(viewLifecycleOwner) {
             Toast.makeText(requireContext(), it, Toast.LENGTH_SHORT).show()
         }
 
