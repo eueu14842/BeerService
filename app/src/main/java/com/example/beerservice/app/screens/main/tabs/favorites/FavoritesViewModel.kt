@@ -5,6 +5,7 @@ import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingDataAdapter
 import com.example.beerservice.app.model.*
 import com.example.beerservice.app.model.place.PlacesRepository
+import com.example.beerservice.app.model.place.entities.Location
 import com.example.beerservice.app.model.place.entities.Place
 import com.example.beerservice.app.model.place.entities.PlaceIdUserId
 import com.example.beerservice.app.screens.base.BaseViewModel
@@ -31,6 +32,8 @@ class FavoritesViewModel(
     private var _onToggleFavoriteEvent = MutableLiveEvent<Boolean>()
     val onToggleFavoriteEvent = _onToggleFavoriteEvent.share()
 
+    private var _onNavigateToMapEvent = MutableLiveEvent<Location>()
+    var onNavigateToMapEvent = _onNavigateToMapEvent.share()
 
     fun getFavorite() {
         viewModelScope.launch {
@@ -47,8 +50,9 @@ class FavoritesViewModel(
     }
 
     override fun onNavigateToMap(geoLat: Double?, geoLon: Double) {
-        TODO("Not yet implemented")
+        _onNavigateToMapEvent.publishEvent(Location(geoLat, geoLon))
     }
+
 
     override fun onToggleFavoriteFlag(placeId: Int, isFavorite: Boolean) {
         viewModelScope.launch {

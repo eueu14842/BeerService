@@ -9,7 +9,9 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.beerservice.R
+import com.example.beerservice.app.Const
 import com.example.beerservice.app.screens.base.BaseFragment
+import com.example.beerservice.app.screens.main.tabs.home.places.PlaceListFragmentDirections
 import com.example.beerservice.app.screens.main.tabs.places.adapters.PlaceListAdapter
 import com.example.beerservice.app.screens.main.tabs.places.tabs.PlaceLocationListFragmentDirections
 import com.example.beerservice.app.utils.ViewModelFactory
@@ -33,6 +35,7 @@ class FavoritesFragment : BaseFragment(R.layout.fragment_favorites) {
         viewModel.getFavorite()
         getFavoritePlaces()
         observeOnNavigateToPlaceDetailsEvent()
+        observeOnNavigateToMapEvent()
         return binding.root
     }
 
@@ -52,12 +55,22 @@ class FavoritesFragment : BaseFragment(R.layout.fragment_favorites) {
         }
     }
 
-    private fun observeOnNavigateToPlaceDetailsEvent(){
-      viewModel.onNavigateToPlaceDetails.observeEvent(viewLifecycleOwner) {
+    private fun observeOnNavigateToPlaceDetailsEvent() {
+        viewModel.onNavigateToPlaceDetails.observeEvent(viewLifecycleOwner) {
             val direction =
                 FavoritesFragmentDirections.actionFavoritesFragmentToPlaceDetailsFragment(
                     it
                 )
+            findNavController().navigate(direction)
+        }
+    }
+
+    private fun observeOnNavigateToMapEvent() {
+        viewModel.onNavigateToMapEvent.observeEvent(viewLifecycleOwner) { location ->
+            val direction =
+                FavoritesFragmentDirections.actionFavoritesFragmentToSinglePlaceMapFragment()
+            direction.arguments.putDouble(Const.LONGITUDE, location.geoLon!!)
+            direction.arguments.putDouble(Const.LATITUDE, location.geoLat!!)
             findNavController().navigate(direction)
         }
     }

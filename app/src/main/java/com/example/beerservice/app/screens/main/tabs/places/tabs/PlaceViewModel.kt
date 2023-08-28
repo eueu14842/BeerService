@@ -7,6 +7,7 @@ import androidx.paging.PagingData
 import androidx.paging.cachedIn
 import com.example.beerservice.app.model.*
 import com.example.beerservice.app.model.place.PlacesRepository
+import com.example.beerservice.app.model.place.entities.Location
 import com.example.beerservice.app.model.place.entities.Place
 import com.example.beerservice.app.model.place.entities.PlaceIdUserId
 import com.example.beerservice.app.screens.base.BaseViewModel
@@ -107,10 +108,7 @@ class PlaceViewModel(
 
     }
 
-    data class Location(
-        val geoLat: Double? = null,
-        val geoLon: Double? = null,
-    )
+
 
 }
 

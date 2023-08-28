@@ -10,12 +10,14 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.RotateAnimation
 import androidx.core.app.ActivityCompat
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions
 import com.bumptech.glide.request.target.CustomTarget
 import com.example.beerservice.R
 import com.example.beerservice.app.Const
@@ -31,6 +33,7 @@ import com.yandex.mapkit.map.*
 import com.yandex.mapkit.map.Map
 import com.yandex.mapkit.mapview.MapView
 import com.yandex.runtime.image.ImageProvider
+import jp.wasabeef.glide.transformations.RoundedCornersTransformation
 import kotlinx.coroutines.launch
 import java.lang.Math.cos
 import kotlin.math.pow
@@ -128,7 +131,10 @@ class SinglePlaceMapFragment : BaseFragment(R.layout.fragment_places_map), Camer
     }
 
     private fun setPlaceMarkIcon(placeMark: PlacemarkMapObject?, imageUrl: String?) {
-        Glide.with(requireContext()).asBitmap().load(imageUrl)
+        Glide.with(requireContext())
+            .asBitmap()
+            .load(imageUrl)
+            .apply(RequestOptions.bitmapTransform(RoundedCornersTransformation(100, 0)))
             .into(object : CustomTarget<Bitmap>() {
                 override fun onResourceReady(
                     resource: Bitmap,
