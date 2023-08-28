@@ -9,7 +9,7 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b5efdcfc-26c8-49d4-a415-4245e8f9f766" name="Changes" comment="- commit work before pull">
+    <list default="true" id="b5efdcfc-26c8-49d4-a415-4245e8f9f766" name="Changes" comment="- commit work after pull">
       <change beforePath="$PROJECT_DIR$/.gradle/7.4/executionHistory/executionHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/7.4/executionHistory/executionHistory.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/7.4/executionHistory/executionHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/7.4/executionHistory/executionHistory.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/7.4/fileHashes/fileHashes.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/7.4/fileHashes/fileHashes.bin" afterDir="false" />
@@ -289,13 +289,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1687414963941</updated>
-    </task>
-    <task id="LOCAL-00005" summary="updated adapter&#10;updated view beer\brewery details">
-      <created>1687873622800</created>
-      <option name="number" value="00005" />
-      <option name="presentableId" value="LOCAL-00005" />
-      <option name="project" value="LOCAL" />
-      <updated>1687873622800</updated>
     </task>
     <task id="LOCAL-00006" summary="updated">
       <created>1688034331163</created>
@@ -633,7 +626,14 @@
       <option name="project" value="LOCAL" />
       <updated>1693202764940</updated>
     </task>
-    <option name="localTasksCounter" value="54" />
+    <task id="LOCAL-00054" summary="- commit work after pull">
+      <created>1693233961971</created>
+      <option name="number" value="00054" />
+      <option name="presentableId" value="LOCAL-00054" />
+      <option name="project" value="LOCAL" />
+      <updated>1693233961971</updated>
+    </task>
+    <option name="localTasksCounter" value="55" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -700,6 +700,7 @@
     <MESSAGE value="-another commit" />
     <MESSAGE value="- commit" />
     <MESSAGE value="- commit work before pull" />
-    <option name="LAST_COMMIT_MESSAGE" value="- commit work before pull" />
+    <MESSAGE value="- commit work after pull" />
+    <option name="LAST_COMMIT_MESSAGE" value="- commit work after pull" />
   </component>
 </project>
