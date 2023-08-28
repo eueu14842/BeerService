@@ -9,7 +9,7 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b5efdcfc-26c8-49d4-a415-4245e8f9f766" name="Changes" comment="- commit">
+    <list default="true" id="b5efdcfc-26c8-49d4-a415-4245e8f9f766" name="Changes" comment="- commit work before pull">
       <change beforePath="$PROJECT_DIR$/.gradle/7.4/executionHistory/executionHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/7.4/executionHistory/executionHistory.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/7.4/executionHistory/executionHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/7.4/executionHistory/executionHistory.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/7.4/fileHashes/fileHashes.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/7.4/fileHashes/fileHashes.bin" afterDir="false" />
@@ -17,7 +17,11 @@
       <change beforePath="$PROJECT_DIR$/.gradle/7.4/fileHashes/resourceHashesCache.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/7.4/fileHashes/resourceHashesCache.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/file-system.probe" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/file-system.probe" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/beerservice/app/screens/main/tabs/places/tabs/PlaceMapFragment.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/beerservice/app/screens/main/tabs/places/tabs/PlaceMapFragment.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/navigation/favorites.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/navigation/favorites.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/navigation/place.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/navigation/place.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -115,6 +119,9 @@
       <filtered-out-file-type name="COMMIT_BY_MESSAGE" />
     </file-type-list>
   </component>
+  <component name="GithubDefaultAccount">
+    <option name="defaultAccountId" value="ffb6e258-84a3-4345-9388-817f2b7ebf7c" />
+  </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
@@ -132,7 +139,8 @@
     <property name="cidr.known.project.marker" value="true" />
     <property name="com.android.tools.idea.emulator.frame.visible" value="false" />
     <property name="com.android.tools.idea.emulator.zoom.toolbar.visible" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/app/src/main/java/com/example/beerservice/app/screens/main/tabs/profile/adapters" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../BeerServiceMain" />
+    <property name="settings.editor.selected.configurable" value="org.jetbrains.plugins.github.ui.GithubSettingsConfigurable" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
@@ -281,13 +289,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1687414963941</updated>
-    </task>
-    <task id="LOCAL-00004" summary="test commit">
-      <created>1687776916961</created>
-      <option name="number" value="00004" />
-      <option name="presentableId" value="LOCAL-00004" />
-      <option name="project" value="LOCAL" />
-      <updated>1687776916961</updated>
     </task>
     <task id="LOCAL-00005" summary="updated adapter&#10;updated view beer\brewery details">
       <created>1687873622800</created>
@@ -625,7 +626,14 @@
       <option name="project" value="LOCAL" />
       <updated>1691052276353</updated>
     </task>
-    <option name="localTasksCounter" value="53" />
+    <task id="LOCAL-00053" summary="- commit work before pull">
+      <created>1693202764939</created>
+      <option name="number" value="00053" />
+      <option name="presentableId" value="LOCAL-00053" />
+      <option name="project" value="LOCAL" />
+      <updated>1693202764940</updated>
+    </task>
+    <option name="localTasksCounter" value="54" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -643,6 +651,12 @@
                       </list>
                     </value>
                   </entry>
+                </map>
+              </option>
+              <option name="COLUMN_ID_WIDTH">
+                <map>
+                  <entry key="Table.Default.Author.ColumnIdWidth" value="76" />
+                  <entry key="Table.Default.Date.ColumnIdWidth" value="75" />
                 </map>
               </option>
             </State>
@@ -685,6 +699,7 @@
     <MESSAGE value="think about nav" />
     <MESSAGE value="-another commit" />
     <MESSAGE value="- commit" />
-    <option name="LAST_COMMIT_MESSAGE" value="- commit" />
+    <MESSAGE value="- commit work before pull" />
+    <option name="LAST_COMMIT_MESSAGE" value="- commit work before pull" />
   </component>
 </project>

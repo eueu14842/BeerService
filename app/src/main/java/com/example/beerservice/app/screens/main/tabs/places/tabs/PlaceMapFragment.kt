@@ -44,7 +44,7 @@ class PlaceMapFragment : BaseFragment(R.layout.fragment_places_map), CameraListe
     override val viewModel: PlaceViewModel by viewModels { ViewModelFactory() }
     lateinit var viewModelPlace: PlaceViewModel
     private var locationManager: android.location.LocationManager? = null
-    private lateinit var point: Point
+    private  var point: Point = Point(0.0, 0.0)
 
     lateinit var binding: FragmentPlacesMapBinding
 
@@ -135,7 +135,7 @@ class PlaceMapFragment : BaseFragment(R.layout.fragment_places_map), CameraListe
         val criteria = Criteria()
         criteria.accuracy = Criteria.ACCURACY_FINE
         return locationManager?.getBestProvider(criteria, true)
-            ?: return android.location.LocationManager.GPS_PROVIDER
+            ?: return android.location.LocationManager.NETWORK_PROVIDER
     }
 
     private fun setupLocationManager() {

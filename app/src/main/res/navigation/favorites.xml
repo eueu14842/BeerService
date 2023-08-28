@@ -27,7 +27,7 @@
             android:name="placeId"
             app:argType="integer" />
         <action
-            android:id="@+id/action_placeDetailsFragment_to_placeMapFragment"
+            android:id="@id/action_placeDetailsFragment_to_placeMapFragment"
             app:destination="@id/singlePlaceMapFragment" />
     </fragment>
     <fragment
