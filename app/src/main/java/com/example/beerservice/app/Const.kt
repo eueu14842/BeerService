@@ -8,4 +8,5 @@ object Const {
     const val SEARCH_KEY = "search_by"
     const val LONGITUDE = "LONGITUDE"
     const val LATITUDE = "LATITUDE"
+    const val BEER_ID = "BEER_ID"
 }

@@ -36,7 +36,7 @@
 
     <fragment
         android:id="@id/placeDetailsFragment"
-        android:name="com.example.beerservice.app.screens.main.tabs.places.PlaceDetailsFragment"
+        android:name="com.example.beerservice.app.screens.main.tabs.home.places.PlaceDetailsFragment"
         android:label="PlaceDetailsFragment"
         tools:layout="@layout/fragment_place_details">
         <argument

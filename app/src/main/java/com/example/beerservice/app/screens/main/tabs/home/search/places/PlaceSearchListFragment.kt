@@ -10,9 +10,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.beerservice.R
 import com.example.beerservice.app.Const.SEARCH_KEY
 import com.example.beerservice.app.screens.base.BaseFragment
+import com.example.beerservice.app.screens.main.tabs.home.places.PlaceDetailsFragmentDirections
 import com.example.beerservice.app.screens.main.tabs.home.search.SearchFragmentDirections
 import com.example.beerservice.app.screens.main.tabs.home.search.SearchViewModel
-import com.example.beerservice.app.screens.main.tabs.places.PlaceDetailsFragmentDirections
 import com.example.beerservice.app.screens.main.tabs.places.adapters.PlaceListAdapter
 import com.example.beerservice.app.utils.ViewModelFactory
 import com.example.beerservice.app.utils.observeEvent

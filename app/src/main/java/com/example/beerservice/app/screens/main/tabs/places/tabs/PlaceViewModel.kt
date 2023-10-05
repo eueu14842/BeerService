@@ -16,14 +16,17 @@ import com.example.beerservice.app.utils.MutableLiveEvent
 import com.example.beerservice.app.utils.publishEvent
 import com.example.beerservice.app.utils.share
 import kotlinx.coroutines.delay
-import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.debounce
+import kotlinx.coroutines.flow.flatMapLatest
+import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.launch
 
 class PlaceViewModel(
     private val placeRepository: PlacesRepository = Singletons.placesRepository,
 ) : BaseViewModel(), PlacePagingAdapter.Listener {
 
-    var placesFlow: Flow<PagingData<Place>>
+    var placesFlow: Flow<PagingData<Place>> = flowOf()
     private var searchBy = MutableLiveData("")
 
     private var _place = MutableLiveData<ResultState<List<Place>>>()
@@ -42,6 +45,7 @@ class PlaceViewModel(
     val onNavigateToMap = _onNavigateToMap.share()
 
     init {
+        println("init viewModel")
         placesFlow = searchBy.asFlow().debounce(400).flatMapLatest {
             placeRepository.getPagedPlaces()
         }.cachedIn(viewModelScope)
@@ -67,9 +71,7 @@ class PlaceViewModel(
         this._location.value = SharedLocation(lat, lon)
     }
 
-    data class SharedLocation(
-        val lat: Double = 0.0, val lon: Double = 0.0, val rad: Double = 1.5
-    )
+
 
     override fun onNavigateToPlaceDetails(placeId: Int) {
         _onNavigateToPlaceDetails.publishEvent(placeId)
@@ -108,7 +110,9 @@ class PlaceViewModel(
 
     }
 
-
+    data class SharedLocation(
+        val lat: Double = 0.0, val lon: Double = 0.0, val rad: Double = 1.5
+    )
 
 }
 

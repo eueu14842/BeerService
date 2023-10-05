@@ -24,7 +24,7 @@
 
     <fragment
         android:id="@id/placeListFragment"
-        android:name="com.example.beerservice.app.screens.main.tabs.places.tabs.PlaceLocationListFragment"
+        android:name="com.example.beerservice.app.screens.main.tabs.places.tabs.PlaceListFragment"
         android:label="Места - список "
         tools:layout="@layout/fragment_place_list">
         <action
@@ -49,7 +49,7 @@
 
     <fragment
         android:id="@+id/placeDetailsFragmentPlace"
-        android:name="com.example.beerservice.app.screens.main.tabs.places.PlaceDetailsFragment"
+        android:name="com.example.beerservice.app.screens.main.tabs.home.places.PlaceDetailsFragment"
         android:label="Точка продаж"
         tools:layout="@layout/fragment_place_details">
         <argument

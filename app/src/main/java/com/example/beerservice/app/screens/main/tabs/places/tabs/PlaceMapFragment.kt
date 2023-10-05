@@ -8,6 +8,7 @@ import android.graphics.drawable.Drawable
 import android.location.Criteria
 import android.location.Location
 import android.os.Bundle
+import android.provider.ContactsContract.Contacts
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -24,6 +25,7 @@ import com.example.beerservice.R
 import com.example.beerservice.app.Const
 import com.example.beerservice.app.Const.LATITUDE
 import com.example.beerservice.app.Const.LONGITUDE
+import com.example.beerservice.app.model.beers.entities.Beer
 import com.example.beerservice.app.screens.base.BaseFragment
 import com.example.beerservice.app.utils.ViewModelFactory
 import com.example.beerservice.databinding.FragmentPlacesMapBinding
@@ -44,7 +46,7 @@ class PlaceMapFragment : BaseFragment(R.layout.fragment_places_map), CameraListe
     override val viewModel: PlaceViewModel by viewModels { ViewModelFactory() }
     lateinit var viewModelPlace: PlaceViewModel
     private var locationManager: android.location.LocationManager? = null
-    private  var point: Point = Point(0.0, 0.0)
+    private var point: Point = Point(0.0, 0.0)
 
     lateinit var binding: FragmentPlacesMapBinding
 
@@ -59,20 +61,22 @@ class PlaceMapFragment : BaseFragment(R.layout.fragment_places_map), CameraListe
     ): View? {
         binding = FragmentPlacesMapBinding.inflate(inflater, container, false)
         val mapKit = MapKitFactory.getInstance()
-
+        val beerId = arguments?.getInt(Const.BEER_ID)
         viewModelPlace = ViewModelProvider(requireActivity())[PlaceViewModel::class.java]
         mapview = binding.mapview
         map = mapview.map
         mapObjects = map.mapObjects.addCollection()
 
-
+        observePlacesByBeerId(beerId!!)
         mapKit.createUserLocationLayer(mapview.mapWindow).apply {
             isVisible = true
         }
 
         setupLocationManager()
+
         getCurrentPosition(getAvailableProvider())
         onNavigateToCurrentPosition(point)
+
         observePlaces(point.latitude, point.longitude)
         map.addCameraListener(this)
 
@@ -83,6 +87,28 @@ class PlaceMapFragment : BaseFragment(R.layout.fragment_places_map), CameraListe
     private fun observePlaces(lat: Double, lon: Double) {
         lifecycleScope.launch {
             viewModelPlace.getPlaces(lat, lon, 1.5)
+            viewModelPlace.place.observe(viewLifecycleOwner) { result ->
+                result.map { places ->
+                    places.forEach {
+                        createTappableMark(
+                            MapObjectPlaceData(
+                                id = it.placeId,
+                                description = it.description,
+                                geoLat = it.geoLat,
+                                geoLon = it.geoLon,
+                            ), it.image
+                        )
+                    }
+                }
+            }
+        }
+    }
+
+
+    private fun observePlacesByBeerId(beerId: Int) {
+        println("PlaceMapFragment $beerId")
+        lifecycleScope.launch {
+            viewModelPlace.getPlacesByBeerId(beerId)
             viewModelPlace.place.observe(viewLifecycleOwner) { result ->
                 result.map { places ->
                     places.forEach {
@@ -166,6 +192,7 @@ class PlaceMapFragment : BaseFragment(R.layout.fragment_places_map), CameraListe
                     val scaledBitmap = Bitmap.createScaledBitmap(bitmap, iconSize, iconSize, false)
                     placeMark?.setIcon(ImageProvider.fromBitmap(scaledBitmap))
                 }
+
                 override fun onLoadCleared(placeholder: Drawable?) {
                     bitmap.recycle()
                 }

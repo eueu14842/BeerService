@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.beerservice.R
+import com.example.beerservice.app.Const
 import com.example.beerservice.app.model.Empty
 import com.example.beerservice.app.model.ErrorResult
 import com.example.beerservice.app.model.Pending
@@ -23,8 +24,6 @@ import com.example.beerservice.app.screens.base.DefaultLoadStateAdapter
 import com.example.beerservice.app.screens.base.TryAgainAction
 import com.example.beerservice.app.screens.main.tabs.home.beers.adapters.FeedbackForBeerPagingAdapter
 import com.example.beerservice.app.screens.main.tabs.home.beers.adapters.OnFeedbackClickListener
-import com.example.beerservice.app.screens.main.tabs.home.places.SinglePlaceMapFragment
-import com.example.beerservice.app.screens.main.tabs.places.adapters.PlacePagingAdapter
 import com.example.beerservice.app.utils.ViewModelFactory
 import com.example.beerservice.databinding.FragmentBeerDetailsBinding
 import kotlinx.coroutines.flow.collectLatest
@@ -136,9 +135,14 @@ class BeerDetailsFragment : BaseFragment(R.layout.fragment_beer_details) {
     }
 
     private fun onNavigateToMapListByBeerId(beerId: Int) {
-        parentFragmentManager.beginTransaction()
-            .replace(R.id.tabsContainer, SinglePlaceMapFragment.newInstance(0.0, 0.0))
-            .commit()
+        val direction =
+            BeerDetailsFragmentDirections.actionBeerDetailsFragmentToPlaceMapFragment()
+        direction.arguments.putInt(Const.BEER_ID, beerId)
+        findNavController().navigate(direction)
+
+        /* parentFragmentManager.beginTransaction()
+             .replace(R.id.tabsContainer, SinglePlaceMapFragment.newInstance(0.0, 0.0))
+             .commit()*/
     }
 
     private val onFeedbackClickListener = object : OnFeedbackClickListener {

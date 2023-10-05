@@ -13,7 +13,9 @@ import com.example.beerservice.app.screens.main.tabs.home.beers.BeersListViewMod
 import com.example.beerservice.app.screens.main.tabs.home.brewery.BreweryDetailsViewModel
 import com.example.beerservice.app.screens.main.tabs.home.brewery.BreweryListViewModel
 import com.example.beerservice.app.screens.main.tabs.home.search.SearchViewModel
-import com.example.beerservice.app.screens.main.tabs.places.PlaceDetailsViewModel
+import com.example.beerservice.app.screens.main.tabs.home.places.PlaceDetailsViewModel
+import com.example.beerservice.app.screens.main.tabs.home.places.PlacePagedViewModel
+import com.example.beerservice.app.screens.main.tabs.home.places.SinglePlaceMapViewModel
 import com.example.beerservice.app.screens.main.tabs.places.tabs.PlaceViewModel
 import com.example.beerservice.app.screens.main.tabs.profile.EditProfileVieModel
 import com.example.beerservice.app.screens.main.tabs.profile.ProfileViewModel
@@ -37,6 +39,8 @@ class ViewModelFactory(
             EditProfileVieModel::class.java -> EditProfileVieModel() as T
             FavoritesViewModel::class.java -> FavoritesViewModel() as T
             FeedbackCreateViewModel::class.java -> FeedbackCreateViewModel() as T
+            PlacePagedViewModel::class.java -> PlacePagedViewModel() as T
+            SinglePlaceMapViewModel::class.java -> SinglePlaceMapViewModel() as T
             else -> {
                 throw IllegalArgumentException("Unknown ViewModel class: ${modelClass.name}")
             }

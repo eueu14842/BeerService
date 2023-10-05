@@ -99,29 +99,29 @@
 
     <fragment
         android:id="@+id/placeDetailsFragment"
-        android:name="com.example.beerservice.app.screens.main.tabs.places.PlaceDetailsFragment"
+        android:name="com.example.beerservice.app.screens.main.tabs.home.places.PlaceDetailsFragment"
         android:label="Место"
         tools:layout="@layout/fragment_place_details">
         <argument
             android:name="placeId"
             app:argType="integer" />
         <action
-            android:id="@+id/action_placeDetailsFragment_to_beerDetailsFragment"
+            android:id="@id/action_placeDetailsFragment_to_beerDetailsFragment"
             app:destination="@id/beerDetailsFragment" />
         <action
-            android:id="@+id/action_placeDetailsFragment_to_feedbackCreateFragment"
+            android:id="@id/action_placeDetailsFragment_to_feedbackCreateFragment"
             app:destination="@id/feedbackCreateFragment" />
         <action
             android:id="@+id/action_placeDetailsFragment_to_feedbackCreateFragment2"
             app:destination="@id/feedbackCreateFragment" />
         <action
-            android:id="@+id/action_placeDetailsFragment_to_placeMapFragment"
+            android:id="@id/action_placeDetailsFragment_to_placeMapFragment"
             app:destination="@id/placeMapFragment" />
     </fragment>
 
     <fragment
         android:id="@+id/placeListFragment"
-        android:name="com.example.beerservice.app.screens.main.tabs.home.places.PlaceListFragment"
+        android:name="com.example.beerservice.app.screens.main.tabs.home.places.PlacePagedListFragment"
         android:label="Места - все"
         tools:layout="@layout/fragment_place_list">
         <action

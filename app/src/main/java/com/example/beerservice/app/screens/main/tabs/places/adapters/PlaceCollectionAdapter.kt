@@ -2,7 +2,7 @@ package com.example.beerservice.app.screens.main.tabs.places.adapters
 
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.adapter.FragmentStateAdapter
-import com.example.beerservice.app.screens.main.tabs.places.tabs.PlaceLocationListFragment
+import com.example.beerservice.app.screens.main.tabs.places.tabs.PlaceListFragment
 import com.example.beerservice.app.screens.main.tabs.places.tabs.PlaceMapFragment
 
 class PlaceCollectionAdapter(
@@ -16,6 +16,6 @@ class PlaceCollectionAdapter(
     override fun createFragment(position: Int): Fragment {
         println("PlaceCollectionAdapter $lon")
         return if (position == 0) PlaceMapFragment.newInstance(lon, lat)
-        else PlaceLocationListFragment()
+        else PlaceListFragment()
     }
 }

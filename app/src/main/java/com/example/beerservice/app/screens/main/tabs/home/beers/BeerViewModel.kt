@@ -14,6 +14,7 @@ import com.example.beerservice.app.model.place.PlacesRepository
 import com.example.beerservice.app.model.place.entities.Location
 import com.example.beerservice.app.screens.base.BaseViewModel
 import com.example.beerservice.app.utils.MutableLiveEvent
+import com.example.beerservice.app.utils.publishEvent
 import com.example.beerservice.app.utils.share
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.debounce
@@ -35,6 +36,8 @@ class BeerViewModel(
 
     private var _onNavigateToMap = MutableLiveEvent<Location>()
     val onNavigateToMap = _onNavigateToMap.share()
+
+
 
     fun getBeerById(id: Int) {
         viewModelScope.launch {
@@ -58,10 +61,13 @@ class BeerViewModel(
         if (this.beerId.value == value) return
         this.beerId.value = value
     }
+    fun onNavigateToMap(geoLat: Double?, geoLon: Double) {
+        _onNavigateToMap.publishEvent(Location(geoLat, geoLon))
+    }
 
-    fun getPlaceByBeerId(){
+    fun getPlaceByBeerId(beerId: Int) {
         viewModelScope.launch {
-
+            placesRepository.getPagedPlacesByBeerId(beerId)
         }
     }
 

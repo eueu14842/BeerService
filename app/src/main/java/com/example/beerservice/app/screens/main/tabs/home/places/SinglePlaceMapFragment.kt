@@ -5,15 +5,12 @@ import android.content.Context
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.graphics.drawable.Drawable
-import android.location.Location
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.animation.RotateAnimation
 import androidx.core.app.ActivityCompat
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
@@ -24,7 +21,6 @@ import com.example.beerservice.app.Const
 import com.example.beerservice.app.Const.LATITUDE
 import com.example.beerservice.app.Const.LONGITUDE
 import com.example.beerservice.app.screens.base.BaseFragment
-import com.example.beerservice.app.screens.main.tabs.places.tabs.PlaceViewModel
 import com.example.beerservice.app.utils.ViewModelFactory
 import com.example.beerservice.databinding.FragmentPlacesMapBinding
 import com.yandex.mapkit.MapKitFactory
@@ -40,8 +36,7 @@ import kotlin.math.pow
 
 class SinglePlaceMapFragment : BaseFragment(R.layout.fragment_places_map), CameraListener {
 
-    override val viewModel: PlaceViewModel by viewModels { ViewModelFactory() }
-    lateinit var viewModelPlace: PlaceViewModel
+    override val viewModel: SinglePlaceMapViewModel by viewModels { ViewModelFactory() }
     private var locationManager: android.location.LocationManager? = null
     lateinit var point: Point
 
@@ -57,8 +52,8 @@ class SinglePlaceMapFragment : BaseFragment(R.layout.fragment_places_map), Camer
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View? {
         binding = FragmentPlacesMapBinding.inflate(inflater, container, false)
+        val beerId = arguments?.getInt(Const.BEER_ID)
 
-        viewModelPlace = ViewModelProvider(requireActivity())[PlaceViewModel::class.java]
         mapview = binding.mapview
         map = mapview.map
         mapObjects = map.mapObjects.addCollection()
@@ -66,6 +61,7 @@ class SinglePlaceMapFragment : BaseFragment(R.layout.fragment_places_map), Camer
         checkLocationPermission()
         setupLocationManager()
 
+//        observePlacesByBeerId(beerId!!)
         observePoint()
         observePlaces(point.latitude, point.longitude)
         onNavigateToCurrentPosition(point)
@@ -83,8 +79,8 @@ class SinglePlaceMapFragment : BaseFragment(R.layout.fragment_places_map), Camer
 
     private fun observePlaces(lat: Double, lon: Double) {
         lifecycleScope.launch {
-            viewModelPlace.getPlaces(lat, lon, 1.5)
-            viewModelPlace.place.observe(viewLifecycleOwner) { result ->
+            viewModel.getPlaces(lat, lon, 1.5)
+            viewModel.place.observe(viewLifecycleOwner) { result ->
                 result.map { places ->
                     places.forEach {
                         createTappableMark(
@@ -101,6 +97,7 @@ class SinglePlaceMapFragment : BaseFragment(R.layout.fragment_places_map), Camer
         }
     }
 
+
     private fun onNavigateToCurrentPosition(point: Point) {
         mapview.map.move(CameraPosition(point, 14F, 0F, 0F))
     }
@@ -114,7 +111,7 @@ class SinglePlaceMapFragment : BaseFragment(R.layout.fragment_places_map), Camer
     }
 
     private fun setLocation(lat: Double, lon: Double, rad: Double) {
-        viewModelPlace.setPlacesLocation(lat, lon)
+        viewModel.setPlacesLocation(lat, lon)
     }
 
     private fun setupLocationManager() {
@@ -187,7 +184,7 @@ class SinglePlaceMapFragment : BaseFragment(R.layout.fragment_places_map), Camer
         if (finished) {
             val currentZoom = position.zoom
             val radius: Double = calculateRadiusInKilometers(currentZoom, point.latitude)
-            viewModelPlace.getPlaces(
+            viewModel.getPlaces(
                 point.latitude, point.longitude, radius * 10
             )
             setLocation(
