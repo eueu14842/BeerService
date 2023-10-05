@@ -5,8 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.beerservice.app.model.beers.entities.Beer
-import com.example.beerservice.app.model.brewery.entities.Brewery
-import com.example.beerservice.databinding.ItemBreweryBinding
+import com.example.beerservice.databinding.ItemAdblockBinding
 
 interface OnBeerAdblockClickListener {
     fun onBeerClick(beer: Beer, position: Int)
@@ -17,11 +16,12 @@ class BeerAdblockAdapter(
     val onBeerAdblockClickListener: OnBeerAdblockClickListener
 ) :
     RecyclerView.Adapter<BeerAdblockAdapter.BeerViewHolder>() {
-    class BeerViewHolder(val binding: ItemBreweryBinding) : RecyclerView.ViewHolder(binding.root)
+
+    class BeerViewHolder(val binding: ItemAdblockBinding) : RecyclerView.ViewHolder(binding.root)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BeerViewHolder {
         val inflater = LayoutInflater.from(parent.context)
-        val binding = ItemBreweryBinding.inflate(inflater)
+        val binding = ItemAdblockBinding.inflate(inflater)
         return BeerViewHolder(binding)
     }
 
@@ -30,12 +30,11 @@ class BeerAdblockAdapter(
         with(holder.binding) {
             Glide.with(holder.itemView)
                 .load(beer.image)
-                .into(ivBreweryImage)
-            tvBreweryName.text = beer.name
-            tvBreweryDescription.text = beer.description
+                .into(ivItemImage)
+            tvItemName.text = beer.name
         }
         holder.itemView.setOnClickListener {
-            onBeerAdblockClickListener.onBeerClick(beer,position)
+            onBeerAdblockClickListener.onBeerClick(beer, position)
         }
     }
 

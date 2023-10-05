@@ -16,7 +16,6 @@ sealed class ResultState<T> {
             is Empty -> Empty()
         }
     }
-
 }
 
 class Success<T>(

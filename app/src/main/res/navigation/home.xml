@@ -3,12 +3,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/home"
-    android:label="Пивоварня"
+    android:label="Главная"
     app:startDestination="@id/homeFragment">
+
     <fragment
         android:id="@+id/homeFragment"
         android:name="com.example.beerservice.app.screens.main.tabs.home.HomeFragment"
-        android:label="Главная"
+        android:label="Главная - Home"
         tools:layout="@layout/fragment_home">
         <action
             android:id="@+id/action_homeFragment_to_beersListFragment"
@@ -17,40 +18,22 @@
             android:id="@+id/action_homeFragment_to_breweryListFragment"
             app:destination="@id/breweryListFragment" />
         <action
-            android:id="@+id/action_homeFragment_to_placeFragment"
-            app:destination="@id/placeFragment" />
-        <action
             android:id="@+id/action_homeFragment_to_beerDetailsFragment"
             app:destination="@id/beerDetailsFragment" />
         <action
             android:id="@+id/action_homeFragment_to_breweryDetailsFragment"
             app:destination="@id/breweryDetailsFragment" />
-    </fragment>
-
-    <fragment
-        android:id="@+id/placeFragment"
-        android:name="com.example.beerservice.app.screens.main.tabs.home.places.PlaceContainerFragment"
-        android:label="Поиск">
         <action
-            android:id="@+id/action_placeFragment_to_placeMapFragment"
-            app:destination="@id/placeMapFragment" />
+            android:id="@+id/action_homeFragment_to_placeDetailsFragment"
+            app:destination="@id/placeDetailsFragment" />
         <action
-            android:id="@+id/action_placeFragment_to_placeListFragment"
+            android:id="@+id/action_homeFragment_to_placeListFragment"
             app:destination="@id/placeListFragment" />
-    </fragment>
-
-    <fragment
-        android:id="@+id/placeMapFragment"
-        android:name="com.example.beerservice.app.screens.main.tabs.home.places.PlaceMapFragment"
-        android:label="Place"
-        tools:layout="@layout/fragment_places">
-        <argument
-            android:name="myArgs"
-            android:defaultValue="1"
-            app:argType="integer" />
         <action
-            android:id="@+id/action_placeMapFragment_to_placeListFragment"
-            app:destination="@id/placeListFragment" />
+            android:id="@+id/action_homeFragment_to_searchFragment"
+            app:destination="@id/searchFragment" />
+
+
     </fragment>
 
 
@@ -62,16 +45,25 @@
         <action
             android:id="@+id/action_beersListFragment_to_beerFragment"
             app:destination="@id/beerDetailsFragment" />
+        <action
+            android:id="@+id/action_beersListFragment_to_feedbackCreateFragment"
+            app:destination="@id/feedbackCreateFragment" />
     </fragment>
 
     <fragment
         android:id="@+id/beerDetailsFragment"
         android:name="com.example.beerservice.app.screens.main.tabs.home.beers.BeerDetailsFragment"
         android:label="Пиво"
-        tools:layout="@layout/fragment_beer" >
+        tools:layout="@layout/fragment_beer_details">
         <argument
             android:name="beerId"
             app:argType="integer" />
+        <action
+            android:id="@+id/action_beerDetailsFragment_to_feedbackCreateFragment"
+            app:destination="@id/feedbackCreateFragment" />
+        <action
+            android:id="@+id/action_beerDetailsFragment_to_placeMapFragment"
+            app:destination="@id/placeMapFragment" />
     </fragment>
 
     <fragment
@@ -80,8 +72,12 @@
         android:label="Пивоварни"
         tools:layout="@layout/fragment_brewery_list">
         <action
-            android:id="@+id/action_breweryListFragment_to_breweryFragment"
+            android:id="@+id/action_breweryListFragment_to_breweryDetailsFragment"
             app:destination="@id/breweryDetailsFragment" />
+        <argument
+            android:name="searchBy"
+            android:defaultValue='" "'
+            app:argType="string" />
     </fragment>
 
     <fragment
@@ -95,17 +91,88 @@
         <action
             android:id="@+id/action_breweryDetailsFragment_to_beerDetailsFragment"
             app:destination="@id/beerDetailsFragment" />
+        <action
+            android:id="@+id/action_breweryDetailsFragment_to_feedbackCreateFragment"
+            app:destination="@id/feedbackCreateFragment" />
     </fragment>
 
 
     <fragment
+        android:id="@+id/placeDetailsFragment"
+        android:name="com.example.beerservice.app.screens.main.tabs.home.places.PlaceDetailsFragment"
+        android:label="Место"
+        tools:layout="@layout/fragment_place_details">
+        <argument
+            android:name="placeId"
+            app:argType="integer" />
+        <action
+            android:id="@id/action_placeDetailsFragment_to_beerDetailsFragment"
+            app:destination="@id/beerDetailsFragment" />
+        <action
+            android:id="@id/action_placeDetailsFragment_to_feedbackCreateFragment"
+            app:destination="@id/feedbackCreateFragment" />
+        <action
+            android:id="@+id/action_placeDetailsFragment_to_feedbackCreateFragment2"
+            app:destination="@id/feedbackCreateFragment" />
+        <action
+            android:id="@id/action_placeDetailsFragment_to_placeMapFragment"
+            app:destination="@id/placeMapFragment" />
+    </fragment>
+
+    <fragment
         android:id="@+id/placeListFragment"
-        android:name="com.example.beerservice.app.screens.main.tabs.home.places.PlaceListFragment"
-        android:label="Place"
+        android:name="com.example.beerservice.app.screens.main.tabs.home.places.PlacePagedListFragment"
+        android:label="Места - все"
         tools:layout="@layout/fragment_place_list">
+        <action
+            android:id="@+id/action_placeListFragment_to_placeDetailsFragment"
+            app:destination="@id/placeDetailsFragment" />
         <action
             android:id="@+id/action_placeListFragment_to_placeMapFragment"
             app:destination="@id/placeMapFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@id/searchFragment"
+        android:name="com.example.beerservice.app.screens.main.tabs.home.search.SearchFragment"
+        android:label="Поиск"
+        tools:layout="@layout/fragment_search">
+        <argument
+            android:name="searchBy"
+            app:argType="string" />
+        <action
+            android:id="@+id/action_searchFragment_to_beerDetailsFragment"
+            app:destination="@id/beerDetailsFragment" />
+        <action
+            android:id="@+id/action_searchFragment_to_placeDetailsFragment"
+            app:destination="@id/placeDetailsFragment" />
+        <action
+            android:id="@+id/action_searchFragment_to_breweryDetailsFragment"
+            app:destination="@id/breweryDetailsFragment" />
+        <action
+            android:id="@+id/action_searchFragment_to_feedbackCreateFragment"
+            app:destination="@+id/feedbackCreateFragment" />
+
+    </fragment>
+
+    <fragment
+        android:id="@id/feedbackCreateFragment"
+        android:name="com.example.beerservice.app.screens.main.feedback.FeedbackCreateFragment"
+        android:label="Оставить отзыв"
+        tools:layout="@layout/fragment_create_feedback">
+        <argument
+            android:name="beerId"
+            app:argType="integer" />
+    </fragment>
+
+    <fragment
+        android:id="@id/placeMapFragment"
+        android:name="com.example.beerservice.app.screens.main.tabs.home.places.SinglePlaceMapFragment"
+        android:label="Место - карта"
+        tools:layout="@layout/fragment_places_map">
+        <action
+            android:id="@+id/action_placeMapFragment_to_placeDetailsFragment"
+            app:destination="@id/placeDetailsFragment" />
     </fragment>
 
 

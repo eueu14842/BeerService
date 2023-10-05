@@ -1,13 +1,10 @@
 package com.example.beerservice.app.screens.main.tabs.home.brewery
 
-import android.net.Uri
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
+import android.widget.TextView
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
-import androidx.navigation.NavArgs
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.ConcatAdapter
@@ -21,15 +18,14 @@ import com.example.beerservice.app.model.Pending
 import com.example.beerservice.app.model.Success
 import com.example.beerservice.app.model.beers.entities.Beer
 import com.example.beerservice.app.screens.base.BaseFragment
-import com.example.beerservice.app.screens.base.BaseViewModel
 import com.example.beerservice.app.screens.base.DefaultLoadStateAdapter
 import com.example.beerservice.app.screens.base.TryAgainAction
 import com.example.beerservice.app.screens.main.tabs.home.beers.BeersListFragmentDirections
 import com.example.beerservice.app.screens.main.tabs.home.beers.adapters.BeerPagingAdapter
 import com.example.beerservice.app.screens.main.tabs.home.beers.adapters.OnBeerClickListener
 import com.example.beerservice.app.utils.ViewModelFactory
+import com.example.beerservice.app.utils.observeEvent
 import com.example.beerservice.databinding.FragmentBreweryBinding
-import com.example.beerservice.databinding.FragmentBreweryListBinding
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.debounce
 import kotlinx.coroutines.launch
@@ -39,21 +35,21 @@ class BreweryDetailsFragment() : BaseFragment(R.layout.fragment_brewery) {
     private val args by navArgs<BreweryDetailsFragmentArgs>()
     lateinit var recycler: RecyclerView
     override val viewModel: BreweryDetailsViewModel by viewModels { ViewModelFactory() }
+    private lateinit var mainLoadStateHolder: DefaultLoadStateAdapter.Holder
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentBreweryBinding.bind(view)
 
-
         setupBeersList()
         setupBreweryDetailsBlock()
-
+        observeOnNavigateBeerDetailsEvent()
+        observeOnNavigateToCreateFeedback()
 
     }
 
-
-    fun setupBeersList() {
-        val adapter = BeerPagingAdapter(onBeerClickListener)
+    private fun setupBeersList() {
+        val adapter = BeerPagingAdapter(viewModel)
         val tryAgainAction: TryAgainAction = { adapter.retry() }
         val footerAdapter = DefaultLoadStateAdapter(tryAgainAction)
         val adapterWithLoadState: ConcatAdapter = adapter.withLoadStateFooter(footerAdapter)
@@ -63,9 +59,13 @@ class BreweryDetailsFragment() : BaseFragment(R.layout.fragment_brewery) {
         }
         recycler.adapter = adapterWithLoadState
 
+        mainLoadStateHolder = DefaultLoadStateAdapter.Holder(
+            binding.loadStateView,
+            null,
+            tryAgainAction
+        )
         observeLoadState(adapter)
         observeBeers(adapter)
-
 
     }
 
@@ -76,15 +76,15 @@ class BreweryDetailsFragment() : BaseFragment(R.layout.fragment_brewery) {
                 is ErrorResult -> TODO()
                 is Pending -> ""
                 is Success -> {
-                    with(binding) {
+                    with(binding.breweryView) {
                         Glide.with(this@BreweryDetailsFragment)
                             .load(it.value.image)
-                            .into(imageViewBrewery)
-                        textViewBreweryDesc.text = it.value.description
-                        textViewBreweryTitle.text = it.value.name
-                        textViewBreweryAddress.text = it.value.city
-                        textViewBreweryCity.text = it.value.city
-                        setupBreweryId(it.value.id)
+                            .into(ivBreweryImage)
+                        tvBreweryName.text = it.value.name
+                        tvBreweryDescription.text = it.value.description
+                        tvBreweryCity.text = it.value.city
+                        tvBreweryType.text = it.value.type
+                        setupBreweryId(it.value.id!!)
                     }
 
                 }
@@ -106,7 +106,7 @@ class BreweryDetailsFragment() : BaseFragment(R.layout.fragment_brewery) {
     private fun observeLoadState(adapter: BeerPagingAdapter) {
         lifecycleScope.launch {
             adapter.loadStateFlow.debounce(200).collectLatest { state ->
-//                mainLoadStateHolder.bind(state.refresh)
+               mainLoadStateHolder.bind(state.refresh)
             }
         }
     }
@@ -115,12 +115,26 @@ class BreweryDetailsFragment() : BaseFragment(R.layout.fragment_brewery) {
         viewModel.setBreweryId(id)
     }
 
-    private val onBeerClickListener = object : OnBeerClickListener {
-        override fun onBeerClick(beer: Beer, position: Int) {
+
+    private fun observeOnNavigateBeerDetailsEvent() {
+        viewModel.onNavigateToBeerDetails.observeEvent(viewLifecycleOwner) {
             val direction =
-                BreweryDetailsFragmentDirections.actionBreweryDetailsFragmentToBeerDetailsFragment(beer.id)
+                BreweryDetailsFragmentDirections.actionBreweryDetailsFragmentToBeerDetailsFragment(
+                    it
+                )
             findNavController().navigate(direction)
         }
     }
+
+    private fun observeOnNavigateToCreateFeedback() {
+        viewModel.onNavigateToBeerCreateFeedback.observeEvent(viewLifecycleOwner) {
+            val direction =
+                BreweryDetailsFragmentDirections.actionBreweryDetailsFragmentToFeedbackCreateFragment(
+                    it
+                )
+            findNavController().navigate(direction)
+        }
+    }
+
 
 }

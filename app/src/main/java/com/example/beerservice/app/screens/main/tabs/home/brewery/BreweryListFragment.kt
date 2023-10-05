@@ -4,10 +4,8 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
-import androidx.navigation.NavDirections
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.ConcatAdapter
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -40,13 +38,12 @@ class BreweryListFragment : BaseFragment(R.layout.fragment_brewery_list) {
     ): View? {
         binding = FragmentBreweryListBinding.inflate(layoutInflater)
 
-
         setupBreweriesList()
         return binding.root
     }
 
 
-    fun setupBreweriesList() {
+    private fun setupBreweriesList() {
         val adapter = BreweryPagingAdapter(onBreweryListener)
         val tryAgainAction: TryAgainAction = { adapter.retry() }
         val footerAdapter = DefaultLoadStateAdapter(tryAgainAction)
@@ -57,14 +54,13 @@ class BreweryListFragment : BaseFragment(R.layout.fragment_brewery_list) {
         }
         recycler.adapter = adapterWithLoadState
 
-             mainLoadStateHolder = DefaultLoadStateAdapter.Holder(
-                 binding.loadStateView,
-                 null,
-                 tryAgainAction
-             )
+        mainLoadStateHolder = DefaultLoadStateAdapter.Holder(
+            binding.loadStateView,
+            null,
+            tryAgainAction
+        )
         observeBreweries(adapter)
         observeLoadState(adapter)
-
 
     }
 
@@ -79,7 +75,7 @@ class BreweryListFragment : BaseFragment(R.layout.fragment_brewery_list) {
     private fun observeLoadState(adapter: BreweryPagingAdapter) {
         lifecycleScope.launch {
             adapter.loadStateFlow.debounce(200).collectLatest { state ->
-//                mainLoadStateHolder.bind(state.refresh)
+                mainLoadStateHolder.bind(state.refresh)
             }
         }
     }
@@ -88,7 +84,9 @@ class BreweryListFragment : BaseFragment(R.layout.fragment_brewery_list) {
     private val onBreweryListener = object : OnBreweryPagedClickListener {
         override fun onBreweryPagedClick(brewery: Brewery, position: Int) {
             val direction =
-                BreweryListFragmentDirections.actionBreweryListFragmentToBreweryFragment(brewery.id)
+                BreweryListFragmentDirections.actionBreweryListFragmentToBreweryDetailsFragment(
+                    brewery.id!!
+                )
             findNavController().navigate(direction)
         }
     }

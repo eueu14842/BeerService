@@ -10,6 +10,9 @@ open class AppException : RuntimeException {
 class EmptyFieldException(
     val field: Field
 ) : AppException()
+class EmptyFeedbackFieldException(
+    val field: FeedbackField
+) : AppException()
 
 class AuthException(
     cause: Throwable

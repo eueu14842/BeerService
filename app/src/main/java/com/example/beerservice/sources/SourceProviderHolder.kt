@@ -14,6 +14,7 @@ import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 
 object SourceProviderHolder {
+
     val sourcesProvider: SourcesProvider by lazy {
         val moshi = Moshi.Builder().build()
         val config = RetrofitConfig(

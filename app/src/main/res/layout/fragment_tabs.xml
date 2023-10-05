@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     tools:context=".app.screens.main.tabs.TabsFragment">
 
+
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/tabsContainer"
         android:name="androidx.navigation.fragment.NavHostFragment"

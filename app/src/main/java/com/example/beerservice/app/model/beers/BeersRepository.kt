@@ -13,8 +13,8 @@ class BeersRepository(
     val beersSource: BeersSource,
 ) {
 
-    suspend fun getBeerById(id: Int) : Beer{
-       return beersSource.getBeerById(id)
+    suspend fun getBeerById(id: Int): Beer {
+        return beersSource.getBeerById(id)
     }
 
     suspend fun getBeerList(): List<Beer> {
@@ -25,9 +25,28 @@ class BeersRepository(
         return beersSource.getBeerAdblockList()
     }
 
-    suspend fun getBeersByPlaceId(placeId: Int): List<Beer> {
-        return beersSource.getBeerListByPlaceId(placeId)
+    suspend fun getPagedBeerByPlaceId(breweryId: Int): Flow<PagingData<Beer>> {
+        val loader: BeerPageLoader = { pageIndex, pageSize ->
+            getBeersByPlaceId(breweryId, pageIndex, pageSize)
+        }
+        return Pager(
+            config = PagingConfig(
+                pageSize = PAGE_SIZE,
+                enablePlaceholders = false
+            ),
+            pagingSourceFactory = { BeerPagingSource(loader, PAGE_SIZE) }
+        ).flow
     }
+
+    private suspend fun getBeersByPlaceId(
+        placeId: Int,
+        pageIndex: Int,
+        pageSize: Int,
+    ): List<Beer> =
+        withContext(Dispatchers.IO) {
+            val offset = pageIndex * pageSize
+            return@withContext beersSource.getBeersListByPlaceId(placeId, pageSize, offset)
+        }
 
     suspend fun getPagedBeerByBreweryId(breweryId: Int): Flow<PagingData<Beer>> {
         val loader: BeerPageLoader = { pageIndex, pageSize ->

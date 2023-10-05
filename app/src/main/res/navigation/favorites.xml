@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/favorites"
+    android:label="Избранное"
+    app:startDestination="@id/favoritesFragment">
+
+    <fragment
+        android:id="@+id/favoritesFragment"
+        android:name="com.example.beerservice.app.screens.main.tabs.favorites.FavoritesFragment"
+        android:label="@string/favorites"
+        tools:layout="@layout/fragment_favorites" >
+        <action
+            android:id="@+id/action_favoritesFragment_to_placeDetailsFragment"
+            app:destination="@id/placeDetailsFragment" />
+        <action
+            android:id="@+id/action_favoritesFragment_to_singlePlaceMapFragment"
+            app:destination="@id/singlePlaceMapFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/placeDetailsFragment"
+        android:name="com.example.beerservice.app.screens.main.tabs.home.places.PlaceDetailsFragment"
+        android:label="Избранное место"
+        tools:layout="@layout/fragment_place_details">
+        <argument
+            android:name="placeId"
+            app:argType="integer" />
+        <action
+            android:id="@id/action_placeDetailsFragment_to_placeMapFragment"
+            app:destination="@id/singlePlaceMapFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/singlePlaceMapFragment"
+        android:name="com.example.beerservice.app.screens.main.tabs.home.places.SinglePlaceMapFragment"
+        android:label="Карта"
+        tools:layout="@layout/fragment_places_map">
+        <action
+            android:id="@id/action_placeMapFragment_to_placeDetailsFragment"
+            app:destination="@id/placeDetailsFragment" />
+    </fragment>
+</navigation>

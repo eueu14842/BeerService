@@ -4,9 +4,9 @@ import com.example.beerservice.app.model.beers.BeersSource
 import com.example.beerservice.app.model.beers.entities.Beer
 import com.example.beerservice.sources.base.BaseRetrofitSource
 import com.example.beerservice.sources.base.RetrofitConfig
-import kotlinx.coroutines.delay
 
-class RetrofitBeerSource(config: RetrofitConfig) : BaseRetrofitSource(config), BeersSource {
+class RetrofitBeerSource(config: RetrofitConfig)
+    : BaseRetrofitSource(config), BeersSource {
 
     private val beerApi = config.retrofit.create(BeerApi::class.java)
 
@@ -22,14 +22,15 @@ class RetrofitBeerSource(config: RetrofitConfig) : BaseRetrofitSource(config), B
         beerApi.createBeer()
     }
 
+    override suspend fun getBeersListByBreweryId(breweryId: Int, limit: Int, offest: Int) =
+        wrapRetrofitExceptions {
+            beerApi.getBeerListByBreweryId(breweryId, limit, offest).map { it.toBeer() }
+        }
 
-    override suspend fun getBeersListByBreweryId(breweryId: Int,limit:Int,offest: Int) = wrapRetrofitExceptions {
-        beerApi.getBeerListByBreweryId(breweryId,limit,offest).map { it.toBeer() }
-    }
-
-    override suspend fun getBeerListByPlaceId(placeId: Int): List<Beer> =  wrapRetrofitExceptions  {
-       beerApi.getBeersByPlaceId(placeId).map { it.toBeer() }
-    }
+    override suspend fun getBeersListByPlaceId(placeId: Int, limit: Int, offest: Int): List<Beer> =
+        wrapRetrofitExceptions {
+            beerApi.getBeersByPlaceId(placeId, limit, offest).map { it.toBeer() }
+        }
 
     override suspend fun getBeerAdblockList(): List<Beer> = wrapRetrofitExceptions {
         beerApi.getBeerAdblockList().map { it.toBeer() }

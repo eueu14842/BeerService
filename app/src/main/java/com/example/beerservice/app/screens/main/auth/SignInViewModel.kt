@@ -3,23 +3,19 @@ package com.example.beerservice.app.screens.main.auth
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.example.beerservice.R
+import com.example.beerservice.app.model.ConnectionException
 import com.example.beerservice.app.model.EmptyFieldException
 import com.example.beerservice.app.model.Field
 import com.example.beerservice.app.model.InvalidCredentialsException
-import com.example.beerservice.app.model.Singletons
-import com.example.beerservice.app.model.accounts.AccountsRepository
 import com.example.beerservice.app.screens.base.BaseViewModel
 import com.example.beerservice.app.utils.Event
 import com.example.beerservice.app.utils.publishEvent
 import com.example.beerservice.app.utils.share
 import kotlinx.coroutines.launch
-import java.time.Year
 
 class SignInViewModel(
-    val accountsRepository: AccountsRepository = Singletons.accountsRepository
 
 ) : BaseViewModel() {
-
 
     private val _state = MutableLiveData(State())
     val state = _state.share()
@@ -30,6 +26,10 @@ class SignInViewModel(
     private val _showAuthErrorToastEvent = MutableLiveData<Int>()
     val showAuthToastEvent = _showAuthErrorToastEvent.share()
 
+    private val _showConnectionErrorToastEvent = MutableLiveData<Int>()
+    val showConnectionErrorToastEvent = _showConnectionErrorToastEvent.share()
+
+
     fun signIn(login: String, password: String) = viewModelScope.launch {
         try {
             accountsRepository.signIn(login, password)
@@ -38,7 +38,13 @@ class SignInViewModel(
             processEmptyFieldException(e)
         } catch (e: InvalidCredentialsException) {
             processInvalidCredentialsException()
+        } catch (e: ConnectionException) {
+            processConnectionException(e)
         }
+    }
+
+    private fun processConnectionException(e: ConnectionException) {
+        showConnectionErrorToast()
     }
 
     private fun launchTabsScreen() = _navigateToTabsEvent.publishEvent(Unit)
@@ -57,6 +63,9 @@ class SignInViewModel(
 
     private fun showAuthErrorToast() {
         _showAuthErrorToastEvent.value = R.string.invalid_login_or_password
+    }
+    private fun showConnectionErrorToast(){
+        _showConnectionErrorToastEvent.value = R.string.connection_error
     }
 
     data class State(

@@ -16,7 +16,6 @@ import kotlinx.coroutines.flow.flatMapLatest
 
 class BreweryListViewModel(
     breweryRepository: BreweryRepository = Singletons.breweryRepository,
-
 ) : BaseViewModel() {
 
     private val _brewery = MutableLiveData<ResultState<List<Brewery>>>()
@@ -41,18 +40,4 @@ class BreweryListViewModel(
         this.searchBy.value = value
     }
 
-
-    /*  init {
-          viewModelScope.launch {
-              val breweries: List<Brewery> = breweryRepository.getBreweryList()
-              if (breweries.isEmpty()) {
-                  _brewery.value =
-                      ErrorResult(java.lang.IllegalStateException("Opps"))
-              }
-              _brewery.value = Pending()
-              _brewery.value = Success(breweries)
-
-          }
-      }
-  */
 }
