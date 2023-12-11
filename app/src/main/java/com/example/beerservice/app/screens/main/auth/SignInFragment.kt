@@ -13,7 +13,9 @@ import com.example.beerservice.app.model.Singletons
 import com.example.beerservice.app.model.accounts.AccountsRepository
 import com.example.beerservice.app.utils.ViewModelFactory
 import com.example.beerservice.databinding.FragmentSignInBinding
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class SignInFragment : Fragment() {
     lateinit var binding: FragmentSignInBinding
 

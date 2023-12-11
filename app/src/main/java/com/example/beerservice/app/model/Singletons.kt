@@ -52,7 +52,7 @@ object Singletons {
 
     //repositories
     val accountsRepository: AccountsRepository by lazy {
-        AccountsRepository(
+        AccountsRepository (
             accountsSource = accountsSource,
             appSettings = appSettings
         )

@@ -15,12 +15,19 @@ import androidx.navigation.NavDestination
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
 import com.example.beerservice.R
+import com.example.beerservice.app.model.settings.SharedPrefAppSettings
 import com.example.beerservice.app.screens.main.tabs.TabsFragment
 import com.yandex.mapkit.MapKitFactory
+import dagger.hilt.android.AndroidEntryPoint
 import java.util.regex.Pattern
+import javax.inject.Inject
 
-
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
+
+
+    @Inject
+    lateinit var settings: SharedPrefAppSettings
 
     private var navController: NavController? = null
 

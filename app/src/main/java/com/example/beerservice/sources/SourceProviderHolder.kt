@@ -30,9 +30,11 @@ object SourceProviderHolder {
             .client(createOkHttpClient())
             .addConverterFactory(MoshiConverterFactory.create(moshi))
             .build()
+
     }
 
     private fun createOkHttpClient(): OkHttpClient {
+
         return OkHttpClient.Builder()
             .addInterceptor(createLoggingInterceptor())
             .addInterceptor(createAuthorizationInterceptor(Singletons.appSettings))

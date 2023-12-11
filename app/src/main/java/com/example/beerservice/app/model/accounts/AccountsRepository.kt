@@ -7,8 +7,9 @@ import com.example.beerservice.app.model.accounts.entities.UserEditData
 import com.example.beerservice.app.model.settings.AppSettings
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import javax.inject.Inject
 
-class AccountsRepository(
+class AccountsRepository @Inject constructor(
     val accountsSource: AccountsSource,
     val appSettings: AppSettings
 ) {
@@ -32,7 +33,7 @@ class AccountsRepository(
             if (e is BackendException && e.code == 401) {
                 throw InvalidCredentialsException(e)
             } else
-                throw e
+                return
         }
         appSettings.setCurrentToken(token)
         profileResult = Success(doGetProfile())

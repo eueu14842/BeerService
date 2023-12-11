@@ -16,12 +16,13 @@ import com.example.beerservice.app.utils.publishEvent
 import com.example.beerservice.app.utils.share
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 open class BaseViewModel(
     val accountsRepository: AccountsRepository = Singletons.accountsRepository,
 
     ) : ViewModel() {
-    val logger: Logger = LogCatLogger
+   @Inject lateinit var logger: Logger
 
     private val _showErrorMessageResEvent = MutableLiveData<Event<Int>>()
     val showErrorMessageResEvent = _showErrorMessageResEvent.share()

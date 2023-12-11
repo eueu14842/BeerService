@@ -15,7 +15,9 @@ import com.example.beerservice.app.screens.base.BaseFragment
 import com.example.beerservice.app.utils.ViewModelFactory
 import com.example.beerservice.app.utils.observeEvent
 import com.example.beerservice.databinding.FragmentSignUpBinding
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class SignUpFragment() : BaseFragment(R.layout.fragment_sign_up) {
     lateinit var binding: FragmentSignUpBinding
 

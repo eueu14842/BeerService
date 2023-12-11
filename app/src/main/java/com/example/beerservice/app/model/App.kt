@@ -3,8 +3,10 @@ package com.example.beerservice.app.model
 import android.app.Application
 import com.example.beerservice.app.Const
 import com.yandex.mapkit.MapKitFactory
+import dagger.hilt.android.HiltAndroidApp
 
-class App: Application() {
+@HiltAndroidApp
+class App : Application() {
 
     override fun onCreate() {
         super.onCreate()

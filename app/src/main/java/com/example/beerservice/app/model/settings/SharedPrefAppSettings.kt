@@ -1,8 +1,12 @@
 package com.example.beerservice.app.model.settings
 
 import android.content.Context
+import dagger.hilt.android.qualifiers.ApplicationContext
+import javax.inject.Inject
 
-class SharedPrefAppSettings(context: Context) : AppSettings {
+
+class SharedPrefAppSettings @Inject constructor(@ApplicationContext context: Context) :
+    AppSettings {
 
     private val sharedPreferences = context.getSharedPreferences("settings", Context.MODE_PRIVATE)
 
