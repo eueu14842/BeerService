@@ -6,6 +6,7 @@ import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
 import com.example.beerservice.app.model.*
+import com.example.beerservice.app.model.accounts.AccountsRepository
 import com.example.beerservice.app.model.beers.BeersRepository
 import com.example.beerservice.app.model.beers.entities.Beer
 import com.example.beerservice.app.model.feedback.FeedbackRepository
@@ -16,16 +17,20 @@ import com.example.beerservice.app.screens.base.BaseViewModel
 import com.example.beerservice.app.utils.MutableLiveEvent
 import com.example.beerservice.app.utils.publishEvent
 import com.example.beerservice.app.utils.share
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.debounce
 import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class BeerViewModel(
-    val beersRepository: BeersRepository = Singletons.beerRepository,
-    val feedbackRepository: FeedbackRepository = Singletons.feedbackRepository,
-    val placesRepository: PlacesRepository = Singletons.placesRepository
-) : BaseViewModel() {
+@HiltViewModel
+class BeerViewModel @Inject constructor(
+    val beersRepository: BeersRepository,
+    val feedbackRepository: FeedbackRepository,
+    val placesRepository: PlacesRepository,
+    accountsRepository: AccountsRepository
+) : BaseViewModel(accountsRepository) {
 
     private val _beer = MutableLiveData<ResultState<Beer>>()
     val beer = _beer.share()
@@ -36,7 +41,6 @@ class BeerViewModel(
 
     private var _onNavigateToMap = MutableLiveEvent<Location>()
     val onNavigateToMap = _onNavigateToMap.share()
-
 
 
     fun getBeerById(id: Int) {
@@ -61,6 +65,7 @@ class BeerViewModel(
         if (this.beerId.value == value) return
         this.beerId.value = value
     }
+
     fun onNavigateToMap(geoLat: Double?, geoLon: Double) {
         _onNavigateToMap.publishEvent(Location(geoLat, geoLon))
     }

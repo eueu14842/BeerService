@@ -26,15 +26,16 @@ import com.example.beerservice.app.screens.main.tabs.home.beers.adapters.OnBeerC
 import com.example.beerservice.app.utils.ViewModelFactory
 import com.example.beerservice.app.utils.observeEvent
 import com.example.beerservice.databinding.FragmentBreweryBinding
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.debounce
 import kotlinx.coroutines.launch
-
+@AndroidEntryPoint
 class BreweryDetailsFragment() : BaseFragment(R.layout.fragment_brewery) {
     lateinit var binding: FragmentBreweryBinding
     private val args by navArgs<BreweryDetailsFragmentArgs>()
     lateinit var recycler: RecyclerView
-    override val viewModel: BreweryDetailsViewModel by viewModels { ViewModelFactory() }
+    override val viewModel: BreweryDetailsViewModel by viewModels ()
     private lateinit var mainLoadStateHolder: DefaultLoadStateAdapter.Holder
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

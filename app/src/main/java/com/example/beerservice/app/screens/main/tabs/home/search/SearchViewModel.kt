@@ -2,7 +2,7 @@ package com.example.beerservice.app.screens.main.tabs.home.search
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
-import com.example.beerservice.app.model.Singletons
+import com.example.beerservice.app.model.accounts.AccountsRepository
 import com.example.beerservice.app.model.place.PlacesRepository
 import com.example.beerservice.app.model.place.entities.Location
 import com.example.beerservice.app.model.place.entities.PlaceIdUserId
@@ -15,11 +15,14 @@ import com.example.beerservice.app.utils.MutableLiveEvent
 import com.example.beerservice.app.utils.publishEvent
 import com.example.beerservice.app.utils.share
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class SearchViewModel(
-    private val searchRepository: SearchRepository = Singletons.searchRepository,
-    private val placeRepository: PlacesRepository = Singletons.placesRepository
-) : BaseViewModel(), BeersAdapter.BeerSearchListListener, PlacePagingAdapter.Listener {
+class SearchViewModel @Inject constructor(
+    private val searchRepository: SearchRepository,
+    private val placeRepository: PlacesRepository,
+    accountsRepository: AccountsRepository
+) : BaseViewModel(accountsRepository), BeersAdapter.BeerSearchListListener,
+    PlacePagingAdapter.Listener {
 
     private val _searchData = MutableLiveData<SearchData>()
     val searchData = _searchData.share()

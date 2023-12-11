@@ -36,14 +36,16 @@ import com.yandex.mapkit.map.*
 import com.yandex.mapkit.map.Map
 import com.yandex.mapkit.mapview.MapView
 import com.yandex.runtime.image.ImageProvider
+import dagger.hilt.android.AndroidEntryPoint
 import jp.wasabeef.glide.transformations.RoundedCornersTransformation
 import kotlinx.coroutines.launch
 import java.lang.Math.cos
 import kotlin.math.pow
 
+@AndroidEntryPoint
 class PlaceMapFragment : BaseFragment(R.layout.fragment_places_map), CameraListener {
 
-    override val viewModel: PlaceViewModel by viewModels { ViewModelFactory() }
+    override val viewModel: PlaceViewModel by viewModels()
     lateinit var viewModelPlace: PlaceViewModel
     private var locationManager: android.location.LocationManager? = null
     private var point: Point = Point(0.0, 0.0)

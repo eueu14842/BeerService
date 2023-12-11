@@ -14,7 +14,9 @@ import com.example.beerservice.app.screens.main.tabs.places.adapters.PlaceCollec
 import com.example.beerservice.databinding.FragmentPlaceContainerBinding
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class PlaceContainerFragment : Fragment(R.layout.fragment_place_container) {
     lateinit var binding: FragmentPlaceContainerBinding
     private lateinit var placesCollectionAdapter: PlaceCollectionAdapter

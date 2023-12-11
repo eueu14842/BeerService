@@ -17,14 +17,15 @@ import com.example.beerservice.app.screens.main.tabs.places.adapters.PlaceListAd
 import com.example.beerservice.app.utils.ViewModelFactory
 import com.example.beerservice.app.utils.observeEvent
 import com.example.beerservice.databinding.FragmentSearchPlaceListBinding
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
-
+@AndroidEntryPoint
 class PlaceSearchListFragment : BaseFragment(R.layout.fragment_search_place_list) {
     private lateinit var binding: FragmentSearchPlaceListBinding
     private lateinit var recycler: RecyclerView
 
-    override val viewModel: SearchViewModel by viewModels { ViewModelFactory() }
+    override val viewModel: SearchViewModel by viewModels ()
     private lateinit var breweryAdapter: PlaceListAdapter
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

@@ -3,6 +3,8 @@ package com.example.beerservice.app.model.feedback
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
 import com.example.beerservice.app.model.feedback.entities.FeedbackBeer
+import javax.inject.Inject
+import javax.inject.Singleton
 
 typealias FeedbackLoader = suspend (pageIndex: Int, pageSize: Int) -> List<FeedbackBeer>
 

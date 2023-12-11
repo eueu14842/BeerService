@@ -8,8 +8,11 @@ import com.example.beerservice.app.model.beers.entities.Beer
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.withContext
+import javax.inject.Inject
+import javax.inject.Singleton
 
-class BeersRepository(
+@Singleton
+class BeersRepository @Inject constructor(
     val beersSource: BeersSource,
 ) {
 

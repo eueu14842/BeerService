@@ -6,17 +6,23 @@ import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
 import com.example.beerservice.app.model.*
+import com.example.beerservice.app.model.accounts.AccountsRepository
 import com.example.beerservice.app.model.brewery.BreweryRepository
 import com.example.beerservice.app.model.brewery.entities.Brewery
 import com.example.beerservice.app.screens.base.BaseViewModel
 import com.example.beerservice.app.utils.share
+import dagger.hilt.android.AndroidEntryPoint
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.debounce
 import kotlinx.coroutines.flow.flatMapLatest
+import javax.inject.Inject
 
-class BreweryListViewModel(
-    breweryRepository: BreweryRepository = Singletons.breweryRepository,
-) : BaseViewModel() {
+@HiltViewModel
+class BreweryListViewModel @Inject constructor(
+    breweryRepository: BreweryRepository,
+    accountsRepository: AccountsRepository,
+) : BaseViewModel(accountsRepository) {
 
     private val _brewery = MutableLiveData<ResultState<List<Brewery>>>()
     val brewery = _brewery.share()

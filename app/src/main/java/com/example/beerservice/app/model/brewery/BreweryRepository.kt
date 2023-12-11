@@ -10,8 +10,11 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.withContext
+import javax.inject.Inject
+import javax.inject.Singleton
 
-class BreweryRepository(
+@Singleton
+class BreweryRepository @Inject constructor(
     val brewerySource: BrewerySource
 ) {
 

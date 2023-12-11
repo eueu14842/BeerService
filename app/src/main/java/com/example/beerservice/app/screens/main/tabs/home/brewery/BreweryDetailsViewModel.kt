@@ -6,6 +6,7 @@ import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
 import com.example.beerservice.app.model.*
+import com.example.beerservice.app.model.accounts.AccountsRepository
 import com.example.beerservice.app.model.beers.BeersRepository
 import com.example.beerservice.app.model.beers.entities.Beer
 import com.example.beerservice.app.model.brewery.BreweryRepository
@@ -15,15 +16,19 @@ import com.example.beerservice.app.screens.main.tabs.home.beers.adapters.BeerPag
 import com.example.beerservice.app.utils.MutableLiveEvent
 import com.example.beerservice.app.utils.publishEvent
 import com.example.beerservice.app.utils.share
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.debounce
 import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class BreweryDetailsViewModel(
-    private val breweryRepository: BreweryRepository = Singletons.breweryRepository,
-    private val beersRepository: BeersRepository = Singletons.beerRepository
-) : BaseViewModel(), BeerPagingAdapter.BeerListListener {
+@HiltViewModel
+class BreweryDetailsViewModel @Inject constructor(
+    private val breweryRepository: BreweryRepository,
+    private val beersRepository: BeersRepository,
+    accountsRepository: AccountsRepository
+) : BaseViewModel(accountsRepository), BeerPagingAdapter.BeerListListener {
 
     private val _brewery = MutableLiveData<ResultState<Brewery>>()
     val brewery = _brewery.share()

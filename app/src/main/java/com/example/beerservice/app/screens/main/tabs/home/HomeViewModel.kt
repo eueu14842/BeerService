@@ -4,8 +4,8 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.example.beerservice.app.model.Pending
 import com.example.beerservice.app.model.ResultState
-import com.example.beerservice.app.model.Singletons
 import com.example.beerservice.app.model.Success
+import com.example.beerservice.app.model.accounts.AccountsRepository
 import com.example.beerservice.app.model.beers.BeersRepository
 import com.example.beerservice.app.model.beers.entities.Beer
 import com.example.beerservice.app.model.brewery.BreweryRepository
@@ -18,13 +18,17 @@ import com.example.beerservice.app.screens.main.tabs.home.places.adapters.PlaceA
 import com.example.beerservice.app.utils.MutableLiveEvent
 import com.example.beerservice.app.utils.publishEvent
 import com.example.beerservice.app.utils.share
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class HomeViewModel(
-    val breweryRepository: BreweryRepository = Singletons.breweryRepository,
-    val beerRepository: BeersRepository = Singletons.beerRepository,
-    val placeRepository: PlacesRepository = Singletons.placesRepository
-) : BaseViewModel(), PlaceAdblockAdapter.Listener {
+@HiltViewModel
+class HomeViewModel @Inject constructor(
+    val breweryRepository: BreweryRepository,
+    val beerRepository: BeersRepository,
+    val placeRepository: PlacesRepository,
+    accountsRepository: AccountsRepository
+) : BaseViewModel(accountsRepository), PlaceAdblockAdapter.Listener {
 
     private val _brewery = MutableLiveData<ResultState<List<Brewery>>>()
     val brewery = _brewery.share()

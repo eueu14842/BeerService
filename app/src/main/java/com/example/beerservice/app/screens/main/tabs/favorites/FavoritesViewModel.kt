@@ -4,6 +4,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingDataAdapter
 import com.example.beerservice.app.model.*
+import com.example.beerservice.app.model.accounts.AccountsRepository
 import com.example.beerservice.app.model.place.PlacesRepository
 import com.example.beerservice.app.model.place.entities.Location
 import com.example.beerservice.app.model.place.entities.Place
@@ -16,10 +17,12 @@ import com.example.beerservice.app.utils.publishEvent
 import com.example.beerservice.app.utils.share
 import kotlinx.coroutines.launch
 import java.lang.IllegalStateException
+import javax.inject.Inject
 
-class FavoritesViewModel(
-    val placesRepository: PlacesRepository = Singletons.placesRepository
-) : BaseViewModel(), PlacePagingAdapter.Listener {
+class FavoritesViewModel @Inject constructor(
+    val placesRepository: PlacesRepository,
+    accountsRepository: AccountsRepository
+) : BaseViewModel(accountsRepository), PlacePagingAdapter.Listener {
 
 
     private var _place = MutableLiveData<ResultState<List<Place>>>()

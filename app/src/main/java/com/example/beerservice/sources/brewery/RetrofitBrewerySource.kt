@@ -7,8 +7,11 @@ import com.example.beerservice.sources.base.BaseRetrofitSource
 import com.example.beerservice.sources.base.RetrofitConfig
 import com.example.beerservice.sources.brewery.entities.GetBreweryResponseEntity
 import kotlinx.coroutines.flow.Flow
+import javax.inject.Inject
+import javax.inject.Singleton
 
-class RetrofitBrewerySource(config: RetrofitConfig) : BaseRetrofitSource(config), BrewerySource {
+@Singleton
+class RetrofitBrewerySource @Inject constructor(config: RetrofitConfig) : BaseRetrofitSource(config), BrewerySource {
 
      val breweryApi = config.retrofit.create(BreweryApi::class.java)
 

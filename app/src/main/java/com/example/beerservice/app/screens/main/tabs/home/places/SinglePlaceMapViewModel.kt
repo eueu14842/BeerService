@@ -3,6 +3,7 @@ package com.example.beerservice.app.screens.main.tabs.home.places
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.example.beerservice.app.model.*
+import com.example.beerservice.app.model.accounts.AccountsRepository
 import com.example.beerservice.app.model.place.PlacesRepository
 import com.example.beerservice.app.model.place.entities.Location
 import com.example.beerservice.app.model.place.entities.Place
@@ -12,12 +13,16 @@ import com.example.beerservice.app.screens.main.tabs.places.adapters.PlacePaging
 import com.example.beerservice.app.utils.MutableLiveEvent
 import com.example.beerservice.app.utils.publishEvent
 import com.example.beerservice.app.utils.share
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class SinglePlaceMapViewModel(
-    private val placeRepository: PlacesRepository = Singletons.placesRepository,
-) : BaseViewModel(), PlacePagingAdapter.Listener {
+@HiltViewModel
+class SinglePlaceMapViewModel @Inject constructor(
+    private val placeRepository: PlacesRepository,
+    accountsRepository: AccountsRepository,
+) : BaseViewModel(accountsRepository), PlacePagingAdapter.Listener {
 
     private var _place = MutableLiveData<ResultState<List<Place>>>()
     val place = _place.share()

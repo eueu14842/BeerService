@@ -20,15 +20,16 @@ import com.example.beerservice.app.screens.main.tabs.home.search.SearchViewModel
 import com.example.beerservice.app.utils.ViewModelFactory
 import com.example.beerservice.app.utils.observeEvent
 import com.example.beerservice.databinding.FragmentSearchBeerListBinding
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
-
+@AndroidEntryPoint
 class BeerSearchListFragment : BaseFragment(R.layout.fragment_search_beer_list) {
 
     private lateinit var binding: FragmentSearchBeerListBinding
     private lateinit var recycler: RecyclerView
 
-    override val viewModel: SearchViewModel by viewModels { ViewModelFactory() }
+    override val viewModel: SearchViewModel by viewModels()
 
     private lateinit var beerAdapter: BeersAdapter
 

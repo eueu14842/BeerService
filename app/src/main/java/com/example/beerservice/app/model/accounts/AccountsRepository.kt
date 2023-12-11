@@ -8,7 +8,9 @@ import com.example.beerservice.app.model.settings.AppSettings
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
+import javax.inject.Singleton
 
+@Singleton
 class AccountsRepository @Inject constructor(
     val accountsSource: AccountsSource,
     val appSettings: AppSettings

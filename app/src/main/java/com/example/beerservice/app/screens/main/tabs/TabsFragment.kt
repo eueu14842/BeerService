@@ -10,7 +10,9 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.NavigationUI
 import com.example.beerservice.R
 import com.example.beerservice.databinding.FragmentTabsBinding
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class TabsFragment : Fragment(R.layout.fragment_tabs) {
     lateinit var binding: FragmentTabsBinding
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

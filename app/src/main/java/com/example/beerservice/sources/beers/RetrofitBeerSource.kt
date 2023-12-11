@@ -4,9 +4,12 @@ import com.example.beerservice.app.model.beers.BeersSource
 import com.example.beerservice.app.model.beers.entities.Beer
 import com.example.beerservice.sources.base.BaseRetrofitSource
 import com.example.beerservice.sources.base.RetrofitConfig
+import javax.inject.Inject
+import javax.inject.Singleton
 
-class RetrofitBeerSource(config: RetrofitConfig)
-    : BaseRetrofitSource(config), BeersSource {
+@Singleton
+class RetrofitBeerSource @Inject constructor(config: RetrofitConfig) : BaseRetrofitSource(config),
+    BeersSource {
 
     private val beerApi = config.retrofit.create(BeerApi::class.java)
 

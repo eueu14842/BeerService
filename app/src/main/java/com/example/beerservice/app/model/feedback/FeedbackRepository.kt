@@ -10,8 +10,11 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.withContext
 import okhttp3.MultipartBody
+import javax.inject.Inject
+import javax.inject.Singleton
 
-class FeedbackRepository(
+@Singleton
+class FeedbackRepository @Inject constructor(
     private val feedbackSource: FeedbackSource
 ) {
     suspend fun getPagedFeedbackByBeerId(beerId: Int): Flow<PagingData<FeedbackBeer>> {

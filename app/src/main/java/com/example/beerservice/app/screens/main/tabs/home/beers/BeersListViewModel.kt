@@ -6,6 +6,7 @@ import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
 import com.example.beerservice.app.model.*
+import com.example.beerservice.app.model.accounts.AccountsRepository
 import com.example.beerservice.app.model.beers.BeersRepository
 import com.example.beerservice.app.model.beers.entities.Beer
 import com.example.beerservice.app.model.feedback.entities.FeedbackBeerCreate
@@ -14,13 +15,17 @@ import com.example.beerservice.app.screens.main.tabs.home.beers.adapters.BeerPag
 import com.example.beerservice.app.utils.MutableLiveEvent
 import com.example.beerservice.app.utils.publishEvent
 import com.example.beerservice.app.utils.share
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.debounce
 import kotlinx.coroutines.flow.flatMapLatest
+import javax.inject.Inject
 
-class BeersListViewModel(
-    private val beersRepository: BeersRepository = Singletons.beerRepository
-) : BaseViewModel(), BeerPagingAdapter.BeerListListener {
+@HiltViewModel
+class BeersListViewModel @Inject constructor(
+    private val beersRepository: BeersRepository,
+    accountsRepository: AccountsRepository
+) : BaseViewModel(accountsRepository), BeerPagingAdapter.BeerListListener {
 
     val beersFlow: Flow<PagingData<Beer>>
     private var searchBy = MutableLiveData("")

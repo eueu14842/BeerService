@@ -15,18 +15,19 @@ import com.example.beerservice.app.screens.base.BaseFragment
 import com.example.beerservice.app.screens.base.DefaultLoadStateAdapter
 import com.example.beerservice.app.screens.base.TryAgainAction
 import com.example.beerservice.app.screens.main.tabs.home.beers.adapters.BeerPagingAdapter
-import com.example.beerservice.app.utils.ViewModelFactory
 import com.example.beerservice.app.utils.observeEvent
 import com.example.beerservice.databinding.FragmentBeersListBinding
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.debounce
 import kotlinx.coroutines.launch
 
+@AndroidEntryPoint
 class BeersListFragment : BaseFragment(R.layout.fragment_beers_list) {
 
     lateinit var binding: FragmentBeersListBinding
     lateinit var recycler: RecyclerView
-    override val viewModel: BeersListViewModel by viewModels { ViewModelFactory() }
+    override val viewModel: BeersListViewModel by viewModels ()
     private lateinit var mainLoadStateHolder: DefaultLoadStateAdapter.Holder
 
     override fun onCreateView(

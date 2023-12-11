@@ -5,7 +5,7 @@ import androidx.lifecycle.asFlow
 import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
-import com.example.beerservice.app.model.Singletons
+import com.example.beerservice.app.model.accounts.AccountsRepository
 import com.example.beerservice.app.model.place.PlacesRepository
 import com.example.beerservice.app.model.place.entities.Location
 import com.example.beerservice.app.model.place.entities.Place
@@ -15,15 +15,18 @@ import com.example.beerservice.app.screens.main.tabs.places.adapters.PlacePaging
 import com.example.beerservice.app.utils.MutableLiveEvent
 import com.example.beerservice.app.utils.publishEvent
 import com.example.beerservice.app.utils.share
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.debounce
 import kotlinx.coroutines.flow.flatMapLatest
-import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class PlacePagedViewModel (
-    private val placeRepository: PlacesRepository = Singletons.placesRepository,
-) : BaseViewModel(), PlacePagingAdapter.Listener{
+@HiltViewModel
+class PlacePagedViewModel @Inject constructor(
+    private val placeRepository: PlacesRepository,
+    accountsRepository: AccountsRepository,
+) : BaseViewModel(accountsRepository), PlacePagingAdapter.Listener {
 
 
     var placesFlow: Flow<PagingData<Place>>

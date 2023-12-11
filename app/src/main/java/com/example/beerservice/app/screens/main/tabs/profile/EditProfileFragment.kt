@@ -13,11 +13,12 @@ import com.example.beerservice.app.screens.base.BaseFragment
 import com.example.beerservice.app.utils.ViewModelFactory
 import com.example.beerservice.app.utils.observeEvent
 import com.example.beerservice.databinding.FragmentEditProfileBinding
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
-
+@AndroidEntryPoint
 class EditProfileFragment : BaseFragment(R.layout.fragment_edit_profile) {
     lateinit var binding: FragmentEditProfileBinding
-    override val viewModel: EditProfileVieModel by viewModels { ViewModelFactory() }
+    override val viewModel: EditProfileVieModel by viewModels ()
 
     override fun onCreateView(
         inflater: LayoutInflater,

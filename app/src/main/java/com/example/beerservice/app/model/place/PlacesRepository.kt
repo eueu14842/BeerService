@@ -10,8 +10,11 @@ import com.example.beerservice.app.model.place.entities.PlaceIdUserId
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.withContext
+import javax.inject.Inject
+import javax.inject.Singleton
 
-class PlacesRepository(
+@Singleton
+class PlacesRepository @Inject constructor(
     val placeSource: PlaceSource,
     val accountsRepository: AccountsRepository,
 ) {

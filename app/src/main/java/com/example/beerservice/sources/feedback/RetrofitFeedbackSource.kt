@@ -6,8 +6,11 @@ import com.example.beerservice.sources.base.BaseRetrofitSource
 import com.example.beerservice.sources.base.RetrofitConfig
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
+import javax.inject.Inject
+import javax.inject.Singleton
 
-class RetrofitFeedbackSource(config: RetrofitConfig) : BaseRetrofitSource(config), FeedbackSource {
+@Singleton
+class RetrofitFeedbackSource @Inject constructor(config: RetrofitConfig) : BaseRetrofitSource(config), FeedbackSource {
 
     private val feedbackApi = config.retrofit.create(FeedbackApi::class.java)
 

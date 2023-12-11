@@ -1,12 +1,6 @@
 package com.example.beerservice.app.screens.main.feedback
 
-import android.app.Activity
-import android.app.Application
-import android.content.Intent
-import android.graphics.Bitmap
-import androidx.activity.result.contract.ActivityResultContracts
 import androidx.annotation.StringRes
-import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.example.beerservice.R
@@ -16,16 +10,18 @@ import com.example.beerservice.app.model.beers.BeersRepository
 import com.example.beerservice.app.model.beers.entities.Beer
 import com.example.beerservice.app.model.feedback.FeedbackRepository
 import com.example.beerservice.app.screens.base.BaseViewModel
-import com.example.beerservice.app.screens.main.auth.SignUpViewModel
 import com.example.beerservice.app.utils.*
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import okhttp3.MultipartBody
-import okhttp3.RequestBody
+import javax.inject.Inject
 
-class FeedbackCreateViewModel(
-    private val feedbackRepository: FeedbackRepository = Singletons.feedbackRepository,
-    private val beerRepository: BeersRepository = Singletons.beerRepository
-) : BaseViewModel() {
+@HiltViewModel
+class FeedbackCreateViewModel @Inject constructor(
+    private val feedbackRepository: FeedbackRepository,
+    private val beerRepository: BeersRepository,
+    accountsRepository: AccountsRepository
+) : BaseViewModel(accountsRepository) {
 
 
     private val _showToastEvent = MutableLiveEvent<Int>()

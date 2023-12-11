@@ -25,7 +25,7 @@ class ViewModelFactory(
 ) : ViewModelProvider.Factory {
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         return when (modelClass) {
-            BreweryListViewModel::class.java -> BreweryListViewModel() as T
+           /* BreweryListViewModel::class.java -> BreweryListViewModel() as T
             SignInViewModel::class.java -> SignInViewModel() as T
             HomeViewModel::class.java -> HomeViewModel() as T
             BreweryDetailsViewModel::class.java -> BreweryDetailsViewModel() as T
@@ -40,7 +40,7 @@ class ViewModelFactory(
             FavoritesViewModel::class.java -> FavoritesViewModel() as T
             FeedbackCreateViewModel::class.java -> FeedbackCreateViewModel() as T
             PlacePagedViewModel::class.java -> PlacePagedViewModel() as T
-            SinglePlaceMapViewModel::class.java -> SinglePlaceMapViewModel() as T
+            SinglePlaceMapViewModel::class.java -> SinglePlaceMapViewModel() as T*/
             else -> {
                 throw IllegalArgumentException("Unknown ViewModel class: ${modelClass.name}")
             }

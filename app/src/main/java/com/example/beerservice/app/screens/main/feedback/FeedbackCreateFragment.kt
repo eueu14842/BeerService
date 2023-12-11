@@ -5,11 +5,8 @@ import android.app.AlertDialog
 import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
-import android.net.Uri
 import android.os.Bundle
-import android.os.Environment
 import android.provider.MediaStore
-import android.provider.OpenableColumns
 import android.util.Base64
 import android.view.LayoutInflater
 import android.view.View
@@ -23,20 +20,17 @@ import com.bumptech.glide.Glide
 import com.example.beerservice.R
 import com.example.beerservice.app.screens.base.BaseFragment
 import com.example.beerservice.app.screens.main.auth.SignUpViewModel
-import com.example.beerservice.app.utils.ViewModelFactory
 import com.example.beerservice.app.utils.observeEvent
 import com.example.beerservice.databinding.CustomDialogLayoutBinding
 import com.example.beerservice.databinding.FragmentCreateFeedbackBinding
-import okhttp3.MediaType
+import dagger.hilt.android.AndroidEntryPoint
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
-import okhttp3.RequestBody.Companion.asRequestBody
 import okhttp3.RequestBody.Companion.toRequestBody
 import java.io.ByteArrayOutputStream
-import java.io.File
-import java.nio.charset.Charset
 
+@AndroidEntryPoint
 class FeedbackCreateFragment : BaseFragment(R.layout.fragment_create_feedback) {
 
     private lateinit var addImage: ImageView
@@ -45,7 +39,7 @@ class FeedbackCreateFragment : BaseFragment(R.layout.fragment_create_feedback) {
     private lateinit var ratingBar: RatingBar
     private val args by navArgs<FeedbackCreateFragmentArgs>()
     lateinit var binding: FragmentCreateFeedbackBinding
-    override val viewModel: FeedbackCreateViewModel by viewModels { ViewModelFactory() }
+    override val viewModel: FeedbackCreateViewModel by viewModels()
     private var requestBody: RequestBody? = null
     private var userRating: Float? = null
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

@@ -6,6 +6,7 @@ import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
 import com.example.beerservice.app.model.*
+import com.example.beerservice.app.model.accounts.AccountsRepository
 import com.example.beerservice.app.model.place.PlacesRepository
 import com.example.beerservice.app.model.place.entities.Location
 import com.example.beerservice.app.model.place.entities.Place
@@ -21,10 +22,13 @@ import kotlinx.coroutines.flow.debounce
 import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class PlaceViewModel(
-    private val placeRepository: PlacesRepository = Singletons.placesRepository,
-) : BaseViewModel(), PlacePagingAdapter.Listener {
+class PlaceViewModel @Inject constructor(
+    private val placeRepository: PlacesRepository,
+    accountsRepository: AccountsRepository,
+
+) : BaseViewModel(accountsRepository), PlacePagingAdapter.Listener {
 
     var placesFlow: Flow<PagingData<Place>> = flowOf()
     private var searchBy = MutableLiveData("")
@@ -70,7 +74,6 @@ class PlaceViewModel(
     fun setPlacesLocation(lat: Double, lon: Double) {
         this._location.value = SharedLocation(lat, lon)
     }
-
 
 
     override fun onNavigateToPlaceDetails(placeId: Int) {

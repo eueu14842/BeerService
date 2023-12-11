@@ -1,7 +1,6 @@
 package com.example.beerservice.app.di
 
 import com.example.beerservice.app.Const
-import com.example.beerservice.app.model.Singletons
 import com.example.beerservice.app.model.settings.AppSettings
 import com.squareup.moshi.Moshi
 import dagger.Module
@@ -36,9 +35,9 @@ class NetworkModule {
 
     @Provides
     @Singleton
-    fun provideOkHttpClient(): OkHttpClient {
+    fun provideOkHttpClient(appSettings: AppSettings): OkHttpClient {
         return OkHttpClient.Builder().addInterceptor(createLoggingInterceptor())
-            .addInterceptor(createAuthorizationInterceptor(Singletons.appSettings)).build()
+            .addInterceptor(createAuthorizationInterceptor(appSettings)).build()
     }
 
     private fun createLoggingInterceptor(): Interceptor {

@@ -4,15 +4,20 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.example.beerservice.R
 import com.example.beerservice.app.model.EmptyFieldException
+import com.example.beerservice.app.model.accounts.AccountsRepository
 import com.example.beerservice.app.model.accounts.entities.User
 import com.example.beerservice.app.model.accounts.entities.UserEditData
 import com.example.beerservice.app.screens.base.BaseViewModel
 import com.example.beerservice.app.utils.MutableLiveEvent
 import com.example.beerservice.app.utils.publishEvent
 import com.example.beerservice.app.utils.share
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class EditProfileVieModel : BaseViewModel() {
+@HiltViewModel
+class EditProfileVieModel @Inject constructor(accountsRepository: AccountsRepository) :
+    BaseViewModel(accountsRepository) {
 
     private val _initialEditEvent = MutableLiveEvent<User>()
     val initialEditEvent = _initialEditEvent.share()
@@ -29,12 +34,12 @@ class EditProfileVieModel : BaseViewModel() {
     init {
         viewModelScope.launch {
             val result = accountsRepository.doGetProfile()
-                _userIdState.value = result.userId
-                _initialEditEvent.publishEvent(result)
+            _userIdState.value = result.userId
+            _initialEditEvent.publishEvent(result)
         }
     }
 
-   suspend fun publishAccount() {
+    suspend fun publishAccount() {
         accountsRepository.refreshUser()
     }
 

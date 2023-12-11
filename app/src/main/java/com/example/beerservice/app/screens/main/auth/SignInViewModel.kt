@@ -7,15 +7,20 @@ import com.example.beerservice.app.model.ConnectionException
 import com.example.beerservice.app.model.EmptyFieldException
 import com.example.beerservice.app.model.Field
 import com.example.beerservice.app.model.InvalidCredentialsException
+import com.example.beerservice.app.model.accounts.AccountsRepository
 import com.example.beerservice.app.screens.base.BaseViewModel
 import com.example.beerservice.app.utils.Event
 import com.example.beerservice.app.utils.publishEvent
 import com.example.beerservice.app.utils.share
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class SignInViewModel(
+@HiltViewModel
+class SignInViewModel @Inject constructor(
+    accountsRepository: AccountsRepository
 
-) : BaseViewModel() {
+) : BaseViewModel(accountsRepository) {
 
     private val _state = MutableLiveData(State())
     val state = _state.share()
@@ -64,7 +69,8 @@ class SignInViewModel(
     private fun showAuthErrorToast() {
         _showAuthErrorToastEvent.value = R.string.invalid_login_or_password
     }
-    private fun showConnectionErrorToast(){
+
+    private fun showConnectionErrorToast() {
         _showConnectionErrorToastEvent.value = R.string.connection_error
     }
 

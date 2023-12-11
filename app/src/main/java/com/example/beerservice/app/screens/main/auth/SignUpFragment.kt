@@ -12,7 +12,6 @@ import androidx.navigation.fragment.findNavController
 import com.example.beerservice.R
 import com.example.beerservice.app.model.accounts.entities.SignUpData
 import com.example.beerservice.app.screens.base.BaseFragment
-import com.example.beerservice.app.utils.ViewModelFactory
 import com.example.beerservice.app.utils.observeEvent
 import com.example.beerservice.databinding.FragmentSignUpBinding
 import dagger.hilt.android.AndroidEntryPoint
@@ -21,7 +20,7 @@ import dagger.hilt.android.AndroidEntryPoint
 class SignUpFragment() : BaseFragment(R.layout.fragment_sign_up) {
     lateinit var binding: FragmentSignUpBinding
 
-    override val viewModel: SignUpViewModel by viewModels { ViewModelFactory() }
+    override val viewModel: SignUpViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater,

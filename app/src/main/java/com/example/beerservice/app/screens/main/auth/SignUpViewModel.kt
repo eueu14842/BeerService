@@ -8,12 +8,14 @@ import com.example.beerservice.app.model.AccountAlreadyExistsException
 import com.example.beerservice.app.model.EmptyFieldException
 import com.example.beerservice.app.model.Field
 import com.example.beerservice.app.model.PasswordMismatchException
+import com.example.beerservice.app.model.accounts.AccountsRepository
 import com.example.beerservice.app.model.accounts.entities.SignUpData
 import com.example.beerservice.app.screens.base.BaseViewModel
 import com.example.beerservice.app.utils.*
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class SignUpViewModel : BaseViewModel() {
+class SignUpViewModel @Inject constructor(accountsRepository: AccountsRepository) : BaseViewModel(accountsRepository) {
 
     private val _goBackEvent = MutableUnitLiveEvent()
     val goBackEvent = _goBackEvent.share()

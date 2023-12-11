@@ -24,14 +24,16 @@ import com.example.beerservice.app.screens.main.tabs.places.adapters.PlacePaging
 import com.example.beerservice.app.utils.ViewModelFactory
 import com.example.beerservice.app.utils.observeEvent
 import com.example.beerservice.databinding.FragmentPlaceDetailsBinding
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.debounce
 import kotlinx.coroutines.launch
 
+@AndroidEntryPoint
 class PlaceDetailsFragment : BaseFragment(R.layout.fragment_place_details) {
     lateinit var binding: FragmentPlaceDetailsBinding
 
-    override val viewModel: PlaceDetailsViewModel by viewModels { ViewModelFactory() }
+    override val viewModel: PlaceDetailsViewModel by viewModels ()
     private val args by navArgs<PlaceDetailsFragmentArgs>()
     lateinit var recycler: RecyclerView
     private lateinit var mainLoadStateHolder: DefaultLoadStateAdapter.Holder

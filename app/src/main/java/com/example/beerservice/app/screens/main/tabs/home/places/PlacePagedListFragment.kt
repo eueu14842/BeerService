@@ -20,15 +20,17 @@ import com.example.beerservice.app.screens.main.tabs.places.adapters.PlacePaging
 import com.example.beerservice.app.utils.ViewModelFactory
 import com.example.beerservice.app.utils.observeEvent
 import com.example.beerservice.databinding.FragmentPlaceListBinding
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.debounce
 import kotlinx.coroutines.launch
 
+@AndroidEntryPoint
 class PlacePagedListFragment : BaseFragment(R.layout.fragment_place_list) {
     lateinit var binding: FragmentPlaceListBinding
     lateinit var recycler: RecyclerView
 
-    override val viewModel: PlacePagedViewModel by viewModels { ViewModelFactory() }
+    override val viewModel: PlacePagedViewModel by viewModels ()
 
     private lateinit var mainLoadStateHolder: DefaultLoadStateAdapter.Holder
 

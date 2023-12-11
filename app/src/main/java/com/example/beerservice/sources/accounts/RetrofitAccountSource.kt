@@ -11,8 +11,11 @@ import com.example.beerservice.sources.accounts.entites.UserEditDataRequestEntit
 import com.example.beerservice.sources.base.BaseRetrofitSource
 import com.example.beerservice.sources.base.RetrofitConfig
 import kotlinx.coroutines.delay
+import javax.inject.Inject
+import javax.inject.Singleton
 
-class RetrofitAccountSource(
+@Singleton
+class RetrofitAccountSource @Inject constructor(
     config: RetrofitConfig
 ) : BaseRetrofitSource(config), AccountsSource {
 

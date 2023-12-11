@@ -24,13 +24,15 @@ import com.example.beerservice.app.screens.main.tabs.profile.adapters.ProfilePag
 import com.example.beerservice.app.utils.ViewModelFactory
 import com.example.beerservice.databinding.FragmentProfileBinding
 import com.google.android.material.tabs.TabLayout
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.debounce
 import kotlinx.coroutines.launch
 
+@AndroidEntryPoint
 class ProfileFragment : BaseFragment(R.layout.fragment_profile) {
     lateinit var binding: FragmentProfileBinding
-    override val viewModel: ProfileViewModel by viewModels { ViewModelFactory() }
+    override val viewModel: ProfileViewModel by viewModels()
     private lateinit var mainLoadStateHolder: DefaultLoadStateAdapter.Holder
     lateinit var recycler: RecyclerView
 

@@ -6,8 +6,11 @@ import com.example.beerservice.app.model.place.entities.PlaceIdUserId
 import com.example.beerservice.sources.base.BaseRetrofitSource
 import com.example.beerservice.sources.base.RetrofitConfig
 import com.example.beerservice.sources.search.entities.GetSearchResponseEntity
+import javax.inject.Inject
+import javax.inject.Singleton
 
-class RetrofitPlaceSource(
+@Singleton
+class RetrofitPlaceSource @Inject constructor(
     config: RetrofitConfig
 ) : BaseRetrofitSource(config), PlaceSource {
 

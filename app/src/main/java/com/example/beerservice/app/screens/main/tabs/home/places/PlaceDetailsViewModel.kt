@@ -9,8 +9,8 @@ import androidx.paging.cachedIn
 import com.example.beerservice.R
 import com.example.beerservice.app.model.Pending
 import com.example.beerservice.app.model.ResultState
-import com.example.beerservice.app.model.Singletons
 import com.example.beerservice.app.model.Success
+import com.example.beerservice.app.model.accounts.AccountsRepository
 import com.example.beerservice.app.model.beers.BeersRepository
 import com.example.beerservice.app.model.beers.entities.Beer
 import com.example.beerservice.app.model.place.PlacesRepository
@@ -21,15 +21,19 @@ import com.example.beerservice.app.screens.main.tabs.home.beers.adapters.BeerPag
 import com.example.beerservice.app.utils.MutableLiveEvent
 import com.example.beerservice.app.utils.publishEvent
 import com.example.beerservice.app.utils.share
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.debounce
 import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class PlaceDetailsViewModel(
-    val placesRepository: PlacesRepository = Singletons.placesRepository,
-    val beersRepository: BeersRepository = Singletons.beerRepository
-) : BaseViewModel(), View.OnClickListener, BeerPagingAdapter.BeerListListener {
+@HiltViewModel
+class PlaceDetailsViewModel @Inject constructor(
+    val placesRepository: PlacesRepository ,
+    val beersRepository: BeersRepository ,
+    accountsRepository: AccountsRepository
+) : BaseViewModel(accountsRepository), View.OnClickListener, BeerPagingAdapter.BeerListListener {
 
 
     private val _place = MutableLiveData<ResultState<Place>>()

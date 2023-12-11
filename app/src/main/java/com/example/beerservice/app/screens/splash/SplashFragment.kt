@@ -10,9 +10,10 @@ import androidx.lifecycle.lifecycleScope
 import com.example.beerservice.app.screens.main.MainActivity
 import com.example.beerservice.databinding.FragmentSignInBinding
 import com.example.beerservice.databinding.FragmentSplashBinding
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
-
+@AndroidEntryPoint
 class SplashFragment : Fragment() {
     lateinit var binding: FragmentSplashBinding
 

@@ -5,10 +5,8 @@ import androidx.lifecycle.asFlow
 import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
-import com.example.beerservice.app.model.Pending
 import com.example.beerservice.app.model.ResultState
-import com.example.beerservice.app.model.Singletons
-import com.example.beerservice.app.model.Success
+import com.example.beerservice.app.model.accounts.AccountsRepository
 import com.example.beerservice.app.model.accounts.entities.User
 import com.example.beerservice.app.model.feedback.FeedbackRepository
 import com.example.beerservice.app.model.feedback.entities.FeedbackBeer
@@ -18,11 +16,13 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.debounce
 import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class ProfileViewModel(
-    private val feedbackRepository: FeedbackRepository = Singletons.feedbackRepository
+class ProfileViewModel @Inject constructor(
+    private val feedbackRepository: FeedbackRepository,
+    accountsRepository: AccountsRepository
 ) :
-    BaseViewModel() {
+    BaseViewModel(accountsRepository) {
 
     private val _profile = MutableLiveData<ResultState<User>>()
     val profile = _profile.share()

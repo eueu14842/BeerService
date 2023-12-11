@@ -14,13 +14,14 @@ import com.example.beerservice.app.screens.base.BaseFragment
 import com.example.beerservice.app.screens.main.tabs.places.adapters.PlaceListAdapter
 import com.example.beerservice.app.utils.ViewModelFactory
 import com.example.beerservice.databinding.FragmentPlaceLocationListBinding
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
-
+@AndroidEntryPoint
 class PlaceListFragment : BaseFragment(R.layout.fragment_place_location_list) {
     lateinit var binding: FragmentPlaceLocationListBinding
     lateinit var recycler: RecyclerView
 
-    override val viewModel: PlaceViewModel by viewModels { ViewModelFactory() }
+    override val viewModel: PlaceViewModel by viewModels ()
 
     private lateinit var viewModelPlace: PlaceViewModel
 

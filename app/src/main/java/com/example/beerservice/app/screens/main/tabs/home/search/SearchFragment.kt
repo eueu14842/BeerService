@@ -14,12 +14,13 @@ import com.example.beerservice.databinding.FragmentSearchBinding
 import com.google.android.material.badge.BadgeDrawable
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
+import dagger.hilt.android.AndroidEntryPoint
 
-
+@AndroidEntryPoint
 class SearchFragment : BaseFragment(R.layout.fragment_search) {
     lateinit var binding: FragmentSearchBinding
 
-    override val viewModel: SearchViewModel by viewModels { ViewModelFactory() }
+    override val viewModel: SearchViewModel by viewModels()
     private val navArgs by navArgs<SearchFragmentArgs>()
 
 

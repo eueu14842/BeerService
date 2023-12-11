@@ -9,7 +9,6 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.example.beerservice.R
-import com.example.beerservice.app.utils.ViewModelFactory
 import com.example.beerservice.databinding.FragmentSignInBinding
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -17,7 +16,7 @@ import dagger.hilt.android.AndroidEntryPoint
 class SignInFragment : Fragment() {
     lateinit var binding: FragmentSignInBinding
 
-    val viewModel: SignInViewModel by viewModels { ViewModelFactory() }
+    val viewModel: SignInViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -45,8 +44,10 @@ class SignInFragment : Fragment() {
     }
 
     private fun observeState() = viewModel.state.observe(viewLifecycleOwner) {
-        binding.loginTextInput.error = if (it.emptyLoginError) getString(R.string.field_is_empty) else null
-        binding.passwordTextInput.error = if(it.emptyPasswordError) getString(R.string.field_is_empty)else null
+        binding.loginTextInput.error =
+            if (it.emptyLoginError) getString(R.string.field_is_empty) else null
+        binding.passwordTextInput.error =
+            if (it.emptyPasswordError) getString(R.string.field_is_empty) else null
     }
 
     private fun observeShowAuthErrorMessageEvent() =
