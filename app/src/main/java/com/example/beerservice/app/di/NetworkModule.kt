@@ -2,10 +2,7 @@ package com.example.beerservice.app.di
 
 import com.example.beerservice.app.Const
 import com.example.beerservice.app.model.Singletons
-import com.example.beerservice.app.model.SourcesProvider
 import com.example.beerservice.app.model.settings.AppSettings
-import com.example.beerservice.sources.base.RetrofitConfig
-import com.example.beerservice.sources.base.RetrofitSourcesProvider
 import com.squareup.moshi.Moshi
 import dagger.Module
 import dagger.Provides
@@ -35,7 +32,6 @@ class NetworkModule {
             .baseUrl(Const.BASE_URL)
             .client(client)
             .addConverterFactory(MoshiConverterFactory.create(moshi)).build()
-
     }
 
     @Provides
