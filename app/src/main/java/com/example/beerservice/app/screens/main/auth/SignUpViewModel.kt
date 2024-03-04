@@ -12,9 +12,10 @@ import com.example.beerservice.app.model.accounts.AccountsRepository
 import com.example.beerservice.app.model.accounts.entities.SignUpData
 import com.example.beerservice.app.screens.base.BaseViewModel
 import com.example.beerservice.app.utils.*
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
-
+@HiltViewModel
 class SignUpViewModel @Inject constructor(accountsRepository: AccountsRepository) : BaseViewModel(accountsRepository) {
 
     private val _goBackEvent = MutableUnitLiveEvent()

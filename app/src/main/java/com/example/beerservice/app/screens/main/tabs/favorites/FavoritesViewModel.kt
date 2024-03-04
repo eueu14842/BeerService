@@ -15,10 +15,11 @@ import com.example.beerservice.app.screens.main.tabs.places.adapters.PlacePaging
 import com.example.beerservice.app.utils.MutableLiveEvent
 import com.example.beerservice.app.utils.publishEvent
 import com.example.beerservice.app.utils.share
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import java.lang.IllegalStateException
 import javax.inject.Inject
-
+@HiltViewModel
 class FavoritesViewModel @Inject constructor(
     val placesRepository: PlacesRepository,
     accountsRepository: AccountsRepository

@@ -25,7 +25,6 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
-
     @Inject
     lateinit var settings: SharedPrefAppSettings
 
@@ -82,7 +81,6 @@ class MainActivity : AppCompatActivity() {
         navController.addOnDestinationChangedListener(destinationListener)
         this.navController = navController
     }
-
 
     private fun getRootNavController(): NavController {
         val navHost =

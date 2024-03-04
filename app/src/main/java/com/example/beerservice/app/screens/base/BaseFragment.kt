@@ -4,6 +4,8 @@ import android.content.Intent
 import androidx.annotation.LayoutRes
 import androidx.fragment.app.Fragment
 import com.example.beerservice.app.screens.main.MainActivity
+import dagger.hilt.android.AndroidEntryPoint
+
 
 abstract class BaseFragment(@LayoutRes layoutId: Int) : Fragment(layoutId) {
     abstract val viewModel: BaseViewModel

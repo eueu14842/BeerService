@@ -12,12 +12,13 @@ import com.example.beerservice.app.model.feedback.FeedbackRepository
 import com.example.beerservice.app.model.feedback.entities.FeedbackBeer
 import com.example.beerservice.app.screens.base.BaseViewModel
 import com.example.beerservice.app.utils.share
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.debounce
 import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.launch
 import javax.inject.Inject
-
+@HiltViewModel
 class ProfileViewModel @Inject constructor(
     private val feedbackRepository: FeedbackRepository,
     accountsRepository: AccountsRepository
