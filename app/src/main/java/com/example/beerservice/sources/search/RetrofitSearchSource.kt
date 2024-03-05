@@ -4,10 +4,12 @@ import com.example.beerservice.app.model.search.SearchSource
 import com.example.beerservice.app.model.search.entities.SearchData
 import com.example.beerservice.sources.base.BaseRetrofitSource
 import com.example.beerservice.sources.base.RetrofitConfig
+import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
-class RetrofitSearchSource(config: RetrofitConfig) : BaseRetrofitSource(config), SearchSource {
+class RetrofitSearchSource @Inject constructor(config: RetrofitConfig) : BaseRetrofitSource(config),
+    SearchSource {
     private val searchApi = retrofit.create(SearchApi::class.java)
 
     override suspend fun getSearchData(userId: Int, searchBy: String): SearchData =

@@ -14,9 +14,10 @@ import com.example.beerservice.app.screens.main.tabs.places.adapters.PlacePaging
 import com.example.beerservice.app.utils.MutableLiveEvent
 import com.example.beerservice.app.utils.publishEvent
 import com.example.beerservice.app.utils.share
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
-
+@HiltViewModel
 class SearchViewModel @Inject constructor(
     private val searchRepository: SearchRepository,
     private val placeRepository: PlacesRepository,

@@ -18,6 +18,7 @@
             android:id="@+id/action_favoritesFragment_to_singlePlaceMapFragment"
             app:destination="@id/singlePlaceMapFragment" />
     </fragment>
+
     <fragment
         android:id="@+id/placeDetailsFragment"
         android:name="com.example.beerservice.app.screens.main.tabs.home.places.PlaceDetailsFragment"
@@ -30,6 +31,7 @@
             android:id="@+id/action_placeDetailsFragment_to_placeMapFragment"
             app:destination="@id/singlePlaceMapFragment" />
     </fragment>
+
     <fragment
         android:id="@+id/singlePlaceMapFragment"
         android:name="com.example.beerservice.app.screens.main.tabs.home.places.SinglePlaceMapFragment"
@@ -39,4 +41,5 @@
             android:id="@+id/action_placeMapFragment_to_placeDetailsFragment"
             app:destination="@id/placeDetailsFragment" />
     </fragment>
+
 </navigation>
