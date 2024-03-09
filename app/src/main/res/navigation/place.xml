@@ -70,7 +70,7 @@
     </fragment>
 
     <fragment
-        android:id="@id/beerDetailsFragment"
+        android:id="@+id/beerDetailsFragment"
         android:name="com.example.beerservice.app.screens.main.tabs.home.beers.BeerDetailsFragment"
         android:label="Пиво"
         tools:layout="@layout/fragment_beer_details">

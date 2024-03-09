@@ -21,7 +21,7 @@ import java.lang.IllegalStateException
 import javax.inject.Inject
 @HiltViewModel
 class FavoritesViewModel @Inject constructor(
-    val placesRepository: PlacesRepository,
+    private val placesRepository: PlacesRepository,
     accountsRepository: AccountsRepository
 ) : BaseViewModel(accountsRepository), PlacePagingAdapter.Listener {
 

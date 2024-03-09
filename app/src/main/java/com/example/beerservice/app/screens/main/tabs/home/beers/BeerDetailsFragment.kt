@@ -130,13 +130,13 @@ class BeerDetailsFragment : BaseFragment(R.layout.fragment_beer_details) {
 
     private fun onNavigateToCreateFeedback(beerId: Int) {
         val direction =
-            BeerDetailsFragmentDirections.actionBeerDetailsFragmentToFeedbackCreateFragment(beerId)
+            BeerDetailsFragmentDirections.actionBeerDetailsFragment2ToFeedbackCreateFragment2(beerId)
         findNavController().navigate(direction)
     }
 
     private fun onNavigateToMapListByBeerId(beerId: Int) {
         val direction =
-            BeerDetailsFragmentDirections.actionBeerDetailsFragmentToPlaceMapFragment()
+            BeerDetailsFragmentDirections.actionBeerDetailsFragment2ToPlaceMapFragment2()
         direction.arguments.putInt(Const.BEER_ID, beerId)
         findNavController().navigate(direction)
 

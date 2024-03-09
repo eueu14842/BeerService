@@ -4,17 +4,13 @@ import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
-import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.beerservice.R
 import com.example.beerservice.app.Const.SEARCH_KEY
 import com.example.beerservice.app.screens.base.BaseFragment
-import com.example.beerservice.app.screens.main.tabs.home.places.PlaceDetailsFragmentDirections
-import com.example.beerservice.app.screens.main.tabs.home.search.SearchFragmentDirections
 import com.example.beerservice.app.screens.main.tabs.home.search.SearchViewModel
 import com.example.beerservice.app.screens.main.tabs.places.adapters.PlaceListAdapter
-import com.example.beerservice.app.utils.ViewModelFactory
 import com.example.beerservice.app.utils.observeEvent
 import com.example.beerservice.databinding.FragmentSearchPlaceListBinding
 import dagger.hilt.android.AndroidEntryPoint
@@ -58,17 +54,17 @@ class PlaceSearchListFragment : BaseFragment(R.layout.fragment_search_place_list
 
     private fun observeOnNavigateToPlaceDetailsEvent() {
         viewModel.onNavigateToPlaceDetails.observeEvent(viewLifecycleOwner) {
-            val direction =
+     /*       val direction =
                 SearchFragmentDirections.actionSearchFragmentToPlaceDetailsFragment(
                     it
                 )
-            findNavController().navigate(direction)
+            findNavController().navigate(direction)*/
         }
     }
     private fun observeOnNavigateToMap(){
         viewModel.onNavigateToMap.observeEvent(viewLifecycleOwner){
-            val direction = PlaceDetailsFragmentDirections.actionPlaceDetailsFragmentToPlaceMapFragment()
-            findNavController().navigate(direction)
+    /*        val direction = PlaceDetailsFragmentDirections.actionPlaceDetailsFragmentToPlaceMapFragment()
+            findNavController().navigate(direction)*/
         }
     }
 

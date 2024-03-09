@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/places_graph"
+    app:startDestination="@id/favoritesFragment2">
+
+    <fragment
+        android:id="@+id/placeDetailsFragment2"
+        android:name="com.example.beerservice.app.screens.main.tabs.home.places.PlaceDetailsFragment"
+        android:label="PlaceDetailsFragment"
+        tools:layout="@layout/fragment_place_details">
+        <argument
+            android:name="placeId"
+            app:argType="integer" />
+        <action
+            android:id="@+id/action_placeDetailsFragment2_to_beerDetailsFragment2"
+            app:destination="@id/beerDetailsFragment2" />
+        <action
+            android:id="@+id/action_placeDetailsFragment2_to_feedbackCreateFragment2"
+            app:destination="@id/feedbackCreateFragment2" />
+        <action
+            android:id="@+id/action_placeDetailsFragment2_to_placeMapFragment2"
+            app:destination="@id/placeMapFragment2" />
+    </fragment>
+    <fragment
+        android:id="@+id/beerDetailsFragment2"
+        android:name="com.example.beerservice.app.screens.main.tabs.home.beers.BeerDetailsFragment"
+        android:label="BeerDetailsFragment"
+        tools:layout="@layout/fragment_beer_details">
+        <argument
+            android:name="beerId"
+            app:argType="integer" />
+        <action
+            android:id="@+id/action_beerDetailsFragment2_to_feedbackCreateFragment2"
+            app:destination="@id/feedbackCreateFragment2" />
+        <action
+            android:id="@+id/action_beerDetailsFragment2_to_placeMapFragment2"
+            app:destination="@id/placeMapFragment2" />
+    </fragment>
+    <fragment
+        android:id="@+id/feedbackCreateFragment2"
+        android:name="com.example.beerservice.app.screens.main.feedback.FeedbackCreateFragment"
+        android:label="FeedbackCreateFragment"
+        tools:layout="@layout/fragment_create_feedback">
+        <argument
+            android:name="beerId"
+            app:argType="integer" />
+        <action
+            android:id="@+id/action_feedbackCreateFragment2_to_placeMapFragment2"
+            app:destination="@id/placeMapFragment2" />
+    </fragment>
+    <fragment
+        android:id="@+id/placeMapFragment2"
+        android:name="com.example.beerservice.app.screens.main.tabs.places.tabs.PlaceMapFragment"
+        android:label="PlaceMapFragment"
+        tools:layout="@layout/fragment_places_map"/>
+    <argument
+        android:name="placeId"
+        app:argType="integer" />
+    <fragment
+        android:id="@+id/favoritesFragment2"
+        android:name="com.example.beerservice.app.screens.main.tabs.favorites.FavoritesFragment"
+        android:label="FavoritesFragment"
+        tools:layout="@layout/fragment_favorites">
+        <action
+            android:id="@+id/action_favoritesFragment2_to_placeDetailsFragment2"
+            app:destination="@id/placeDetailsFragment2" />
+        <action
+            android:id="@+id/action_favoritesFragment2_to_placeMapFragment2"
+            app:destination="@id/placeMapFragment2" />
+    </fragment>
+</navigation>

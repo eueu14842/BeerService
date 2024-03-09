@@ -42,9 +42,7 @@
         <argument
             android:name="placeId"
             app:argType="integer" />
-        <action
-            android:id="@+id/action_placeDetailsFragment_to_singlePlaceMapFragment"
-            app:destination="@id/singlePlaceMapFragment" />
+
     </fragment>
 
     <fragment
@@ -66,7 +64,7 @@
             app:argType="integer" />
     </fragment>
     <fragment
-        android:id="@id/singlePlaceMapFragment"
+        android:id="@+id/singlePlaceMapFragment"
         android:name="com.example.beerservice.app.screens.main.tabs.home.places.SinglePlaceMapFragment"
         android:label="SinglePlaceMapFragment"
         tools:layout="@layout/fragment_places_map"/>

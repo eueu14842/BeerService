@@ -106,16 +106,16 @@
             android:name="placeId"
             app:argType="integer" />
         <action
-            android:id="@id/action_placeDetailsFragment_to_beerDetailsFragment"
+            android:id="@+id/action_placeDetailsFragment_to_beerDetailsFragment"
             app:destination="@id/beerDetailsFragment" />
         <action
-            android:id="@id/action_placeDetailsFragment_to_feedbackCreateFragment"
+            android:id="@+id/action_placeDetailsFragment_to_feedbackCreateFragment"
             app:destination="@id/feedbackCreateFragment" />
         <action
             android:id="@+id/action_placeDetailsFragment_to_feedbackCreateFragment2"
             app:destination="@id/feedbackCreateFragment" />
         <action
-            android:id="@id/action_placeDetailsFragment_to_placeMapFragment"
+            android:id="@+id/action_placeDetailsFragment_to_placeMapFragment"
             app:destination="@id/placeMapFragment" />
     </fragment>
 

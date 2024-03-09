@@ -126,7 +126,7 @@ class SinglePlaceMapFragment : BaseFragment(R.layout.fragment_places_map), Camer
             ?.let { mapObjects.addPlacemark(it) }
         placeObject?.userData = placeMark
         setPlaceMarkIcon(placeObject, imageUrl)
-        placeObject?.addTapListener(mapPlaceTapListener)
+//        placeObject?.addTapListener(mapPlaceTapListener)
     }
 
     private fun setPlaceMarkIcon(placeMark: PlacemarkMapObject?, imageUrl: String?) {
@@ -153,6 +153,7 @@ class SinglePlaceMapFragment : BaseFragment(R.layout.fragment_places_map), Camer
 
     }
 
+/*
     private val mapPlaceTapListener = MapObjectTapListener { mapObject, _ ->
         if (mapObject is PlacemarkMapObject) {
             val data = mapObject.userData as MapObjectPlaceData
@@ -164,6 +165,7 @@ class SinglePlaceMapFragment : BaseFragment(R.layout.fragment_places_map), Camer
         }
         true
     }
+*/
 
 
     override fun onStop() {

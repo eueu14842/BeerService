@@ -10,4 +10,5 @@ object Const {
     const val LONGITUDE = "LONGITUDE"
     const val LATITUDE = "LATITUDE"
     const val BEER_ID = "BEER_ID"
+    const val PLACE_ID = "PLACE_ID"
 }
