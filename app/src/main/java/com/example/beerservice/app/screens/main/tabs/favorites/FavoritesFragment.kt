@@ -57,7 +57,7 @@ class FavoritesFragment : BaseFragment(R.layout.fragment_favorites) {
     private fun observeOnNavigateToPlaceDetailsEvent() {
         viewModel.onNavigateToPlaceDetails.observeEvent(viewLifecycleOwner) {
             val direction =
-                FavoritesFragmentDirections.actionFavoritesFragment2ToPlaceDetailsFragment2(it)
+                FavoritesFragmentDirections.actionFavoritesFragment3ToPlaceDetailsFragment(it)
             findNavController().navigate(direction)
         }
     }
@@ -65,7 +65,7 @@ class FavoritesFragment : BaseFragment(R.layout.fragment_favorites) {
     private fun observeOnNavigateToMapEvent() {
         viewModel.onNavigateToMapEvent.observeEvent(viewLifecycleOwner) { location ->
             val direction =
-                FavoritesFragmentDirections.actionFavoritesFragment2ToPlaceMapFragment2()
+                FavoritesFragmentDirections.actionFavoritesFragment3ToPlaceMapFragment()
             direction.arguments.putDouble(Const.LONGITUDE, location.geoLon!!)
             direction.arguments.putDouble(Const.LATITUDE, location.geoLat!!)
             findNavController().navigate(direction)

@@ -11,21 +11,21 @@
         android:label="Поиск"
         tools:layout="@layout/fragment_search">
         <action
-            android:id="@id/action_searchFragment_to_beerDetailsFragment"
+            android:id="@+id/action_searchFragment_to_beerDetailsFragment"
             app:destination="@+id/beerDetailsFragment" />
         <action
-            android:id="@id/action_searchFragment_to_placeDetailsFragment"
+            android:id="@+id/action_searchFragment_to_placeDetailsFragment"
             app:destination="@id/placeDetailsFragment" />
         <action
-            android:id="@id/action_searchFragment_to_breweryDetailsFragment"
+            android:id="@+id/action_searchFragment_to_breweryDetailsFragment"
             app:destination="@id/breweryDetailsFragment" />
         <action
-            android:id="@id/action_searchFragment_to_feedbackCreateFragment"
+            android:id="@+id/action_searchFragment_to_feedbackCreateFragment"
             app:destination="@+id/feedbackCreateFragment" />
     </fragment>
 
     <fragment
-        android:id="@id/beerDetailsFragment"
+        android:id="@+id/beerDetailsFragment"
         android:name="com.example.beerservice.app.screens.main.tabs.home.beers.BeerDetailsFragment"
         android:label="BeerDetailsFragment"
         tools:layout="@layout/fragment_beer_details">
@@ -35,7 +35,7 @@
     </fragment>
 
     <fragment
-        android:id="@id/placeDetailsFragment"
+        android:id="@+id/placeDetailsFragment"
         android:name="com.example.beerservice.app.screens.main.tabs.home.places.PlaceDetailsFragment"
         android:label="PlaceDetailsFragment"
         tools:layout="@layout/fragment_place_details">
@@ -46,7 +46,7 @@
     </fragment>
 
     <fragment
-        android:id="@id/breweryDetailsFragment"
+        android:id="@+id/breweryDetailsFragment"
         android:name="com.example.beerservice.app.screens.main.tabs.home.brewery.BreweryDetailsFragment"
         android:label="BreweryDetailsFragment"
         tools:layout="@layout/fragment_beer_details">
@@ -55,7 +55,7 @@
             app:argType="integer" />
     </fragment>
     <fragment
-        android:id="@id/feedbackCreateFragment"
+        android:id="@+id/feedbackCreateFragment"
         android:name="com.example.beerservice.app.screens.main.feedback.FeedbackCreateFragment"
         android:label="FeedbackCreateFragment"
         tools:layout="@layout/fragment_create_feedback">

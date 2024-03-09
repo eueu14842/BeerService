@@ -67,10 +67,10 @@ class PlaceDetailsFragment : BaseFragment(R.layout.fragment_place_details) {
 
         observeLoadState(adapter)
         observeBeers(adapter)
-//       observeOnToggleFavoriteEvent()
+      observeOnToggleFavoriteEvent()
         observeOnNavigateBeerDetailsEvent()
         observeOnNavigateToCreateFeedback()
-//        observeOnNavigateToMapEvent()
+        observeOnNavigateToMapEvent()
 
     }
 
@@ -132,7 +132,7 @@ class PlaceDetailsFragment : BaseFragment(R.layout.fragment_place_details) {
     private fun observeOnNavigateBeerDetailsEvent() {
         viewModel.onNavigateToBeerDetails.observeEvent(viewLifecycleOwner) {
             val direction =
-                PlaceDetailsFragmentDirections.actionPlaceDetailsFragment2ToBeerDetailsFragment2(it)
+                PlaceDetailsFragmentDirections.actionPlaceDetailsFragmentToBeerDetailsFragment(it)
             findNavController().navigate(direction)
         }
     }
@@ -140,7 +140,7 @@ class PlaceDetailsFragment : BaseFragment(R.layout.fragment_place_details) {
     private fun observeOnNavigateToCreateFeedback() {
         viewModel.onNavigateToCreateFeedback.observeEvent(viewLifecycleOwner) {
             val direction =
-                PlaceDetailsFragmentDirections.actionPlaceDetailsFragment2ToFeedbackCreateFragment2(it)
+                PlaceDetailsFragmentDirections.actionPlaceDetailsFragmentToFeedbackCreateFragment(it)
             findNavController().navigate(direction)
         }
     }
@@ -148,7 +148,7 @@ class PlaceDetailsFragment : BaseFragment(R.layout.fragment_place_details) {
     private fun observeOnNavigateToMapEvent() {
         viewModel.onNavigateToMap.observeEvent(viewLifecycleOwner) { location ->
             val direction: NavDirections =
-                PlaceDetailsFragmentDirections.actionPlaceDetailsFragment2ToPlaceMapFragment2()
+                PlaceDetailsFragmentDirections.actionPlaceDetailsFragmentToPlaceMapFragment()
             direction.arguments.putDouble(Const.LONGITUDE, location.geoLon!!)
             direction.arguments.putDouble(Const.LATITUDE, location.geoLat!!)
             findNavController().navigate(direction)
