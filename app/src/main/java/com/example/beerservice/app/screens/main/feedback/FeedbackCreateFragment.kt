@@ -169,7 +169,7 @@ class FeedbackCreateFragment : BaseFragment(R.layout.fragment_create_feedback) {
     private fun onCreateFeedbackButtonClick() {
         viewModel.createFeedback(
             binding.editTexctFeedbackText.text.toString(),
-            userRating!!,
+            userRating ?: 0f,
             onCreateMultipartPart()
         )
     }

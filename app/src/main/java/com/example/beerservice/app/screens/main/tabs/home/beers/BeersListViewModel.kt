@@ -5,11 +5,9 @@ import androidx.lifecycle.asFlow
 import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
-import com.example.beerservice.app.model.*
 import com.example.beerservice.app.model.accounts.AccountsRepository
 import com.example.beerservice.app.model.beers.BeersRepository
 import com.example.beerservice.app.model.beers.entities.Beer
-import com.example.beerservice.app.model.feedback.entities.FeedbackBeerCreate
 import com.example.beerservice.app.screens.base.BaseViewModel
 import com.example.beerservice.app.screens.main.tabs.home.beers.adapters.BeerPagingAdapter
 import com.example.beerservice.app.utils.MutableLiveEvent

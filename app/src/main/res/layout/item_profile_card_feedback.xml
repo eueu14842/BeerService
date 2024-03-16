@@ -62,13 +62,13 @@
                         android:weightSum="5">
 
                         <TextView
-                            android:id="@+id/textViewBreweryTitle"
+                            android:id="@+id/beerTitle"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_weight="4"
                             android:ellipsize="end"
                             android:lines="1"
-                            android:text="@string/brewery"
+                            android:text="@string/beer"
                             android:textColor="@color/black"
                             android:textSize="16sp"
                             android:textStyle="bold" />
@@ -76,17 +76,6 @@
                     </LinearLayout>
 
                 </LinearLayout>
-
-
-                <TextView
-                    android:id="@+id/beerName"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/beer"
-                    android:textColor="@color/black"
-                    android:textSize="12sp"
-                    android:textStyle="bold" />
-
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -112,50 +101,27 @@
                         android:textColor="@color/black"
                         android:textSize="12sp" />
 
-                    <TextView
-                        android:id="@+id/totalAverage"
-                        android:layout_width="100dp"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="end"
-                        android:gravity="end"
-                        android:text="@string/total_average"
-                        android:textSize="12sp" />
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="end"
-                        android:layout_marginStart="2dp"
-                        android:gravity="end"
-                        android:text="@string/total_average_text"
-                        android:textSize="12sp" />
 
                 </LinearLayout>
+                <TextView
+                    android:id="@+id/feedbackText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/my_feedbacks"
+                    android:textColor="@color/black"
+                    android:textSize="12sp"
+                    android:textStyle="bold" />
+
+
+
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="10dp"
                     android:orientation="horizontal"
-                    android:weightSum="3">
-
-                    <TextView
-                        style="@style/linkText"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/show_on_map"
-                        android:textSize="12sp" />
-
-                    <TextView
-                        style="@style/linkText"
-                        android:layout_gravity="end"
-                        android:gravity="end"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="@string/create_feedback"
-                        android:textSize="12sp" />
-
-                </LinearLayout>
+                    android:weightSum="3"/>
 
             </LinearLayout>
 
