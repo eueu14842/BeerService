@@ -21,8 +21,8 @@ class FeedbackForUserPagingAdapter(
     override fun onBindViewHolder(holder: Holder, position: Int) {
         val feedback: FeedbackBeer = getItem(position) ?: return
         with(holder.binding) {
-            textViewBreweryTitle.text = feedback.breweryName
-            beerName.text = feedback.beerName
+            beerTitle.text = feedback.beerName
+            feedbackText.text = feedback.feedbackText
             loadPhoto(imageViewBeer, feedback.imageBeer)
             if (feedback.rating != null) ratingBeerStars.rating = feedback.rating
         }
