@@ -23,7 +23,6 @@ class PlaceListFragment : BaseFragment(R.layout.fragment_place_location_list) {
 
     override val viewModel: PlaceViewModel by viewModels ()
 
-    private lateinit var viewModelPlace: PlaceViewModel
 
 
     override fun onCreateView(
@@ -41,12 +40,12 @@ class PlaceListFragment : BaseFragment(R.layout.fragment_place_location_list) {
 
     private fun observePlaces() {
         lifecycleScope.launch {
-            viewModelPlace.location.observe(viewLifecycleOwner) { location ->
-                viewModelPlace.getPlaces(location.lat, location.lon, location.rad)
-                viewModelPlace.place.observe(viewLifecycleOwner) { result ->
+            viewModel.location.observe(viewLifecycleOwner) { location ->
+                viewModel.getPlaces(location.lat, location.lon, location.rad)
+                viewModel.place.observe(viewLifecycleOwner) { result ->
                     result.map { places ->
                         val adapter =
-                            PlaceListAdapter(places, viewModelPlace)
+                            PlaceListAdapter(places, viewModel)
                         recycler.adapter = adapter
                     }
                 }
